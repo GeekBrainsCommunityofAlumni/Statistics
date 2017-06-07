@@ -9,17 +9,17 @@ import java.net.URL;
  * http://javatalks.ru/topics/13271?page=1#62015
  */
 public class Downloader {
-    public static void main(String[] args) throws IOException {
-        long t = System.currentTimeMillis();
-        Downloader downloader = new Downloader();
-        String url = "https://lenta.ru/";
-        String s = downloader.download(url);
-        System.out.println(s);
-        BufferedWriter bw = new BufferedWriter(new FileWriter("1.html"));
-        bw.write(s);
-        bw.close();
-        System.out.println(System.currentTimeMillis() - t);
-    }
+//    public static void main(String[] args) throws IOException {
+//        long t = System.currentTimeMillis();
+//        Downloader downloader = new Downloader();
+//        String url = "https://lenta.ru/";
+//        String s = downloader.download(url);
+//        System.out.println(s);
+//        BufferedWriter bw = new BufferedWriter(new FileWriter("1.html"));
+//        bw.write(s);
+//        bw.close();
+//        System.out.println(System.currentTimeMillis() - t);
+//    }
 
     public String download(String url) throws IOException {
         URL urlAddress = null;
