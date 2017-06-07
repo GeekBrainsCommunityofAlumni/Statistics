@@ -2,6 +2,7 @@ package com.gb.statistics.webservice.entitys;
 
 
 public class Site {
+
     private int id;
     private String name;
 
