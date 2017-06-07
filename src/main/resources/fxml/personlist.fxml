@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<SplitPane dividerPositions="0.29797979797979796" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+  <items>
+    <AnchorPane maxWidth="250.0" minWidth="150.0" SplitPane.resizableWithParent="false">
+         <children>
+            <Label layoutX="22.0" layoutY="14.0" text="Справочники" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+    <AnchorPane>
+         <children>
+            <TableView layoutX="23.0" layoutY="61.0" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="80.0">
+              <columns>
+                <TableColumn prefWidth="158.0" text="Наименование" />
+                <TableColumn maxWidth="150.0" minWidth="150.0" prefWidth="150.0" resizable="false" text="Доступные действия" />
+              </columns>
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
+            </TableView>
+            <ChoiceBox layoutX="332.0" layoutY="46.0" prefHeight="25.0" prefWidth="50.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="46.0" />
+            <Label layoutX="21.0" layoutY="14.0" text="Личтости" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="14.0" layoutY="47.0" text="Всего записей: " AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="50.0" />
+            <Label layoutX="98.0" layoutY="47.0" text="20" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="50.0" />
+            <Label layoutX="261.0" layoutY="47.0" text="Показывать по" AnchorPane.rightAnchor="75.0" AnchorPane.topAnchor="50.0" />
+            <Pagination layoutX="10.0" layoutY="551.0" pageCount="20" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+         </children>
+      </AnchorPane>
+  </items>
+</SplitPane>
