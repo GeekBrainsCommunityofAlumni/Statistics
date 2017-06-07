@@ -5,7 +5,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 @Configuration
-@ComponentScan("com.gb.webservice")
+@ComponentScan("com.gb.statistics.webservice")
 @EnableWebMvc
 public class AppConfig {
 }

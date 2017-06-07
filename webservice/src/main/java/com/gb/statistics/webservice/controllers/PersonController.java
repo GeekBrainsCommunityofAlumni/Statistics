@@ -10,13 +10,14 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
+@RequestMapping("/api")
 public class PersonController {
 
     @Autowired
     private IPersonRepository personRepository;
 
-    @RequestMapping("/persons/{id}")
-    public Person getPerson(@PathVariable Integer id){
+    @RequestMapping("/person/{id}")
+    public Person getPerson(@PathVariable("id") Integer id){
         return personRepository.getPerson(id);
     }
 
