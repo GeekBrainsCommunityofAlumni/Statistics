@@ -1,4 +1,4 @@
-package crawler.Statistics;
+package crawler.Statistics.crawler;
 
 import java.io.*;
 import java.net.MalformedURLException;
