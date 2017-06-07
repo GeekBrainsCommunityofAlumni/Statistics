@@ -1,4 +1,4 @@
-package com.gb.statistics.webservice.Entitys;
+package com.gb.statistics.webservice.entitys;
 
 
 public class Person {
