@@ -1,16 +1,15 @@
-package com.gb.statistics.webservice.entitys;
+package com.gb.statistics.webservice.entity;
 
 
-public class Person {
+public class Site {
+
     private int id;
     private String name;
-    private int rank;
 
-    public Person(int id, String name) {
+    public Site(int id, String name) {
         this.id = id;
         this.name = name;
     }
-    public Person(){}
 
     public int getId() {
         return id;
@@ -26,13 +25,5 @@ public class Person {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public int getRank() {
-        return rank;
-    }
-
-    public void setRank(int rank) {
-        this.rank = rank;
     }
 }

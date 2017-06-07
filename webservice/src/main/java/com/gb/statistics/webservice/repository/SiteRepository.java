@@ -1,11 +1,11 @@
 package com.gb.statistics.webservice.repository;
 
 
-import com.gb.statistics.webservice.entitys.Site;
+import com.gb.statistics.webservice.entity.Site;
 
 import java.util.List;
 
-public interface ISiteRepository {
+public interface SiteRepository {
 
 
 

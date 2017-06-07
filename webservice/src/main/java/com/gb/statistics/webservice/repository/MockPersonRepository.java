@@ -1,13 +1,13 @@
 package com.gb.statistics.webservice.repository;
 
-import com.gb.statistics.webservice.entitys.Person;
+import com.gb.statistics.webservice.entity.Person;
 import org.springframework.stereotype.Component;
 
 import java.util.LinkedList;
 import java.util.List;
 
 @Component
-public class PersonMock implements IPersonRepository {
+public class MockPersonRepository implements PersonRepository {
 
     @Override
     public Person getPerson(Integer id) {
