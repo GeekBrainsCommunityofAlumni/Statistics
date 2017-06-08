@@ -36,6 +36,6 @@ public class MockPersonRepository implements PersonRepository {
 
     @Override
     public boolean delete(Person p) {
-        return p.getId()>100;
+        return p.getId()<100;
     }
 }
