@@ -44,23 +44,29 @@ public class PersonController {
 
 
     @RequestMapping(value="/person/{id}", method= RequestMethod.PUT)
-    public ResponseEntity<Person> updatePerson(@PathVariable("id") Integer id,
+    public ResponseEntity<?> updatePerson(@PathVariable("id") Integer id,
                                                @RequestBody Person person){
         Person p = personRepository.getPerson(id);
-        //check if null response error
-        //set all field
+        if(p==null) return ResponseEntity.badRequest().body(
+                new ErrorResponse("Bad Request"));
+        p.setName(person.getName());
+        p.setRank(person.getRank());
+
+        //to delete later
         p.setName("Updated person");
 
-        return ResponseEntity.ok(personRepository.getPerson(id));
+        return ResponseEntity.ok(p);
     }
 
-
+    //Это надо переписать
     @RequestMapping(value="/person/{id}", method= RequestMethod.DELETE)
-    public ResponseEntity<Person> deletePerson(@PathVariable("id") Integer id){
+    public ResponseEntity<?> deletePerson(@PathVariable("id") Integer id){
         Person p = personRepository.getPerson(id);
-        //check if null response error
-        //set all field
 
-        return ResponseEntity.ok(personRepository.getPerson(id));
+        if(personRepository.delete(p))
+            return ResponseEntity.ok().body(null);
+
+        return ResponseEntity.badRequest()
+                .body(new ErrorResponse("Bad Request"));
     }
 }

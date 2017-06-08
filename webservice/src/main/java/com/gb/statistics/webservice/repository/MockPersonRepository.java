@@ -33,4 +33,9 @@ public class MockPersonRepository implements PersonRepository {
     public boolean isExists(int id) {
         return !(getPerson(id)==null);
     }
+
+    @Override
+    public boolean delete(Person p) {
+        return p.getId()>100;
+    }
 }

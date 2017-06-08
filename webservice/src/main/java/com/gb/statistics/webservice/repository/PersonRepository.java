@@ -12,4 +12,6 @@ public interface PersonRepository {
 
     Person addPerson(Person person);
     boolean isExists(int id);
+
+    boolean delete(Person p);
 }
