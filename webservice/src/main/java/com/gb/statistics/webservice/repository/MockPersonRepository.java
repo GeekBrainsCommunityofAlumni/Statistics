@@ -22,4 +22,9 @@ public class MockPersonRepository implements PersonRepository {
         p.add(new Person(3, "Nava"));
         return p;
     }
+
+    @Override
+    public boolean addPerson(Person person) {
+        return false;
+    }
 }
