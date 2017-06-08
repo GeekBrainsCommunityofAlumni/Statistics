@@ -9,4 +9,6 @@ public interface PersonRepository {
 
     Person getPerson(Integer id);
     List<Person> getAllPersons();
+
+    boolean addPerson(Person person);
 }
