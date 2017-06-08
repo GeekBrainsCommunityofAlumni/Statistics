@@ -1,11 +1,11 @@
 package com.gb.statistics.features.ai.interfaces;
 
 import com.gb.statistics.features.ai.model.Person;
-import java.util.ArrayList;
+import java.util.List;
 
 public interface PersonInterface {
 
-    ArrayList<Person> readPersonList();
+    List<Person> readPersonList();
 
     boolean addPerson(Person person);
 
