@@ -1,7 +1,7 @@
 package com.gb.statistics.webservice.repository;
 
 
-import com.gb.statistics.webservice.model.AbstractModel;
+import com.gb.statistics.webservice.entity.AbstractModel;
 
 import java.util.List;
 

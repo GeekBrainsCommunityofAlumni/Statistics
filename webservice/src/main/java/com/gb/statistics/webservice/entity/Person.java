@@ -1,24 +1,16 @@
 package com.gb.statistics.webservice.entity;
 
 
-public class Person {
-    private int id;
+public class Person extends AbstractModel {
     private String name;
     private int rank;
 
     public Person(int id, String name) {
-        this.id = id;
+        super(id);
         this.name = name;
     }
     public Person(){}
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;

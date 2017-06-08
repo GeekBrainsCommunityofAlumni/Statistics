@@ -1,9 +1,9 @@
-package com.gb.statistics.webservice.model;
+package com.gb.statistics.webservice.entity;
 
 
 public abstract class AbstractModel {
 
-    public int id;
+    private int id;
 
     public AbstractModel(){
     }
@@ -14,5 +14,9 @@ public abstract class AbstractModel {
 
     public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }
