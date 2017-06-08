@@ -33,6 +33,7 @@ public class PersonController {
     @RequestMapping(value="/person", method= RequestMethod.POST)
     public ResponseEntity<?> addPerson(@RequestBody Person person){
         if(personRepository.addPerson(person))
+            //Если все прошло удачно то, наверно, можно вернуть свежедобавленный Person
             return ResponseEntity.accepted().body(null);
         return ResponseEntity.badRequest().body(null);
         //return ResponseEntity.badRequest().body(new RestResponse(message));
