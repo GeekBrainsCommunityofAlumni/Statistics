@@ -17,10 +17,9 @@
       </AnchorPane>
     <AnchorPane>
          <children>
-            <TableView layoutX="23.0" layoutY="61.0" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="80.0">
+            <TableView layoutX="23.0" layoutY="61.0" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="125.0">
               <columns>
                 <TableColumn prefWidth="158.0" text="Наименование" />
-                <TableColumn maxWidth="150.0" minWidth="150.0" prefWidth="150.0" resizable="false" text="Доступные действия" />
               </columns>
                <columnResizePolicy>
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -35,6 +34,13 @@
             <Label layoutX="14.0" layoutY="47.0" text="Всего записей: " AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="50.0" />
             <Label layoutX="98.0" layoutY="47.0" text="20" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="50.0" />
             <Label layoutX="261.0" layoutY="47.0" text="Показывать по" AnchorPane.rightAnchor="75.0" AnchorPane.topAnchor="50.0" />
+            <HBox layoutX="45.0" layoutY="9.0" prefHeight="30.0" prefWidth="239.0" spacing="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="90.0">
+               <children>
+                  <Button mnemonicParsing="false" text="Добавить" />
+                  <Button mnemonicParsing="false" text="Изменить" />
+                  <Button mnemonicParsing="false" text="Удалить" />
+               </children>
+            </HBox>
             <Pagination layoutX="10.0" layoutY="551.0" pageCount="20" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
          </children>
       </AnchorPane>
