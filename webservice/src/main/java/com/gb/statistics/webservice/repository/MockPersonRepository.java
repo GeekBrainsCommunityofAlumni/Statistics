@@ -24,7 +24,13 @@ public class MockPersonRepository implements PersonRepository {
     }
 
     @Override
-    public boolean addPerson(Person person) {
-        return false;
+    public Person addPerson(Person person) {
+        if(person.getName().equals("Gates")) return new Person(4, "Gates");
+        return null;
+    }
+
+    @Override
+    public boolean isExists(int id) {
+        return !(getPerson(id)==null);
     }
 }

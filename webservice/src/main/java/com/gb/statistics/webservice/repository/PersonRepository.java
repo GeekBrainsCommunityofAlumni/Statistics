@@ -10,5 +10,6 @@ public interface PersonRepository {
     Person getPerson(Integer id);
     List<Person> getAllPersons();
 
-    boolean addPerson(Person person);
+    Person addPerson(Person person);
+    boolean isExists(int id);
 }
