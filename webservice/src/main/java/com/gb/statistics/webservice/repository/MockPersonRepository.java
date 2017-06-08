@@ -30,8 +30,13 @@ public class MockPersonRepository implements PersonRepository {
     }
 
     @Override
-    public boolean isExists(int id) {
-        return !(getPerson(id)==null);
+    public boolean isExists(Person person) {
+        return !(getPersonByName(person.getName())==null);
+    }
+
+    @Override
+    public Person getPersonByName(String name) {
+        return null;
     }
 
     @Override

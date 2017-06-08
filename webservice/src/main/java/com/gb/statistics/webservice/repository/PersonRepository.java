@@ -9,9 +9,10 @@ public interface PersonRepository {
 
     Person getPerson(Integer id);
     List<Person> getAllPersons();
+    Person getPersonByName(String name);
 
     Person addPerson(Person person);
-    boolean isExists(int id);
+    boolean isExists(Person person);
 
     boolean delete(Person p);
 }

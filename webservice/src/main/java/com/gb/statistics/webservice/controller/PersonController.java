@@ -28,18 +28,17 @@ public class PersonController {
     }
 
 
-    /*
-    * Как вариант возвращать собственные меседжи в виде джисона
-    * с описаниея ошибок например, ща каркас накидаю, если не приживется удалим
-    * */
     @RequestMapping(value="/person", method= RequestMethod.POST)
     public ResponseEntity<?> addPerson(@RequestBody Person person){
 
-        Person p = personRepository.addPerson(person);
-        if(!(p==null)) return ResponseEntity.ok(p);
+        if(!personRepository.isExists(person)){
+            Person p = personRepository.addPerson(person);
+            //check p==null
+            return ResponseEntity.ok(p);
+        }
 
-        return new ResponseEntity<Object>(new ErrorResponse("Bad request"),
-                HttpStatus.BAD_REQUEST);
+        return ResponseEntity.status(HttpStatus.CONFLICT)
+                .body(new ErrorResponse("Person already exists"));
     }
 
 
@@ -68,5 +67,10 @@ public class PersonController {
 
         return ResponseEntity.badRequest()
                 .body(new ErrorResponse("Bad Request"));
+    }
+
+    @ExceptionHandler(NullPointerException.class)
+    public ResponseEntity nullPointer(){
+        return ResponseEntity.badRequest().body(new ErrorResponse("Bad Request"));
     }
 }
