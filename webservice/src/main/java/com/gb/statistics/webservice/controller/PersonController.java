@@ -36,7 +36,7 @@ public class PersonController {
             //Если все прошло удачно то, наверно, можно вернуть свежедобавленный Person
             return ResponseEntity.accepted().body(null);
         return ResponseEntity.badRequest().body(null);
-        //return ResponseEntity.badRequest().body(new RestResponse(message));
+        //return ResponseEntity.badRequest().body(new ErrorResponse(message));
     }
 
 }
