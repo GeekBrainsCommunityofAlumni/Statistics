@@ -41,21 +41,17 @@ public class PersonController {
     }
 
 
-    //TODO REALIZE UPDATE FUNCTION!!!!!!!!!!
+    @RequestMapping(value="/person", method= RequestMethod.PUT)
+    public ResponseEntity<?> updatePerson(@RequestBody Person person){
 
-    @RequestMapping(value="/person/{id}", method= RequestMethod.PUT)
-    public ResponseEntity<?> updatePerson(@PathVariable("id") Integer id,
-                                               @RequestBody Person person){
-        Person p = personRepository.get(id);
-        if(p==null) return ResponseEntity.badRequest().body(
-                new ErrorResponse("Bad Request"));
-        p.setName(person.getName());
-        p.setRank(person.getRank());
+        if(person==null) return ResponseEntity.badRequest()
+                .body(new ErrorResponse("Bad Request"));
 
-        //to delete later
-        p.setName("Updated person");
+        if(!personRepository.isExists(person))
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(new ErrorResponse("User not found"));
 
-        return ResponseEntity.ok(p);
+        return ResponseEntity.ok(personRepository.update(person));
     }
 
     //Это надо переписать

@@ -31,12 +31,18 @@ public class MockPersonRepository implements PersonRepository {
 
     @Override
     public boolean isExists(Person person) {
-        return !(getByName(person.getName())==null);
+        return person.getName().equals("notfound");
     }
 
     @Override
     public Person getByName(String name) {
         return null;
+    }
+
+    @Override
+    public Person update(Person p) {
+        p.setName("Updated name");
+        return p;
     }
 
     @Override
