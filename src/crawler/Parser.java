@@ -7,4 +7,8 @@ public class Parser {
     public float calculateRating(String site, String person){
         return (float) 0.0;
     }
+
+    public String parseRobotTxt(String robotTxt) {
+        return "";
+    }
 }
