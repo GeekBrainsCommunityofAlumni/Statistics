@@ -1,7 +1,7 @@
 package com.gb.statistics.webservice.entity;
 
 
-public abstract class AbstractModel {
+public abstract class AbstractModel{
 
     private int id;
 

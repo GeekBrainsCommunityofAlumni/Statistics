@@ -19,12 +19,12 @@ public class PersonController {
 
     @RequestMapping(value="/person/{id}", method= RequestMethod.GET)
     public ResponseEntity<Person> getPerson(@PathVariable("id") Integer id){
-        return ResponseEntity.ok(personRepository.getPerson(id));
+        return ResponseEntity.ok(personRepository.getById(id));
     }
 
     @RequestMapping(value="/person", method= RequestMethod.GET)
     public ResponseEntity<List<Person>> getAllPersons(){
-        return ResponseEntity.ok(personRepository.getAllPersons());
+        return ResponseEntity.ok(personRepository.getAll());
     }
 
 
@@ -35,7 +35,7 @@ public class PersonController {
     @RequestMapping(value="/person", method= RequestMethod.POST)
     public ResponseEntity<?> addPerson(@RequestBody Person person){
 
-        Person p = personRepository.addPerson(person);
+        Person p = personRepository.add(person);
         if(!(p==null)) return ResponseEntity.ok(p);
 
         return new ResponseEntity<Object>(new ErrorResponse("Bad request"),
@@ -46,7 +46,7 @@ public class PersonController {
     @RequestMapping(value="/person/{id}", method= RequestMethod.PUT)
     public ResponseEntity<?> updatePerson(@PathVariable("id") Integer id,
                                                @RequestBody Person person){
-        Person p = personRepository.getPerson(id);
+        Person p = personRepository.getById(id);
         if(p==null) return ResponseEntity.badRequest().body(
                 new ErrorResponse("Bad Request"));
         p.setName(person.getName());
@@ -61,7 +61,7 @@ public class PersonController {
     //Это надо переписать
     @RequestMapping(value="/person/{id}", method= RequestMethod.DELETE)
     public ResponseEntity<?> deletePerson(@PathVariable("id") Integer id){
-        Person p = personRepository.getPerson(id);
+        Person p = personRepository.getById(id);
 
         if(personRepository.delete(p))
             return ResponseEntity.ok().body(null);
