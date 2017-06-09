@@ -1,10 +1,12 @@
 package com.gb.statistics.webservice.repository;
 
 import com.gb.statistics.webservice.entity.Site;
+import org.springframework.stereotype.Component;
 
 import java.util.LinkedList;
 import java.util.List;
 
+@Component
 public class MockSiteRepository implements SiteRepository{
 
     private static int count;
