@@ -37,4 +37,24 @@ public class Keyword {
     public void setName(String name) {
         this.name = name;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Keyword keyword = (Keyword) o;
+
+        if (id != keyword.id) return false;
+        if (personId != keyword.personId) return false;
+        return name.equals(keyword.name);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id;
+        result = 31 * result + personId;
+        result = 31 * result + name.hashCode();
+        return result;
+    }
 }
