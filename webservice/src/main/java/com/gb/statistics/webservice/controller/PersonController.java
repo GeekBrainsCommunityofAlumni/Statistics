@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api")
 public class PersonController {
 
     @Autowired
@@ -19,12 +18,12 @@ public class PersonController {
 
     @RequestMapping(value="/person/{id}", method= RequestMethod.GET)
     public ResponseEntity<Person> getPerson(@PathVariable("id") Integer id){
-        return ResponseEntity.ok(personRepository.getPerson(id));
+        return ResponseEntity.ok(personRepository.get(id));
     }
 
     @RequestMapping(value="/person", method= RequestMethod.GET)
     public ResponseEntity<List<Person>> getAllPersons(){
-        return ResponseEntity.ok(personRepository.getAllPersons());
+        return ResponseEntity.ok(personRepository.getAll());
     }
 
 
@@ -32,7 +31,7 @@ public class PersonController {
     public ResponseEntity<?> addPerson(@RequestBody Person person){
 
         if(!personRepository.isExists(person)){
-            Person p = personRepository.addPerson(person);
+            Person p = personRepository.add(person);
             //check p==null
             return ResponseEntity.ok(p);
         }
@@ -42,10 +41,12 @@ public class PersonController {
     }
 
 
+    //TODO REALIZE UPDATE FUNCTION!!!!!!!!!!
+
     @RequestMapping(value="/person/{id}", method= RequestMethod.PUT)
     public ResponseEntity<?> updatePerson(@PathVariable("id") Integer id,
                                                @RequestBody Person person){
-        Person p = personRepository.getPerson(id);
+        Person p = personRepository.get(id);
         if(p==null) return ResponseEntity.badRequest().body(
                 new ErrorResponse("Bad Request"));
         p.setName(person.getName());
@@ -60,7 +61,7 @@ public class PersonController {
     //Это надо переписать
     @RequestMapping(value="/person/{id}", method= RequestMethod.DELETE)
     public ResponseEntity<?> deletePerson(@PathVariable("id") Integer id){
-        Person p = personRepository.getPerson(id);
+        Person p = personRepository.get(id);
 
         if(personRepository.delete(p))
             return ResponseEntity.ok().body(null);
@@ -71,6 +72,10 @@ public class PersonController {
 
     @ExceptionHandler(NullPointerException.class)
     public ResponseEntity nullPointer(){
+        return ResponseEntity.badRequest().body(new ErrorResponse("Bad Request"));
+    }
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ResponseEntity badRequest(){
         return ResponseEntity.badRequest().body(new ErrorResponse("Bad Request"));
     }
 }

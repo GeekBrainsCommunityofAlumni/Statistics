@@ -7,11 +7,11 @@ import java.util.List;
 
 public interface PersonRepository {
 
-    Person getPerson(Integer id);
-    List<Person> getAllPersons();
-    Person getPersonByName(String name);
+    Person get(Integer id);
+    List<Person> getAll();
+    Person getByName(String name);
 
-    Person addPerson(Person person);
+    Person add(Person person);
     boolean isExists(Person person);
 
     boolean delete(Person p);

@@ -10,12 +10,12 @@ import java.util.List;
 public class MockPersonRepository implements PersonRepository {
 
     @Override
-    public Person getPerson(Integer id) {
+    public Person get(Integer id) {
         return new Person(id, "Test");
     }
 
     @Override
-    public List<Person> getAllPersons() {
+    public List<Person> getAll() {
         List<Person> p = new LinkedList<Person>();
         p.add(new Person(1, "Putin"));
         p.add(new Person(2, "Medved"));
@@ -24,18 +24,18 @@ public class MockPersonRepository implements PersonRepository {
     }
 
     @Override
-    public Person addPerson(Person person) {
+    public Person add(Person person) {
         if(person.getName().equals("Gates")) return new Person(4, "Gates");
         return null;
     }
 
     @Override
     public boolean isExists(Person person) {
-        return !(getPersonByName(person.getName())==null);
+        return !(getByName(person.getName())==null);
     }
 
     @Override
-    public Person getPersonByName(String name) {
+    public Person getByName(String name) {
         return null;
     }
 

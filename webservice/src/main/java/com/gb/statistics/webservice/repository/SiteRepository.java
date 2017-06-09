@@ -7,9 +7,9 @@ import java.util.List;
 
 public interface SiteRepository {
 
-
-
-    Site getSite(int id);
-    List<Site> getAllSites();
-
+    Site get(int id);
+    List<Site> getAll();
+    Site add(String name, String url);
+    Site update(Site site);
+    boolean delete(int id);
 }
