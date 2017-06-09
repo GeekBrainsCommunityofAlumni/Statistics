@@ -47,4 +47,8 @@ public class Downloader {
 
         return "";
     }
+
+    public String downloadSiteMap() {
+        return "";
+    }
 }
