@@ -41,7 +41,7 @@ public class Parser {
         return sitemap;
     }
 
-    public List<String> parseSiteMap(String sitemap) throws IOException, ParserConfigurationException, SAXException {
+    public ArrayList<String> parseSiteMap(String sitemap) throws IOException, ParserConfigurationException, SAXException {
         site = new ArrayList<>();
         url = new URL(sitemap);
         con = url.openConnection();
