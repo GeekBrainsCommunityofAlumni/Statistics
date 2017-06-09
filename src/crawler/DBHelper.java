@@ -12,7 +12,7 @@ public class DBHelper {
 
     }
 
-    public ArrayList<String> getPagesWithoutScanDate() { //Метод возвращает старницы для сканирования. БЕЗ robots.txt и sitemap
+    public ArrayList<Integer> getPagesIDWithoutScanDate() { //Метод возвращает список ID старниц для сканирования. БЕЗ robots.txt и sitemap
         return new ArrayList<>();
     }
 
@@ -22,5 +22,13 @@ public class DBHelper {
 
     public ArrayList<String> getPersonKeywords(int personID) { //Возвращает ключевые слова для ID персоны.
         return new ArrayList<>();
+    }
+
+    public String getUrlPageViaID(int pageID) { //Возвращает URL старинцы в зависимости от ID
+        return "";
+    }
+
+    public void savePersonPageRank(int personID, int pageID, int rank) { //Сохраняет данные в таблицу PersonPageRank
+
     }
 }
