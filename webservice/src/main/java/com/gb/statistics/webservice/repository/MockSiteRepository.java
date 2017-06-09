@@ -1,11 +1,12 @@
 package com.gb.statistics.webservice.repository;
 
 
+import com.gb.statistics.webservice.entity.AbstractModel;
 import com.gb.statistics.webservice.entity.Site;
 
 import java.util.*;
 
-public class MockSiteRepository implements SiteRepository {
+public class MockSiteRepository implements SiteRepository<Site> {
 
     private Map<Integer, Site> siteTableMock = Collections.EMPTY_MAP;
 
@@ -26,6 +27,8 @@ public class MockSiteRepository implements SiteRepository {
     public Site getById(int id) {
         return siteTableMock.get(id);
     }
+
+
 
     @Override
     public Site add(Site site) {

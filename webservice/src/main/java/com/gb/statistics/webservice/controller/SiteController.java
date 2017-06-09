@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api")
 public class SiteController {
 
-    private MockSiteRepository mockSiteRepository = new MockSiteRepository();
+    public MockSiteRepository mockSiteRepository = new MockSiteRepository();
 
     @RequestMapping(value = "/person/{id}", method = RequestMethod.GET)
     public Site getSite(@PathVariable("id") Integer id) {

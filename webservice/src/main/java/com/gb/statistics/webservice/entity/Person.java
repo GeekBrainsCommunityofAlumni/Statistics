@@ -35,14 +35,14 @@ public class Person extends AbstractModel {
 
         Person person = (Person) o;
 
-        if (id != person.id) return false;
+        if (this.getId() != person.getId()) return false;
         if (rank != person.rank) return false;
         return name.equals(person.name);
     }
 
     @Override
     public int hashCode() {
-        int result = id;
+        int result = getId();
         result = 31 * result + name.hashCode();
         result = 31 * result + rank;
         return result;

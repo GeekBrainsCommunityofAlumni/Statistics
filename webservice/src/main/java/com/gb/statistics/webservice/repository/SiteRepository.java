@@ -5,11 +5,6 @@ import com.gb.statistics.webservice.entity.Site;
 
 import java.util.List;
 
-public interface SiteRepository {
+public interface SiteRepository<T> extends IRepository {
 
-    Site get(int id);
-    List<Site> getAll();
-    Site add(String name, String url);
-    Site update(Site site);
-    boolean delete(int id);
 }
