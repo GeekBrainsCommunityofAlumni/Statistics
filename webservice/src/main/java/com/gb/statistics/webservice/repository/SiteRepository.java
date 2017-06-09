@@ -9,7 +9,7 @@ public interface SiteRepository {
 
     Site get(int id);
     List<Site> getAll();
-    Site add(String name, String url);
+    Site add(Site site);
     Site update(Site site);
-    boolean delete(int id);
+    boolean delete(Site site);
 }

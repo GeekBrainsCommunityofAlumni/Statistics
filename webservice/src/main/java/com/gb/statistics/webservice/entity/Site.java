@@ -37,4 +37,24 @@ public class Site {
     public void setUrl(String url) {
         this.url = url;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Site site = (Site) o;
+
+        if (id != site.id) return false;
+        if (!name.equals(site.name)) return false;
+        return url.equals(site.url);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id;
+        result = 31 * result + name.hashCode();
+        result = 31 * result + url.hashCode();
+        return result;
+    }
 }
