@@ -23,10 +23,6 @@ public class Parser {
     private BufferedReader reader;
     private BufferedWriter writer;
 
-    public float calculateRating(String site, String person) {
-        return (float) 0.0;
-    }
-
     public String parseRobotTxt(String host) throws IOException {
         url = new URL("https://" + host + "/robots.txt");
         con = url.openConnection();
@@ -74,5 +70,9 @@ public class Parser {
             }
         }
         return urlPages;
+    }
+
+    public int calculateRank(String pageSource, ArrayList<String> personKeywords) {
+        return 0;
     }
 }
