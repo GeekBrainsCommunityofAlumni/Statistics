@@ -36,7 +36,6 @@ public class MockSiteRepository implements SiteRepository {
 
     @Override
     public boolean delete(Site site) {
-
         siteTableMock.remove(site);
         return true;
     }
