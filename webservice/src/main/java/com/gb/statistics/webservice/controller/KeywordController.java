@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 public class KeywordController {
 
     @Autowired
-    KeywordRepository keywordRepository;
+    private KeywordRepository keywordRepository;
 
     @RequestMapping(value = "/keyword", method = RequestMethod.GET)
     public ResponseEntity<?> getAll(){
@@ -35,7 +35,9 @@ public class KeywordController {
                     .body(new ErrorResponse("Keyword already exists!"));
 
         Keyword k = keywordRepository.add(keyword);
-        return ResponseEntity.ok(k);
+        if(k!=null)
+            return ResponseEntity.ok(k);
+        return ResponseEntity.badRequest().body(new ErrorResponse("Bad Request"));
     }
 
     @RequestMapping(value = "/keyword", method = RequestMethod.PUT)

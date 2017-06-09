@@ -3,10 +3,12 @@ package com.gb.statistics.webservice.repository;
 
 import com.gb.statistics.webservice.entity.Keyword;
 import com.gb.statistics.webservice.entity.Person;
+import org.springframework.stereotype.Component;
 
 import java.util.LinkedList;
 import java.util.List;
 
+@Component
 public class MockKeywordRepository implements KeywordRepository {
 
     private static int count;
