@@ -1,5 +1,8 @@
 package crawler;
 
+import org.xml.sax.SAXException;
+
+import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -7,10 +10,10 @@ import java.util.ArrayList;
  * Created by Serg on 08.06.2017.
  */
 public class Crawler {
-    private static ArrayList<String> urlsForScan;
+    private static ArrayList<Integer> pagesIDForScan;
+    private static ArrayList<Integer> personsID;
     private static Downloader downloader;
     private static ArrayList<String> newSites;
-    private static ArrayList<String> pagesWithoutScanDate;
     private static Parser parser;
     private static DBHelper dbHelper;
 
@@ -21,12 +24,17 @@ public class Crawler {
     }
 
     private static void crawlsNewSite() throws IOException {
-        newSites = getNewSites();
+        newSites = dbHelper.getNewSites();
         addNewSitesToPages(newSites);
-        urlsForScan = getPagesWithoutScanDate();
-        for (String url : urlsForScan) {
-            downloader.download(url);
-            //Коллеги тут вопрос, как и кем будем определять тип получаемого контента? (robot.txt, sitemap, старница)
+        pagesIDForScan = dbHelper.getPagesIDWithoutScanDate(); //Метод возвращает список ID старниц для сканирования. БЕЗ robots.txt и sitemap
+        for (int pageID : pagesIDForScan) {
+            String pageSource = downloader.download(dbHelper.getUrlPageViaID(pageID));
+            //т.к. страницы мы не сохраняем то статистику придется считать "налету"
+            for (int personID : personsID) {
+                ArrayList<String> personKeywords = dbHelper.getPersonKeywords(personID);
+                int rank = parser.calculateRank(pageSource, personKeywords);
+                dbHelper.savePersonPageRank(personID, pageID, rank);
+            }
         }
     }
 
@@ -38,9 +46,10 @@ public class Crawler {
         downloader = new Downloader();
         parser = new Parser();
         dbHelper = new DBHelper();
+        personsID = dbHelper.getPersonsID();
     }
 
-    private static void addNewSitesToPages(ArrayList<String> newSites) {
+    private static void addNewSitesToPages(ArrayList<String> newSites) { //throws IOException, ParserConfigurationException, SAXException
         for (String site : newSites) {
             String robotTxt = downloader.downloadRobot(site);
             String sitemapURL = parser.parseRobotTxt(robotTxt);
@@ -48,15 +57,5 @@ public class Crawler {
             ArrayList<String> urlPages = parser.parseSiteMap(sitemap);
             dbHelper.addPagesToSite(urlPages);
         }
-    }
-
-    private static ArrayList<String> getNewSites() {
-        //Получить из базы строки из таблицы Sites, которым не соответсвует НИ ОДНОЙ строки в таблице Pages
-        return newSites;
-    }
-
-    private static ArrayList<String> getPagesWithoutScanDate() {
-        //Получить из таблицы Pages все ссылки с LastScanDate равным null
-        return pagesWithoutScanDate;
     }
 }
