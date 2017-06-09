@@ -5,10 +5,11 @@ import com.gb.statistics.webservice.entity.Keyword;
 
 import java.util.List;
 
-public interface KeywordRepositiory {
+public interface KeywordRepository {
 
     List<Keyword> getAll();
-    List<Keyword> get(int personId);
+    Keyword get(int id);
+    List<Keyword> getByPerson(int personId);
     Keyword add(Keyword keyword);
     Keyword update(Keyword keyword);
     boolean delete(Keyword keyword);

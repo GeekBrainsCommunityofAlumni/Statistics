@@ -10,7 +10,9 @@ import java.util.List;
 public class MockPersonRepository implements PersonRepository {
 
     private static int count;
-    private static List<Person> personsList = new LinkedList<Person>();
+
+    //Because it's mock))
+    public static List<Person> personsList = new LinkedList<Person>();
 
     @Override
     public Person get(Integer id) {
@@ -61,4 +63,5 @@ public class MockPersonRepository implements PersonRepository {
         }
         return false;
     }
+
 }

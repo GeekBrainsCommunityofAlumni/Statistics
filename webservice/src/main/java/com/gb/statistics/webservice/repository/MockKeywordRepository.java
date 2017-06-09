@@ -2,14 +2,16 @@ package com.gb.statistics.webservice.repository;
 
 
 import com.gb.statistics.webservice.entity.Keyword;
+import com.gb.statistics.webservice.entity.Person;
 
 import java.util.LinkedList;
 import java.util.List;
 
-public class MockKeywordRepository implements KeywordRepositiory {
+public class MockKeywordRepository implements KeywordRepository {
 
     private static int count;
     private static List<Keyword> keywordList = new LinkedList<Keyword>();
+    private static List<Person> personList = MockPersonRepository.personsList;
 
 
     @Override
@@ -18,7 +20,15 @@ public class MockKeywordRepository implements KeywordRepositiory {
     }
 
     @Override
-    public List<Keyword> get(int personId) {
+    public Keyword get(int id) {
+        for (Keyword k : keywordList){
+            if (k.getId()==id) return k;
+        }
+        return null;
+    }
+
+    @Override
+    public List<Keyword> getByPerson(int personId) {
         LinkedList<Keyword> lst = new LinkedList<Keyword>();
         for (Keyword k : keywordList){
             if (k.getPersonId() == personId){
@@ -30,9 +40,14 @@ public class MockKeywordRepository implements KeywordRepositiory {
 
     @Override
     public Keyword add(Keyword keyword) {
-        keyword.setId(++count);
-        keywordList.add(keyword);
-        return keyword;
+        for (Person p : personList){
+            if(keyword.getPersonId()==p.getId()){
+                keyword.setId(++count);
+                keywordList.add(keyword);
+                return keyword;
+            }
+        }
+        return null;
     }
 
     @Override
