@@ -1,21 +1,25 @@
 package com.gb.statistics.webservice.entity;
 
 
-import java.util.List;
+public class Site {
 
-public class Site extends AbstractModel {
-
-
+    private int id;
     private String name;
-    private List<Page> pages;
+    private String url;
 
-    public Site() {
+    public Site(int id, String name, String url) {
+        this.id = id;
+        this.name = name;
+        this.url = url;
+    }
+    public Site(){};
+
+    public int getId() {
+        return id;
     }
 
-
-    public Site(int id, String name) {
-        super(id);
-        this.name = name;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -24,5 +28,13 @@ public class Site extends AbstractModel {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 }

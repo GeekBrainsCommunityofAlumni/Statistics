@@ -9,33 +9,56 @@ import java.util.List;
 @Component
 public class MockPersonRepository implements PersonRepository {
 
+    private static int count;
+    private static List<Person> personsList = new LinkedList<Person>();
+
     @Override
-    public Person add(Person person) {
-        if (person.getName().equals("Gates")) return new Person(4, "Gates");
+    public Person get(Integer id) {
+        for (Person p : personsList) {
+            if (p.getId()== id) return p;
+        }
         return null;
     }
 
     @Override
-    public boolean isExists(int id) {
-        return !(this.getById(id) == null);
+    public List<Person> getAll() {
+        return personsList;
+    }
+
+    @Override
+    public Person add(Person person) {
+        person.setId(++count);
+        personsList.add(person);
+        return person;
+    }
+
+    @Override
+    public boolean isExists(Person person) {
+        return personsList.contains(person);
+    }
+
+    @Override
+    public Person getByName(String name) {
+        return null;
+    }
+
+    @Override
+    public Person update(Person person) {
+        for (Person p : personsList) {
+            if (p.getId()==person.getId()){
+                p.setName(person.getName());
+                return p;
+            }
+        }
+        return null;
     }
 
     @Override
     public boolean delete(Person p) {
-        return p.getId() < 100;
-    }
-
-    @Override
-    public List<Person> getAll() {
-        List<Person> p = new LinkedList<Person>();
-        p.add(new Person(1, "Putin"));
-        p.add(new Person(2, "Medved"));
-        p.add(new Person(3, "Nava"));
-        return p;
-    }
-
-    @Override
-    public Person getById(int id) {
-        return new Person(id, "Test");
+        if(personsList.contains(p)){
+            personsList.remove(p);
+            return true;
+        }
+        return false;
     }
 }

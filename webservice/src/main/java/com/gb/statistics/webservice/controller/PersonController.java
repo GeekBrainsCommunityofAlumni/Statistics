@@ -11,15 +11,18 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api")
 public class PersonController {
 
     @Autowired
     private PersonRepository personRepository;
 
     @RequestMapping(value="/person/{id}", method= RequestMethod.GET)
-    public ResponseEntity<Person> getPerson(@PathVariable("id") Integer id){
-        return ResponseEntity.ok(personRepository.getById(id));
+    public ResponseEntity<?> getPerson(@PathVariable("id") Integer id){
+        Person p = personRepository.get(id);
+        if(p==null) return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(new ErrorResponse("Person not found"));
+
+        return ResponseEntity.ok(p);
     }
 
     @RequestMapping(value="/person", method= RequestMethod.GET)
@@ -28,32 +31,26 @@ public class PersonController {
     }
 
 
-    /*
-    * Как вариант возвращать собственные меседжи в виде джисона
-    * с описаниея ошибок например, ща каркас накидаю, если не приживется удалим
-    * */
     @RequestMapping(value="/person", method= RequestMethod.POST)
     public ResponseEntity<?> addPerson(@RequestBody Person person){
 
-        Person p = personRepository.add(person);
-        if(!(p==null)) return ResponseEntity.ok(p);
+        if(!personRepository.isExists(person)){
+            Person p = personRepository.add(person);
+            //check p==null
+            return ResponseEntity.ok(p);
+        }
 
-        return new ResponseEntity<Object>(new ErrorResponse("Bad request"),
-                HttpStatus.BAD_REQUEST);
+        return ResponseEntity.status(HttpStatus.CONFLICT)
+                .body(new ErrorResponse("Person already exists"));
     }
 
 
-    @RequestMapping(value="/person/{id}", method= RequestMethod.PUT)
-    public ResponseEntity<?> updatePerson(@PathVariable("id") Integer id,
-                                               @RequestBody Person person){
-        Person p = personRepository.getById(id);
-        if(p==null) return ResponseEntity.badRequest().body(
-                new ErrorResponse("Bad Request"));
-        p.setName(person.getName());
-        p.setRank(person.getRank());
+    @RequestMapping(value="/person", method= RequestMethod.PUT)
+    public ResponseEntity<?> updatePerson(@RequestBody Person person){
 
-        //to delete later
-        p.setName("Updated person");
+        Person p = personRepository.update(person);
+        if(p==null) return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(new ErrorResponse("Person not found"));
 
         return ResponseEntity.ok(p);
     }
@@ -61,12 +58,17 @@ public class PersonController {
     //Это надо переписать
     @RequestMapping(value="/person/{id}", method= RequestMethod.DELETE)
     public ResponseEntity<?> deletePerson(@PathVariable("id") Integer id){
-        Person p = personRepository.getById(id);
+        Person p = personRepository.get(id);
 
         if(personRepository.delete(p))
             return ResponseEntity.ok().body(null);
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(new ErrorResponse("Person not found"));
+    }
 
-        return ResponseEntity.badRequest()
-                .body(new ErrorResponse("Bad Request"));
+    @ExceptionHandler(NullPointerException.class)
+    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
+    public ResponseEntity badRequest(){
+        return ResponseEntity.badRequest().body(new ErrorResponse("Bad Request"));
     }
 }
