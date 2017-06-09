@@ -2,14 +2,16 @@ package com.gb.statistics.webservice.entity;
 
 
 public class Keyword {
+
     private int id;
-    private String person;
+    private int personId;
     private String name;
 
-    public Keyword(String person, String name) {
-        this.person = person;
+    public Keyword(int personId, String name) {
+        this.personId = personId;
         this.name = name;
     }
+
     public Keyword(){}
 
     public int getId() {
@@ -20,12 +22,12 @@ public class Keyword {
         this.id = id;
     }
 
-    public String getPerson() {
-        return person;
+    public int getPersonId() {
+        return personId;
     }
 
-    public void setPerson(String person) {
-        this.person = person;
+    public void setPersonId(int personId) {
+        this.personId = personId;
     }
 
     public String getName() {
