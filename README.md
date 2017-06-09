@@ -43,8 +43,8 @@
 - [Desktop App](#)
 
 Технические требования для корректной работы продукта:
--	mobile: OS Android ...
--	desktop: OS ... 
+-	`mobile: OS Android ...`
+-	`desktop: OS ... `
 
 ## Связь с нами
 
