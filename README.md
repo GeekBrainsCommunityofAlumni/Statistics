@@ -20,7 +20,7 @@
 
 ### Technology stack
 
-Продукт разработан на стеке наиболее современных технологий – Python/Django/HTML5/CSS3/Bootstrap/JavaScript/Jquery/Ajax/JSON/Java/Swift/Objective-C/REST/MySQL и др.
+Продукт разработан на стеке наиболее современных технологий – `Python/Django/HTML5/CSS3/Bootstrap/JavaScript/Jquery/Ajax/JSON/Java/Swift/Objective-C/REST/MySQL` и др.
 
 ### Interfaces
 
