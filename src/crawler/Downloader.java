@@ -42,4 +42,9 @@ public class Downloader {
         }
         return builder.toString();
     }
+
+    public String downloadRobot(String site) {
+
+        return "";
+    }
 }
