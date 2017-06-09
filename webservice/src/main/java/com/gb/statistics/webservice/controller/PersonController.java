@@ -36,7 +36,6 @@ public class PersonController {
 
         if(!personRepository.isExists(person)){
             Person p = personRepository.add(person);
-            //check p==null
             return ResponseEntity.ok(p);
         }
 
@@ -55,7 +54,6 @@ public class PersonController {
         return ResponseEntity.ok(p);
     }
 
-    //Это надо переписать
     @RequestMapping(value="/person/{id}", method= RequestMethod.DELETE)
     public ResponseEntity<?> deletePerson(@PathVariable("id") Integer id){
         Person p = personRepository.get(id);
@@ -67,7 +65,6 @@ public class PersonController {
     }
 
     @ExceptionHandler(NullPointerException.class)
-    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
     public ResponseEntity badRequest(){
         return ResponseEntity.badRequest().body(new ErrorResponse("Bad Request"));
     }
