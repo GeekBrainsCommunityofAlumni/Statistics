@@ -12,4 +12,5 @@ public interface SiteRepository {
     Site add(Site site);
     Site update(Site site);
     boolean delete(Site site);
+    boolean isExists(Site site);
 }

@@ -52,4 +52,9 @@ public class MockSiteRepository implements SiteRepository{
         }
         return false;
     }
+
+    @Override
+    public boolean isExists(Site site) {
+        return siteList.contains(site);
+    }
 }
