@@ -12,15 +12,6 @@ public class Site extends AbstractModel {
         this.url = url;
     }
 
-//    public Site(int id, String name) {
-//        super(id);
-//        this.name = name;
-//
-//    }
-
-    public Site(){};
-
-
     public String getName() {
         return name;
     }
