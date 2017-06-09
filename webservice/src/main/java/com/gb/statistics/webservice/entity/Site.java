@@ -9,6 +9,10 @@ public class Site extends AbstractModel {
     private String name;
     private List<Page> pages;
 
+    public Site() {
+    }
+
+
     public Site(int id, String name) {
         super(id);
         this.name = name;

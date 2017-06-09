@@ -3,33 +3,40 @@ package com.gb.statistics.webservice.repository;
 
 import com.gb.statistics.webservice.entity.Site;
 
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 public class MockSiteRepository implements SiteRepository {
 
+    private Map<Integer, Site> siteTableMock = Collections.EMPTY_MAP;
+
+    public MockSiteRepository() {
+        siteTableMock = new HashMap<Integer, Site>();
+        siteTableMock.put(1, new Site(1, "lenta.ru"));
+        siteTableMock.put(2, new Site(2, "ria.ru"));
+
+    }
 
     @Override
     public List<Site> getAll() {
-        List<Site> site = new LinkedList<Site>();
-        site.add(new Site(1, "lenta.ru"));
-        site.add(new Site(2, "ria.ru"));
-        return site;
+        return (List) siteTableMock.values();
+
     }
 
     @Override
     public Site getById(int id) {
-        return new Site(id, "Test.ru");
+        return siteTableMock.get(id);
     }
 
     @Override
     public Site add(Site site) {
-        if(site.getName().equals("mk.ru")) return new Site(3, "mk.ru");
-        return null;
+        siteTableMock.put(site.getId(), site);
+        return site;
     }
 
     @Override
     public boolean delete(Site site) {
-        return site.getId()<100;
+
+        siteTableMock.remove(site);
+        return true;
     }
 }
