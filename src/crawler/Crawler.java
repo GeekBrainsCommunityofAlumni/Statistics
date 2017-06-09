@@ -11,6 +11,8 @@ public class Crawler {
     private static Downloader downloader;
     private static ArrayList<String> newSites;
     private static ArrayList<String> pagesWithoutScanDate;
+    private static Parser parser;
+    private static DBHelper dbHelper;
 
     public static void main(String[] args) throws IOException {
         init();
@@ -34,11 +36,17 @@ public class Crawler {
 
     private static void init() {
         downloader = new Downloader();
+        parser = new Parser();
+        dbHelper = new DBHelper();
     }
 
     private static void addNewSitesToPages(ArrayList<String> newSites) {
         for (String site : newSites) {
-            //Добавляем ссылку на robots.txt в таблицу Pages для site
+            String robotTxt = downloader.downloadRobot(site);
+            String sitemapURL = parser.parseRobotTxt(robotTxt);
+            String sitemap = downloader.downloadSiteMap(sitemapURL);
+            ArrayList<String> urlPages = parser.parseSiteMap(sitemap);
+            dbHelper.addPagesToSite(urlPages);
         }
     }
 
