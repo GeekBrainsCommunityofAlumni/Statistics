@@ -1,13 +1,21 @@
 package com.gb.statistics.webservice.entity;
 
 
-public class Page extends AbstractModel {
+public class Page {
 
+    private int id;
     private String url;
 
     public Page(int id, String url) {
-        super(id);
+        this.id = id;
         this.url = url;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+    public int getId() {
+        return id;
     }
 
     public void setUrl(String url) {

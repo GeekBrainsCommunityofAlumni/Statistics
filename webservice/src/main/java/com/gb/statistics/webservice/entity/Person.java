@@ -1,16 +1,24 @@
 package com.gb.statistics.webservice.entity;
 
 
-public class Person extends AbstractModel {
+public class Person  {
+
+    private int id;
     private String name;
     private int rank;
 
     public Person(int id, String name) {
-        super(id);
+        this.id = id;
         this.name = name;
     }
     public Person(){}
 
+    public int getId() {
+        return id;
+    }
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
@@ -28,6 +36,8 @@ public class Person extends AbstractModel {
         this.rank = rank;
     }
 
+
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -35,14 +45,14 @@ public class Person extends AbstractModel {
 
         Person person = (Person) o;
 
-        if (this.getId() != person.getId()) return false;
+        if (id != person.id) return false;
         if (rank != person.rank) return false;
         return name.equals(person.name);
     }
 
     @Override
     public int hashCode() {
-        int result = getId();
+        int result = id;
         result = 31 * result + name.hashCode();
         result = 31 * result + rank;
         return result;
