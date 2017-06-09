@@ -44,15 +44,14 @@ public class PersonController {
     @RequestMapping(value="/person", method= RequestMethod.PUT)
     public ResponseEntity<?> updatePerson(@RequestBody Person person){
 
-        Person p = person;
-        if(p==null) return ResponseEntity.badRequest()
+        if(person==null) return ResponseEntity.badRequest()
                 .body(new ErrorResponse("Bad Request"));
 
-        if(!personRepository.isExists(p))
+        if(!personRepository.isExists(person))
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body(new ErrorResponse("User not found"));
 
-        return ResponseEntity.ok(personRepository.update(p));
+        return ResponseEntity.ok(personRepository.update(person));
     }
 
     //Это надо переписать
@@ -68,10 +67,7 @@ public class PersonController {
     }
 
     @ExceptionHandler(NullPointerException.class)
-    public ResponseEntity nullPointer(){
-        return ResponseEntity.badRequest().body(new ErrorResponse("Bad Request"));
-    }
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
     public ResponseEntity badRequest(){
         return ResponseEntity.badRequest().body(new ErrorResponse("Bad Request"));
     }
