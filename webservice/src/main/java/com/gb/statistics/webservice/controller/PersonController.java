@@ -17,8 +17,12 @@ public class PersonController {
     private PersonRepository personRepository;
 
     @RequestMapping(value="/person/{id}", method= RequestMethod.GET)
-    public ResponseEntity<Person> getPerson(@PathVariable("id") Integer id){
-        return ResponseEntity.ok(personRepository.get(id));
+    public ResponseEntity<?> getPerson(@PathVariable("id") Integer id){
+        Person p = personRepository.get(id);
+        if(p==null) return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(new ErrorResponse("Person not found"));
+
+        return ResponseEntity.ok(p);
     }
 
     @RequestMapping(value="/person", method= RequestMethod.GET)
@@ -44,14 +48,11 @@ public class PersonController {
     @RequestMapping(value="/person", method= RequestMethod.PUT)
     public ResponseEntity<?> updatePerson(@RequestBody Person person){
 
-        if(person==null) return ResponseEntity.badRequest()
-                .body(new ErrorResponse("Bad Request"));
+        Person p = personRepository.update(person);
+        if(p==null) return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(new ErrorResponse("Person not found"));
 
-        if(!personRepository.isExists(person))
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body(new ErrorResponse("User not found"));
-
-        return ResponseEntity.ok(personRepository.update(person));
+        return ResponseEntity.ok(p);
     }
 
     //Это надо переписать
@@ -61,9 +62,8 @@ public class PersonController {
 
         if(personRepository.delete(p))
             return ResponseEntity.ok().body(null);
-
-        return ResponseEntity.badRequest()
-                .body(new ErrorResponse("Bad Request"));
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(new ErrorResponse("Person not found"));
     }
 
     @ExceptionHandler(NullPointerException.class)

@@ -9,30 +9,32 @@ import java.util.List;
 @Component
 public class MockPersonRepository implements PersonRepository {
 
+    private static int count;
+    private static List<Person> personsList = new LinkedList<Person>();
+
     @Override
     public Person get(Integer id) {
-        return new Person(id, "Test");
+        for (Person p : personsList) {
+            if (p.getId()== id) return p;
+        }
+        return null;
     }
 
     @Override
     public List<Person> getAll() {
-        List<Person> p = new LinkedList<Person>();
-        p.add(new Person(1, "Putin"));
-        p.add(new Person(2, "Medved"));
-        p.add(new Person(3, "Nava"));
-        return p;
+        return personsList;
     }
 
     @Override
     public Person add(Person person) {
-        if(person.getName().equals("incorrect")) return null;
-        person.setId(42);
+        person.setId(++count);
+        personsList.add(person);
         return person;
     }
 
     @Override
     public boolean isExists(Person person) {
-        return !person.getName().equals("exists person");
+        return personsList.contains(person);
     }
 
     @Override
@@ -41,13 +43,22 @@ public class MockPersonRepository implements PersonRepository {
     }
 
     @Override
-    public Person update(Person p) {
-        p.setName("Updated name");
-        return p;
+    public Person update(Person person) {
+        for (Person p : personsList) {
+            if (p.getId()==person.getId()){
+                p.setName(person.getName());
+                return p;
+            }
+        }
+        return null;
     }
 
     @Override
     public boolean delete(Person p) {
-        return p.getId()<100;
+        if(personsList.contains(p)){
+            personsList.remove(p);
+            return true;
+        }
+        return false;
     }
 }

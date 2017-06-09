@@ -35,4 +35,24 @@ public class Person {
     public void setRank(int rank) {
         this.rank = rank;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Person person = (Person) o;
+
+        if (id != person.id) return false;
+        if (rank != person.rank) return false;
+        return name.equals(person.name);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id;
+        result = 31 * result + name.hashCode();
+        result = 31 * result + rank;
+        return result;
+    }
 }
