@@ -12,7 +12,7 @@ public class DBHelper {
 
     }
 
-    public ArrayList<String> getPagesWithoutScanDate() {
+    public ArrayList<String> getPagesWithoutScanDate() { //Метод возвращает старницы для сканирования. БЕЗ robots.txt и sitemap
         return new ArrayList<>();
     }
 
@@ -20,7 +20,7 @@ public class DBHelper {
         return new ArrayList<>();
     }
 
-    public ArrayList<String> getPersonKeywords(int personID) {
+    public ArrayList<String> getPersonKeywords(int personID) { //Возвращает ключевые слова для ID персоны.
         return new ArrayList<>();
     }
 }
