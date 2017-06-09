@@ -44,14 +44,15 @@ public class PersonController {
     @RequestMapping(value="/person", method= RequestMethod.PUT)
     public ResponseEntity<?> updatePerson(@RequestBody Person person){
 
-        if(person==null) return ResponseEntity.badRequest()
+        Person p = person;
+        if(p==null) return ResponseEntity.badRequest()
                 .body(new ErrorResponse("Bad Request"));
 
-        if(!personRepository.isExists(person))
+        if(!personRepository.isExists(p))
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body(new ErrorResponse("User not found"));
 
-        return ResponseEntity.ok(personRepository.update(person));
+        return ResponseEntity.ok(personRepository.update(p));
     }
 
     //Это надо переписать
