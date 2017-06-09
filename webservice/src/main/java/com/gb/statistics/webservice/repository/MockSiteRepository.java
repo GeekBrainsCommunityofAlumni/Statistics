@@ -1,7 +1,6 @@
 package com.gb.statistics.webservice.repository;
 
 
-import com.gb.statistics.webservice.entity.AbstractModel;
 import com.gb.statistics.webservice.entity.Site;
 
 import java.util.*;
@@ -12,8 +11,8 @@ public class MockSiteRepository implements SiteRepository {
 
     public MockSiteRepository() {
         siteTableMock = new HashMap<Integer, Site>();
-        siteTableMock.put(1, new Site(1, "lenta.ru"));
-        siteTableMock.put(2, new Site(2, "ria.ru"));
+        siteTableMock.put(1, new Site(1, "lenta.ru", "www.lenta.ru"));
+        siteTableMock.put(2, new Site(2, "ria.ru", "www.ria.ru/index"));
 
     }
 
@@ -40,5 +39,11 @@ public class MockSiteRepository implements SiteRepository {
 
         siteTableMock.remove(site);
         return true;
+    }
+
+    @Override
+    public String getUrl(int id) {
+        Site site = siteTableMock.get(id);
+        return site.getUrl();
     }
 }

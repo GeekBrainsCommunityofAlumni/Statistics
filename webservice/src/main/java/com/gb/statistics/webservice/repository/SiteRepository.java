@@ -5,4 +5,6 @@ import com.gb.statistics.webservice.entity.Site;
 
 public interface SiteRepository extends IRepository<Site> {
 
+    String getUrl(int id);
+
 }
