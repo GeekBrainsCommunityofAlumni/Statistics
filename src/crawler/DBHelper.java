@@ -15,4 +15,12 @@ public class DBHelper {
     public ArrayList<String> getPagesWithoutScanDate() {
         return new ArrayList<>();
     }
+
+    public ArrayList<Integer> getPersonsID() { //Возвращает список ID таблицы Persons, для которых считаем статистику.
+        return new ArrayList<>();
+    }
+
+    public ArrayList<String> getPersonKeywords(int personID) {
+        return new ArrayList<>();
+    }
 }
