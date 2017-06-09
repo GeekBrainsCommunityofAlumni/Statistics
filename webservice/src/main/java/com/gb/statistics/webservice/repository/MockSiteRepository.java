@@ -6,7 +6,7 @@ import com.gb.statistics.webservice.entity.Site;
 
 import java.util.*;
 
-public class MockSiteRepository implements SiteRepository<Site> {
+public class MockSiteRepository implements SiteRepository {
 
     private Map<Integer, Site> siteTableMock = Collections.EMPTY_MAP;
 
@@ -27,7 +27,6 @@ public class MockSiteRepository implements SiteRepository<Site> {
     public Site getById(int id) {
         return siteTableMock.get(id);
     }
-
 
 
     @Override
