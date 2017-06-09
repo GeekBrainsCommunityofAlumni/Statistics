@@ -31,4 +31,8 @@ public class DBHelper {
     public void savePersonPageRank(int personID, int pageID, int rank) { //Сохраняет данные в таблицу PersonPageRank
 
     }
+
+    public ArrayList<String> getNewSites() { //Возвращает список URL сайтов для которой нет НИ ОДНОЙ строки в таблице Pages
+        return new ArrayList<>();
+    }
 }
