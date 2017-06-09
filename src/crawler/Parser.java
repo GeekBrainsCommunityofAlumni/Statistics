@@ -18,7 +18,6 @@ import java.util.List;
 public class Parser {
     private static final String searhStr = "sitemap";
     private static String sitemap;
-    private List<String> site;
     private URL url;
     private URLConnection con;
     private BufferedReader reader;
@@ -42,7 +41,7 @@ public class Parser {
     }
 
     public ArrayList<String> parseSiteMap(String sitemap) throws IOException, ParserConfigurationException, SAXException {
-        site = new ArrayList<>();
+        ArrayList<String> urlPages = new ArrayList<>();
         url = new URL(sitemap);
         con = url.openConnection();
         reader = new BufferedReader(new InputStreamReader(url.openStream()));
@@ -71,9 +70,9 @@ public class Parser {
 
                 NodeList fstNm = fstNmElmnt.getChildNodes();
 
-                site.add(((Node) fstNm.item(0)).getNodeValue());
+                urlPages.add(((Node) fstNm.item(0)).getNodeValue());
             }
         }
-        return site;
+        return urlPages;
     }
 }
