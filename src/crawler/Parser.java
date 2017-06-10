@@ -72,7 +72,31 @@ public class Parser {
         return urlPages;
     }
 
-    public int calculateRank(String pageSource, ArrayList<String> personKeywords) {
-        return 0;
+    public int calculateRank(String siteName, String name) {
+        int count = 0;
+        try {
+            url = new URL(siteName);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        try {
+            con = url.openConnection();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            reader = new BufferedReader(new InputStreamReader(url.openStream()));
+            String str;
+            while ((str = reader.readLine()) != null) {
+                if (str.contains(name)) {
+                    count++;
+                }
+            }
+            reader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        System.out.println(count);
+        return count;
     }
 }
