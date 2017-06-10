@@ -32,8 +32,18 @@ public class DBHelper {
 
     }
 
-    public ArrayList<Integer> getPagesIDWithoutScanDate() { //Метод возвращает список ID старниц для сканирования. БЕЗ robots.txt и sitemap
-        return new ArrayList<>();
+    public ArrayList<Integer> getPagesIDWithoutScanDate() { //Метод возвращает список ID страниц для сканирования. БЕЗ robots.txt и sitemap
+        ArrayList<Integer> resultingArrayList = new ArrayList<>();
+        try {
+            statement = connectionToDB.createStatement();
+            resultSet = statement.executeQuery("SELECT id FROM pages WHERE lastscandate IS NULL;");
+            while (resultSet.next()) {
+                resultingArrayList.add(resultSet.getInt(1));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return resultingArrayList;
     }
 
     public ArrayList<Integer> getPersonsID() { //Возвращает список ID таблицы Persons, для которых считаем статистику.
