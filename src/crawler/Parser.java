@@ -10,6 +10,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.*;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
@@ -26,13 +27,14 @@ public class Parser {
     public String parseRobotTxt(String host) throws IOException {
         url = new URL("https://" + host + "/robots.txt");
         con = url.openConnection();
-        BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream()));
+        reader = new BufferedReader(new InputStreamReader(url.openStream()));
         String robots;
         while ((robots = reader.readLine()) != null) {
             if (robots.contains(searhStr)) {
                 sitemap = robots.substring(9);
             }
         }
+        reader.close();
         return sitemap;
     }
 
@@ -72,7 +74,32 @@ public class Parser {
         return urlPages;
     }
 
-    public int calculateRank(String pageSource, ArrayList<String> personKeywords) {
-        return 0;
+    public int calculateRank(String siteName, String name) {
+        int count = 0;
+        try {
+            url = new URL(siteName);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        try {
+            con = url.openConnection();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            reader = new BufferedReader(new InputStreamReader(url.openStream()));
+            String str;
+            while ((str = reader.readLine()) != null) {
+                if (str.contains(name)) {
+                    count++;
+                }
+            }
+            reader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        System.out.println(count);
+        return count;
     }
 }
+
