@@ -1,10 +1,12 @@
 package com.gb.statistics.webservice.entity;
 
 
+import java.util.List;
+
 public class Person {
     private int id;
     private String name;
-    private int rank;
+    private List<PersonPageRank> rank;
 
     public Person(int id, String name) {
         this.id = id;
@@ -28,11 +30,11 @@ public class Person {
         this.name = name;
     }
 
-    public int getRank() {
+    public List<PersonPageRank> getRank() {
         return rank;
     }
 
-    public void setRank(int rank) {
+    public void setRank(List<PersonPageRank> rank) {
         this.rank = rank;
     }
 
@@ -52,7 +54,7 @@ public class Person {
     public int hashCode() {
         int result = id;
         result = 31 * result + name.hashCode();
-        result = 31 * result + rank;
+        result = 31 * result + rank.hashCode();
         return result;
     }
 }
