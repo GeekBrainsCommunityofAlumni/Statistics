@@ -23,7 +23,7 @@ public class SiteController {
 
     @RequestMapping(value="/site", method = RequestMethod.POST)
     public ResponseEntity<?> addSite(@RequestBody Site site){
-        if(site.getName()==null||site.getUrl()==null)
+        if(site.getName()==null)
             return ResponseEntity.badRequest()
                     .body(new ErrorResponse("Name and URL not be null!"));
 

@@ -37,7 +37,6 @@ public class MockSiteRepository implements SiteRepository{
         for (Site s : siteList) {
             if (s.getId()==site.getId()){
                 s.setName(site.getName());
-                s.setUrl(site.getName());
                 return s;
             }
         }
