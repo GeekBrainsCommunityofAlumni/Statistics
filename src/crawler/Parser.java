@@ -10,6 +10,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.*;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
@@ -26,13 +27,14 @@ public class Parser {
     public String parseRobotTxt(String host) throws IOException {
         url = new URL("https://" + host + "/robots.txt");
         con = url.openConnection();
-        BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream()));
+        reader = new BufferedReader(new InputStreamReader(url.openStream()));
         String robots;
         while ((robots = reader.readLine()) != null) {
             if (robots.contains(searhStr)) {
                 sitemap = robots.substring(9);
             }
         }
+        reader.close();
         return sitemap;
     }
 
@@ -100,3 +102,4 @@ public class Parser {
         return count;
     }
 }
+
