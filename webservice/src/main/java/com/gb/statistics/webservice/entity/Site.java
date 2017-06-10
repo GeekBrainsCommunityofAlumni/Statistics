@@ -5,14 +5,12 @@ public class Site {
 
     private int id;
     private String name;
-    private String url;
 
-    public Site(int id, String name, String url) {
+    public Site(int id, String name) {
         this.id = id;
         this.name = name;
-        this.url = url;
     }
-    public Site(){};
+    public Site(){}
 
     public int getId() {
         return id;
@@ -30,13 +28,6 @@ public class Site {
         this.name = name;
     }
 
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -46,15 +37,13 @@ public class Site {
         Site site = (Site) o;
 
         if (id != site.id) return false;
-        if (!name.equals(site.name)) return false;
-        return url.equals(site.url);
+        return name.equals(site.name);
     }
 
     @Override
     public int hashCode() {
         int result = id;
         result = 31 * result + name.hashCode();
-        result = 31 * result + url.hashCode();
         return result;
     }
 }
