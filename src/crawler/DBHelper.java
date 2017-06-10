@@ -62,8 +62,18 @@ public class DBHelper {
 
     }
 
-    public ArrayList<String> getNewSites() { //Возвращает список URL сайтов для которой нет НИ ОДНОЙ строки в таблице Pages
-        return new ArrayList<>();
+    public ArrayList<String> getNewSites() { //Возвращает список URL сайтов для которых нет НИ ОДНОЙ строки в таблице Pages
+        ArrayList<String> resultingArrayList = new ArrayList<>();
+        try {
+            statement = connectionToDB.createStatement();
+            resultSet = statement.executeQuery("SELECT name FROM sites WHERE id NOT IN (SELECT siteid FROM pages);");
+            while (resultSet.next()) {
+                resultingArrayList.add(resultSet.getString(1));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return resultingArrayList;
     }
 
     public void disconnectFromDB() {
