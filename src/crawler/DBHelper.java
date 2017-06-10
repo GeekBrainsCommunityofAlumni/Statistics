@@ -64,8 +64,18 @@ public class DBHelper {
         return new ArrayList<>();
     }
 
-    public String getUrlPageViaID(int pageID) { //Возвращает URL старинцы в зависимости от ID
-        return "";
+    public String getUrlPageViaID(int pageID) { //Возвращает URL страницы в зависимости от ID
+        String urlOfPage = "";
+        try {
+            statement = connectionToDB.createStatement();
+            resultSet = statement.executeQuery("SELECT url FROM pages WHERE id = " + pageID + ";");
+            if (resultSet.next()) {
+                urlOfPage = resultSet.getString(1);
+            } else throw new SQLException("Неправильный id url'a от краулера для метода getUrlPageViaID для таблицы pages.");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return urlOfPage;
     }
 
     public void savePersonPageRank(int personID, int pageID, int rank) { //Сохраняет данные в таблицу PersonPageRank
