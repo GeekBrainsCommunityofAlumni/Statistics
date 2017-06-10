@@ -9,6 +9,8 @@ import java.util.ArrayList;
 public class DBHelper {
     private ArrayList<String> pagesWithoutScanDate;
     private Connection connectionToDB;
+    private Statement statement;
+    private ResultSet resultSet;
     //*******Настройки базы данных*********
     private final String HOSTDB = "localhost";
     private final int PORTDB = 3306;
@@ -35,7 +37,17 @@ public class DBHelper {
     }
 
     public ArrayList<Integer> getPersonsID() { //Возвращает список ID таблицы Persons, для которых считаем статистику.
-        return new ArrayList<>();
+        ArrayList<Integer> resultingArrayList = new ArrayList<>();
+        try {
+            statement = connectionToDB.createStatement();
+            resultSet = statement.executeQuery("SELECT id FROM persons;");
+            while (resultSet.next()) {
+                resultingArrayList.add(resultSet.getInt(1));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return resultingArrayList;
     }
 
     public ArrayList<String> getPersonKeywords(int personID) { //Возвращает ключевые слова для ID персоны.
