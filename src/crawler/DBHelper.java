@@ -61,7 +61,18 @@ public class DBHelper {
     }
 
     public ArrayList<String> getPersonKeywords(int personID) { //Возвращает ключевые слова для ID персоны.
-        return new ArrayList<>();
+        ArrayList<String> resultingArrayList = new ArrayList<>();
+        try {
+            statement = connectionToDB.createStatement();
+            resultSet = statement.executeQuery("SELECT name FROM keywords WHERE personid = " + personID + ";");
+            while (resultSet.next()) {
+                resultingArrayList.add(resultSet.getString(1));
+            }
+        } catch (SQLException e) {
+//Можно добавить обработку ошибок если краулер берет фразу для поиска только из таблицы keywords, а они там не заведены.
+            e.printStackTrace();
+        }
+        return resultingArrayList;
     }
 
     public String getUrlPageViaID(int pageID) { //Возвращает URL страницы в зависимости от ID
@@ -71,7 +82,7 @@ public class DBHelper {
             resultSet = statement.executeQuery("SELECT url FROM pages WHERE id = " + pageID + ";");
             if (resultSet.next()) {
                 urlOfPage = resultSet.getString(1);
-            } else throw new SQLException("Неправильный id url'a от краулера для метода getUrlPageViaID для таблицы pages.");
+            } else throw new SQLException("Ошибка: неправильный id url'a от краулера для метода getUrlPageViaID для таблицы pages.");
         } catch (SQLException e) {
             e.printStackTrace();
         }
