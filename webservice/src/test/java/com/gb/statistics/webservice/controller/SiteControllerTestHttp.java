@@ -2,21 +2,17 @@ package com.gb.statistics.webservice.controller;
 
 
 import com.gb.statistics.webservice.AppConfig;
-import com.gb.statistics.webservice.entity.Site;
 import com.gb.statistics.webservice.repository.MockSiteRepository;
 import com.gb.statistics.webservice.repository.SiteRepository;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.stubbing.Answer;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
-
 import org.springframework.web.servlet.HandlerAdapter;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter;
@@ -24,10 +20,10 @@ import org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAda
 
 import static org.mockito.Mockito.mock;
 
-
-@RunWith(SpringJUnit4ClassRunner.class)
-@WebAppConfiguration
-@ContextConfiguration(classes = {AppConfig.class})
+//
+//@RunWith(SpringJUnit4ClassRunner.class)
+//@WebAppConfiguration
+//@ContextConfiguration(classes = {AppConfig.class})
 
 public class SiteControllerTestHttp {
 
