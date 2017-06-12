@@ -49,12 +49,28 @@ public class Crawler {
         personsID = dbHelper.getPersonsID();
     }
 
-    private static void addNewSitesToPages(ArrayList<String> newSites) { //throws IOException, ParserConfigurationException, SAXException
+    private static void addNewSitesToPages(ArrayList<String> newSites) { // Решить что делать с пробрасываемыми исключениями. throws IOException, ParserConfigurationException, SAXException
+
         for (String site : newSites) {
             String robotTxt = downloader.downloadRobot(site);
-            String sitemapURL = parser.parseRobotTxt(robotTxt);
+            String sitemapURL = null;
+            try {
+                sitemapURL = parser.parseRobotTxt(robotTxt);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             String sitemap = downloader.downloadSiteMap(sitemapURL);
-            ArrayList<String> urlPages = parser.parseSiteMap(sitemap);
+            ArrayList<String> urlPages = null;
+            try {
+                urlPages = parser.parseSiteMap(sitemap);
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (ParserConfigurationException e) {
+                e.printStackTrace();
+            } catch (SAXException e) {
+                e.printStackTrace();
+            }
             dbHelper.addPagesToSite(urlPages);
         }
     }
