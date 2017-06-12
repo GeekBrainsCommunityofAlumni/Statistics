@@ -16,7 +16,7 @@ public class DBHelper {
     private final String HOSTDB = "localhost";
     private final int PORTDB = 3306;
     private final String DBSCHEMANAME = "statistics";
-    private final String DBLOGIN = "root";
+    private final String DBLOGIN = "statistic_user";
     private final String DBPASSWORD = "123456";
     //*******Конец настройки базы данных*********
 
