@@ -6,6 +6,13 @@ import java.net.URL;
 import java.net.UnknownHostException;
 
 public class Downloader {
+    public static final String NO_PROTOCOL = "No protocol";
+    public static final String PAGE_NOT_FOUND = "Page not found";
+    public static final String SITE_NOT_FOUND = "Site not found";
+    public static final String INTERNET_CONNECTION_LOST = "Internet connection lost";
+    public static final String UNIDENTIFIED_ERROR = "Unidentified error";
+    public static final String ROBOTSTXT_NOT_FOUND = "Robots.txt not found";
+    public static final String SITE_MAP_NOT_FOUND = "Site map not found";
     public static void main(String[] args) throws IOException { //Метод для тестирования класса
 
 //        long t = System.currentTimeMillis();
@@ -27,7 +34,7 @@ public class Downloader {
         try {
             urlAddress = new URL(url);
         } catch (MalformedURLException malformedURLException) {
-            throw new IOException("no protocol");
+            throw new IOException(NO_PROTOCOL);
         }
 
         try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlAddress.openConnection().getInputStream()))) {
@@ -37,15 +44,15 @@ public class Downloader {
             }
             bufferedReader.close();
         } catch (FileNotFoundException fileException) {
-            throw new IOException("Page not found");
+            throw new IOException(PAGE_NOT_FOUND);
         } catch (UnknownHostException hostException) {
             if (isReachable()) {
-                throw new IOException("Site not found");
+                throw new IOException(SITE_NOT_FOUND);
             } else {
-                throw new IOException("Internet connection lost");
+                throw new IOException(INTERNET_CONNECTION_LOST);
             }
         } catch (IOException ioException) {
-            throw new IOException("Unidentified error");
+            throw new IOException(UNIDENTIFIED_ERROR);
         }
         return stringBuilder.toString();
     }
@@ -85,24 +92,24 @@ public class Downloader {
         try {
             robotTxt = download(site + "/robots.txt");
         } catch (IOException e) {
-            if (e.getMessage().equals("Page not found")) {
-                throw new IOException("robots.txt not found");
+            if (e.getMessage().equals(PAGE_NOT_FOUND)) {
+                throw new IOException(ROBOTSTXT_NOT_FOUND);
             } else
                 throw new IOException(e.getMessage());
         }
         return robotTxt;
     }
 
-    public String downloadSiteMap(String sitemapURL) throws IOException {
-        String sitemap;
+    public String downloadSiteMap(String siteMapURL) throws IOException {
+        String siteMap;
         try {
-            sitemap = download(sitemapURL);
+            siteMap = download(siteMapURL);
         } catch (IOException e) {
-            if (e.getMessage().equals("Page not found")) {
-                throw new IOException("sitemap not found");
+            if (e.getMessage().equals(PAGE_NOT_FOUND)) {
+                throw new IOException(SITE_MAP_NOT_FOUND);
             } else
                 throw new IOException(e.getMessage());
         }
-        return sitemap;
+        return siteMap;
     }
 }
