@@ -11,6 +11,7 @@ public class DBHelper {
     private Connection connectionToDB;
     private Statement statement;
     private ResultSet resultSet;
+    private PreparedStatement preparedStatement;
     //*******Настройки базы данных*********
     private final String HOSTDB = "localhost";
     private final int PORTDB = 3306;
@@ -69,7 +70,7 @@ public class DBHelper {
                 resultingArrayList.add(resultSet.getString(1));
             }
         } catch (SQLException e) {
-//Можно добавить обработку ошибок если краулер берет фразу для поиска только из таблицы keywords, а они там не заведены.
+//TODO: Можно добавить обработку ошибок если краулер берет фразу для поиска только из таблицы keywords, а они там не заведены.
             e.printStackTrace();
         }
         return resultingArrayList;
@@ -90,7 +91,80 @@ public class DBHelper {
     }
 
     public void savePersonPageRank(int personID, int pageID, int rank) { //Сохраняет данные в таблицу PersonPageRank
+        try {
+            if (existPageWithPerson(personID, pageID)) {
+                preparedStatement = connectionToDB.prepareStatement("UPDATE personpagerank SET rank = ? WHERE (personid = ? AND pageid = ?);");
+                preparedStatement.setInt(1, rank);
+                preparedStatement.setInt(2, personID);
+                preparedStatement.setInt(3, pageID);
+                preparedStatement.executeUpdate();
+            } else {
+                if (existPersonID(personID)) {
+                    if (existPageID(pageID)) {
+                        preparedStatement = connectionToDB.prepareStatement("INSERT INTO personpagerank (personid, pageid, rank) VALUES (?, ?, ?);");
+                        preparedStatement.setInt(1, personID);
+                        preparedStatement.setInt(2, pageID);
+                        preparedStatement.setInt(3, rank);
+                        preparedStatement.executeUpdate();
+                    }
+                    else {
+                        throw new SQLException("Неправильный pageID передан через savePersonPageRank().");
+                    }
+                } else {
+                    throw new SQLException("Неправильный personID передан через savePersonPageRank().");
+                }              }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
+    public boolean existPageWithPerson(int personID, int pageID) {  //Проверяет, существует ли уже в таблице personpagerank указанная запись с personID и pageID
+        try {
+            preparedStatement = connectionToDB.prepareStatement("SELECT personID, pageID FROM personpagerank WHERE (personID = ? AND pageID = ?);");
+            preparedStatement.setInt(1, personID);
+            preparedStatement.setInt(2, pageID);
+            resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                if ((resultSet.getInt(1) == personID) & (resultSet.getInt(2) == pageID)) {
+                    return true;
+                }
+            } else return false;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean existPersonID(int personID) {    //Проверяет, есть ли в таблице persons указанный id персоны
+        try {
+            preparedStatement = connectionToDB.prepareStatement("SELECT id FROM persons WHERE id = ?;");
+            preparedStatement.setInt(1, personID);
+            resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                if (resultSet.getInt(1) == personID) {
+                    return true;
+                }
+            } else return false;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean existPageID(int pageID) {    //Проверяет, есть ли в таблице pages указанный id страницы
+        try {
+            preparedStatement = connectionToDB.prepareStatement("SELECT id FROM pages WHERE id = ?;");
+            preparedStatement.setInt(1, pageID);
+            resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                if (resultSet.getInt(1) == pageID) {
+                    return true;
+                }
+            } else return false;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     public ArrayList<String> getNewSites() { //Возвращает список URL сайтов для которых нет НИ ОДНОЙ строки в таблице Pages
