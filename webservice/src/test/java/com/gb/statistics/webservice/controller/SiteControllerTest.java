@@ -102,4 +102,11 @@ public class SiteControllerTest {
 
     }
 
+    @Test
+    public void deleteSiteNotFound() throws Exception {
+        Assert.assertTrue(siteController.deleteSite(100500)
+                .getStatusCode()
+                .is4xxClientError());
+    }
+
 }
