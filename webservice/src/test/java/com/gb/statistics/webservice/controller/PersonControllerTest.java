@@ -35,6 +35,10 @@ public class PersonControllerTest {
         Assert.assertTrue(personController.getPerson(100500).getStatusCode().is4xxClientError());
     }
 
-
+    @Test
+    public void getPersonEqualsMock() throws Exception {
+        Person person = MockPersonRepository.personsList.get(0);
+        Assert.assertEquals(person, personController.getPerson(person.getId()).getBody());
+    }
 
 }
