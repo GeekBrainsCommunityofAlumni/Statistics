@@ -3,6 +3,7 @@ package com.gb.statistics.webservice.controller;
 import com.gb.statistics.webservice.AppConfig;
 import com.gb.statistics.webservice.entity.Person;
 import com.gb.statistics.webservice.repository.MockPersonRepository;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -30,8 +31,10 @@ public class PersonControllerTest {
     }
 
     @Test
-    public void getPerson() throws Exception {
-
+    public void getPersonNotFoundTest() throws Exception {
+        Assert.assertTrue(personController.getPerson(100500).getStatusCode().is4xxClientError());
     }
+
+
 
 }
