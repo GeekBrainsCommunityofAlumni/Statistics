@@ -74,7 +74,7 @@ public class Parser {
         return urlPages;
     }
 
-    public int calculateRank(String siteName, String name) {
+    public int calculateRank(String siteName, ArrayList<String> name) {
         int count = 0;
         try {
             url = new URL(siteName);
@@ -89,11 +89,11 @@ public class Parser {
         try {
             reader = new BufferedReader(new InputStreamReader(url.openStream()));
             String str;
-            while ((str = reader.readLine()) != null) {
-                if (str.contains(name)) {
-                    count++;
-                }
-            }
+//            while ((str = reader.readLine()) != null) {
+//                if (str.contains(name)) {
+//                    count++;
+//                }
+//            }
             reader.close();
         } catch (IOException e) {
             e.printStackTrace();
