@@ -75,8 +75,14 @@ public class SiteControllerTest {
     }
 
     @Test
-    public void addSiteExisting() throws Exception {
+    public void addSiteIsExist() throws Exception {
         ResponseEntity responseEntity = siteController.addSite(new Site(1, "lenta.ru", "lenta.ru/index"));
+        Assert.assertTrue(responseEntity.getBody() instanceof ErrorResponse);
+    }
+
+    @Test
+    public void updateSiteIsNotExist() throws Exception {
+        ResponseEntity responseEntity = siteController.updateSite(new Site(100500,"notFoundName", "notfoundsite.ru" ));
         Assert.assertTrue(responseEntity.getBody() instanceof ErrorResponse);
     }
 
