@@ -29,6 +29,7 @@ public class SiteControllerTest {
     public void startUp() {
         MockSiteRepository.siteList.add(new Site(1,"lenta.ru", "lenta.ru/index"));
         MockSiteRepository.siteList.add(new Site(2,"ria.ru", "ria.ru/index"));
+        MockSiteRepository.siteList.add(new Site(3,"newsru.com", "newsru.com"));
     }
 
     @Test
@@ -91,6 +92,14 @@ public class SiteControllerTest {
     public void deleteSiteResponseOk() throws Exception {
         ResponseEntity responseEntity = siteController.deleteSite(1);
         Assert.assertTrue(responseEntity.getStatusCode().is2xxSuccessful());
+    }
+
+    @Test
+    public void deleteSiteNotContainsInMock() throws Exception {
+        Site site = MockSiteRepository.siteList.get(0);
+        siteController.deleteSite(site.getId());
+        Assert.assertFalse(MockSiteRepository.siteList.contains(site));
+
     }
 
 }
