@@ -1,5 +1,7 @@
 package crawler;
 
+import java.util.ArrayList;
+
 /**
  * Created by Serg on 12.06.2017.
  */
@@ -23,8 +25,13 @@ public class CrawlerTest {
         dbHelper.connectToDB();
         System.out.println("Вероятно успешно");
 
+        System.out.println("---");
 
-
+        System.out.println("Список ID имеющихся в базе:");
+        ArrayList<Integer> personsID = dbHelper.getPersonsID();
+        for (Integer personID:personsID) {
+            System.out.println(personID);
+        }
 
 
     }
