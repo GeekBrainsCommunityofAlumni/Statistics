@@ -72,6 +72,6 @@ public class Crawler {
                 e.printStackTrace();
             }
             dbHelper.addPagesToSite(urlPages);
-        }
+        } 
     }
 }
