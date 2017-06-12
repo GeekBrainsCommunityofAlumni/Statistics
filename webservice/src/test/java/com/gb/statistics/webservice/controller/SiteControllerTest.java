@@ -22,7 +22,6 @@ import java.util.List;
 @ContextConfiguration(classes = {AppConfig.class})
 public class SiteControllerTest {
 
-
     @Autowired
     SiteController siteController;
 
@@ -74,4 +73,11 @@ public class SiteControllerTest {
         ResponseEntity responseEntity = siteController.addSite(siteToAdd);
         Assert.assertTrue(responseEntity.getBody().equals(siteToAdd));
     }
+
+    @Test
+    public void addSiteExisting() throws Exception {
+        ResponseEntity responseEntity = siteController.addSite(new Site(1, "lenta.ru", "lenta.ru/index"));
+        Assert.assertTrue(responseEntity.getBody() instanceof ErrorResponse);
+    }
+
 }
