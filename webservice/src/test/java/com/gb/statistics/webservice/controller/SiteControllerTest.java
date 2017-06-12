@@ -4,6 +4,7 @@ import com.gb.statistics.webservice.AppConfig;
 import com.gb.statistics.webservice.entity.Site;
 import com.gb.statistics.webservice.repository.MockSiteRepository;
 import com.gb.statistics.webservice.repository.SiteRepository;
+import com.gb.statistics.webservice.util.ErrorResponse;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -79,5 +80,12 @@ public class SiteControllerTest {
         Assert.assertTrue(MockSiteRepository.siteList.contains(siteToAdd));
      }
 
+    @Test
+    public void addSiteNullNameOrUrl() throws Exception {
+        ResponseEntity responseEntityNameNull = siteController.addSite(new Site(4, null, "news.ru"));
+        Assert.assertTrue(responseEntityNameNull.getBody() instanceof ErrorResponse);
 
+        ResponseEntity responseEntityUrlNull = siteController.addSite(new Site(5, "site", null));
+        Assert.assertTrue(responseEntityUrlNull.getBody() instanceof ErrorResponse);
+    }
 }
