@@ -3,7 +3,6 @@ package com.gb.statistics.webservice.controller;
 import com.gb.statistics.webservice.AppConfig;
 import com.gb.statistics.webservice.entity.Site;
 import com.gb.statistics.webservice.repository.MockSiteRepository;
-import com.gb.statistics.webservice.repository.SiteRepository;
 import com.gb.statistics.webservice.util.ErrorResponse;
 import org.junit.Assert;
 import org.junit.Before;
