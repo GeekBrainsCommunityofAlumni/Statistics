@@ -2,6 +2,7 @@ package com.gb.statistics.webservice.controller;
 
 import com.gb.statistics.webservice.AppConfig;
 import com.gb.statistics.webservice.entity.Site;
+import com.gb.statistics.webservice.repository.MockSiteRepository;
 import com.gb.statistics.webservice.repository.SiteRepository;
 import org.junit.Assert;
 import org.junit.Before;
@@ -27,6 +28,7 @@ import javax.servlet.Servlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.PrintWriter;
+import java.util.LinkedList;
 import java.util.List;
 
 import static org.mockito.Mockito.*;
@@ -38,8 +40,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
 @ContextConfiguration(classes = {AppConfig.class})
-public class SiteControllerBusinessLogicTest {
-
+public class SiteControllerTest {
 
     @Autowired
     SiteController siteController;
@@ -48,11 +49,18 @@ public class SiteControllerBusinessLogicTest {
     SiteRepository siteRepository;
 
 
+    @Before
+    public void startUp() {
+        MockSiteRepository.siteList.add(new Site(1,"lenta.ru", "lenta.ru/index"));
+        MockSiteRepository.siteList.add(new Site(2,"ria.ru", "ria.ru/index"));
+    }
 
     @Test
     public void getAllSitesNotNull() throws Exception {
+
         Assert.assertNotNull(siteController.getAllSites());
     }
+
 
     @Test
     public void getAllSitesSizeTest() throws Exception {
@@ -64,8 +72,12 @@ public class SiteControllerBusinessLogicTest {
     }
 
     @Test
-    public void getAllSites() throws Exception {
+    public void addSiteToMock() throws Exception {
 
-    }
+        Site siteToAdd = new Site(3, "regnum.ru", "regnum.ru/news");
+        siteController.addSite(siteToAdd);
+        Assert.assertTrue(MockSiteRepository.siteList.contains(siteToAdd));
+     }
+
 
 }
