@@ -22,6 +22,7 @@ import java.util.List;
 @ContextConfiguration(classes = {AppConfig.class})
 public class SiteControllerTest {
 
+
     @Autowired
     SiteController siteController;
 
@@ -40,7 +41,6 @@ public class SiteControllerTest {
 
         Assert.assertNotNull(siteController.getAllSites());
     }
-
 
     @Test
     public void getAllSitesSizeTest() throws Exception {
@@ -66,5 +66,12 @@ public class SiteControllerTest {
 
         ResponseEntity responseEntityUrlNull = siteController.addSite(new Site(5, "site", null));
         Assert.assertTrue(responseEntityUrlNull.getBody() instanceof ErrorResponse);
+    }
+
+    @Test
+    public void addSiteEquals() throws Exception {
+        Site siteToAdd = new Site(10, "russiatoday.ru", "rt.ru");
+        ResponseEntity responseEntity = siteController.addSite(siteToAdd);
+        Assert.assertTrue(responseEntity.getBody().equals(siteToAdd));
     }
 }
