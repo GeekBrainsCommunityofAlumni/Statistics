@@ -4,15 +4,15 @@ import com.gb.statistics.features.ai.interfaces.PersonInterface;
 import com.gb.statistics.features.ai.model.Person;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import java.util.ArrayList;
 import java.util.List;
 
 public class FakePersonList implements PersonInterface {
 
-    private ObservableList<Person> personList = FXCollections.observableList(readPersonList());
+    private ObservableList<Person> personList = FXCollections.observableArrayList();
 
     public List<Person> readPersonList() {
-        return addFakeData();
+        addFakeData();
+        return personList;
     }
 
     public boolean addPerson(Person person) {
@@ -30,12 +30,10 @@ public class FakePersonList implements PersonInterface {
         return true;
     }
 
-    public List<Person> addFakeData() {
-        List<Person> fakePersonList = new ArrayList<Person>();
-        fakePersonList.add(new Person(1, "Путин"));
-        fakePersonList.add(new Person(2, "Медведев"));
-        fakePersonList.add(new Person(3, "Навальный"));
-        return fakePersonList;
+    public void addFakeData() {
+        personList.add(new Person(1, "Путин"));
+        personList.add(new Person(2, "Медведев"));
+        personList.add(new Person(3, "Навальный"));
     }
 
     public ObservableList<Person> getPersonList() {

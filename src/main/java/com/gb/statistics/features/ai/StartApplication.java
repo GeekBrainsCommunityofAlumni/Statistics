@@ -1,5 +1,6 @@
 package com.gb.statistics.features.ai;
 
+import com.gb.statistics.features.ai.controllers.PersonListController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -14,11 +15,16 @@ public class StartApplication extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/personlist.fxml"));
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/fxml/personlist.fxml"));
+        Parent main = loader.load();
+        PersonListController personListController = loader.getController();
+        personListController.setMainStage(primaryStage);
+
         primaryStage.setTitle("Панель администрирования");
         primaryStage.setMinWidth(600);
         primaryStage.setMinHeight(600);
-        primaryStage.setScene(new Scene(root, 300, 300));
+        primaryStage.setScene(new Scene(main, 300, 300));
         primaryStage.show();
     }
 }
