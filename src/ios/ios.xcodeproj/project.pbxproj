@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		683E17291EEF08DE008DDB11 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683E17281EEF08DE008DDB11 /* TableViewController.swift */; };
 		BE4FD0641EEEEBB4002F0679 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE4FD0631EEEEBB4002F0679 /* AppDelegate.swift */; };
 		BE4FD0661EEEEBB4002F0679 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE4FD0651EEEEBB4002F0679 /* ViewController.swift */; };
 		BE4FD0691EEEEBB4002F0679 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BE4FD0671EEEEBB4002F0679 /* Main.storyboard */; };
@@ -18,6 +19,7 @@
 /* Begin PBXFileReference section */
 		396B727C054DE7F9EA546DBF /* Pods-ios.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ios.release.xcconfig"; path = "Pods/Target Support Files/Pods-ios/Pods-ios.release.xcconfig"; sourceTree = "<group>"; };
 		3BA6E09608D9FF04B14FA287 /* Pods_ios.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ios.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		683E17281EEF08DE008DDB11 /* TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		BE4FD0601EEEEBB4002F0679 /* ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ios.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE4FD0631EEEEBB4002F0679 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BE4FD0651EEEEBB4002F0679 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -73,6 +75,7 @@
 				BE4FD0631EEEEBB4002F0679 /* AppDelegate.swift */,
 				BE4FD0651EEEEBB4002F0679 /* ViewController.swift */,
 				BE4FD0671EEEEBB4002F0679 /* Main.storyboard */,
+				683E17281EEF08DE008DDB11 /* TableViewController.swift */,
 				BE4FD06A1EEEEBB4002F0679 /* Assets.xcassets */,
 				BE4FD06C1EEEEBB4002F0679 /* LaunchScreen.storyboard */,
 				BE4FD06F1EEEEBB4002F0679 /* Info.plist */,
@@ -212,6 +215,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BE4FD0661EEEEBB4002F0679 /* ViewController.swift in Sources */,
+				683E17291EEF08DE008DDB11 /* TableViewController.swift in Sources */,
 				BE4FD0641EEEEBB4002F0679 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -378,6 +382,7 @@
 				BE4FD0741EEEEBB4002F0679 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
