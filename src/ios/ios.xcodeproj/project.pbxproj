@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		683E17291EEF08DE008DDB11 /* TableViewControllerAllStat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683E17281EEF08DE008DDB11 /* TableViewControllerAllStat.swift */; };
 		683E172B1EEF22BB008DDB11 /* TableViewControllerAllStatDV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683E172A1EEF22BB008DDB11 /* TableViewControllerAllStatDV.swift */; };
-		683E172D1EEF2340008DDB11 /* TableViewControllerDayStat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683E172C1EEF2340008DDB11 /* TableViewControllerDayStat.swift */; };
+		683E172D1EEF2340008DDB11 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683E172C1EEF2340008DDB11 /* TableViewController.swift */; };
 		683E172F1EEF2353008DDB11 /* TableViewControllerDayStatDV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683E172E1EEF2353008DDB11 /* TableViewControllerDayStatDV.swift */; };
 		BE4FD0641EEEEBB4002F0679 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE4FD0631EEEEBB4002F0679 /* AppDelegate.swift */; };
 		BE4FD0661EEEEBB4002F0679 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE4FD0651EEEEBB4002F0679 /* ViewController.swift */; };
@@ -24,7 +24,7 @@
 		3BA6E09608D9FF04B14FA287 /* Pods_ios.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ios.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		683E17281EEF08DE008DDB11 /* TableViewControllerAllStat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewControllerAllStat.swift; sourceTree = "<group>"; };
 		683E172A1EEF22BB008DDB11 /* TableViewControllerAllStatDV.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewControllerAllStatDV.swift; sourceTree = "<group>"; };
-		683E172C1EEF2340008DDB11 /* TableViewControllerDayStat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewControllerDayStat.swift; sourceTree = "<group>"; };
+		683E172C1EEF2340008DDB11 /* TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		683E172E1EEF2353008DDB11 /* TableViewControllerDayStatDV.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewControllerDayStatDV.swift; sourceTree = "<group>"; };
 		BE4FD0601EEEEBB4002F0679 /* ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ios.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE4FD0631EEEEBB4002F0679 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -79,7 +79,7 @@
 			isa = PBXGroup;
 			children = (
 				683E172E1EEF2353008DDB11 /* TableViewControllerDayStatDV.swift */,
-				683E172C1EEF2340008DDB11 /* TableViewControllerDayStat.swift */,
+				683E172C1EEF2340008DDB11 /* TableViewController.swift */,
 			);
 			name = EveryDay;
 			sourceTree = "<group>";
@@ -252,7 +252,7 @@
 				683E17291EEF08DE008DDB11 /* TableViewControllerAllStat.swift in Sources */,
 				BE4FD0641EEEEBB4002F0679 /* AppDelegate.swift in Sources */,
 				683E172B1EEF22BB008DDB11 /* TableViewControllerAllStatDV.swift in Sources */,
-				683E172D1EEF2340008DDB11 /* TableViewControllerDayStat.swift in Sources */,
+				683E172D1EEF2340008DDB11 /* TableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

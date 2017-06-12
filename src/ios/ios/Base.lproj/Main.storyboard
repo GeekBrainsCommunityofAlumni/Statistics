@@ -93,7 +93,7 @@
         <!--Общая статистика-->
         <scene sceneID="B8U-LA-ibN">
             <objects>
-                <tableViewController id="7Af-sA-kD4" customClass="TableViewControllerAllStatDV" customModule="ios" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="7Af-sA-kD4" customClass="TableViewController" customModule="ios" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="frW-t9-fzn">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
