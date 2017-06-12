@@ -87,4 +87,10 @@ public class SiteControllerTest {
         Assert.assertTrue(responseEntity.getStatusCode().is2xxSuccessful());
     }
 
+    @Test
+    public void deleteSiteResponseOk() throws Exception {
+        ResponseEntity responseEntity = siteController.deleteSite(1);
+        Assert.assertTrue(responseEntity.getStatusCode().is2xxSuccessful());
+    }
+
 }
