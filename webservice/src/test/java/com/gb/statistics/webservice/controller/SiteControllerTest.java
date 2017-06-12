@@ -25,10 +25,6 @@ public class SiteControllerTest {
     @Autowired
     SiteController siteController;
 
-    @Autowired
-    SiteRepository siteRepository;
-
-
     @Before
     public void startUp() {
         MockSiteRepository.siteList.add(new Site(1,"lenta.ru", "lenta.ru/index"));
@@ -89,23 +85,6 @@ public class SiteControllerTest {
     public void updateSiteIsExistReturnOk() throws Exception {
         ResponseEntity responseEntity = siteController.updateSite(new Site(1,"lenta.ru", "lenta.ru/index"));
         Assert.assertTrue(responseEntity.getStatusCode().is2xxSuccessful());
-    }
-
-    @Test
-    public void updateSite() throws Exception {
-        List<Site> listCopy = MockSiteRepository.siteList;
-        Site siteBeforeState = new Site();
-        Site siteUpdateState = new Site(2, "changedSiteName", "changedUrl.com");
-
-        for (Site site: listCopy) {
-            if (site.getId() == siteUpdateState.getId()){
-                siteBeforeState = MockSiteRepository.siteList.get(listCopy.indexOf(site));
-            }
-        }
-        Site site = (Site) siteController.updateSite(siteUpdateState).getBody();
-
-        Assert.assertNotEquals(siteBeforeState, site);
-        Assert.assertEquals(siteUpdateState, site);
     }
 
 }
