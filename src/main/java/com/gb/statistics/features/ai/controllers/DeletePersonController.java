@@ -1,6 +1,6 @@
 package com.gb.statistics.features.ai.controllers;
 
-import com.gb.statistics.features.ai.interfaces.impls.FakePersonList;
+import com.gb.statistics.features.ai.interfaces.PersonListInterface;
 import com.gb.statistics.features.ai.model.Person;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -10,7 +10,7 @@ import javafx.stage.Stage;
 
 public class DeletePersonController {
 
-    private FakePersonList personList;
+    private PersonListInterface personList;
     private Person person;
 
     @FXML
@@ -21,7 +21,7 @@ public class DeletePersonController {
         personNameLabel.setText(person.getName());
     }
 
-    public void setPersonList(FakePersonList personList) {
+    public void setPersonList(PersonListInterface personList) {
         this.personList = personList;
     }
 

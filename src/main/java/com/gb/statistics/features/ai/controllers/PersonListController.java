@@ -1,5 +1,6 @@
 package com.gb.statistics.features.ai.controllers;
 
+import com.gb.statistics.features.ai.interfaces.PersonListInterface;
 import com.gb.statistics.features.ai.interfaces.impls.FakePersonList;
 import com.gb.statistics.features.ai.model.Person;
 import javafx.collections.ListChangeListener;
@@ -24,18 +25,15 @@ public class PersonListController {
     private final String ADD_TITLE = "Создание записи";
     private final String EDIT_TITLE = "Редактирование записи";
     private final String DELETE_TITLE = "Удаление записи";
-    private final String EMPTY_LIST = "Список пуст";
+    private final String EMPTY_LIST_MESSAGE = "Список пуст";
 
-    private FakePersonList fakePersonList = new FakePersonList();
-    private Parent parentAdd;
+    private PersonListInterface personList = new FakePersonList();
     private Parent parentEdit;
     private Parent parentDelete;
-    private FXMLLoader loaderAdd = new FXMLLoader();
-    private FXMLLoader loaderEdit = new FXMLLoader();
+    private FXMLLoader loaderAddEdit = new FXMLLoader();
     private FXMLLoader loaderDelete = new FXMLLoader();
-    private ModalPersonWindowController modalPersonWindowController;
+    private ModalPersonWindowController editPersonController;
     private DeletePersonController deletePersonController;
-    private Stage modalAddWindowStage;
     private Stage modalEditWindowStage;
     private Stage modalDeleteWindowStage;
     private Stage mainStage;
@@ -54,51 +52,45 @@ public class PersonListController {
 
     @FXML
     private Button deleteButton;
-    private ModalPersonWindowController addPersonController;
 
     @FXML
     private void initialize() {
         columnPersonName.setCellValueFactory(cellData -> cellData.getValue().getNameProperty());
-        personTableView.setPlaceholder(new Label(EMPTY_LIST));
-        personTableView.setItems(fakePersonList.getPersonList());
+        personTableView.setPlaceholder(new Label(EMPTY_LIST_MESSAGE));
+        personTableView.setItems(personList.getPersonList());
         initListeners();
-        initAddModalWindow();
         initEditModalWindow();
         initDeleteModalWindow();
-        fakePersonList.readPersonList();
+        addFakeData();
+        personList.getPersonList();
+    }
+
+    private void addFakeData() {
+        personList.addPerson(new Person(1, "Путин"));
+        personList.addPerson(new Person(2, "Медведев"));
+        personList.addPerson(new Person(3, "Навальный"));
+        personList.addPerson(new Person(4, "Жириновский"));
     }
 
     private void initListeners() {
-        fakePersonList.getPersonList().addListener((ListChangeListener<Person>) c -> {
+        personList.getPersonList().addListener((ListChangeListener<Person>) c -> {
             updatePersonListCount();
             setActivityButtons();
             setFocus();
         });
 
         personTableView.setOnMouseClicked(event -> {
-            if (event.getClickCount() == CLICK_COUNT && !fakePersonList.getPersonList().isEmpty()) {
+            if (event.getClickCount() == CLICK_COUNT && !personList.getPersonList().isEmpty()) {
                 actionButtonEditPerson();
             }
         });
     }
 
-    private void initAddModalWindow() {
-        try {
-            loaderAdd.setLocation(getClass().getResource("/fxml/modalPersonWindow.fxml"));
-            parentAdd = loaderAdd.load();
-            addPersonController = loaderAdd.getController();
-            addPersonController.setPersonList(fakePersonList);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
     private void initEditModalWindow() {
         try {
-            loaderEdit.setLocation(getClass().getResource("/fxml/modalPersonWindow.fxml"));
-            parentEdit = loaderEdit.load();
-            modalPersonWindowController = loaderEdit.getController();
-            modalPersonWindowController.setPersonList(fakePersonList);
+            loaderAddEdit.setLocation(getClass().getResource("/fxml/modalEditPersonWindow.fxml"));
+            parentEdit = loaderAddEdit.load();
+            editPersonController = loaderAddEdit.getController();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -109,10 +101,25 @@ public class PersonListController {
             loaderDelete.setLocation(getClass().getResource("/fxml/modalDeletePersonWindow.fxml"));
             parentDelete = loaderDelete.load();
             deletePersonController = loaderDelete.getController();
-            deletePersonController.setPersonList(fakePersonList);
+            deletePersonController.setPersonList(personList);
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @FXML
+    private void actionButtonAddPerson() {
+        editPersonController.setPerson(new Person());
+        showDialog(ADD_TITLE, modalEditWindowStage, parentEdit, MODAL_WIDTH, MODAL_EDIT_HEIGHT);
+        if (!editPersonController.nameFieldIsEmpty(editPersonController.getPerson().getName())) {
+            personList.addPerson(editPersonController.getPerson());
+        }
+    }
+
+    @FXML
+    private void actionButtonEditPerson() {
+        editPersonController.setPerson(personTableView.getSelectionModel().getSelectedItem());
+        showDialog(EDIT_TITLE, modalEditWindowStage, parentEdit, MODAL_WIDTH, MODAL_EDIT_HEIGHT);
     }
 
     @FXML
@@ -121,23 +128,9 @@ public class PersonListController {
         showDialog(DELETE_TITLE, modalDeleteWindowStage, parentDelete, MODAL_WIDTH, MODAL_DELETE_HEIGHT);
     }
 
-    @FXML
-    private void actionButtonEditPerson() {
-        modalPersonWindowController.setPerson(personTableView.getSelectionModel().getSelectedItem());
-        showDialog(EDIT_TITLE, modalEditWindowStage, parentEdit, MODAL_WIDTH, MODAL_EDIT_HEIGHT);
-    }
-
-    @FXML
-    private void actionButtonAddPerson() {
-        modalPersonWindowController.setPerson(new Person());
-        System.out.println(modalPersonWindowController.getPerson());
-        showDialog(ADD_TITLE, modalAddWindowStage, parentAdd, MODAL_WIDTH, MODAL_EDIT_HEIGHT);
-    }
-
     private void showDialog(String title, Stage stage, Parent parent, int width, int height) {
         if (stage == null) {
             stage = new Stage();
-            stage.setTitle(title);
             stage.setMinWidth(width);
             stage.setMinHeight(height);
             stage.setResizable(false);
@@ -147,25 +140,26 @@ public class PersonListController {
 
             switch (title) {
                 case ADD_TITLE:
-                    setModalAddWindowStage(stage);
+                    this.modalEditWindowStage = stage;
                     break;
                 case EDIT_TITLE:
-                    setModalEditWindowStage(stage);
+                    this.modalEditWindowStage = stage;
                     break;
                 case DELETE_TITLE:
-                    setModalDeleteWindowStage(stage);
+                    this.modalDeleteWindowStage = stage;
                     break;
             }
         }
+        stage.setTitle(title);
         stage.showAndWait();
     }
 
     private void updatePersonListCount() {
-        personListCount.setText(String.valueOf(fakePersonList.getPersonList().size()));
+        personListCount.setText(String.valueOf(personList.getPersonList().size()));
     }
 
     private void setActivityButtons() {
-        if (fakePersonList.getPersonList().isEmpty()) disableButtons(true);
+        if (personList.getPersonList().isEmpty()) disableButtons(true);
         else disableButtons(false);
     }
 
@@ -175,22 +169,10 @@ public class PersonListController {
     }
 
     private void setFocus() {
-        if (fakePersonList.getPersonList().size() == 1) personTableView.getSelectionModel().select(0);
+        if (personList.getPersonList().size() == 1) personTableView.getSelectionModel().select(0);
     }
 
     public void setMainStage(Stage mainStage) {
         this.mainStage = mainStage;
-    }
-
-    public void setModalDeleteWindowStage(Stage modalDeleteWindowStage) {
-        this.modalDeleteWindowStage = modalDeleteWindowStage;
-    }
-
-    public void setModalEditWindowStage(Stage modalEditWindowStage) {
-        this.modalEditWindowStage = modalEditWindowStage;
-    }
-
-    public void setModalAddWindowStage(Stage modalAddWindowStage) {
-        this.modalAddWindowStage = modalAddWindowStage;
     }
 }

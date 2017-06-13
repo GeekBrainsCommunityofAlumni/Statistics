@@ -1,16 +1,18 @@
 package com.gb.statistics.features.ai.interfaces;
 
 import com.gb.statistics.features.ai.model.Person;
-import java.util.List;
+import javafx.collections.ObservableList;
 
-public interface PersonInterface {
+public interface PersonListInterface {
 
-    List<Person> readPersonList();
+    ObservableList<Person> getPersonList();
 
     boolean addPerson(Person person);
 
     boolean updatePerson(Person person);
 
     boolean deletePerson(Person person);
+
+
 
 }
