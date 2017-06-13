@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -28,7 +29,7 @@ public class PersonListController {
     private Stage mainStage;
 
     @FXML
-    private TableView<Person> personList;
+    private TableView<Person> personTableView;
 
     @FXML
     private TableColumn<Person, String> columnPersonName;
@@ -37,11 +38,20 @@ public class PersonListController {
     private Label personListCount;
 
     @FXML
+    private Button editButton;
+
+    @FXML
+    private Button deleteButton;
+
+    @FXML
     private void initialize() {
         columnPersonName.setCellValueFactory(cellData -> cellData.getValue().getNameProperty());
+        personTableView.setPlaceholder(new Label("Список пуст"));
         initListeners();
+        setDisableButtons();
         fakePersonList.readPersonList();
-        personList.setItems(fakePersonList.getPersonList());
+        personTableView.setItems(fakePersonList.getPersonList());
+        personTableView.getSelectionModel().select(0);
         initEditModalWindow();
         initDeleteModalWindow();
     }
@@ -49,10 +59,11 @@ public class PersonListController {
     private void initListeners() {
         fakePersonList.getPersonList().addListener((ListChangeListener<Person>) c -> {
             updatePersonListCount();
+            setDisableButtons();
         });
 
-        personList.setOnMouseClicked(event -> {
-            if (event.getClickCount() == 2) {
+        personTableView.setOnMouseClicked(event -> {
+            if (event.getClickCount() == 2 && !fakePersonList.getPersonList().isEmpty()) {
                 actionButtonEditPerson();
             }
         });
@@ -81,13 +92,13 @@ public class PersonListController {
 
     @FXML
     private void actionButtonDeletePerson() {
-        deletePersonController.setPerson(personList.getSelectionModel().getSelectedItem());
+        deletePersonController.setPerson(personTableView.getSelectionModel().getSelectedItem());
         showDeleteDialog();
     }
 
     @FXML
     private void actionButtonEditPerson() {
-        modalPersonWindowController.setPerson(personList.getSelectionModel().getSelectedItem());
+        modalPersonWindowController.setPerson(personTableView.getSelectionModel().getSelectedItem());
         showEditDialog();
     }
 
@@ -128,6 +139,16 @@ public class PersonListController {
 
     private void updatePersonListCount() {
         personListCount.setText(String.valueOf(fakePersonList.getPersonList().size()));
+    }
+
+    private void setDisableButtons() {
+        if (fakePersonList.getPersonList().isEmpty()) {
+            editButton.setDisable(true);
+            deleteButton.setDisable(true);
+        } else {
+            editButton.setDisable(false);
+            deleteButton.setDisable(false);
+        }
     }
 
     public void setMainStage(Stage mainStage) {

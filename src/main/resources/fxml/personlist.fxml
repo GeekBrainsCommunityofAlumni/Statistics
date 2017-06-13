@@ -17,7 +17,7 @@
       </AnchorPane>
     <AnchorPane>
          <children>
-            <TableView fx:id="personList" layoutX="23.0" layoutY="61.0" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="125.0">
+            <TableView fx:id="personTableView" layoutX="23.0" layoutY="61.0" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="125.0">
               <columns>
                 <TableColumn fx:id="columnPersonName" prefWidth="158.0" text="Наименование" />
               </columns>
@@ -37,8 +37,8 @@
             <HBox layoutX="45.0" layoutY="9.0" prefHeight="30.0" prefWidth="239.0" spacing="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="90.0">
                <children>
                   <Button onAction="#actionButtonAddPerson" mnemonicParsing="false" prefWidth="70.0" text="Добавить" />
-                  <Button onAction="#actionButtonEditPerson" mnemonicParsing="false" prefWidth="70.0" text="Изменить" />
-                  <Button onAction="#actionButtonDeletePerson" mnemonicParsing="false" prefWidth="70.0" text="Удалить" />
+                  <Button fx:id="editButton" onAction="#actionButtonEditPerson" mnemonicParsing="false" prefWidth="70.0" text="Изменить" />
+                  <Button fx:id="deleteButton" onAction="#actionButtonDeletePerson" mnemonicParsing="false" prefWidth="70.0" text="Удалить" />
                </children>
             </HBox>
             <Pagination layoutX="10.0" layoutY="551.0" pageCount="20" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
