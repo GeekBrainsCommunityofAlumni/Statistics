@@ -34,6 +34,7 @@ public class FakePersonList implements PersonInterface {
         personList.add(new Person(1, "Путин"));
         personList.add(new Person(2, "Медведев"));
         personList.add(new Person(3, "Навальный"));
+        personList.add(new Person(4, "Жириновский"));
     }
 
     public ObservableList<Person> getPersonList() {
