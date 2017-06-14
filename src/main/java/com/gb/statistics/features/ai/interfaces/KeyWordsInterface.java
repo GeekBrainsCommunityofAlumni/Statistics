@@ -2,15 +2,15 @@ package com.gb.statistics.features.ai.interfaces;
 
 import com.gb.statistics.features.ai.model.KeyWord;
 import com.gb.statistics.features.ai.model.Person;
-import java.util.List;
+import javafx.collections.ObservableList;
 
 public interface KeyWordsInterface {
 
-    List<KeyWord> getKeyWordsByPerson(Person person);
+    ObservableList<KeyWord> getKeyWordsByPerson(Person person);
 
-    boolean addKeyWord(Person person);
+    boolean addKeyWord(KeyWord keyWord);
 
-    boolean updatePerson(Person person);
+    boolean updateKeyWord(KeyWord keyWord);
 
-    boolean deletePerson(Person person);
+    boolean deleteKeyWord(KeyWord keyWord);
 }
