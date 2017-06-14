@@ -1,4 +1,4 @@
-<p align="center"><img src="https://pp.userapi.com/c841330/v841330489/39c/521EpIwWcLU.jpg"></p>
+<p align="center"><img src="https://pp.userapi.com/c841330/v841330489/395/z8hYnS9uXsE.jpg"></p>
 
 ## Программный продукт «Statistics»
 
