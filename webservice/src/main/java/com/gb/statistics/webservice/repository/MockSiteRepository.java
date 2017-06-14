@@ -10,7 +10,7 @@ import java.util.List;
 public class MockSiteRepository implements SiteRepository{
 
     private static int count;
-    private static List<Site> siteList = new LinkedList<Site>();
+    public static List<Site> siteList = new LinkedList<Site>(); // Public for test. Because it is Mock!!!
 
     @Override
     public Site get(int id) {
