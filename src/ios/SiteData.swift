@@ -8,6 +8,16 @@
 
 import UIKit
 
-class SiteData: - {
+class SiteData {
+    
+    static let defaultSiteName = "Default Name"
+    static let defaultStatic: [String: Int] = ["Putin": 100, "Medvedev": 500]
+    
+    var site: String = defaultSiteName
+    var stats: [String: Int] = defaultStatic
+}
 
+
+protocol SiteDataProviderDelegate {
+    func requestDidCompleteSite(data: SiteData, forIndex index: Int)
 }
