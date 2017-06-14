@@ -2,7 +2,7 @@
 
 ## Программный продукт «Statistics»
 
-<p align="left"><img src="https://pp.userapi.com/c841330/v841330489/444/gNEnIosoQHY.jpg"></p>
+<p align="left"><img src="https://pp.userapi.com/c841330/v841330489/3fa/_xJUpp_ow0w.jpg"></p>
 
 > Уважаемые Господа! Представляем Вашему вниманию «Statistics» - пилотный программный продукт, полностью разработанный компанией GBCA – Сообществом выпускников школы программирования «GeekBrains» (Mail.Ru Group). 
 
