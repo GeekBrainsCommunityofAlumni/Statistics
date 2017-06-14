@@ -5,7 +5,7 @@ USE statistics;
 DROP TABLE IF EXISTS `keywords`;
 CREATE TABLE `keywords` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
-  `Name` varchar(2048) NOT NULL,
+  `Name` nvarchar(2048) NOT NULL,
   `PersonID` int(11) NOT NULL,
   PRIMARY KEY (`ID`),
   KEY `Namesofpersons_idx` (`PersonID`)
@@ -14,7 +14,7 @@ CREATE TABLE `keywords` (
 DROP TABLE IF EXISTS `pages`;
 CREATE TABLE `pages` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `url` varchar(2048) NOT NULL,
+  `url` nvarchar(2048) NOT NULL,
   `siteid` int(11) NOT NULL,
   `founddatetime` datetime NOT NULL,
   `lastscandate` datetime DEFAULT NULL,
@@ -35,14 +35,14 @@ CREATE TABLE `personpagerank` (
 DROP TABLE IF EXISTS `persons`;
 CREATE TABLE `persons` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(2048) NOT NULL,
+  `name` nvarchar(2048) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `sites`;
 CREATE TABLE `sites` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(256) NOT NULL,
+  `name` nvarchar(256) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
