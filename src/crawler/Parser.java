@@ -76,29 +76,32 @@ public class Parser {
 
     public int calculateRank(String siteName, ArrayList<String> name) {
         int count = 0;
+        URL url = null;
         try {
             url = new URL(siteName);
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
         try {
-            con = url.openConnection();
+            URLConnection con = url.openConnection();
         } catch (IOException e) {
             e.printStackTrace();
         }
+
         try {
             reader = new BufferedReader(new InputStreamReader(url.openStream()));
             String str;
-//            while ((str = reader.readLine()) != null) {
-//                if (str.contains(name)) {
-//                    count++;
-//                }
-//            }
+            while ((str = reader.readLine()) != null) {
+                for (int i = 0; i < name.size(); i++) {
+                    if (str.contains(name.get(i))) {
+                        count++;
+                    }
+                }
+            }
             reader.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.println(count);
         return count;
     }
 }
