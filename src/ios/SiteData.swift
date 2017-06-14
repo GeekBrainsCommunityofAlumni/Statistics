@@ -15,6 +15,9 @@ class SiteData {
     
     var site: String = defaultSiteName
     var stats: [String: Int] = defaultStatic
+    
+    var date: Date
+    var total: Bool
 }
 
 
