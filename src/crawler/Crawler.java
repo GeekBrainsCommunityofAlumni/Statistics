@@ -52,7 +52,12 @@ public class Crawler {
     private static void addNewSitesToPages(ArrayList<String> newSites) { // Решить что делать с пробрасываемыми исключениями. throws IOException, ParserConfigurationException, SAXException
 
         for (String site : newSites) {
-            String robotTxt = downloader.downloadRobot(site);
+            String robotTxt = null;
+            try {
+                robotTxt = downloader.downloadRobot(site);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             String sitemapURL = null;
             try {
                 sitemapURL = parser.parseRobotTxt(robotTxt);
@@ -60,7 +65,12 @@ public class Crawler {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            String sitemap = downloader.downloadSiteMap(sitemapURL);
+            String sitemap = null;
+            try {
+                sitemap = downloader.downloadSiteMap(sitemapURL);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             ArrayList<String> urlPages = null;
             try {
                 urlPages = parser.parseSiteMap(sitemap);
