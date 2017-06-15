@@ -32,7 +32,7 @@ public class Downloader {
         StringBuilder stringBuilder = new StringBuilder();
 
         try {
-            urlAddress = new URL(url);
+            urlAddress = new URL("http://" +url);
         } catch (MalformedURLException malformedURLException) {
             throw new IOException(NO_PROTOCOL);
         }
