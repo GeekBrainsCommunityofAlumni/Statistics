@@ -21,6 +21,7 @@ class DataProvider{
     var type: DataProviderType!
     let priority: Int = 0
     var delegat: DataProviderProtocol!
+    
     func getSumaryData(date: Date){
         
     }
