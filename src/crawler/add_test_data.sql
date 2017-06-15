@@ -1,5 +1,5 @@
-INSERT INTO `statistics`.`persons` (`name`) VALUES ('Иванов Иван Иванович');
-
-INSERT INTO `statistics`.`persons` (`name`) VALUES ('Петров Петр Петрович');
-
-INSERT INTO `statistics`.`persons` (`name`) VALUES ('Сидоров Сидр Сидорович');
+INSERT INTO `statistics`.`persons` (`name`) VALUES ('РРІР°РЅРѕРІ РРІР°РЅ РРІР°РЅРѕРІРёС‡');
+INSERT INTO `statistics`.`persons` (`name`) VALUES ('РџРµС‚СЂРѕРІ РџРµС‚СЂ РџРµС‚СЂРѕРІРёС‡');
+INSERT INTO `statistics`.`persons` (`name`) VALUES ('РЎРёРґРѕСЂРѕРІ РЎРёРґСЂ РЎРёРґРѕСЂРѕРІРёС‡');
+INSERT INTO `statistics`.`sites` (`name`) VALUES ('lenta.ru');
+INSERT INTO `statistics`.`sites` (`name`) VALUES ('news.mail.ru');
