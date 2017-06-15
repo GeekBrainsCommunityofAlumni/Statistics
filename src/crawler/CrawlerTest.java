@@ -18,13 +18,22 @@ public class CrawlerTest {
     }
 
     private static void testParser() {
+        System.out.println("Тестируем Parser...");
         parser = new Parser();
-        String testText1 = "<body>Иванов не лопух.</body>";
+        String testText1 = "<body>Иванов Иванов не лопух.</body>";
         ArrayList<String> testKeywords1 = new ArrayList<>();
         testKeywords1.add("Иванов");
         testKeywords1.add("лопух");
-        int rank = parser.calculateRank(testText1, testKeywords1);
-        System.out.println("testRank1: " + rank);
+        int rank1 = parser.calculateRank(testText1, testKeywords1);
+        System.out.println("testRank1:" +(3==rank1));
+
+        String testText2 = "alksqw jdhfkslerjf hsaerlkjfhs'f;lskqwf';aslkfaks jhfdksa faaserqwgfdksjhf dg;drtslfkgj ;dslrtjgrtrt";
+        ArrayList<String> testKeywords2 = new ArrayList<>();
+        testKeywords2.add("qw");
+        testKeywords2.add("er");
+        testKeywords2.add("rt");
+        int rank2 = parser.calculateRank(testText2, testKeywords2);
+        System.out.println("testRank2:" + (10==rank2));
     }
 
 
