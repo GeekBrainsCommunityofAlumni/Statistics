@@ -9,22 +9,25 @@
 import UIKit
 
 enum DataProviderType {
-    case db
-    case source
+    case db, source
 }
 
 protocol DataProviderProtocol {
-    func didCompliteRequestOnData(data: [SiteData]);
-    func didCompliteRequestTotal(data: [SiteData])
+    func didCompliteRequestOnData(data: [SiteData], date: Date, dataProvider: DataProvider)
+    func didCompliteRequestTotal(data: [SiteData], date: Date, dataProvider: DataProvider)
 }
 
 class DataProvider{
-    let type: DataProviderType
-    let priority: Int
-    func getSumaryData(){
+    var type: DataProviderType!
+    let priority: Int = 0
+    var delegat: DataProviderProtocol!
+    func getSumaryData(date: Date){
         
     }
     func getDataOnDate(date: Date){
+        
+    }
+    func putData(data: [SiteData]){
         
     }
 }
