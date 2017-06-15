@@ -22,9 +22,9 @@ class DataManager: DataProviderProtocol{
     // запрос общей статистики
     func getSumaryData(date: Date){
         if let dbmanager = self.dbManager { // если используется кеш
-            dbmanager.getSumaryData(date: date) // ищем данные в кеше
+            dbmanager.getSumaryData() // ищем данные в кеше
         } else if let networkmanager = self.networkManager { // если есть сетевой менеджер
-            networkmanager.getSumaryData(date: date) // делаем запрос к сети
+            networkmanager.getSumaryData() // делаем запрос к сети
         } else {
             // источника не существует. ошибка
             print("not have source")
@@ -71,10 +71,10 @@ class DataManager: DataProviderProtocol{
     }
     
     
-    func didCompliteRequestTotal(data: [SiteData], date: Date, dataProvider: DataProvider){
+    func didCompliteRequestTotal(data: [SiteData], dataProvider: DataProvider){
         if data.isEmpty == true{
             if dataProvider.type == .db {
-                self.networkManager?.getSumaryData(date: date)
+                self.networkManager?.getSumaryData()
             } else {
                 // нет данных
                 delegat?.didCompliteRequestTotal(data: [])
