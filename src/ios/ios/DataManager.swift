@@ -8,28 +8,31 @@
 import UIKit
 
 protocol DataManagerProtocol {
-    func didCompliteRequestOnData(data: [SiteData], date: Date);
-    func didCompliteRequestTotal(data: [SiteData], date: Date)
+    func didCompliteRequestOnData(data: [SiteData], date: Date) // возвращает статистику на дату
+    func didCompliteRequestTotal(data: [SiteData]) // возвращает общую статистику
 }
 
+//  задача класса: выбрать источник данных (кеш, сеть и т.п.) и передать в него запрос на информацию
+//  получить данные от источника, сохранить их в кеше и отдать на уровень выше
 class DataManager: DataProviderProtocol{
-    var dbManager: DataProvider?
-    var networkManager: DataProvider?
+    var dbManager: DataProvider? // класс обслуживающий кеш
+    var networkManager: DataProvider? // класс работающий с сетью
     var delegat: DataManagerProtocol?
     
+    // запрос общей статистики
     func getSumaryData(date: Date){
-        if let dbmanager = self.dbManager {
-            dbmanager.getSumaryData(date: date)
-        } else if let networkmanager = self.networkManager {
-            networkmanager.getSumaryData(date: date)
+        if let dbmanager = self.dbManager { // если используется кеш
+            dbmanager.getSumaryData(date: date) // ищем данные в кеше
+        } else if let networkmanager = self.networkManager { // если есть сетевой менеджер
+            networkmanager.getSumaryData(date: date) // делаем запрос к сети
         } else {
             // источника не существует. ошибка
             print("not have source")
-            delegat?.didCompliteRequestTotal(data: [], date: date)
+            delegat?.didCompliteRequestTotal(data: []) // отдаем пустую таблицу
         }
         
     }
-    
+    // запрос статистики на дату
     func getDataOnDate(date: Date){
         if let dbmanager = self.dbManager {
             dbmanager.getDataOnDate(date: date)
@@ -50,18 +53,18 @@ class DataManager: DataProviderProtocol{
     }
     
     func didCompliteRequestOnData(data: [SiteData], date: Date, dataProvider: DataProvider){
-        if data.isEmpty == true{
-            if dataProvider.type == .db {
-                self.networkManager?.getDataOnDate(date: date)
+        if data.isEmpty == true{ // если поиск вернул пустую таблицу
+            if dataProvider.type == .db { //и это было обращение в кеш
+                self.networkManager?.getDataOnDate(date: date) //тянем данные из сети
             } else {
                 // нет данных
                 delegat?.didCompliteRequestOnData(data: [], date: date)
             }
-        } else {
-            if dataProvider.type == .source {
-                self.dbManager?.putData(data: data)
-                delegat?.didCompliteRequestOnData(data: data, date: date)
-            } else {
+        } else {//данные получили
+            if dataProvider.type == .source { // если источником является сеть или что то подобное
+                self.dbManager?.putData(data: data) // сохраняем данные в локальный кеш
+                delegat?.didCompliteRequestOnData(data: data, date: date) // отдаем их на уровень выше
+            } else { // если данные вытянули из кеша сразу отдаем их на уровень выше
                 delegat?.didCompliteRequestOnData(data: data, date: date)
             }
         }
@@ -74,14 +77,14 @@ class DataManager: DataProviderProtocol{
                 self.networkManager?.getSumaryData(date: date)
             } else {
                 // нет данных
-                delegat?.didCompliteRequestTotal(data: [], date: date)
+                delegat?.didCompliteRequestTotal(data: [])
             }
         } else {
             if dataProvider.type == .source {
                 self.dbManager?.putData(data: data)
-                delegat?.didCompliteRequestTotal(data: data, date: date)
+                delegat?.didCompliteRequestTotal(data: data)
             } else {
-                delegat?.didCompliteRequestTotal(data: data, date: date)
+                delegat?.didCompliteRequestTotal(data: data)
             }
         }
     }
