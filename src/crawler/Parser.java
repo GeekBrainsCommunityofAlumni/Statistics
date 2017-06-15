@@ -4,56 +4,31 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.*;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Parser {
     private static final String searhStr = "sitemap";
-    private static String sitemap;
-    private URL url;
-    private URLConnection con;
-    private BufferedReader reader;
-    private BufferedWriter writer;
 
-    public String parseRobotTxt(String host) throws IOException {
-        url = new URL("https://" + host + "/robots.txt");
-        con = url.openConnection();
-        reader = new BufferedReader(new InputStreamReader(url.openStream()));
-        String robots;
-        while ((robots = reader.readLine()) != null) {
-            if (robots.contains(searhStr)) {
-                sitemap = robots.substring(9);
-            }
-        }
-        reader.close();
-        return sitemap;
+    public String parseRobotTxt(String site) throws IOException {
+        if (site.contains(searhStr)) {
+            return site.substring(site.toLowerCase().indexOf(searhStr) + 9);
+        } else return null;
     }
 
-    public ArrayList<String> parseSiteMap(String sitemap) throws IOException, ParserConfigurationException, SAXException {
+    public ArrayList<String> parseSiteMap(String sitemap) throws ParserConfigurationException, IOException, SAXException {
         ArrayList<String> urlPages = new ArrayList<>();
-        url = new URL(sitemap);
-        con = url.openConnection();
-        reader = new BufferedReader(new InputStreamReader(url.openStream()));
-        writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("data.xml")));
-        String str;
-        while ((str = reader.readLine()) != null) {
-            writer.write(str);
-        }
-        reader.close();
-        writer.close();
 
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
         DocumentBuilder db = dbf.newDocumentBuilder();
-        Document doc = db.parse(new File("data.xml"));
+        Document doc = db.parse(new InputSource(new StringReader(sitemap)));
 
         NodeList nodeLst = doc.getElementsByTagName("url");
 
@@ -74,35 +49,22 @@ public class Parser {
         return urlPages;
     }
 
-    public int calculateRank(String siteName, ArrayList<String> name) {
+    public int calculateRank(String pageSource, List<String> personKeywords) {
         int count = 0;
-        URL url = null;
-        try {
-            url = new URL(siteName);
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
-        try {
-            URLConnection con = url.openConnection();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        try {
-            reader = new BufferedReader(new InputStreamReader(url.openStream()));
-            String str;
-            while ((str = reader.readLine()) != null) {
-                for (int i = 0; i < name.size(); i++) {
-                    if (str.contains(name.get(i))) {
-                        count++;
-                    }
-                }
+        int start = 0;
+        for (int i = 0; i < personKeywords.size(); i++) {
+            start = 0;
+            while (true) {
+                pageSource = pageSource.substring(start);
+                if (pageSource.contains(personKeywords.get(i))) {
+                    start = pageSource.indexOf(personKeywords.get(i)) + 1;
+                    count++;
+                } else break;
             }
-            reader.close();
-        } catch (IOException e) {
-            e.printStackTrace();
         }
         return count;
     }
 }
+
+
 
