@@ -11,8 +11,11 @@ import java.io.IOException;
 public class RootFrameController {
 
     private FXMLLoader loaderPersonList = new FXMLLoader();
+    private FXMLLoader loaderKeyWordsList = new FXMLLoader();
     private PersonListController personListController;
-    private Parent parentRoot;
+    private KeyWordsListController keyWordsListController;
+    private Parent parentPersonList;
+    private Parent parentKeyWordsList;
 
     @FXML
     private TabPane rootTabPane;
@@ -21,17 +24,37 @@ public class RootFrameController {
     private Tab personListTab;
 
     @FXML
+    private Tab keyWordsListTab;
+
+    @FXML
     private void initialize() {
         initPersonList();
-        personListTab.setContent(parentRoot);
+        initKeyWordsList();
+        personListController.setKeyWordsListController(keyWordsListController);
+        keyWordsListController.setPersonList(personListController.getPersonList().getPersonList());
+
+
+
+        personListTab.setContent(parentPersonList);
+        keyWordsListTab.setContent(parentKeyWordsList);
         rootTabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
     }
 
     private void initPersonList() {
         try {
             loaderPersonList.setLocation(getClass().getResource("/fxml/personListWindow.fxml"));
-            parentRoot = loaderPersonList.load();
+            parentPersonList = loaderPersonList.load();
             personListController = loaderPersonList.getController();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void initKeyWordsList() {
+        try {
+            loaderKeyWordsList.setLocation(getClass().getResource("/fxml/keyWordsListWindow.fxml"));
+            parentKeyWordsList = loaderKeyWordsList.load();
+            keyWordsListController = loaderKeyWordsList.getController();
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -34,6 +34,7 @@ public class PersonListController {
     private FXMLLoader loaderDelete = new FXMLLoader();
     private ModalPersonWindowController editPersonController;
     private DeletePersonController deletePersonController;
+    private KeyWordsListController keyWordsListController;
     private Stage modalEditWindowStage;
     private Stage modalDeleteWindowStage;
     private Stage mainStage;
@@ -63,6 +64,7 @@ public class PersonListController {
         initDeleteModalWindow();
         addFakeData();
         personList.getPersonList();
+        //keyWordsListController.setPersonList(personList.getPersonList());
     }
 
     private void addFakeData() {
@@ -174,5 +176,14 @@ public class PersonListController {
 
     public void setMainStage(Stage mainStage) {
         this.mainStage = mainStage;
+    }
+
+    public PersonListInterface getPersonList() {
+        return personList;
+    }
+
+    public void setKeyWordsListController(KeyWordsListController keyWordsListController) {
+        System.out.println(keyWordsListController);
+        this.keyWordsListController = keyWordsListController;
     }
 }
