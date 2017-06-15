@@ -1,5 +1,6 @@
 package crawler;
 
+import org.apache.commons.lang3.StringUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -10,11 +11,11 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.*;
-import java.net.MalformedURLException;
+
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
-import java.util.List;
+
 
 public class Parser {
     private static final String searhStr = "sitemap";
@@ -74,35 +75,53 @@ public class Parser {
         return urlPages;
     }
 
-    public int calculateRank(String siteName, ArrayList<String> name) {
-        int count = 0;
-        URL url = null;
-        try {
-            url = new URL(siteName);
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
-        try {
-            URLConnection con = url.openConnection();
-        } catch (IOException e) {
-            e.printStackTrace();
+    public int calculateRank(String pageSource, ArrayList<String> personKeywords) {
+        int rank = 0;
+        String pageSourceLowerCase = pageSource.toLowerCase();
+        ArrayList<String> personKeywordsLowerCase = new ArrayList<>();
+        for (String keyword: personKeywords) {
+            personKeywordsLowerCase.add(keyword.toLowerCase());
         }
 
-        try {
-            reader = new BufferedReader(new InputStreamReader(url.openStream()));
-            String str;
-            while ((str = reader.readLine()) != null) {
-                for (int i = 0; i < name.size(); i++) {
-                    if (str.contains(name.get(i))) {
-                        count++;
-                    }
-                }
-            }
-            reader.close();
-        } catch (IOException e) {
-            e.printStackTrace();
+        for (String personKeyword: personKeywords) {
+            int mathes = StringUtils.countMatches(pageSourceLowerCase, personKeyword.toLowerCase());
+            rank += mathes;
         }
-        return count;
+
+
+        return rank;
     }
+
+
+//    public int calculateRank(String siteName, ArrayList<String> name) {
+//        int count = 0;
+//        URL url = null;
+//        try {
+//            url = new URL(siteName);
+//        } catch (MalformedURLException e) {
+//            e.printStackTrace();
+//        }
+//        try {
+//            URLConnection con = url.openConnection();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//
+//        try {
+//            reader = new BufferedReader(new InputStreamReader(url.openStream()));
+//            String str;
+//            while ((str = reader.readLine()) != null) {
+//                for (int i = 0; i < name.size(); i++) {
+//                    if (str.contains(name.get(i))) {
+//                        count++;
+//                    }
+//                }
+//            }
+//            reader.close();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        return count;
+//    }
 }
 
