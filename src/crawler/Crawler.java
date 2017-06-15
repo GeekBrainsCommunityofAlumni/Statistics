@@ -46,6 +46,7 @@ public class Crawler {
         downloader = new Downloader();
         parser = new Parser();
         dbHelper = new DBHelper();
+        dbHelper.connectToDB();
         personsID = dbHelper.getPersonsID();
     }
 
@@ -61,7 +62,6 @@ public class Crawler {
             String sitemapURL = null;
             try {
                 sitemapURL = parser.parseRobotTxt(robotTxt);
-
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -82,6 +82,6 @@ public class Crawler {
                 e.printStackTrace();
             }
             dbHelper.addPagesToSite(urlPages);
-        } 
+        }
     }
 }
