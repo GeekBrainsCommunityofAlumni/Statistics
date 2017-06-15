@@ -25,10 +25,8 @@ public class Parser {
     private BufferedReader reader;
     private BufferedWriter writer;
 
-    public String parseRobotTxt(String host) throws IOException {
-        url = new URL("https://" + host + "/robots.txt");
-        con = url.openConnection();
-        reader = new BufferedReader(new InputStreamReader(url.openStream()));
+    public String parseRobotTxt(String robotTxt) throws IOException {
+        reader = new BufferedReader(new StringReader(robotTxt));
         String robots;
         while ((robots = reader.readLine()) != null) {
             if (robots.contains(searhStr)) {
