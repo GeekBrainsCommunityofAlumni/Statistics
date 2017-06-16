@@ -12,6 +12,7 @@ public class FakeKeyWordsList implements KeyWordsInterface {
 
     @Override
     public ObservableList<KeyWord> getKeyWordsByPerson(Person person) {
+        addTestData(person.getId());
         return keyWordsList;
     }
 
@@ -30,5 +31,16 @@ public class FakeKeyWordsList implements KeyWordsInterface {
     public boolean deleteKeyWord(KeyWord keyWord) {
         keyWordsList.remove(keyWord);
         return false;
+    }
+
+    private void addTestData(int id) {
+        keyWordsList.clear();
+        if (id == 1) {
+            addKeyWord(new KeyWord(1, "Путину", 1));
+            addKeyWord(new KeyWord(2, "Путином", 1));
+        } else if (id == 2) {
+            addKeyWord(new KeyWord(3, "Медведеву", 2));
+            addKeyWord(new KeyWord(4, "Медведевым", 2));
+        }
     }
 }

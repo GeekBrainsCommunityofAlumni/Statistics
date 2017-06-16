@@ -9,27 +9,20 @@ import javafx.beans.property.StringProperty;
 
 public class Person {
 
-    private IntegerProperty id;
+    private int id;
     private StringProperty name = new SimpleStringProperty("");
     private KeyWordsInterface keyWordsList;
-
 
     public Person() {
     }
 
     public Person(int id, String name) {
-        this.id = new SimpleIntegerProperty(id);
+        this.id = id;
         this.name = new SimpleStringProperty(name);
         this.keyWordsList = new FakeKeyWordsList();
     }
 
     public int getId() {
-        return id.get();
-    }
-
-
-
-    public IntegerProperty idProperty() {
         return id;
     }
 
@@ -43,6 +36,10 @@ public class Person {
 
     public void setName(String name) {
         this.name.set(name);
+    }
+
+    public KeyWordsInterface getKeyWordsList() {
+        return keyWordsList;
     }
 
     @Override

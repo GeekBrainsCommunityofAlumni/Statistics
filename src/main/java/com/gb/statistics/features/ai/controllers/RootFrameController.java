@@ -31,7 +31,6 @@ public class RootFrameController {
         initPersonList();
         initKeyWordsList();
         personListController.setKeyWordsListController(keyWordsListController);
-        keyWordsListController.setPersonList(personListController.getPersonList().getPersonList());
 
 
 
@@ -55,6 +54,7 @@ public class RootFrameController {
             loaderKeyWordsList.setLocation(getClass().getResource("/fxml/keyWordsListWindow.fxml"));
             parentKeyWordsList = loaderKeyWordsList.load();
             keyWordsListController = loaderKeyWordsList.getController();
+            keyWordsListController.setPersonList(personListController.getPersonList());
         } catch (IOException e) {
             e.printStackTrace();
         }

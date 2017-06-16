@@ -1,5 +1,6 @@
 package com.gb.statistics.features.ai.model;
 
+import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 public class KeyWord {
@@ -13,7 +14,7 @@ public class KeyWord {
 
     public KeyWord(int id, String name, int personId) {
         this.id = id;
-        this.name.set(name);
+        this.name = new SimpleStringProperty(name);
         this.personId = personId;
     }
 
