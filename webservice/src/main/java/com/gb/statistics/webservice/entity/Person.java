@@ -2,21 +2,21 @@ package com.gb.statistics.webservice.entity;
 
 
 public class Person {
-    private int id;
+    private Long id;
     private String name;
     private int rank;
 
-    public Person(int id, String name) {
+    public Person(Long id, String name) {
         this.id = id;
         this.name = name;
     }
     public Person(){}
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -50,7 +50,7 @@ public class Person {
 
     @Override
     public int hashCode() {
-        int result = id;
+        int result = new Integer(String.valueOf(id));
         result = 31 * result + name.hashCode();
         result = 31 * result + rank;
         return result;

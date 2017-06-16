@@ -16,12 +16,12 @@ public class KeywordController {
 
     @RequestMapping(value = "/keyword", method = RequestMethod.GET)
     public ResponseEntity<?> getAll(){
-        return ResponseEntity.ok(keywordRepository.getAll());
+        return ResponseEntity.ok(keywordRepository.findAll());
     }
 
     @RequestMapping(value = "/keyword/{personId}", method = RequestMethod.GET)
     public ResponseEntity<?> getByPerson(@PathVariable Integer personId){
-        return ResponseEntity.ok(keywordRepository.getByPerson(personId));
+        return ResponseEntity.ok(keywordRepository.getByPersonId(personId));
     }
 
     @RequestMapping(value = "/keyword", method = RequestMethod.POST)
@@ -30,11 +30,11 @@ public class KeywordController {
             return ResponseEntity.badRequest()
                     .body(new ErrorResponse("`personId` and `name` not be null!"));
         }
-        if (keywordRepository.isExists(keyword))
+        if (keywordRepository.exists(keyword.getId()))
             return ResponseEntity.status(HttpStatus.CONFLICT)
                     .body(new ErrorResponse("Keyword already exists!"));
 
-        Keyword k = keywordRepository.add(keyword);
+        Keyword k = keywordRepository.save(keyword);
         if(k!=null)
             return ResponseEntity.ok(k);
         return ResponseEntity.badRequest().body(new ErrorResponse("Bad Request"));
@@ -42,7 +42,7 @@ public class KeywordController {
 
     @RequestMapping(value = "/keyword", method = RequestMethod.PUT)
     public ResponseEntity<?> update(@RequestBody Keyword keyword){
-        if(!keywordRepository.isExists(keyword)){
+        if(!keywordRepository.exists(keyword.getId())){
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body(new ErrorResponse("Keyword not exists!"));
         }
@@ -51,10 +51,9 @@ public class KeywordController {
     }
 
     @RequestMapping(value = "/keyword/{id}", method = RequestMethod.DELETE)
-    public ResponseEntity<?> delete(@PathVariable Integer id){
-        Keyword k = keywordRepository.get(id);
-
-        if(keywordRepository.delete(k))
+    public ResponseEntity<?> delete(@PathVariable Long id){
+        keywordRepository.delete(id);
+        if(keywordRepository.exists(id))
             return ResponseEntity.ok().body(null);
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
                 .body(new ErrorResponse("Person not found"));
