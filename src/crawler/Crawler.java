@@ -80,7 +80,7 @@ public class Crawler {
                 urlPages = parser.parseSiteMap(sitemap);
             }
 
-            dbHelper.addPagesToSite(urlPages);
+            dbHelper.addPagesToSite(urlPages, site);
         }
     }
 
