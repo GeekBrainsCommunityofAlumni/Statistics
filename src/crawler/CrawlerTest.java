@@ -65,7 +65,7 @@ public class CrawlerTest {
         System.out.println("testRobotsTxt1:" + (parser.parseRobotTxt(testRobotsTxt1).equals("https://news.mail.ru/sitemap_index.xml")));
 
 
-        String testSitemapXml1 = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
+        String testSitemapIndexXml1 = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
                 "<sitemapindex xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\" xmlns:mobile=\"http://www.google.com/schemas/sitemap-mobile/1.0\">\n" +
                 "    <sitemap>\n" +
                 "        <loc>https://news.mail.ru/sitemap.xml</loc>\n" +
@@ -257,7 +257,7 @@ public class CrawlerTest {
                 "    </sitemap>\n" +
                 "\n" +
                 "</sitemapindex>\n";
-        ArrayList<String> urlPages = parser.parseSiteMap(testSitemapXml1);
+        ArrayList<String> urlPages = parser.parseSiteMapIndex(testSitemapIndexXml1);
         System.out.println("testSitemapXml1:");
         for (String urlpage: urlPages) {
             System.out.println(urlpage);
