@@ -65,8 +65,22 @@ public class Parser {
         return count;
     }
 
-    public ArrayList<String> parseSiteMapIndex(String sitemap) { //Метод для парсинтга Sitemap Index
-        return null;
+    public ArrayList<String> parseSiteMapIndex(String sitemapIndex) throws ParserConfigurationException, IOException, SAXException { //Метод для парсинтга Sitemap Index
+        ArrayList<String> urlPages = new ArrayList<>();
+        DocumentBuilder db = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+        Document doc = db.parse(new InputSource(new StringReader(sitemapIndex)));
+        NodeList nodeList = doc.getElementsByTagName("sitemap");
+        for (int s = 0; s < nodeList.getLength(); s++){
+            Node fstNode = nodeList.item(s);
+            if(fstNode.getNodeType() == Node.ELEMENT_NODE){
+                Element fstElmnt = (Element) fstNode;
+                NodeList fstNmElmntLst = fstElmnt.getElementsByTagName("loc");
+                Element fstNmElmnt = (Element) fstNmElmntLst.item(0);
+                NodeList fstNm = fstNmElmnt.getChildNodes();
+                urlPages.add(((Node) fstNm.item(0)).getNodeValue());
+            }
+        }
+        return urlPages;
     }
 }
 
