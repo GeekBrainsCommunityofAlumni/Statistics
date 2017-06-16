@@ -17,13 +17,13 @@ public class Crawler {
     private static Parser parser;
     private static DBHelper dbHelper;
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, ParserConfigurationException, SAXException {
         init();
         crawlsNewSite();
         recrawls();
     }
 
-    private static void crawlsNewSite() throws IOException {
+    private static void crawlsNewSite() throws IOException, ParserConfigurationException, SAXException {
         newSites = dbHelper.getNewSites();
         addNewSitesToPages(newSites);
         pagesIDForScan = dbHelper.getPagesIDWithoutScanDate(); //Метод возвращает список ID старниц для сканирования. БЕЗ robots.txt и sitemap
@@ -49,10 +49,12 @@ public class Crawler {
         personsID = dbHelper.getPersonsID();
     }
 
-    private static void addNewSitesToPages(ArrayList<String> newSites) { // Решить что делать с пробрасываемыми исключениями. throws IOException, ParserConfigurationException, SAXException
+    private static void addNewSitesToPages(ArrayList<String> newSites) throws IOException, ParserConfigurationException, SAXException { // Решить что делать с пробрасываемыми исключениями. throws IOException, ParserConfigurationException, SAXException
 
         for (String site : newSites) {
             String robotTxt = null;
+            ArrayList<String> urlPages = null;
+
             try {
                 robotTxt = downloader.downloadRobot(site);
             } catch (IOException e) {
@@ -61,22 +63,32 @@ public class Crawler {
             String sitemapURL = null;
             sitemapURL = parser.parseRobotTxt(robotTxt);
             String sitemap = null;
-            try {
-                sitemap = downloader.downloadSiteMap(sitemapURL);
-            } catch (IOException e) {
-                e.printStackTrace();
+
+            sitemap = downloader.downloadSiteMap(sitemapURL);
+
+            if(isItSitemapIndex(sitemap)){
+                ArrayList<String> sitemapsURL = parser.parseSiteMapIndex(sitemap);
+                for (String sitemapUrl: sitemapsURL) {
+                    sitemap = downloader.downloadSiteMap(sitemapURL);
+                    for (String url: parser.parseSiteMap(sitemap)) {
+                        urlPages.add(url);
+                    }
+                }
             }
-            ArrayList<String> urlPages = null;
-            try {
+
+            if(isItSitemap(sitemap)){
                 urlPages = parser.parseSiteMap(sitemap);
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (ParserConfigurationException e) {
-                e.printStackTrace();
-            } catch (SAXException e) {
-                e.printStackTrace();
             }
+
             dbHelper.addPagesToSite(urlPages);
         }
+    }
+
+    private static boolean isItSitemap(String sitemap) {
+        return sitemap.contains("urlset");
+    }
+
+    private static boolean isItSitemapIndex(String sitemap) {
+        return sitemap.contains("sitemapindex");
     }
 }
