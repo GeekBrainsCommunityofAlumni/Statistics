@@ -1,3 +1,5 @@
+USE statistics;
+
 INSERT INTO `persons` VALUES (1,'Путин'),(2,'Медведев'),(3,'Нава');
 
 INSERT INTO `sites` VALUES (1,'lenta.ru'),(2,'meduza.io');
