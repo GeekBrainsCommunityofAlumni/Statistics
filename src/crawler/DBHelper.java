@@ -2,6 +2,8 @@ package crawler;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Date;
+import java.text.*;
 
 /**
  * Created by Serg on 09.06.2017.
@@ -29,8 +31,47 @@ public class DBHelper {
         }
     }
 
-    public void addPagesToSite(ArrayList<String> urlPages) {
+    public void addPagesToSite(ArrayList<String> urlPages, String siteName) {//Добавляем страницы нового сайта в таблицу pages, ни одной страницы которого не было в таблице pages.
+        try {
+            if (existSite(siteName)) {
+                int siteID = getSiteID(siteName);
+                preparedStatement = connectionToDB.prepareStatement("INSERT INTO pages (url, siteid, founddatetime) VALUES (?, ?, ?);");
+                connectionToDB.setAutoCommit(false);
+                for (String url : urlPages) {
+                    preparedStatement.setString(1, url);
+                    preparedStatement.setInt(2, siteID);
+                    preparedStatement.setString(3, getCurrentDateTime());
+                    preparedStatement.addBatch();
+                }
+                preparedStatement.executeBatch();
+                connectionToDB.setAutoCommit(true);
+            } else {
+                    throw new SQLException("Неправильный site передан через crawler.addPagesToSite().");
+            }
+            //TODO в будущем, при новом функционале сделать проверку: существует ли добавляемая страница уже в бд
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
+    public int getSiteID (String siteName) {    //возвращает id сайта по его названию
+        int siteID = -101;
+        try {
+            statement = connectionToDB.createStatement();
+            resultSet = statement.executeQuery("SELECT id FROM sites WHERE name = '" + siteName + "';");
+            if (resultSet.next()) {
+                siteID = resultSet.getInt(1);
+            } else throw new SQLException("Ошибка: неправильный адрес сайта передан в crawler.addPagesToSite()");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return siteID;
+    }
+
+    public String getCurrentDateTime() {    //выдает дату и время в текущий момент в формате для mysql
+        Date date = new Date();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        return simpleDateFormat.format(date);
     }
 
     public ArrayList<Integer> getPagesIDWithoutScanDate() { //Метод возвращает список ID страниц для сканирования. БЕЗ robots.txt и sitemap
@@ -167,6 +208,23 @@ public class DBHelper {
         return false;
     }
 
+    public boolean existSite(String nameOfSite) {    //Проверяет, есть ли в таблице sites указанный сайт
+        try {
+            preparedStatement = connectionToDB.prepareStatement("SELECT name FROM sites WHERE name = ?;");
+            preparedStatement.setString(1, nameOfSite);
+            resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                String resultFromResultSet = resultSet.getString(1);
+                if (resultFromResultSet.equals(nameOfSite)) {
+                    return true;
+                }
+            } else return false;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
     public ArrayList<String> getNewSites() { //Возвращает список URL сайтов для которых нет НИ ОДНОЙ строки в таблице Pages
         ArrayList<String> resultingArrayList = new ArrayList<>();
         try {
@@ -181,6 +239,7 @@ public class DBHelper {
         return resultingArrayList;
     }
 
+    //Эти методы будет реализовывать sergey_kogut в rest сервисе, но я на всякий случай пропишу их позже, если Сергей не успеет.
     public void addPerson (String personName) { //добавление персоны в таблицу persons
 
     }
