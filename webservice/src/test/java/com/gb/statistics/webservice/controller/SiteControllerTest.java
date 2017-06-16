@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
+
 import java.util.List;
 
 
@@ -26,32 +27,29 @@ public class SiteControllerTest {
 
     @Before
     public void startUp() {
-        MockSiteRepository.siteList.add(new Site(1,"lenta.ru", "lenta.ru/index"));
-        MockSiteRepository.siteList.add(new Site(2,"ria.ru", "ria.ru/index"));
-        MockSiteRepository.siteList.add(new Site(3,"newsru.com", "newsru.com"));
+        MockSiteRepository.siteList.add(new Site(1, "lenta.ru", "lenta.ru/index"));
+        MockSiteRepository.siteList.add(new Site(2, "ria.ru", "ria.ru/index"));
+        MockSiteRepository.siteList.add(new Site(3, "newsru.com", "newsru.com"));
     }
 
     @Test
     public void getAllSitesNotNull() throws Exception {
-
         Assert.assertNotNull(siteController.getAllSites());
     }
 
     @Test
     public void getAllSitesSizeTest() throws Exception {
-
         ResponseEntity<List<Site>> responseEntity = siteController.getAllSites();
-        List<Site> responseBody =  responseEntity.getBody();
+        List<Site> responseBody = responseEntity.getBody();
         Assert.assertEquals(MockSiteRepository.siteList.size(), responseBody.size());
     }
 
     @Test
     public void addSiteToMock() throws Exception {
-
         Site siteToAdd = new Site(3, "regnum.ru", "regnum.ru/news");
         siteController.addSite(siteToAdd);
         Assert.assertTrue(MockSiteRepository.siteList.contains(siteToAdd));
-     }
+    }
 
     @Test
     public void addSiteNullNameOrUrl() throws Exception {
@@ -77,13 +75,13 @@ public class SiteControllerTest {
 
     @Test
     public void updateSiteIsNotExist() throws Exception {
-        ResponseEntity responseEntity = siteController.updateSite(new Site(100500,"notFoundName", "notfoundsite.ru" ));
+        ResponseEntity responseEntity = siteController.updateSite(new Site(100500, "notFoundName", "notfoundsite.ru"));
         Assert.assertTrue(responseEntity.getBody() instanceof ErrorResponse);
     }
 
     @Test
     public void updateSiteIsExistReturnOk() throws Exception {
-        ResponseEntity responseEntity = siteController.updateSite(new Site(1,"lenta.ru", "lenta.ru/index"));
+        ResponseEntity responseEntity = siteController.updateSite(new Site(1, "lenta.ru", "lenta.ru/index"));
         Assert.assertTrue(responseEntity.getStatusCode().is2xxSuccessful());
     }
 
