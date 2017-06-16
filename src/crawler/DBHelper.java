@@ -102,14 +102,22 @@ public class DBHelper {
         return resultingArrayList;
     }
 
-    public ArrayList<String> getPersonKeywords(int personID) { //Возвращает ключевые слова для ID персоны.
+    public ArrayList<String> getPersonKeywords(int personID) { //Возвращает ключевые слова для ID персоны из таблиц persons и keywords
         ArrayList<String> resultingArrayList = new ArrayList<>();
         try {
-            statement = connectionToDB.createStatement();
-            resultSet = statement.executeQuery("SELECT name FROM keywords WHERE personid = " + personID + ";");
-            while (resultSet.next()) {
-                resultingArrayList.add(resultSet.getString(1));
-            }
+            if (existPersonID(personID)) {
+                statement = connectionToDB.createStatement();   //достаем фамилию из таблицы persons
+                resultSet = statement.executeQuery("SELECT name FROM persons WHERE id = " + personID + ";");
+                if (resultSet.next()) {
+                    resultingArrayList.add(resultSet.getString(1));
+                }
+
+                statement = connectionToDB.createStatement();   //достаем ключевые фразы из таблицы keywords
+                resultSet = statement.executeQuery("SELECT name FROM keywords WHERE personid = " + personID + ";");
+                while (resultSet.next()) {
+                    resultingArrayList.add(resultSet.getString(1));
+                }
+            } else throw new SQLException("Неправильный personID передан через dbHelper.getPersonKeywords, вызываемый в краулере.");
         } catch (SQLException e) {
 //TODO: Можно добавить обработку ошибок если краулер берет фразу для поиска только из таблицы keywords, а они там не заведены.
             e.printStackTrace();
