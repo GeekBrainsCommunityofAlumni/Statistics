@@ -17,7 +17,7 @@ import java.util.List;
 public class Parser {
     private static final String searhStr = "sitemap";
 
-    public String parseRobotTxt(String site) throws IOException {
+    public String parseRobotTxt(String site) {
         if (site.contains(searhStr)) {
             return site.substring(site.toLowerCase().indexOf(searhStr) + 9);
         } else return null;
