@@ -46,7 +46,7 @@ public class DBHelper {
                 preparedStatement.executeBatch();
                 connectionToDB.setAutoCommit(true);
             } else {
-                    throw new SQLException("Неправильный site передан через crawler.addPagesToSite().");
+                    throw new SQLException("Ошибка: неправильный site передан через метод dbHelper.addPagesToSite(), вызываемый в краулере.");
             }
             //TODO в будущем, при новом функционале сделать проверку: существует ли добавляемая страница уже в бд
         } catch (SQLException e) {
@@ -61,7 +61,7 @@ public class DBHelper {
             resultSet = statement.executeQuery("SELECT id FROM sites WHERE name = '" + siteName + "';");
             if (resultSet.next()) {
                 siteID = resultSet.getInt(1);
-            } else throw new SQLException("Ошибка: неправильный адрес сайта передан в crawler.addPagesToSite()");
+            } else throw new SQLException("Ошибка: неправильный siteName передан через метод dbHelper.getSiteID() вызываемый в методе dbHelper.addPagesToSite()");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -124,7 +124,7 @@ public class DBHelper {
             resultSet = statement.executeQuery("SELECT url FROM pages WHERE id = " + pageID + ";");
             if (resultSet.next()) {
                 urlOfPage = resultSet.getString(1);
-            } else throw new SQLException("Ошибка: неправильный id url'a от краулера для метода getUrlPageViaID для таблицы pages.");
+            } else throw new SQLException("Ошибка: неправильный pageID передан через метод dbHelper.getUrlPageViaID, вызываемый в краулере.");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -149,10 +149,10 @@ public class DBHelper {
                         preparedStatement.executeUpdate();
                     }
                     else {
-                        throw new SQLException("Неправильный pageID передан через savePersonPageRank().");
+                        throw new SQLException("Неправильный pageID передан через dbHelper.savePersonPageRank, вызываемый в краулере.");
                     }
                 } else {
-                    throw new SQLException("Неправильный personID передан через savePersonPageRank().");
+                    throw new SQLException("Неправильный personID передан через dbHelper.savePersonPageRank, вызываемый в краулере.");
                 }              }
         } catch (SQLException e) {
             e.printStackTrace();
