@@ -59,12 +59,7 @@ public class Crawler {
                 e.printStackTrace();
             }
             String sitemapURL = null;
-            try {
-                sitemapURL = parser.parseRobotTxt(robotTxt);
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            sitemapURL = parser.parseRobotTxt(robotTxt);
             String sitemap = null;
             try {
                 sitemap = downloader.downloadSiteMap(sitemapURL);
@@ -82,6 +77,6 @@ public class Crawler {
                 e.printStackTrace();
             }
             dbHelper.addPagesToSite(urlPages);
-        } 
+        }
     }
 }
