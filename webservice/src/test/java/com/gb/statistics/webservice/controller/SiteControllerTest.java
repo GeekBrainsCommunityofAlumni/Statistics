@@ -16,6 +16,9 @@ import org.springframework.test.context.web.WebAppConfiguration;
 
 import java.util.List;
 
+import static com.gb.statistics.webservice.controller.InitTestModel.NOT_EXISTING_TEST_ID;
+import static com.gb.statistics.webservice.controller.InitTestModel.init;
+
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
@@ -23,13 +26,11 @@ import java.util.List;
 public class SiteControllerTest {
 
     @Autowired
-    SiteController siteController;
+    private SiteController siteController;
 
     @Before
     public void startUp() {
-        MockSiteRepository.siteList.add(new Site(1, "lenta.ru", "lenta.ru/index"));
-        MockSiteRepository.siteList.add(new Site(2, "ria.ru", "ria.ru/index"));
-        MockSiteRepository.siteList.add(new Site(3, "newsru.com", "newsru.com"));
+        init();
     }
 
     @Test
@@ -75,7 +76,7 @@ public class SiteControllerTest {
 
     @Test
     public void updateSiteIsNotExist() throws Exception {
-        ResponseEntity responseEntity = siteController.updateSite(new Site(100500, "notFoundName", "notfoundsite.ru"));
+        ResponseEntity responseEntity = siteController.updateSite(new Site(NOT_EXISTING_TEST_ID, "notFoundName", "notfoundsite.ru"));
         Assert.assertTrue(responseEntity.getBody() instanceof ErrorResponse);
     }
 
@@ -101,7 +102,7 @@ public class SiteControllerTest {
 
     @Test
     public void deleteSiteNotFound() throws Exception {
-        Assert.assertTrue(siteController.deleteSite(100500)
+        Assert.assertTrue(siteController.deleteSite(NOT_EXISTING_TEST_ID)
                 .getStatusCode()
                 .is4xxClientError());
     }

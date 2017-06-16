@@ -15,27 +15,28 @@ import org.springframework.test.context.web.WebAppConfiguration;
 
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static com.gb.statistics.webservice.controller.InitTestModel.NOT_EXISTING_TEST_ID;
+
+
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
 @ContextConfiguration(classes = {AppConfig.class})
 public class PersonControllerTest {
 
+
+
     @Autowired
-    PersonController personController;
+    private PersonController personController;
 
     @Before
     public void setUp(){
-        MockPersonRepository.personsList.add(new Person(1, "Путин"));
-        MockPersonRepository.personsList.add(new Person(2, "Навальный"));
-        MockPersonRepository.personsList.add(new Person(3, "Зюганов"));
-
+        InitTestModel.init();
     }
 
     @Test
     public void getPersonNotFoundTest() throws Exception {
-        Assert.assertTrue(personController.getPerson(100500).getStatusCode().is4xxClientError());
+        Assert.assertTrue(personController.getPerson(NOT_EXISTING_TEST_ID).getStatusCode().is4xxClientError());
     }
 
     @Test
@@ -60,16 +61,20 @@ public class PersonControllerTest {
 
     @Test
     public void addPersonResponseIsOk() throws Exception {
-        Person personToAdd = new Person(100500, "Медведев");
+        Person personToAdd = new Person(NOT_EXISTING_TEST_ID, "Медведев");
         ResponseEntity responseEntity = personController.addPerson(personToAdd);
         Assert.assertTrue(responseEntity.getStatusCode().is2xxSuccessful());
     }
 
     @Test
     public void addPersonContainsMock() throws Exception {
-        Person personToAdd = new Person(100500, "Медведев");
+        Person personToAdd = new Person(NOT_EXISTING_TEST_ID, "Медведев");
         personController.addPerson(personToAdd);
         Assert.assertTrue(MockPersonRepository.personsList.contains(personToAdd));
     }
 
+    @Test
+    public void updatePerson() throws Exception {
+
+    }
 }
