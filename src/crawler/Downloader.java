@@ -4,6 +4,7 @@ import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.UnknownHostException;
+import java.util.zip.GZIPInputStream;
 
 public class Downloader {
     public static final String NO_PROTOCOL = "No protocol";
@@ -13,6 +14,7 @@ public class Downloader {
     public static final String UNIDENTIFIED_ERROR = "Unidentified error";
     public static final String ROBOTSTXT_NOT_FOUND = "Robots.txt not found";
     public static final String SITE_MAP_NOT_FOUND = "Site map not found";
+
     public static void main(String[] args) throws IOException { //Метод для тестирования класса
 
 //        long t = System.currentTimeMillis();
@@ -28,33 +30,44 @@ public class Downloader {
     }
 
     public String download(String url) throws IOException {
-        URL urlAddress = null;
-        StringBuilder stringBuilder = new StringBuilder();
+        String result = "";
+        if (isItGzArchiveLink(url)) {
+            result = downloadGzipFile(url);
+        } else {
+            URL urlAddress = null;
+            StringBuilder stringBuilder = new StringBuilder();
 
-        try {
-            urlAddress = new URL(url);
-        } catch (MalformedURLException malformedURLException) {
-            throw new IOException(NO_PROTOCOL);
-        }
+            try {
+                urlAddress = new URL(url);
+            } catch (MalformedURLException malformedURLException) {
+                throw new IOException(NO_PROTOCOL);
+            }
 
-        try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlAddress.openConnection().getInputStream()))) {
-            int i;
-            while ((i = bufferedReader.read()) != -1) {
-                stringBuilder.append((char) i);
+            try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlAddress.openConnection().getInputStream()))) {
+                int i;
+                while ((i = bufferedReader.read()) != -1) {
+                    stringBuilder.append((char) i);
+                }
+                bufferedReader.close();
+            } catch (FileNotFoundException fileException) {
+                throw new IOException(PAGE_NOT_FOUND);
+            } catch (UnknownHostException hostException) {
+                if (isReachable()) {
+                    throw new IOException(SITE_NOT_FOUND);
+                } else {
+                    throw new IOException(INTERNET_CONNECTION_LOST);
+                }
+            } catch (IOException ioException) {
+                throw new IOException(UNIDENTIFIED_ERROR);
             }
-            bufferedReader.close();
-        } catch (FileNotFoundException fileException) {
-            throw new IOException(PAGE_NOT_FOUND);
-        } catch (UnknownHostException hostException) {
-            if (isReachable()) {
-                throw new IOException(SITE_NOT_FOUND);
-            } else {
-                throw new IOException(INTERNET_CONNECTION_LOST);
-            }
-        } catch (IOException ioException) {
-            throw new IOException(UNIDENTIFIED_ERROR);
+            result = stringBuilder.toString();
         }
-        return stringBuilder.toString();
+        return result;
+    }
+
+
+    private boolean isItGzArchiveLink(String url) {
+        return url.matches(".*[.]gz");
     }
 
     private static boolean isReachable() {
@@ -111,5 +124,26 @@ public class Downloader {
                 throw new IOException(e.getMessage());
         }
         return siteMap;
+    }
+
+    private static String downloadGzipFile(String url) throws IOException {
+        URL urlAddress = new URL(url);
+        InputStream is = urlAddress.openConnection().getInputStream();
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        int bytes;
+        while ((bytes = is.read()) != -1) {
+            baos.write(bytes);
+        }
+        baos.flush();
+        InputStream isToGzip = new ByteArrayInputStream(baos.toByteArray());
+        GZIPInputStream gzis = new GZIPInputStream(isToGzip);
+        StringBuilder stringBuilder = new StringBuilder();
+        InputStreamReader reader = new InputStreamReader(gzis);
+        BufferedReader in = new BufferedReader(reader);
+        String readed;
+        while ((readed = in.readLine()) != null) {
+            stringBuilder.append(readed);
+        }
+        return stringBuilder.toString();
     }
 }
