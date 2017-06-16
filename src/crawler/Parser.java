@@ -64,6 +64,10 @@ public class Parser {
         }
         return count;
     }
+
+    public ArrayList<String> parseSiteMapIndex(String sitemap) { //Метод для парсинтга Sitemap Index
+        return null;
+    }
 }
 
 
