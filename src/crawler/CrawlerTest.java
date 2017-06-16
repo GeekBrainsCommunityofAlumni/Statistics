@@ -34,6 +34,31 @@ public class CrawlerTest {
         testKeywords2.add("rt");
         int rank2 = parser.calculateRank(testText2, testKeywords2);
         System.out.println("testRank2:" + (10==rank2));
+
+
+        String testRobotsTxt1 = "User-agent: *\n" +
+                "Allow: /infographics/\n" +
+                "Disallow: /ajax\n" +
+                "Disallow: /rate\n" +
+                "Disallow: /pogoda\n" +
+                "Disallow: /maps\n" +
+                "Disallow: */page\n" +
+                "Disallow: */comments\n" +
+                "Disallow: /inf\n" +
+                "Disallow: /pic\n" +
+                "Disallow: /search*\n" +
+                "Disallow: /monitoring\n" +
+                "Disallow: /preview\n" +
+                "Disallow: /rb*\n" +
+                "Disallow: /*utm_\n" +
+                "Disallow: /*/gallery/\n" +
+                "Disallow: /*q=\n" +
+                "Disallow: /currency.html?date=\n" +
+                "Disallow: /go-web/\n" +
+                "Disallow: /go-mobile/\n" +
+                "Host: https://news.mail.ru\n" +
+                "Sitemap: https://news.mail.ru/sitemap_index.xml";
+        System.out.println("testRobotsTxt1:" + (parser.parseRobotTxt(testRobotsTxt1).equals("https://news.mail.ru/sitemap_index.xml")));
     }
 
 
