@@ -16,9 +16,9 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 from django.conf import settings
+from django.conf.urls.static import static
 from main_app.views import *
 from user_management.views import *
-from django.conf.urls.static import static
 from admin_management.views import *
 
 urlpatterns = [
@@ -30,6 +30,7 @@ urlpatterns = [
     url(r'^userinfo/$', privateroom),
     url(r'^authorization/$', authorization),
     url(r'^partnership/$', partnership),
+    url(r'^contacts/$', contacts),
 ]
 
 # urlpatterns += [
@@ -43,6 +44,6 @@ urlpatterns = [
 #     url(r'^myadmin/create/user/(\d*)$', create_user),
 # ]
 
-if settings.DEBUG:
-    # Static files (CSS, JavaScript, Images)
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+# if settings.DEBUG:
+#     # Static files (CSS, JavaScript, Images)
+#     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
