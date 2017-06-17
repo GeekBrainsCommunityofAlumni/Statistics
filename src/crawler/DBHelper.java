@@ -247,31 +247,6 @@ public class DBHelper {
         return resultingArrayList;
     }
 
-    //Эти методы будет реализовывать sergey_kogut в rest сервисе, но я на всякий случай пропишу их позже, если Сергей не успеет.
-    public void addPerson (String personName) { //добавление персоны в таблицу persons
-
-    }
-
-    public void deletePerson (String personName) {  //удаление персоны из таблицы persons
-
-    }
-
-    public void editPerson (String personName) {    //редактирование имени персоны в таблице persons
-
-    }
-
-    public void addSite (String siteName) { //добавление сайта в таблицу sites
-
-    }
-
-    public void deleteSite (String siteName) {  //удаление сайта из таблицы sites
-
-    }
-
-    public void editSite (String siteName) {    //редактирование имени сайта в таблице sites
-
-    }
-
     public void disconnectFromDB() {
         try {
             connectionToDB.close();
