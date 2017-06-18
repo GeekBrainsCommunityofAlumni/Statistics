@@ -29,23 +29,21 @@ public class Downloader {
 //        System.out.println(System.currentTimeMillis() - t);
     }
 
-    public String download(String url) throws IOException {
-        //Выполняем проверку на наличие протокола в URL и если нет добавляем.
-        if(!url.matches("https?://.*")){
-            url = "http://" + url;
-        }
-        String result = "";
-        if (isItGzArchiveLink(url)) {
-            result = downloadGzipFile(url);
+    public String download(String urlProtocol) throws IOException {
+
+
+        String result = null;
+        if (isItGzArchiveLink(urlProtocol)) {
+            result = downloadGzipFile(urlProtocol);
         } else {
+
             URL urlAddress = null;
             StringBuilder stringBuilder = new StringBuilder();
 
             try {
-                urlAddress = new URL(url);
+                urlAddress = new URL(urlProtocol);
             } catch (MalformedURLException malformedURLException) {
-                throw new IOException(NO_PROTOCOL);
-            }
+        }
 
             try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlAddress.openConnection().getInputStream()))) {
                 int i;
@@ -54,7 +52,8 @@ public class Downloader {
                 }
                 bufferedReader.close();
             } catch (FileNotFoundException fileException) {
-                throw new IOException(PAGE_NOT_FOUND);
+
+                //throw new IOException(PAGE_NOT_FOUND);
             } catch (UnknownHostException hostException) {
                 if (isReachable()) {
                     throw new IOException(SITE_NOT_FOUND);
@@ -66,6 +65,7 @@ public class Downloader {
             }
             result = stringBuilder.toString();
         }
+
         return result;
     }
 
@@ -105,22 +105,25 @@ public class Downloader {
 
 
     public String downloadRobot(String site) throws IOException {
+        String urlProtocol = null;
+        //Выполняем проверку на наличие протокола в URL и если нет добавляем.
+
+        if (!haveProtocol(site)) {
+            urlProtocol = "http://" + site;
+        } else {
+            urlProtocol = site;
+        }
         String robotTxt;
-        try {
-            System.out.println(site + "/robots.txt");
-            robotTxt = download(site + "/robots.txt");
-        } catch (IOException e) {
-            if (e.getMessage().equals(PAGE_NOT_FOUND)) {
-                System.out.println("robot.txt для сайта " + site + "не найден.");
-                throw new IOException(ROBOTSTXT_NOT_FOUND);
-            } else
-                throw new IOException(e.getMessage());
+        robotTxt = download(urlProtocol + "/robots.txt");
+        if (robotTxt.contains("301 Moved Permanently")) {
+            String httpsURLSite = "https://" + site;
+            robotTxt = download(httpsURLSite + "/robots.txt");
         }
         return robotTxt;
     }
 
     public String downloadSiteMap(String siteMapURL) throws IOException {
-        String siteMap;
+        String siteMap = null;
         try {
             siteMap = download(siteMapURL);
         } catch (IOException e) {
@@ -151,5 +154,11 @@ public class Downloader {
             stringBuilder.append(readed);
         }
         return stringBuilder.toString();
+    }
+
+    private boolean haveProtocol(String url) {
+        boolean res = false;
+        res = (url.matches("^http://[.]*")) || (url.matches("^https://[.]*"));
+        return res;
     }
 }
