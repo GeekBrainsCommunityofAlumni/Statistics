@@ -21,7 +21,7 @@ public class KeywordController {
 
     @RequestMapping(value = "/keyword/{personId}", method = RequestMethod.GET)
     public ResponseEntity<?> getByPerson(@PathVariable Integer personId){
-        return ResponseEntity.ok(keywordRepository.getByPersonId(personId));
+        return ResponseEntity.ok(keywordRepository.findAllByPersonId(personId));
     }
 
     @RequestMapping(value = "/keyword", method = RequestMethod.POST)
@@ -30,7 +30,7 @@ public class KeywordController {
             return ResponseEntity.badRequest()
                     .body(new ErrorResponse("`personId` and `name` not be null!"));
         }
-        if (keywordRepository.exists((long)keyword.getId()))
+        if (keywordRepository.exists(keyword.getId()))
             return ResponseEntity.status(HttpStatus.CONFLICT)
                     .body(new ErrorResponse("Keyword already exists!"));
 
@@ -42,7 +42,7 @@ public class KeywordController {
 
     @RequestMapping(value = "/keyword", method = RequestMethod.PUT)
     public ResponseEntity<?> update(@RequestBody Keyword keyword){
-        if(!keywordRepository.exists((long)keyword.getId())){
+        if(!keywordRepository.exists(keyword.getId())){
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body(new ErrorResponse("Keyword not exists!"));
         }

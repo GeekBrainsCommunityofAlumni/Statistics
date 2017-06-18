@@ -2,7 +2,6 @@ package com.gb.statistics.webservice.controller;
 
 import com.gb.statistics.webservice.AppConfig;
 import com.gb.statistics.webservice.entity.Site;
-import com.gb.statistics.webservice.repository.MockSiteRepository;
 import com.gb.statistics.webservice.util.ErrorResponse;
 import org.junit.Assert;
 import org.junit.Before;
@@ -24,34 +23,34 @@ public class SiteControllerTest {
     @Autowired
     SiteController siteController;
 
-    @Before
-    public void startUp() {
-        MockSiteRepository.siteList.add(new Site(1,"lenta.ru", "lenta.ru/index"));
-        MockSiteRepository.siteList.add(new Site(2,"ria.ru", "ria.ru/index"));
-        MockSiteRepository.siteList.add(new Site(3,"newsru.com", "newsru.com"));
-    }
-
-    @Test
-    public void getAllSitesNotNull() throws Exception {
-
-        Assert.assertNotNull(siteController.getAllSites());
-    }
-
-    @Test
-    public void getAllSitesSizeTest() throws Exception {
-
-        ResponseEntity<List<Site>> responseEntity = siteController.getAllSites();
-        List<Site> responseBody =  responseEntity.getBody();
-        Assert.assertEquals(MockSiteRepository.siteList.size(), responseBody.size());
-    }
-
-    @Test
-    public void addSiteToMock() throws Exception {
-
-        Site siteToAdd = new Site(3, "regnum.ru", "regnum.ru/news");
-        siteController.addSite(siteToAdd);
-        Assert.assertTrue(MockSiteRepository.siteList.contains(siteToAdd));
-     }
+//    @Before
+//    public void startUp() {
+//        MockSiteRepository.siteList.add(new Site(1,"lenta.ru", "lenta.ru/index"));
+//        MockSiteRepository.siteList.add(new Site(2,"ria.ru", "ria.ru/index"));
+//        MockSiteRepository.siteList.add(new Site(3,"newsru.com", "newsru.com"));
+//    }
+//
+//    @Test
+//    public void getAllSitesNotNull() throws Exception {
+//
+//        Assert.assertNotNull(siteController.getAllSites());
+//    }
+//
+//    @Test
+//    public void getAllSitesSizeTest() throws Exception {
+//
+//        ResponseEntity<List<Site>> responseEntity = siteController.getAllSites();
+//        List<Site> responseBody =  responseEntity.getBody();
+//        Assert.assertEquals(MockSiteRepository.siteList.size(), responseBody.size());
+//    }
+//
+//    @Test
+//    public void addSiteToMock() throws Exception {
+//
+//        Site siteToAdd = new Site(3, "regnum.ru", "regnum.ru/news");
+//        siteController.addSite(siteToAdd);
+//        Assert.assertTrue(MockSiteRepository.siteList.contains(siteToAdd));
+//     }
 
     @Test
     public void addSiteNullNameOrUrl() throws Exception {
@@ -93,13 +92,13 @@ public class SiteControllerTest {
         Assert.assertTrue(responseEntity.getStatusCode().is2xxSuccessful());
     }
 
-    @Test
-    public void deleteSiteNotContainsInMock() throws Exception {
-        Site site = MockSiteRepository.siteList.get(0);
-        siteController.deleteSite(site.getId());
-        Assert.assertFalse(MockSiteRepository.siteList.contains(site));
-
-    }
+//    @Test
+//    public void deleteSiteNotContainsInMock() throws Exception {
+//        Site site = MockSiteRepository.siteList.get(0);
+//        siteController.deleteSite(site.getId());
+//        Assert.assertFalse(MockSiteRepository.siteList.contains(site));
+//
+//    }
 
     @Test
     public void deleteSiteNotFound() throws Exception {

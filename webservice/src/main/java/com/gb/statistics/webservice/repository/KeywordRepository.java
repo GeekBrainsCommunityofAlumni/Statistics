@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface KeywordRepository extends CrudRepository<Keyword,Long>{
 
-    List<Keyword> getByPersonId(int personId);
+    List<Keyword> findAllByPersonId(int personId);
     @Modifying
     Keyword update(Keyword keyword);                //вот может быть это даже будет работать
 

@@ -8,7 +8,7 @@ import javax.persistence.Id;
 public class Keyword {
     @Id
     @GeneratedValue
-    private int id;
+    private Long id;
     private int personId;
     private String name;
 
@@ -19,11 +19,11 @@ public class Keyword {
 
     public Keyword(){}
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -46,20 +46,20 @@ public class Keyword {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof Keyword)) return false;
 
         Keyword keyword = (Keyword) o;
 
-        if (id != keyword.id) return false;
-        if (personId != keyword.personId) return false;
-        return name.equals(keyword.name);
+        if (getPersonId() != keyword.getPersonId()) return false;
+        if (!getId().equals(keyword.getId())) return false;
+        return getName().equals(keyword.getName());
     }
 
     @Override
     public int hashCode() {
-        int result = id;
-        result = 31 * result + personId;
-        result = 31 * result + name.hashCode();
+        int result = getId().hashCode();
+        result = 31 * result + getPersonId();
+        result = 31 * result + getName().hashCode();
         return result;
     }
 }

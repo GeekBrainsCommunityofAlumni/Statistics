@@ -3,6 +3,7 @@ package com.gb.statistics.webservice.controller;
 import com.gb.statistics.webservice.entity.Person;
 import com.gb.statistics.webservice.repository.PersonRepository;
 import com.gb.statistics.webservice.util.ErrorResponse;
+import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +19,7 @@ public class PersonController {
 
     @RequestMapping(value="/person/{id}", method= RequestMethod.GET)
     public ResponseEntity<?> getPerson(@PathVariable("id") Integer id){
-        Person p = personRepository.get(id);
+        Person p = personRepository.findOne((long)id);
         if(p==null) return ResponseEntity.status(HttpStatus.NOT_FOUND)
                 .body(new ErrorResponse("Person not found"));
 
@@ -27,15 +28,15 @@ public class PersonController {
 
     @RequestMapping(value="/person", method= RequestMethod.GET)
     public ResponseEntity<List<Person>> getAllPersons(){
-        return ResponseEntity.ok(personRepository.getAll());
+        return ResponseEntity.ok(personRepository.findAll());
     }
 
 
     @RequestMapping(value="/person", method= RequestMethod.POST)
     public ResponseEntity<?> addPerson(@RequestBody Person person){
 
-        if(!personRepository.isExists(person)){
-            Person p = personRepository.add(person);
+        if(!personRepository.exists(person.getId())){
+            Person p = personRepository.save(person);
             return ResponseEntity.ok(p);
         }
 
@@ -56,9 +57,8 @@ public class PersonController {
 
     @RequestMapping(value="/person/{id}", method= RequestMethod.DELETE)
     public ResponseEntity<?> deletePerson(@PathVariable("id") Integer id){
-        Person p = personRepository.get(id);
-
-        if(personRepository.delete(p))
+        personRepository.delete((long)id);
+        if(!personRepository.exists((long)id))
             return ResponseEntity.ok().body(null);
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
                 .body(new ErrorResponse("Person not found"));
