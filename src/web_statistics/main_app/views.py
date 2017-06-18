@@ -22,3 +22,6 @@ def partnership(request):
 
 def contacts(request):
     return render(request, 'contacts.html')
+
+def review(request):
+    return render(request, 'review.html')

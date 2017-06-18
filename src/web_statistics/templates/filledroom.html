@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+
+{% load static from staticfiles %}
+
+    <div class="container-fluid" id="usercart">
+
+        <div class="information">
+            <div class="hero-unit">
+                <h4>Добро пожаловать в Личный кабинет, {{user.username}}!</h4>
+                <p><a class="btn btn-success btn-sm" href="/myadmin/">Настройки</a></p>
+                <br>
+
+                <!--<ul class="nav nav-tabs">-->
+                    <!--<li><a href="/userinfo/">Info</a></li>-->
+                    <!--<li><a href="/userproducts/">Список продуктов</a></li>-->
+                    <!--<li><a href="/dealorders/">Условия сделки</a></li>-->
+                <!--</ul>-->
+
+                <table class="table table-condensed">
+                    <tbody>
+                        <tr>
+                            <td><i class="fa fa-user" aria-hidden="true"></i> Ваш login:</td>
+                            <td>...</td>
+                        </tr>
+                        <tr>
+                            <td><i class="fa fa-envelope-o" aria-hidden="true"></i> Ваш e-mail:</td>
+                            <td>...</td>
+                        </tr>
+                        <tr>
+                            <td><i class="fa fa-mobile" aria-hidden="true"></i> Контактный тел. (mobile):</td>
+                            <td>...</td>
+                        </tr>
+                        <tr>
+                            <td><i class="fa fa-address-card-o" aria-hidden="true"></i> Ваш статус пользователя:</td>
+                            <td>...</td>
+                        </tr>
+                        <tr>
+                            <td><i class="fa fa-home" aria-hidden="true"></i> Ваш адрес (можно скрыть):</td>
+                            <td>...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>

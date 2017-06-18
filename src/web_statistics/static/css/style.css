@@ -1,0 +1,12 @@
+.logout {
+    padding-left: 20px;
+    padding-bottom: 20px;
+    width: 100px;
+}
+
+.login {
+    padding-left: 40%;
+    position: relative;
+    width: 60%;
+    padding-bottom: 50px;
+}

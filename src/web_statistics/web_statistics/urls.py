@@ -24,6 +24,7 @@ from admin_management.views import *
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', main),
+    url(r'^index/$', headpage),
     url(r'^headpage/$', headpage),
     url(r'^registration/$', registration),
     url(r'^privateroom/$', privateroom),
@@ -31,19 +32,20 @@ urlpatterns = [
     url(r'^authorization/$', authorization),
     url(r'^partnership/$', partnership),
     url(r'^contacts/$', contacts),
+    url(r'review/$', review)
 ]
 
-# urlpatterns += [
-#     url(r'^user/login/$', login),
-#     url(r'^user/logout/$', logout),
-#     url(r'^user/registration/$', registration),
+urlpatterns += [
+    url(r'^user/login/$', login),
+    url(r'^user/logout/$', logout),
+    url(r'^user/registration/$', registration),
 #     url(r'^base_admin/$', base_admin),
 #     url(r'^myadmin/$', myadmin),
 #     url(r'^myadmin/delete/user/(\d+)$', delete_user),
 #     url(r'^myadmin/get_user_form/(\d+)$', get_user_form),
 #     url(r'^myadmin/create/user/(\d*)$', create_user),
-# ]
+]
 
-# if settings.DEBUG:
-#     # Static files (CSS, JavaScript, Images)
-#     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+if settings.DEBUG:
+    # Static files (CSS, JavaScript, Images)
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

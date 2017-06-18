@@ -1,10 +1,209 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% load static from staticfiles %}
 
-</body>
-</html>
+
+<div class="form-group">
+    <label for="lastName" class="col-sm-3 control-label">Фамилия:</label>
+    <div class="col-sm-3">
+        <input type="text" name="last_name" id="lastName" placeholder="Фамилия" class="form-control" required="" autofocus>
+    </div>
+</div> <!-- /.form-group -->
+
+<div class="form-group">
+    <label for="firstName" class="col-sm-3 control-label">Имя:</label>
+    <div class="col-sm-3">
+        <input type="text" name="first_name" id="firstName" placeholder="Имя" class="form-control" required="" autofocus>
+    </div>
+</div> <!-- /.form-group -->
+
+<div class="form-group">
+    <label for="firstName" class="col-sm-3 control-label">Отчество:</label>
+    <div class="col-sm-3">
+        <input type="text" name="middle_name" id="middleName" placeholder="Отчество" class="form-control" autofocus>
+        <span class="help-block">&#9998; по желанию</span>
+    </div>
+</div> <!-- /.form-group -->
+
+<div class="form-group">
+    <label for="inputEmail" class="col-sm-3 control-label">
+        <i class="fa fa-user" aria-hidden="true"></i>
+        Ваш login:
+    </label>
+    <div class="col-sm-3">
+        <input type="text" name="login" id="inputEmail" class="form-control" placeholder="логин" required="" autofocus>
+        <span class="help-block">&#9998; Вы можете использовать Ваш <br>e-mail в качестве логина</span>
+    </div>
+</div> <!-- /.form-group -->
+
+<div class="form-group">
+    <label for="password" class="col-sm-3 control-label">
+        <i class="fa fa-key" aria-hidden="true"></i>
+        Ваш пароль:
+    </label>
+    <div class="col-sm-3">
+        <input type="password" name="password" id="password" placeholder="пароль" class="form-control" required="" autofocus>
+    </div>
+</div> <!-- /.form-group -->
+
+<div class="form-group">
+    <label for="confirmpassword" class="col-sm-3 control-label">
+        <i class="fa fa-check-square-o" aria-hidden="true"></i>
+        Подтверждение пароля:
+    </label>
+    <div class="col-sm-3">
+        <input type="password" name="confirmpassword" id="confirmpassword" placeholder="Пожалуйста, подтвердите..." class="form-control" required="">
+    </div>
+</div> <!-- /.form-group -->
+
+<div class="form-group">
+    <label for="email" class="col-sm-3 control-label">
+        <i class="fa fa-envelope-o" aria-hidden="true"></i>
+        Ваш e-mail:
+    </label>
+    <div class="col-sm-3">
+        <input type="email" name="email" id="email" class="form-control" placeholder="e-mail"  required="" autofocus>
+    </div>
+</div> <!-- /.form-group -->
+
+<div class="form-group">
+    <label for="mobile" class="col-sm-3 control-label required">
+        <i class="fa fa-mobile" aria-hidden="true"></i>
+        Контактный тел. (mobile):
+    </label>
+    <div class="col-sm-3">
+        <input name="phone_number" id="mobile" class="form-control" placeholder="phone_number"/>
+        <span class="help-block">&#9998; по желанию</span>
+    </div>
+</div> <!-- /.form-group -->
+
+<div class="form-group">
+    <label for="gender" class="col-sm-3 control-label">
+        <i class="fa fa-venus-mars" aria-hidden="true"></i>
+        Ваш пол:
+    </label>
+    <div class="col-sm-3">
+        <select id="gender" name="gender" class="form-control" required="">
+            <option value="male">Мужской</option>
+            <option value="female">Женский</option>
+        </select>
+    </div>
+</div> <!-- /.form-group -->
+
+<div class="form-group">
+    <label for="birthDate" class="col-sm-3 control-label">
+        <i class="fa fa-birthday-cake" aria-hidden="true"></i>
+        Дата рождения:
+    </label>
+    <div class="col-sm-3">
+        <input type="date" name="birthdate" id="birthDate" class="form-control">
+        <span class="help-block">&#9998; по желанию</span>
+    </div>
+</div> <!-- /.form-group -->
+
+<div class="form-group">
+    <label for="countries" class="col-sm-3 control-label">
+        <i class="fa fa-globe" aria-hidden="true"></i>
+        Выберите Вашу страну:
+    </label>
+    <div class="col-sm-3">
+        <select id="countries" class="form-control" name="country" required="">
+            <option value="unknown">Выберите из списка:</option>
+            <option value="Russia">Российская Федерация</option>
+            <option value="Belarus">Республика Беларусь</option>
+            <option value="DNR">Донецкая Народная Республика</option>
+            <option value="LNR">Луганская Народная Республика</option>
+            <option value="Kazakhstan">Казахстан</option>
+            <option value="Uzbekistan">Узбекистан</option>
+            <option value="CNR">Чеченская Народная Республика</option>
+            <option value="Armenia">Армения</option>
+            <option value="Crimea">Республика Крым</option>
+        </select>
+    </div>
+</div>
+
+<div class="form-group">
+    <label for="districts" class="col-sm-3 control-label">
+        <i class="fa fa-map-marker" aria-hidden="true"></i>
+        Выберите Ваш регион:
+    </label>
+    <div class="col-sm-3">
+        <select id="districts" class="form-control" name="district" required="">
+            <option value="unknown">Выберите из списка:</option>
+            <option value="Moscow">Московская область</option>
+            <option value="St.Petersbourg">Ленинградская область</option>
+            <option value="Rostov">Ростовская область</option>
+            <option value="Astrakchan">Астраханская область</option>
+            <option value="Samara">Самарская область</option>
+            <option value="Nijniy Novgorod">Нижегородская область</option>
+            <option value="Novgorod">Новгородская область</option>
+            <option value="Volgograd">Волгоградская область</option>
+            <option value="Krasnodar">Краснодарский край</option>
+            <option value="Kuban">Кубанский край</option>
+            <option value="Vologda">Вологодская область</option>
+            <option value="Tver">Тверская область</option>
+            <option value="Владимир">Владимирская область</option>
+            <option value="Lipetsk">Липецкая область</option>
+            <option value="Ryazan">Рязанская область</option>
+            <option value="Tula">Тульская область</option>
+            <option value="Kursk">Курская область</option>
+            <option value="Crimea">Республика Крым</option>
+            <option value="Иваново">Ивановская область</option>
+        </select>
+    </div>
+</div>
+
+<div class="form-group">
+    <label class="col-sm-3 control-label">
+        <i class="fa fa-home" aria-hidden="true"></i>
+        Ваш город:
+    </label>
+    <div class="col-sm-3">
+        <input type="text" name="city" placeholder="Ваш город..." class="form-control" required="" autofocus>
+    </div>
+</div> <!-- /.form-group -->
+
+
+<div class="form-group">
+    <label class="control-label col-sm-3"><i class="fa fa-address-card-o" aria-hidden="true"></i>
+        Ваш статус пользователя:
+    </label>
+    <div class="col-sm-9">
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" name="status" id="#" value="Buyer">Покупатель
+            </label>
+        </div>
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" name="status" id="#" value="Saler">Продавец
+            </label>
+        </div>
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" name="status" id="#" value="Contractor">Посредник/Доставка
+            </label>
+        </div>
+    </div>
+</div> <!-- /.form-group -->
+
+<div class="form-group">
+    <label for="image" class="col-sm-3 control-label">
+        <i class="fa fa-camera-retro" aria-hidden="true"></i>
+        Загрузите Ваше фото:
+    </label>
+    <div class="col-sm-3">
+        <!--<form enctype="multipart/form-data" method="post">-->
+            <!--<input type="submit" name="image" id="image" class="btn btn-success btn-sm" value="Загрузить фото">-->
+            <input type="file" name="your_photo" id="image"/>
+        <!--</form>-->
+    </div>
+</div> <!-- /.form-group -->
+
+<div class="form-group">
+    <div class="col-sm-9 col-sm-offset-3">
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" name="rules">Я принимаю <a href="#">Правила пользования сайтом</a>
+            </label>
+        </div>
+    </div>
+</div> <!-- /.form-group -->
