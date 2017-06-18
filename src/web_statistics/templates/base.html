@@ -1,5 +1,7 @@
-{% load static from staticfiles %}
 <!DOCTYPE html>
+
+{% load static from staticfiles %}
+
 <html lang="en">
 
 <head>
@@ -21,6 +23,7 @@
 
     <!-- Custom CSS -->
     <link href="{% static 'css/sb-admin.css' %}" rel="stylesheet">
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
 
     <!-- Morris Charts CSS -->
     <link href="{% static 'css/plugins/morris.css' %}" rel="stylesheet">
@@ -51,7 +54,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html">
+                <a class="navbar-brand" href="#">
                     GB Community of Alumni
                     <img id='logo' src="{% static 'img/GBCA_logo.png' %}" height="200%">
                     <img id='logo' src="{% static 'img/Statistics_logo.png' %}" height="200%">
@@ -122,33 +125,15 @@
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> John Smith <b class="caret"></b></a>
                     <ul class="dropdown-menu">
-                        <li><a href="#"><i class="fa fa-fw fa-user"></i> Profile</a></li>
+                        <li><a href="/privateroom/"><i class="fa fa-fw fa-user"></i> Profile</a></li>
                         <li><a href="#"><i class="fa fa-fw fa-gear"></i> Settings</a></li>
                         <li class="divider"></li>
                         <li><a href="#"><i class="fa fa-fw fa-power-off"></i> Log Out</a></li>
                     </ul>
                 </li>
             </ul>
-            <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
-            <div class="collapse navbar-collapse navbar-ex1-collapse">
-                <ul class="nav navbar-nav side-nav">
-                    <li class="active"><a href="/main/"> О компании </a></li>
-                    <li><a href="/privateroom/"><i class="fa fa-fw fa-wrench"></i> Личный кабинет </a></li>
-                    <li>
-                        <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-arrows-v"></i> Статистика <i class="fa fa-fw fa-caret-down"></i></a>
-                        <ul id="demo" class="collapse">
-                            <li><a href="#"> Ежедневная статистика <i class="fa fa-fw fa-bar-chart-o"></i></a></li>
-                            <li><a href="#"> Статистика за период <br> <i class="fa fa-fw fa-table"></i></a></li>
-                        </ul>
-                    </li>
-                    <!-- <li><a href="#"><i class="fa fa-fw fa-bar-chart-o"></i>Общая статистика</a></li>
-                    <li><a href="#"><i class="fa fa-fw fa-table"></i><i class="fa fa-fw fa-dashboard"></i> Ежедневная статистика</a></li> -->
-                    <li><a href="/partnership/"><i class="fa fa-fw fa-handshake-o"></i> Партнерство </a></li>
-                    <li><a href="/contacts/"><i class="fa fa-address-book-o"></i> Контакты </a></li>
-                    <li><a href="/review/"><i class="fa fa-commenting-o"></i> Отзывы </a></li>
-                </ul>
-            </div>
-            <!-- /.navbar-collapse -->
+            {% block menu %}
+            {% endblock %}
         </nav>
 
         <div id="page-wrapper">

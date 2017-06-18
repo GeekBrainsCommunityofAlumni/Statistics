@@ -24,26 +24,27 @@ from admin_management.views import *
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', main),
-    url(r'^index/$', headpage),
-    url(r'^headpage/$', headpage),
+    url(r'^daily_statistics/$', daily_statistics),
+    url(r'^periodic_statistics/$', periodic_statistics),
     url(r'^registration/$', registration),
     url(r'^privateroom/$', privateroom),
     url(r'^userinfo/$', privateroom),
     url(r'^authorization/$', authorization),
     url(r'^partnership/$', partnership),
     url(r'^contacts/$', contacts),
-    url(r'review/$', review)
+    url(r'^review/$', review),
+    url(r'^support/$', support),
 ]
 
 urlpatterns += [
     url(r'^user/login/$', login),
     url(r'^user/logout/$', logout),
     url(r'^user/registration/$', registration),
-#     url(r'^base_admin/$', base_admin),
-#     url(r'^myadmin/$', myadmin),
-#     url(r'^myadmin/delete/user/(\d+)$', delete_user),
-#     url(r'^myadmin/get_user_form/(\d+)$', get_user_form),
-#     url(r'^myadmin/create/user/(\d*)$', create_user),
+    url(r'^base_admin/$', base_admin),
+    url(r'^myadmin/$', myadmin),
+    url(r'^myadmin/delete/user/(\d+)$', delete_user),
+    url(r'^myadmin/get_user_form/(\d+)$', get_user_form),
+    url(r'^myadmin/create/user/(\d*)$', create_user),
 ]
 
 if settings.DEBUG:

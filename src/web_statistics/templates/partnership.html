@@ -1,10 +1,80 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
 
-</body>
-</html>
+{% extends 'base.html' %}
+{% load static from staticfiles %}
+
+{% block title %}
+    Партнёрство | {{block.super}}
+{% endblock %}
+
+
+{% block menu %}
+<!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+<div class="collapse navbar-collapse navbar-ex1-collapse">
+    <ul class="nav navbar-nav side-nav">
+        <li><a href="/"><i class="fa fa-home" aria-hidden="true"></i> О компании </a></li>
+        <li><a href="/privateroom/"><i class="fa fa-user-circle"></i> Личный кабинет </a></li>
+        <li>
+            <a href="javascript:;" data-toggle="collapse" data-target="#demo">
+                <i class="fa fa-fw fa-arrows-v"></i> Статистика <i class="fa fa-fw fa-caret-down"></i>
+            </a>
+            <ul id="demo" class="collapse">
+                <li><a href="/daily_statistics/"> Ежедневная статистика <i class="fa fa-fw fa-bar-chart-o"></i></a></li>
+                <li><a href="/periodic_statistics/"> Статистика за период <br> <i class="fa fa-fw fa-table"></i></a></li>
+            </ul>
+        </li>
+        <li class="active"><a href="/partnership/"><i class="fa fa-fw fa-handshake-o"></i> Партнерство </a></li>
+        <li><a href="/contacts/"><i class="fa fa-address-book-o"></i> Контакты </a></li>
+        <li><a href="/review/"><i class="fa fa-commenting"></i> Отзывы </a></li>
+        <li><a href="/support/"><i class="fa fa-fw fa-wrench"></i> ТехПоддержка </a></li>
+    </ul>
+</div>
+<!-- /.navbar-collapse -->
+{% endblock %}
+
+{% block content %}
+<p>
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam sit amet malesuada massa. Sed tempus leo vitae felis
+    lobortis convallis. Sed ligula ligula, molestie vel ante eu, euismod molestie velit. Proin justo erat, varius eu
+    semper in, eleifend ut justo. Phasellus dapibus ante eget sapien dapibus luctus. Nullam odio ex, pretium vitae
+    tellus eget, ullamcorper tristique velit. Nam congue, sem suscipit scelerisque rhoncus, ligula nisl eleifend mauris,
+    a porttitor mauris lorem vel urna. Morbi imperdiet, lorem nec malesuada commodo, justo erat posuere turpis, eu
+    volutpat eros quam et nunc. Sed a rutrum orci, at fringilla turpis. Nam nulla leo, rutrum in lacus vitae, imperdiet
+    ullamcorper magna. Vivamus nulla nibh, egestas at justo quis, pellentesque blandit metus. Mauris sed vestibulum
+    orci, quis sodales metus. Donec sollicitudin metus venenatis vehicula blandit.
+
+Donec orci elit, ullamcorper vitae pellentesque sed, pulvinar maximus justo. Sed feugiat elementum ligula, quis
+    consectetur nisi facilisis feugiat. Morbi lobortis, eros sit amet blandit ullamcorper, neque lectus egestas mi,
+    non dictum libero mi in ipsum. Praesent ac ex et diam commodo efficitur. Mauris rhoncus risus eu augue tempus,
+    sit amet feugiat purus dignissim. Integer placerat pellentesque ex ac commodo. Sed molestie at justo a vestibulum.
+    Duis fermentum tristique augue. Mauris posuere fringilla scelerisque.
+</p>
+
+<p>
+    Ut luctus, lorem consectetur congue finibus, metus eros condimentum nibh, a ultrices sem dolor at odio. Proin ac
+    nibh fringilla, cursus orci et, pretium nisl. Donec at blandit nibh. Vivamus et diam rhoncus, sodales est et,
+    mattis mauris. Ut ac leo non nisl aliquet scelerisque eget sed arcu. Proin egestas turpis massa, sit amet consequat
+    nunc iaculis nec. Fusce eget risus commodo, convallis mauris sed, semper mauris. Donec pellentesque odio vitae odio
+    interdum bibendum. Proin vitae auctor tellus. Sed id nunc consequat enim tincidunt aliquet. Praesent pharetra libero
+    ac tincidunt sagittis. Vestibulum porta, nisl sed luctus dictum, tortor dui vestibulum odio, eget fermentum sem odio
+    at massa. Praesent ut ullamcorper diam. Nulla erat quam, faucibus quis nisl non, sodales ultricies ante. Nulla sed
+    egestas ex.
+
+Duis iaculis finibus velit et scelerisque. Suspendisse quis dolor ex. Duis nunc tellus, interdum a est et, facilisis
+    tempor leo. Donec ut magna leo. Vestibulum sollicitudin, elit eu sagittis venenatis, dolor tortor pharetra mi,
+    facilisis molestie sapien arcu ac arcu. Pellentesque tristique velit porttitor, gravida sapien non, varius ex.
+    Donec sed metus in libero rhoncus posuere. Orci varius natoque penatibus et magnis dis parturient montes, nascetur
+    ridiculus mus. Aenean sit amet dui sed ipsum iaculis tristique. Sed luctus, ligula eget finibus consequat, quam
+    sapien ornare nunc, in lacinia mi lorem non arcu. Pellentesque pellentesque mi eget aliquet pretium. Nam sodales
+    tristique ante, sed mattis leo aliquet a.
+</p>
+
+<p>
+    Vestibulum bibendum diam eros, a tempor dolor tempor quis. Nam elementum a ligula id placerat. Integer aliquet
+    lacus dolor, in porttitor justo bibendum quis. Proin condimentum mi quis ultricies fringilla. Cras bibendum sagittis
+    sagittis. Sed quis erat id mi fringilla viverra et sit amet neque. Sed vitae tortor ut eros ultricies dignissim.
+    Phasellus iaculis turpis vitae pretium sollicitudin. Quisque at nisl id lorem semper dapibus eget in urna. Vivamus
+    lorem lorem, convallis efficitur justo in, dapibus molestie neque. Maecenas aliquet lacus sed neque porttitor, at
+    tincidunt orci venenatis. Aliquam ligula urna, tempor non ullamcorper et, euismod at tellus.
+</p>
+{% endblock %}

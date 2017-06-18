@@ -5,8 +5,11 @@ from django.shortcuts import render
 def main(request):
     return render(request, 'index.html')
 
-def headpage(request):
-    return render(request, 'headpage.html')
+def daily_statistics(request):
+    return render(request, 'daily_statistics.html')
+
+def periodic_statistics(request):
+    return render(request, 'periodic_statistics.html')
 
 def registration(request):
     return render(request, 'registration.html')
@@ -25,3 +28,6 @@ def contacts(request):
 
 def review(request):
     return render(request, 'review.html')
+
+def support(request):
+    return render(request, 'support.html')

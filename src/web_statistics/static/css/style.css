@@ -10,3 +10,26 @@
     width: 60%;
     padding-bottom: 50px;
 }
+
+.sprites {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 15px;
+	justify-content: space-around;
+	width: 180px;
+	height: 10px;
+}
+
+.sprites ul li {
+	display: inline-flex;
+	list-style-type: none
+}
+
+.sprites a {
+	color: black;
+}
+
+.sprites ul li:hover a {
+	color: red;
+	transition: all .3s ease;
+}
