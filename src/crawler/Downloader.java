@@ -30,6 +30,10 @@ public class Downloader {
     }
 
     public String download(String url) throws IOException {
+        //Выполняем проверку на наличие протокола в URL и если нет добавляем.
+        if(!url.matches("https?://.*")){
+            url = "http://" + url;
+        }
         String result = "";
         if (isItGzArchiveLink(url)) {
             result = downloadGzipFile(url);
@@ -103,9 +107,11 @@ public class Downloader {
     public String downloadRobot(String site) throws IOException {
         String robotTxt;
         try {
+            System.out.println(site + "/robots.txt");
             robotTxt = download(site + "/robots.txt");
         } catch (IOException e) {
             if (e.getMessage().equals(PAGE_NOT_FOUND)) {
+                System.out.println("robot.txt для сайта " + site + "не найден.");
                 throw new IOException(ROBOTSTXT_NOT_FOUND);
             } else
                 throw new IOException(e.getMessage());
