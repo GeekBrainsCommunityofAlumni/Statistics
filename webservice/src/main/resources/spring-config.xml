@@ -40,6 +40,7 @@
 
        <!-- Datasource. Источник данных - база  -->
        <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+              <!-- тут нужно прописать имя драйвера, url дб и логин паротль..без этого не заработает!!!!!!!!-->
               <property name="driverClassName" value="org.postgresql.Driver" />
               <property name="url" value="jdbc:postgresql://localhost:5432/postgres" />
               <property name="username" value="postgres" />

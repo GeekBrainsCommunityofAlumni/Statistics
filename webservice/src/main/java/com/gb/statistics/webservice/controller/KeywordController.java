@@ -30,7 +30,7 @@ public class KeywordController {
             return ResponseEntity.badRequest()
                     .body(new ErrorResponse("`personId` and `name` not be null!"));
         }
-        if (keywordRepository.exists(keyword.getId()))
+        if (keywordRepository.exists((long)keyword.getId()))
             return ResponseEntity.status(HttpStatus.CONFLICT)
                     .body(new ErrorResponse("Keyword already exists!"));
 
@@ -42,7 +42,7 @@ public class KeywordController {
 
     @RequestMapping(value = "/keyword", method = RequestMethod.PUT)
     public ResponseEntity<?> update(@RequestBody Keyword keyword){
-        if(!keywordRepository.exists(keyword.getId())){
+        if(!keywordRepository.exists((long)keyword.getId())){
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body(new ErrorResponse("Keyword not exists!"));
         }
@@ -51,9 +51,9 @@ public class KeywordController {
     }
 
     @RequestMapping(value = "/keyword/{id}", method = RequestMethod.DELETE)
-    public ResponseEntity<?> delete(@PathVariable Long id){
-        keywordRepository.delete(id);
-        if(keywordRepository.exists(id))
+    public ResponseEntity<?> delete(@PathVariable int id){
+        keywordRepository.delete((long)id);
+        if(keywordRepository.exists((long)id))
             return ResponseEntity.ok().body(null);
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
                 .body(new ErrorResponse("Person not found"));
