@@ -20,7 +20,6 @@ class MyRegistrationForm(forms.ModelForm):
     gender = forms.CharField(widget=forms.Select(attrs={"id": "gender", "class": "form-control"}))
     birthdate = forms.CharField(widget=forms.DateInput(attrs={"type": "date", "id": "birthdate", "class": "form-control"}))
     country = forms.CharField(widget=forms.Select(attrs={"id": "countries", "class": "form-control"}))
-    district = forms.CharField(widget=forms.Select(attrs={"id": "district", "class": "form-control"}))
     city = forms.CharField(max_length=32, widget=forms.TextInput(attrs={"type": "text", "class": "form-control", "placeholder": "Ваш город..."}))
     your_status = forms.CharField(widget=forms.Select(attrs={"type": "checkbox"}))
     your_photo = forms.CharField()  # {"value_from_datadict": ""}

@@ -28,18 +28,15 @@ class Person(models.Model):
     gender = models.CharField(verbose_name="Ваш пол:", max_length=32, choices=genders)
     birthdate = models.DateField(verbose_name="Дата рождения:", blank=True)
     country = models.CharField(verbose_name="Ваша страна:", max_length=32)
-    district = models.CharField(verbose_name="Ваш регион:", max_length=32)
     city = models.CharField(verbose_name="Ваш город/населённый пункт:", max_length=32)
-    producer = 'Производитель'
-    customer = 'Потребитель'
-    contractor = 'Посредник [доставка, корма и пр.]'
+    user_administrator = 'Администратор'
+    user_user = 'Пользователь'
     types_of_users = (
-        (producer, 'Производитель'),
-        (customer, 'Потребитель'),
-        (contractor, 'Посредник [доставка, корма и пр.]')
+        (user_administrator, 'Администратор'),
+        (user_user, 'Потребитель'),
     )
     your_status = models.CharField(max_length=32, verbose_name="Выберите Ваш статус пользователя:", choices=types_of_users,
-                              default=customer)
+                              default=user_user)
     # location = GeopositionField(blank=True)
     your_photo = models.ImageField(verbose_name="Загрузите Ваше главное фото:", upload_to="pictures", name="your_photo", blank=True)
     rules = models.BooleanField(max_length=32)
