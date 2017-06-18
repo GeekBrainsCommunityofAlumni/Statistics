@@ -15,10 +15,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Parser {
-    private static final String searhStr = "sitemap";
+    private static final String searhStr = "sitemap:";
 
     public String parseRobotTxt(String site) {
-        if (site.contains(searhStr)) {
+        if (site.toLowerCase().contains(searhStr)) {
             return site.substring(site.toLowerCase().indexOf(searhStr) + 9);
         } else return null;
     }
@@ -29,9 +29,8 @@ public class Parser {
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
         DocumentBuilder db = dbf.newDocumentBuilder();
         Document doc = db.parse(new InputSource(new StringReader(sitemap)));
-
         NodeList nodeLst = doc.getElementsByTagName("url");
-
+//        System.gc();
         for (int s = 0; s < nodeLst.getLength(); s++) {
             Node fstNode = nodeLst.item(s);
             if (fstNode.getNodeType() == Node.ELEMENT_NODE) {
@@ -77,12 +76,10 @@ public class Parser {
                 NodeList fstNmElmntLst = fstElmnt.getElementsByTagName("loc");
                 Element fstNmElmnt = (Element) fstNmElmntLst.item(0);
                 NodeList fstNm = fstNmElmnt.getChildNodes();
-                urlPages.add(((Node) fstNm.item(0)).getNodeValue());
+                String urlPage = ((Node)fstNm.item(0)).getNodeValue();
+                urlPages.add(urlPage);
             }
         }
         return urlPages;
     }
 }
-
-
-
