@@ -24,6 +24,7 @@ from admin_management.views import *
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', main),
+    url(r'^statistics/$', statistics),
     url(r'^daily_statistics/$', daily_statistics),
     url(r'^periodic_statistics/$', periodic_statistics),
     url(r'^registration/$', registration),

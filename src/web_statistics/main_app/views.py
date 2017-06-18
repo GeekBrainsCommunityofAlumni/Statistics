@@ -5,6 +5,9 @@ from django.shortcuts import render
 def main(request):
     return render(request, 'index.html')
 
+def statistics(request):
+    return render(request, 'statistics.html')
+
 def daily_statistics(request):
     return render(request, 'daily_statistics.html')
 

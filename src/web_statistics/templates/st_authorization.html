@@ -46,11 +46,10 @@
     <div class="thumbnail" id="user">
         <img src="#" alt="You">
         <h4>ФИО{{Person.lastname}} {{user.username}}</h4>
-        <p>..и что-нибудь ещё{{Person.firstname}}</p>
     </div>
 
     {% block content %}
-        {% include 'filledroom.html' %}
+        {% include 'statistics.html' %}
     {% endblock %}
 
 {% else %}
