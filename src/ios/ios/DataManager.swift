@@ -8,7 +8,7 @@
 import UIKit
 
 protocol DataManagerProtocol {
-    func didCompliteRequestOnData(data: [SiteData], date: Date) // возвращает статистику на дату
+    func didCompliteRequestOnData(data: [SiteData], date1: Date, date2: Date) // возвращает статистику на дату
     func didCompliteRequestTotal(data: [SiteData]) // возвращает общую статистику
 }
 
@@ -33,15 +33,15 @@ class DataManager: DataProviderProtocol{
         
     }
     // запрос статистики на дату
-    func getDataOnDate(date: Date){
+    func getDataOnDate(date1: Date, date2: Date){
         if let dbmanager = self.dbManager {
-            dbmanager.getDataOnDate(date: date)
+            dbmanager.getDataOnDate(date1: date1,date2: date2 )
         } else if let networkmanager = self.networkManager {
-            networkmanager.getDataOnDate(date: date)
+            networkmanager.getDataOnDate(date1: date1, date2: date2)
         } else {
             // источника не существует. ошибка
             print("not have source")
-            delegat?.didCompliteRequestOnData(data: [], date: date)
+            delegat?.didCompliteRequestOnData(data: [], date1: date1, date2: date2)
         }
     }
     
@@ -52,20 +52,20 @@ class DataManager: DataProviderProtocol{
         self.networkManager?.delegat = self
     }
     
-    func didCompliteRequestOnData(data: [SiteData], date: Date, dataProvider: DataProvider){
+    func didCompliteRequestOnData(data: [SiteData], date1: Date, date2: Date, dataProvider: DataProvider){
         if data.isEmpty == true{ // если поиск вернул пустую таблицу
             if dataProvider.type == .db { //и это было обращение в кеш
-                self.networkManager?.getDataOnDate(date: date) //тянем данные из сети
+                self.networkManager?.getDataOnDate(date1: date1, date2: date2) //тянем данные из сети
             } else {
                 // нет данных
-                delegat?.didCompliteRequestOnData(data: [], date: date)
+                delegat?.didCompliteRequestOnData(data: [], date1: date1, date2: date2)
             }
         } else {//данные получили
             if dataProvider.type == .source { // если источником является сеть или что то подобное
                 self.dbManager?.putData(data: data) // сохраняем данные в локальный кеш
-                delegat?.didCompliteRequestOnData(data: data, date: date) // отдаем их на уровень выше
+                delegat?.didCompliteRequestOnData(data: data, date1: date1, date2: date2) // отдаем их на уровень выше
             } else { // если данные вытянули из кеша сразу отдаем их на уровень выше
-                delegat?.didCompliteRequestOnData(data: data, date: date)
+                delegat?.didCompliteRequestOnData(data: data, date1: date1, date2: date2)
             }
         }
     }

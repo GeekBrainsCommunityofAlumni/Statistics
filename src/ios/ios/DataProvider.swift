@@ -15,7 +15,7 @@ enum DataProviderType {
 
 // протокол для возврата из источника данных. dataProvider - дает нам возможность в вызывающем методе получить информацию о типе провайдера (кеш/сеть) и т.д.
 protocol DataProviderProtocol {
-    func didCompliteRequestOnData(data: [SiteData], date: Date, dataProvider: DataProvider)
+    func didCompliteRequestOnData(data: [SiteData], date1: Date, date2: Date, dataProvider: DataProvider)
     func didCompliteRequestTotal(data: [SiteData], dataProvider: DataProvider)
 }
 
@@ -27,7 +27,7 @@ class DataProvider{
     func getSumaryData(){
         
     }
-    func getDataOnDate(date: Date){
+    func getDataOnDate(date1: Date, date2: Date){
         
     }
     func putData(data: [SiteData]){
