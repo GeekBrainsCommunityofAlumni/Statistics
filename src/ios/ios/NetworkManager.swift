@@ -249,19 +249,6 @@ class NetworkProcess {
             }
         }
     }
-    // возвращает массив дат включая начальную и конечную
-    // необходимо переработать, сделать через протокол Sequence
-    func dateArrayCreate(dateBegin: Date, dateEnd: Date) -> [Date] {
-        var result: [Date] = []
-        let calendar = Calendar(identifier: .gregorian)
-        var dateNext = dateBegin
-        result.append(dateNext)
-        while dateEnd.compare(dateNext) == .orderedDescending {
-            dateNext = calendar.date(byAdding: Calendar.Component.day, value: 1, to: dateNext)!
-            result.append(dateNext)
-        }
-        return result
-    }
     // получаем ранг за период
     private func getOnDateRank(){
         guard let dBegin = dateBegin else {
@@ -274,8 +261,7 @@ class NetworkProcess {
         }
         for site in self.sites{
             for person in self.persons{
-                let dateArray = dateArrayCreate(dateBegin: dBegin, dateEnd: dEnd)
-                for currentDate in dateArray{
+                for currentDate in DateRange(beginDate: dBegin, endDate: dEnd){
                     // увеличиваем счетчик url запросов на единицу
                     rankCounterIncrement()
                     let dateInString = currentDate.toString()!
