@@ -4,6 +4,7 @@ import desktop_ui.Module.DTO.DailyStatisticResultItem;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import java.time.LocalDate;
 import java.time.Period;
 import java.util.Date;
 
@@ -35,11 +36,11 @@ public class Proxy
     /**
      * Возвращает общую статистику по сайту
      *
-     * @param siteName
+     * @param siteId
      *
      * @return ObservableList
      */
-    public static ObservableList<CommonStatisticResultItem> getCommonStatistic(String siteName)
+    public static ObservableList<CommonStatisticResultItem> getCommonStatistic(Integer siteId)
     {
         return FXCollections.observableArrayList(
                 new CommonStatisticResultItem(1, "Путин"),
@@ -51,18 +52,23 @@ public class Proxy
     /**
      * Возвращает ежедневную статистику по сайту
      *
-     * @param siteName
-     * @param personName
-     * @param datePeriod
+     * @param siteId
+     * @param personId
+     * @param startDate
+     * @param endDate
      *
-     * @return ObservableList
+     * @return
      */
-    public static ObservableList<DailyStatisticResultItem> getDailyStatistic(String siteName, String personName, Period datePeriod)
-    {
+    public static ObservableList<DailyStatisticResultItem> getDailyStatistic(
+            Integer siteId,
+            Integer personId,
+            LocalDate startDate,
+            LocalDate endDate
+    ) {
         return FXCollections.observableArrayList(
-                new DailyStatisticResultItem(new Date(), 12),
-                new DailyStatisticResultItem(new Date(), 10),
-                new DailyStatisticResultItem(new Date(), 14)
+                new DailyStatisticResultItem(startDate, 12),
+                new DailyStatisticResultItem(startDate, 10),
+                new DailyStatisticResultItem(endDate, 14)
         );
     }
 }

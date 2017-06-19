@@ -48,6 +48,18 @@ public class CommonStatisticController
     @FXML
     private void getCommonStatistic()
     {
-        statisticTable.setItems(Proxy.getCommonStatistic("test"));
+        if (siteIsValid()) {
+            statisticTable.setItems(Proxy.getCommonStatistic(this.sites.getSelectionModel().getSelectedIndex()));
+        }
+    }
+
+    /**
+     * Валидация сайта
+     *
+     * @return boolean
+     */
+    private boolean siteIsValid()
+    {
+        return this.sites.getSelectionModel() != null;
     }
 }

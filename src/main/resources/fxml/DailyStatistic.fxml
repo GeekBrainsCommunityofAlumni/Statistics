@@ -63,8 +63,8 @@
                                 <Font name="Arial" size="14.0" />
                             </font>
                         </Label>
-                        <DatePicker layoutX="110.0" layoutY="102.0" prefHeight="25.0" prefWidth="104.0" />
-                        <DatePicker layoutX="260.0" layoutY="102.0" prefHeight="25.0" prefWidth="104.0" />
+                        <DatePicker fx:id="startDate" layoutX="110.0" layoutY="102.0" prefHeight="25.0" prefWidth="104.0" />
+                        <DatePicker fx:id="endDate" layoutX="260.0" layoutY="102.0" prefHeight="25.0" prefWidth="104.0" />
                         <Label layoutX="231.0" layoutY="106.0" text="по:">
                             <font>
                                 <Font name="Arial" size="14.0" />

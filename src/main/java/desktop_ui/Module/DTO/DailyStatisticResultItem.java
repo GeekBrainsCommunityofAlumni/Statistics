@@ -4,8 +4,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDate;
 
 /**
  * Created by Cappoocha on 20.06.2017.
@@ -16,11 +15,9 @@ public class DailyStatisticResultItem
 
     public IntegerProperty newPageCount;
 
-    public DailyStatisticResultItem(Date date, Integer newPageCount)
+    public DailyStatisticResultItem(LocalDate date, Integer newPageCount)
     {
-        SimpleDateFormat sdfDate = new SimpleDateFormat("dd.MM.yyyy");
-
-        this.date = new SimpleStringProperty(sdfDate.format(date));
+        this.date = new SimpleStringProperty(date.toString());
         this.newPageCount = new SimpleIntegerProperty(newPageCount);
     }
 }
