@@ -20,8 +20,7 @@ public class PersonListController {
 
     private final int CLICK_COUNT = 2;
     private final int MODAL_WIDTH = 300;
-    private final int MODAL_EDIT_HEIGHT = 150;
-    private final int MODAL_DELETE_HEIGHT = 100;
+    private final int MODAL_HEIGHT = 100;
     private final String ADD_TITLE = "Создание записи";
     private final String EDIT_TITLE = "Редактирование записи";
     private final String DELETE_TITLE = "Удаление записи";
@@ -64,7 +63,6 @@ public class PersonListController {
         initDeleteModalWindow();
         addFakeData();
         personList.getPersonList();
-        //keyWordsListController.setPersonList(personList.getPersonList());
     }
 
     private void addFakeData() {
@@ -112,7 +110,7 @@ public class PersonListController {
     @FXML
     private void actionButtonAddPerson() {
         editPersonController.setPerson(new Person());
-        showDialog(ADD_TITLE, modalEditWindowStage, parentEdit, MODAL_WIDTH, MODAL_EDIT_HEIGHT);
+        showDialog(ADD_TITLE, modalEditWindowStage, parentEdit, MODAL_WIDTH, MODAL_HEIGHT);
         if (!editPersonController.nameFieldIsEmpty(editPersonController.getPerson().getName())) {
             personList.addPerson(editPersonController.getPerson());
         }
@@ -121,13 +119,13 @@ public class PersonListController {
     @FXML
     private void actionButtonEditPerson() {
         editPersonController.setPerson(personTableView.getSelectionModel().getSelectedItem());
-        showDialog(EDIT_TITLE, modalEditWindowStage, parentEdit, MODAL_WIDTH, MODAL_EDIT_HEIGHT);
+        showDialog(EDIT_TITLE, modalEditWindowStage, parentEdit, MODAL_WIDTH, MODAL_HEIGHT);
     }
 
     @FXML
     private void actionButtonDeletePerson() {
         deletePersonController.setPerson(personTableView.getSelectionModel().getSelectedItem());
-        showDialog(DELETE_TITLE, modalDeleteWindowStage, parentDelete, MODAL_WIDTH, MODAL_DELETE_HEIGHT);
+        showDialog(DELETE_TITLE, modalDeleteWindowStage, parentDelete, MODAL_WIDTH, MODAL_HEIGHT);
     }
 
     private void showDialog(String title, Stage stage, Parent parent, int width, int height) {

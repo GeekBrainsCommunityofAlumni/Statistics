@@ -8,9 +8,13 @@ public interface KeyWordsInterface {
 
     ObservableList<KeyWord> getKeyWordsByPerson(Person person);
 
+    ObservableList<KeyWord> getKeyWords();
+
     boolean addKeyWord(KeyWord keyWord);
 
     boolean updateKeyWord(KeyWord keyWord);
 
     boolean deleteKeyWord(KeyWord keyWord);
+
+
 }

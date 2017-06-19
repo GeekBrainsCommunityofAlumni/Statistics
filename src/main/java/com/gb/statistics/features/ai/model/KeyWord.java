@@ -10,6 +10,7 @@ public class KeyWord {
     private int personId;
 
     public KeyWord() {
+        this.name = new SimpleStringProperty("");
     }
 
     public KeyWord(int id, String name, int personId) {
@@ -32,5 +33,9 @@ public class KeyWord {
 
     public int getPersonId() {
         return personId;
+    }
+
+    public void setName(String name) {
+        this.name.set(name);
     }
 }

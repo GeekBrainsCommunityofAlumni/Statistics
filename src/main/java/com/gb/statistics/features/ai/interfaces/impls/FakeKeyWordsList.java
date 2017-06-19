@@ -17,6 +17,11 @@ public class FakeKeyWordsList implements KeyWordsInterface {
     }
 
     @Override
+    public ObservableList<KeyWord> getKeyWords() {
+        return keyWordsList;
+    }
+
+    @Override
     public boolean addKeyWord(KeyWord keyWord) {
         keyWordsList.add(keyWord);
         return false;

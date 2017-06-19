@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
@@ -22,13 +21,13 @@
          </font>
       </Label>
       <Label layoutX="14.0" layoutY="47.0" text="Всего записей: " AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="50.0" />
-      <Label fx:id="personListCount" layoutX="98.0" layoutY="47.0" text="0" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="50.0" />
+      <Label fx:id="keyWordsListCount" layoutX="98.0" layoutY="47.0" text="0" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="50.0" />
       <Label layoutX="261.0" layoutY="47.0" text="Показывать по" AnchorPane.rightAnchor="75.0" AnchorPane.topAnchor="50.0" />
       <HBox layoutX="45.0" layoutY="9.0" prefHeight="30.0" prefWidth="239.0" spacing="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="110.0">
          <children>
-            <Button mnemonicParsing="false" prefWidth="70.0" text="Добавить" />
-            <Button fx:id="editButton" mnemonicParsing="false" prefWidth="70.0" text="Изменить" />
-            <Button fx:id="deleteButton" mnemonicParsing="false" prefWidth="70.0" text="Удалить" />
+            <Button onAction="#actionButtonAddKeyWord" mnemonicParsing="false" prefWidth="70.0" text="Добавить" />
+            <Button onAction="#actionButtonEditKeyWord" fx:id="editButton" mnemonicParsing="false" prefWidth="70.0" text="Изменить" />
+            <Button onAction="#actionButtonDeleteKeyWord" fx:id="deleteButton" mnemonicParsing="false" prefWidth="70.0" text="Удалить" />
          </children>
       </HBox>
       <Pagination layoutX="10.0" layoutY="551.0" pageCount="20" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
