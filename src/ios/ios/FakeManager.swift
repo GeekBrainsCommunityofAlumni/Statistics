@@ -14,10 +14,10 @@ class FakeManager:DataProvider{
     override func getSumaryData(){
         var result: [SiteData] = []
         let count = sitesName.count
-        for _ in 0..<count{
+        for num in 0..<count{
             let item: SiteData = SiteData()
             item.date = Date()
-            item.site = sitesName[Int(arc4random()) % count]
+            item.site = sitesName[num]
             for person in 0..<personsName.count{
                 item.stats[personsName[person]] = Int(arc4random()) % 100
             }
@@ -26,7 +26,10 @@ class FakeManager:DataProvider{
         }
         delegat.didCompliteRequestTotal(data: result, dataProvider: self)
     }
-    
+    override init() {
+        super.init()
+        self.type = .source
+    }
     override func getDataOnDate(date1: Date, date2: Date){
         var result: [SiteData] = []
         let count = sitesName.count

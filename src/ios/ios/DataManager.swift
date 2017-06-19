@@ -20,7 +20,7 @@ class DataManager: DataProviderProtocol{
     var delegat: DataManagerProtocol?
     
     // запрос общей статистики
-    func getSumaryData(date: Date){
+    func getSumaryData(){
         if let dbmanager = self.dbManager { // если используется кеш
             dbmanager.getSumaryData() // ищем данные в кеше
         } else if let networkmanager = self.networkManager { // если есть сетевой менеджер
@@ -88,10 +88,16 @@ class DataManager: DataProviderProtocol{
             }
         }
     }
-    // статический метод возвращающий DataManager под данную ситуацию.
+    // статический метод возвращающий DataManager c NetworkManager
     static func initWithNetworkManager() -> DataManager{
         let nm = NetworkManager()
         let dm = DataManager(dbManager: nil, networkManager: nm)
+        return dm
+    }
+        // статический метод возвращающий DataManager c FakeManager
+    static func initWithFakeManager() -> DataManager{
+        let fm = FakeManager()
+        let dm = DataManager(dbManager: nil, networkManager: fm)
         return dm
     }
 }
