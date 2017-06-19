@@ -1,12 +1,12 @@
 package com.gb.statistics.features.ai.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.gb.statistics.features.ai.interfaces.KeyWordsInterface;
 import com.gb.statistics.features.ai.interfaces.impls.FakeKeyWordsList;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Person {
 
     private int id;
