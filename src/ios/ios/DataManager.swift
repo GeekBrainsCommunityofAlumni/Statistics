@@ -8,15 +8,15 @@
 import UIKit
 
 protocol DataManagerProtocol {
-    func didCompliteRequestOnData(data: [SiteData], date1: Date, date2: Date) // возвращает статистику на дату
+    func didCompliteRequestOnData(data: [SiteData], date1: Date, date2: Date) // возвращает статистику за период
     func didCompliteRequestTotal(data: [SiteData]) // возвращает общую статистику
 }
 
 //  задача класса: выбрать источник данных (кеш, сеть и т.п.) и передать в него запрос на информацию
 //  получить данные от источника, сохранить их в кеше и отдать на уровень выше
 class DataManager: DataProviderProtocol{
-    var dbManager: DataProvider? // класс обслуживающий кеш
-    var networkManager: DataProvider? // класс работающий с сетью
+    private var dbManager: DataProvider? // класс обслуживающий кеш
+    private var networkManager: DataProvider? // класс работающий с сетью
     var delegat: DataManagerProtocol?
     
     // запрос общей статистики
@@ -35,7 +35,7 @@ class DataManager: DataProviderProtocol{
     // запрос статистики на дату
     func getDataOnDate(date1: Date, date2: Date){
         if let dbmanager = self.dbManager {
-            dbmanager.getDataOnDate(date1: date1,date2: date2 )
+            dbmanager.getDataOnDate(date1: date1,date2: date2)
         } else if let networkmanager = self.networkManager {
             networkmanager.getDataOnDate(date1: date1, date2: date2)
         } else {
@@ -57,7 +57,7 @@ class DataManager: DataProviderProtocol{
             if dataProvider.type == .db { //и это было обращение в кеш
                 self.networkManager?.getDataOnDate(date1: date1, date2: date2) //тянем данные из сети
             } else {
-                // нет данных
+                // нет данных, возвращаем пустую таблицу
                 delegat?.didCompliteRequestOnData(data: [], date1: date1, date2: date2)
             }
         } else {//данные получили
@@ -87,6 +87,12 @@ class DataManager: DataProviderProtocol{
                 delegat?.didCompliteRequestTotal(data: data)
             }
         }
+    }
+    // статический метод возвращающий DataManager под данную ситуацию.
+    static func initWithNetworkManager() -> DataManager{
+        let nm = NetworkManager()
+        let dm = DataManager(dbManager: nil, networkManager: nm)
+        return dm
     }
 }
 
