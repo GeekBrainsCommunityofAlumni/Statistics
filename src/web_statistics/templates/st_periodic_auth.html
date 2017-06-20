@@ -45,11 +45,11 @@
     </form>
     <div class="thumbnail" id="user">
         <img src="#" alt="You">
-        <h4>ФИО:{{user.username}}</h4>
+        <h4>ФИО: {{user.username}}</h4>
     </div>
 
     {% block content %}
-        {% include 'filledroom.html' %}
+        {% include 'incl-periodic_st.html' %}
     {% endblock %}
 
 {% else %}
