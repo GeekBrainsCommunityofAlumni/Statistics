@@ -17,15 +17,17 @@ public class Crawler {
     private static Parser parser;
     private static DBHelper dbHelper;
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, ParserConfigurationException, SAXException {
         init();
         crawlsNewSite();
         recrawls();
     }
 
-    private static void crawlsNewSite() throws IOException {
+    private static void crawlsNewSite() throws IOException, ParserConfigurationException, SAXException {
         newSites = dbHelper.getNewSites();
-        addNewSitesToPages(newSites);
+        if (newSites != null) {
+            addNewSitesToPages(newSites);
+        }
         pagesIDForScan = dbHelper.getPagesIDWithoutScanDate(); //Метод возвращает список ID старниц для сканирования. БЕЗ robots.txt и sitemap
         for (int pageID : pagesIDForScan) {
             String pageSource = downloader.download(dbHelper.getUrlPageViaID(pageID));
@@ -46,16 +48,61 @@ public class Crawler {
         downloader = new Downloader();
         parser = new Parser();
         dbHelper = new DBHelper();
+        dbHelper.connectToDB();
         personsID = dbHelper.getPersonsID();
     }
 
-    private static void addNewSitesToPages(ArrayList<String> newSites) { //throws IOException, ParserConfigurationException, SAXException
+    private static void addNewSitesToPages(ArrayList<String> newSites) throws IOException, ParserConfigurationException, SAXException { // Решить что делать с пробрасываемыми исключениями. throws IOException, ParserConfigurationException, SAXException
         for (String site : newSites) {
-            String robotTxt = downloader.downloadRobot(site);
-            String sitemapURL = parser.parseRobotTxt(robotTxt);
-            String sitemap = downloader.downloadSiteMap(sitemapURL);
-            ArrayList<String> urlPages = parser.parseSiteMap(sitemap);
-            dbHelper.addPagesToSite(urlPages);
+            String robotTxt = null;
+            ArrayList<String> urlPages = new ArrayList<>();
+
+            try {
+                robotTxt = downloader.downloadRobot(site);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            String sitemapURL = null;
+
+            if (robotTxt != null) {
+                sitemapURL = parser.parseRobotTxt(robotTxt);
+            }
+
+            if (sitemapURL != null) {
+                String sitemap = null;
+                sitemap = downloader.downloadSiteMap(sitemapURL);
+                if (isItSitemapIndex(sitemap)) {
+                    ArrayList<String> sitemapsURL = parser.parseSiteMapIndex(sitemap);
+                    for (String sitemapUrl : sitemapsURL) {
+                        sitemap = downloader.downloadSiteMap(sitemapUrl);
+                        System.gc();
+                        ArrayList<String> urlPagesSiteMapIndex = parser.parseSiteMap(sitemap);
+                        long mem = Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory();
+                        for (String url : urlPagesSiteMapIndex) {
+                            urlPages.add(url);
+                        }
+                        dbHelper.addPagesToSite(urlPages, site);
+                        urlPages.clear();
+                    }
+                }
+
+                if (isItSitemap(sitemap)) {
+                    urlPages = parser.parseSiteMap(sitemap);
+                    dbHelper.addPagesToSite(urlPages, site);
+                }
+            } else {
+                //TODO Сайтмэп не найден - здесь будет функция построения карты сайта без сайтмэпа
+            }
+
+
         }
+    }
+
+    private static boolean isItSitemap(String sitemap) {
+        return sitemap.contains("urlset");
+    }
+
+    private static boolean isItSitemapIndex(String sitemap) {
+        return sitemap.contains("sitemapindex");
     }
 }
