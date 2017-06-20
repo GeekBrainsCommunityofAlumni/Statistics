@@ -65,6 +65,20 @@
 </div> <!-- /.form-group -->
 
 <div class="form-group">
+    <label class="control-label col-sm-3">
+        <i class="fa fa-address-card-o" aria-hidden="true"></i>
+        Ваш статус пользователя:
+    </label>
+    <div class="col-sm-3">
+        <select id="status" class="form-control" name="status" required="">
+            <option value="unknown">Выберите из списка:</option>
+            <option value="Администратор">Администратор</option>
+            <option value="Пользователь">Пользователь</option>
+        </select>
+    </div>
+</div> <!-- /.form-group -->
+
+<div class="form-group">
     <label for="mobile" class="col-sm-3 control-label required">
         <i class="fa fa-mobile" aria-hidden="true"></i>
         Контактный тел. (mobile):
@@ -106,7 +120,7 @@
         Выберите Вашу страну:
     </label>
     <div class="col-sm-3">
-        <select id="countries" class="form-control" name="country" required="">
+        <select id="countries" class="form-control" name="country">
             <option value="unknown">Выберите из списка:</option>
             <option value="Russia">Российская Федерация</option>
             <option value="Belarus">Республика Беларусь</option>
@@ -128,27 +142,9 @@
         Ваш город:
     </label>
     <div class="col-sm-3">
-        <input type="text" name="city" placeholder="Ваш город..." class="form-control" required="" autofocus>
+        <input type="text" name="city" placeholder="Ваш город..." class="form-control" autofocus>
     </div>
     <span class="help-block">&#9998; по желанию</span>
-</div> <!-- /.form-group -->
-
-<div class="form-group">
-    <label class="control-label col-sm-3"><i class="fa fa-address-card-o" aria-hidden="true"></i>
-        Ваш статус пользователя:
-    </label>
-    <div class="col-sm-9">
-        <div class="checkbox">
-            <label>
-                <input type="checkbox" name="status" id="#" value="Buyer">Администратор
-            </label>
-        </div>
-        <div class="checkbox">
-            <label>
-                <input type="checkbox" name="status" id="#" value="Saler">Пользователь
-            </label>
-        </div>
-    </div>
 </div> <!-- /.form-group -->
 
 <div class="form-group">

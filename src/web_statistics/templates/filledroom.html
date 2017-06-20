@@ -14,23 +14,23 @@
                     <tbody>
                         <tr>
                             <td><i class="fa fa-user" aria-hidden="true"></i> Ваш login:</td>
-                            <td>...</td>
+                            <td>{{user.username}}</td>
                         </tr>
                         <tr>
                             <td><i class="fa fa-envelope-o" aria-hidden="true"></i> Ваш e-mail:</td>
-                            <td>...</td>
+                            <td>{{user.email}}</td>
                         </tr>
                         <tr>
                             <td><i class="fa fa-mobile" aria-hidden="true"></i> Контактный тел. (mobile):</td>
-                            <td>...</td>
+                            <td>{{Person.phone_number}}</td>
                         </tr>
                         <tr>
                             <td><i class="fa fa-address-card-o" aria-hidden="true"></i> Ваш статус пользователя:</td>
-                            <td>...</td>
+                            <td>{{Person.your_status}}</td>
                         </tr>
                         <tr>
                             <td><i class="fa fa-home" aria-hidden="true"></i> Ваш адрес (можно скрыть):</td>
-                            <td>...</td>
+                            <td>{{Person.country}}{{Person.city}}</td>
                         </tr>
                     </tbody>
                 </table>

@@ -1,16 +1,5 @@
-# import table as table
-from django.contrib import auth
-from django.contrib.auth.models import User
-from django.shortcuts import render, HttpResponseRedirect
-from django.http import Http404
-from django.contrib.auth.models import User
-from user_management.models import Person
-from django.core.exceptions import ValidationError
-from user_management.forms import MyRegistrationForm
-
 import table as table
 from django.contrib import auth
-from django.contrib.auth.models import User
 from django.shortcuts import render, HttpResponseRedirect
 from django.http import Http404
 from django.contrib.auth.models import User
@@ -64,13 +53,13 @@ def registration(request):
         your_status = request.POST.get("status")
         print(request.POST)
         user = User()
-        user.username = 'asdasd'
-        user.set_password('asdasdf')
+        user.username = 'Admin1'
+        user.set_password('testgbca')
         # Validate data
         if password != confirmpassword:
             errors['password'] = 'Извините, пароли не совпадают... Попробуйте снова!'
-        p = Person(user=user, email=email, first_name=first_name,
-                      last_name=last_name, middle_name=middle_name, phone_number=phone_number, gender=gender,
+        p = Person(user=username, email=email, first_name=first_name,
+                      last_name=last_name, middle_name=middle_name, login=login, phone_number=phone_number, gender=gender,
                       birthdate=birthdate, country=country, district=district, city=city,
                       your_photo=your_photo, your_status=your_status)
         # Пароли хранятся в виде хэшей, поэтому их нельзя передавать напрямую
@@ -89,18 +78,18 @@ def registration(request):
     return render(request, "registration.html")
 
 
-def registration1(request):
-    if request.method == 'POST':
-        form = MyRegistrationForm(request.POST, request.FILES)
-        if form.is_valid():
-            cd = form.cleaned_data
-            table.your_photo = cd['your_photo']      #'value_from_datadict'
-            form.save()
-            print("===FORM SAVED!!!!!===")
-            return HttpResponseRedirect('/privateroom/')
-        else:
-            print("===FORM INVALID!!!!!===")
-        context = {'form': form}
-        return render(request, 'registration.html', context)
-    context = {'form': MyRegistrationForm()}
-    return render(request, 'registration.html', context)
+# def registration1(request):
+#     if request.method == 'POST':
+#         form = MyRegistrationForm(request.POST, request.FILES)
+#         if form.is_valid():
+#             cd = form.cleaned_data
+#             table.your_photo = cd['your_photo']      #'value_from_datadict'
+#             form.save()
+#             print("===FORM SAVED!!!!!===")
+#             return HttpResponseRedirect('/privateroom/')
+#         else:
+#             print("===FORM INVALID!!!!!===")
+#         context = {'form': form}
+#         return render(request, 'registration.html', context)
+#     context = {'form': MyRegistrationForm()}
+#     return render(request, 'registration.html', context)

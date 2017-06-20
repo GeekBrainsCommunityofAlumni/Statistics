@@ -21,7 +21,7 @@ class MyRegistrationForm(forms.ModelForm):
     birthdate = forms.CharField(widget=forms.DateInput(attrs={"type": "date", "id": "birthdate", "class": "form-control"}))
     country = forms.CharField(widget=forms.Select(attrs={"id": "countries", "class": "form-control"}))
     city = forms.CharField(max_length=32, widget=forms.TextInput(attrs={"type": "text", "class": "form-control", "placeholder": "Ваш город..."}))
-    your_status = forms.CharField(widget=forms.Select(attrs={"type": "checkbox"}))
+    your_status = forms.CharField(widget=forms.Select(attrs={"id": "status", "class": "form-control"}))
     your_photo = forms.CharField()  # {"value_from_datadict": ""}
     rules = forms.BooleanField(widget=forms.CheckboxInput(attrs={"type": "checkbox"}))
 

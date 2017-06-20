@@ -4,7 +4,6 @@ from django.db import models
 from phonenumber_field.modelfields import PhoneNumberField
 from django.contrib import admin
 from django.contrib.auth.models import User
-#from django.contrib.auth.models import User
 
 # Create your models here.
 
@@ -33,7 +32,7 @@ class Person(models.Model):
     user_user = 'Пользователь'
     types_of_users = (
         (user_administrator, 'Администратор'),
-        (user_user, 'Потребитель'),
+        (user_user, 'Пользователь'),
     )
     your_status = models.CharField(max_length=32, verbose_name="Выберите Ваш статус пользователя:", choices=types_of_users,
                               default=user_user)

@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'daily_stat',
     'user_management',
     'admin_management',
+    'phonenumber_field',
 ]
 
 MIDDLEWARE = [
