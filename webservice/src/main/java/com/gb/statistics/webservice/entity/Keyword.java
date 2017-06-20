@@ -1,60 +1,51 @@
 package com.gb.statistics.webservice.entity;
 
+import java.io.Serializable;
+import javax.persistence.*;
 
-public class Keyword {
+@Entity
+@Table(name="keywords")
+@NamedQuery(name="Keyword.findAll", query="SELECT k FROM Keyword k")
+public class Keyword implements Serializable {
+    private static final long serialVersionUID = 1L;
 
+    @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @Column(unique=true, nullable=false)
     private int id;
-    private int personId;
+
+    @Column(nullable=false, length=2048)
     private String name;
 
-    public Keyword(int personId, String name) {
-        this.personId = personId;
-        this.name = name;
+    @ManyToOne
+    @JoinColumn(name="PersonID", nullable=false)
+    private Person person;
+
+    public Keyword() {
     }
 
-    public Keyword(){}
-
     public int getId() {
-        return id;
+        return this.id;
     }
 
     public void setId(int id) {
         this.id = id;
     }
 
-    public int getPersonId() {
-        return personId;
-    }
-
-    public void setPersonId(int personId) {
-        this.personId = personId;
-    }
-
     public String getName() {
-        return name;
+        return this.name;
     }
 
     public void setName(String name) {
         this.name = name;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Keyword keyword = (Keyword) o;
-
-        if (id != keyword.id) return false;
-        if (personId != keyword.personId) return false;
-        return name.equals(keyword.name);
+    public Person getPerson() {
+        return this.person;
     }
 
-    @Override
-    public int hashCode() {
-        int result = id;
-        result = 31 * result + personId;
-        result = 31 * result + name.hashCode();
-        return result;
+    public void setPerson(Person person) {
+        this.person = person;
     }
+
 }
