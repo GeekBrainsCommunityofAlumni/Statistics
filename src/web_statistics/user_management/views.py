@@ -1,4 +1,4 @@
-import table as table
+# import table as table
 from django.contrib import auth
 from django.shortcuts import render, HttpResponseRedirect
 from django.http import Http404
