@@ -1,21 +1,38 @@
 package com.gb.statistics.webservice.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import java.io.Serializable;
+import javax.persistence.*;
 import java.util.List;
 
-public class Person {
-    private int id;
-    private String name;
-    private List<Personpagerank> rank;
+@Entity
+@Table(name="persons")
+@NamedQuery(name="Person.findAll", query="SELECT p FROM Person p")
+public class Person implements Serializable {
+    private static final long serialVersionUID = 1L;
 
-    public Person(int id, String name) {
-        this.id = id;
-        this.name = name;
+    @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @Column(unique=true, nullable=false)
+    private int id;
+
+    @Column(nullable=false, length=2048)
+    private String name;
+
+    @JsonIgnore
+    @OneToMany(mappedBy="person")
+    private List<Keyword> keywords;
+
+    @JsonIgnore
+    @OneToMany(mappedBy="person")
+    private List<Personpagerank> personpageranks;
+
+    public Person() {
     }
-    public Person(){}
 
     public int getId() {
-        return id;
+        return this.id;
     }
 
     public void setId(int id) {
@@ -23,38 +40,55 @@ public class Person {
     }
 
     public String getName() {
-        return name;
+        return this.name;
     }
 
     public void setName(String name) {
         this.name = name;
     }
 
-    public List<Personpagerank> getRank() {
-        return rank;
+    public List<Keyword> getKeywords() {
+        return this.keywords;
     }
 
-    public void setRank(List<Personpagerank> rank) {
-        this.rank = rank;
+    public void setKeywords(List<Keyword> keywords) {
+        this.keywords = keywords;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+    public Keyword addKeyword(Keyword keyword) {
+        getKeywords().add(keyword);
+        keyword.setPerson(this);
 
-        Person person = (Person) o;
-
-        if (id != person.id) return false;
-        if (rank != person.rank) return false;
-        return name.equals(person.name);
+        return keyword;
     }
 
-    @Override
-    public int hashCode() {
-        int result = id;
-        result = 31 * result + name.hashCode();
-        result = 31 * result + rank.hashCode();
-        return result;
+    public Keyword removeKeyword(Keyword keyword) {
+        getKeywords().remove(keyword);
+        keyword.setPerson(null);
+
+        return keyword;
     }
+
+    public List<Personpagerank> getPersonpageranks() {
+        return this.personpageranks;
+    }
+
+    public void setPersonpageranks(List<Personpagerank> personpageranks) {
+        this.personpageranks = personpageranks;
+    }
+
+    public Personpagerank addPersonpagerank(Personpagerank personpagerank) {
+        getPersonpageranks().add(personpagerank);
+        personpagerank.setPerson(this);
+
+        return personpagerank;
+    }
+
+    public Personpagerank removePersonpagerank(Personpagerank personpagerank) {
+        getPersonpageranks().remove(personpagerank);
+        personpagerank.setPerson(null);
+
+        return personpagerank;
+    }
+
 }
