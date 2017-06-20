@@ -6,7 +6,7 @@ import java.util.List;
 public class Person {
     private int id;
     private String name;
-    private List<PersonPageRank> rank;
+    private List<Personpagerank> rank;
 
     public Person(int id, String name) {
         this.id = id;
@@ -30,11 +30,11 @@ public class Person {
         this.name = name;
     }
 
-    public List<PersonPageRank> getRank() {
+    public List<Personpagerank> getRank() {
         return rank;
     }
 
-    public void setRank(List<PersonPageRank> rank) {
+    public void setRank(List<Personpagerank> rank) {
         this.rank = rank;
     }
 
