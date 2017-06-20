@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Date;
 
 @RestController
-@RequestMapping(path = "/api")
 public class StatController {
 
     @Autowired

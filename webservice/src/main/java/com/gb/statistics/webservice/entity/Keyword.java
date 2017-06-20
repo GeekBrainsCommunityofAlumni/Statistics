@@ -1,7 +1,7 @@
 package com.gb.statistics.webservice.entity;
 
-import java.io.Serializable;
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name="keywords")
