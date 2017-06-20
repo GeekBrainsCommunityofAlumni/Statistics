@@ -247,6 +247,21 @@ public class DBHelper {
         return resultingArrayList;
     }
 
+    public ArrayList<String> getOldScannedSites() { //возвращает список URL страниц из таблицы pages, сканирование которых было более 24 часов назад
+        ArrayList<String> resultingArrayList = new ArrayList<>();
+        try {
+            String sqlDateTimeMinus24Hours = "DATE_ADD(NOW(), INTERVAL -24 HOUR)";
+            statement = connectionToDB.createStatement();
+            resultSet = statement.executeQuery("SELECT url FROM pages WHERE ((lastscandate IS NOT NULL) AND (lastscandate < " + sqlDateTimeMinus24Hours + "));");
+            while (resultSet.next()) {
+                resultingArrayList.add(resultSet.getString(1));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return resultingArrayList;
+    }
+
     public void disconnectFromDB() {
         try {
             connectionToDB.close();
