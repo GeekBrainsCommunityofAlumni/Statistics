@@ -86,7 +86,7 @@ public class PersonControllerTest {
 
     @Test
     public void deletePersonTest() throws Exception {
-        Person personToDelete = new Person(EXISTING_ID, EXISTING_PERSON_NAME);
+        Person personToDelete = new Person(DELETE_ID, EXISTING_PERSON_NAME);
         ResponseEntity responseEntity =  personController.deletePerson(personToDelete.getId());
         Assert.assertTrue(!MockPersonRepository.personsList.contains(personToDelete));
         Assert.assertTrue(responseEntity.getStatusCode().is2xxSuccessful());

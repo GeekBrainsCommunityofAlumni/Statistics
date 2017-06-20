@@ -91,18 +91,13 @@ public class SiteControllerTest {
         Assert.assertTrue(responseEntity.getStatusCode().is2xxSuccessful());
     }
 
-    @Test
-    public void deleteSiteResponseOk() throws Exception {
-        ResponseEntity responseEntity = siteController.deleteSite(1);
-        Assert.assertTrue(responseEntity.getStatusCode().is2xxSuccessful());
-    }
 
     @Test
     public void deleteSiteNotContainsInMock() throws Exception {
-        Site site = MockSiteRepository.siteList.get(0);
-        siteController.deleteSite(site.getId());
+        Site site = MockSiteRepository.siteList.get(DELETE_ID);
+        ResponseEntity responseEntity = siteController.deleteSite(site.getId());
         Assert.assertFalse(MockSiteRepository.siteList.contains(site));
-
+       Assert.assertTrue(responseEntity.getStatusCode().is2xxSuccessful());
     }
 
     @Test

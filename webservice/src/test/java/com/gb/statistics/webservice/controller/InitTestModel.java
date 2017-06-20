@@ -10,6 +10,7 @@ import com.gb.statistics.webservice.repository.MockSiteRepository;
 public class InitTestModel {
     public static final int NOT_EXISTING_ID = 100500;
     public static final int EXISTING_ID = 1;
+    public static final int DELETE_ID = 2;
     public static final String EXISTING_PERSON_NAME = "Путин";
     public static final String NOT_EXISTING_PERSON_NAME = "Медведев";
     public static final String EXISTING_SITE_NAME = "lenta.ru";
