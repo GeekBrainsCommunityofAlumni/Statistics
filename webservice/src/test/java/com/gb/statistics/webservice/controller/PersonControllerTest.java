@@ -13,6 +13,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
+import javax.validation.constraints.AssertTrue;
 import java.util.List;
 
 import static com.gb.statistics.webservice.controller.InitTestModel.*;
@@ -22,8 +23,6 @@ import static com.gb.statistics.webservice.controller.InitTestModel.*;
 @WebAppConfiguration
 @ContextConfiguration(classes = {AppConfig.class})
 public class PersonControllerTest {
-
-
 
     @Autowired
     private PersonController personController;
@@ -82,8 +81,15 @@ public class PersonControllerTest {
 
     @Test
     public void updatePersonNullReturnError() throws Exception {
-        Person nullPerson = null;
-        Assert.assertTrue(personController.updatePerson(nullPerson).getStatusCode().is4xxClientError());
+        Assert.assertTrue(personController.updatePerson(null).getStatusCode().is4xxClientError());
+    }
+
+    @Test
+    public void deletePersonTest() throws Exception {
+        Person personToDelete = new Person(EXISTING_ID, EXISTING_PERSON_NAME);
+        ResponseEntity responseEntity =  personController.deletePerson(personToDelete.getId());
+        Assert.assertTrue(!MockPersonRepository.personsList.contains(personToDelete));
+        Assert.assertTrue(responseEntity.getStatusCode().is2xxSuccessful());
     }
 
 }
