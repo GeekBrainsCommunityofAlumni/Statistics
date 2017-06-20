@@ -6,9 +6,9 @@ import javafx.collections.ObservableList;
 
 public interface KeyWordsInterface {
 
-    ObservableList<KeyWord> getKeyWordsByPerson(Person person);
+    void refreshKeyWordList();
 
-    ObservableList<KeyWord> getKeyWords();
+    ObservableList<KeyWord> getKeyWordList();
 
     boolean addKeyWord(KeyWord keyWord);
 
@@ -16,5 +16,5 @@ public interface KeyWordsInterface {
 
     boolean deleteKeyWord(KeyWord keyWord);
 
-
+    void setPerson(Person person);
 }

@@ -12,12 +12,17 @@ public class FakePersonList implements PersonListInterface {
     private ObservableList<Person> personList;
 
     public FakePersonList() {
-        Callback<Person, Observable[]> extractor = s -> new Observable[] {s.getNameProperty()};
-        personList = FXCollections.observableArrayList(extractor);
+        //Callback<Person, Observable[]> extractor = s -> new Observable[] {s.getNameProperty()};
+        personList = FXCollections.observableArrayList();
     }
 
     public ObservableList<Person> getPersonList() {
         return personList;
+    }
+
+    @Override
+    public void refreshPersonList() {
+
     }
 
     public boolean addPerson(Person person) {
@@ -33,4 +38,5 @@ public class FakePersonList implements PersonListInterface {
         personList.remove(person);
         return true;
     }
+
 }

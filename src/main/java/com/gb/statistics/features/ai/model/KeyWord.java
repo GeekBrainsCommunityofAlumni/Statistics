@@ -1,22 +1,24 @@
 package com.gb.statistics.features.ai.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class KeyWord {
 
     private int id;
-    private StringProperty name;
     private int personId;
+    private StringProperty name;
 
     public KeyWord() {
         this.name = new SimpleStringProperty("");
     }
 
-    public KeyWord(int id, String name, int personId) {
+    public KeyWord(int id, int personId, String name) {
         this.id = id;
-        this.name = new SimpleStringProperty(name);
         this.personId = personId;
+        this.name = new SimpleStringProperty(name);
     }
 
     public int getId() {
@@ -37,5 +39,9 @@ public class KeyWord {
 
     public void setName(String name) {
         this.name.set(name);
+    }
+
+    public void setPersonId(int personId) {
+        this.personId = personId;
     }
 }

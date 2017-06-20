@@ -5,7 +5,7 @@ import javafx.collections.ObservableList;
 
 public interface PersonListInterface {
 
-    ObservableList<Person> getPersonList();
+    void refreshPersonList();
 
     boolean addPerson(Person person);
 
@@ -13,6 +13,5 @@ public interface PersonListInterface {
 
     boolean deletePerson(Person person);
 
-
-
+    ObservableList<Person> getPersonList();
 }

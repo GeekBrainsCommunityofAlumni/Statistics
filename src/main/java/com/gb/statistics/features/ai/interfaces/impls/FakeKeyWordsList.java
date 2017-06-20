@@ -11,14 +11,13 @@ public class FakeKeyWordsList implements KeyWordsInterface {
     private ObservableList<KeyWord> keyWordsList = FXCollections.observableArrayList();
 
     @Override
-    public ObservableList<KeyWord> getKeyWordsByPerson(Person person) {
-        addTestData(person.getId());
-        return keyWordsList;
+    public void refreshKeyWordList() {
+
     }
 
     @Override
-    public ObservableList<KeyWord> getKeyWords() {
-        return keyWordsList;
+    public ObservableList<KeyWord> getKeyWordList() {
+        return null;
     }
 
     @Override
@@ -38,14 +37,19 @@ public class FakeKeyWordsList implements KeyWordsInterface {
         return false;
     }
 
+    @Override
+    public void setPerson(Person person) {
+
+    }
+
     private void addTestData(int id) {
         keyWordsList.clear();
         if (id == 1) {
-            addKeyWord(new KeyWord(1, "Путину", 1));
-            addKeyWord(new KeyWord(2, "Путином", 1));
+            addKeyWord(new KeyWord(1, 1, "Путину"));
+            addKeyWord(new KeyWord(2, 1, "Путином"));
         } else if (id == 2) {
-            addKeyWord(new KeyWord(3, "Медведеву", 2));
-            addKeyWord(new KeyWord(4, "Медведевым", 2));
+            addKeyWord(new KeyWord(3, 2, "Медведеву"));
+            addKeyWord(new KeyWord(4, 2, "Медведевым"));
         }
     }
 }

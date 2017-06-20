@@ -1,6 +1,7 @@
 package com.gb.statistics.features.ai.controllers;
 
 import com.gb.statistics.features.ai.model.KeyWord;
+import com.gb.statistics.features.ai.model.Person;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -11,6 +12,7 @@ import javafx.stage.Stage;
 public class ModalKeyWordWindowController {
 
     private KeyWord keyWord;
+    private Person person;
 
     @FXML
     private TextField keyWordNameField;
@@ -18,8 +20,9 @@ public class ModalKeyWordWindowController {
     @FXML
     private Label errorLabel;
 
-    public void setKeyWord(KeyWord keyWord) {
+    public void setKeyWord(KeyWord keyWord, Person person) {
         this.keyWord = keyWord;
+        this.person = person;
         keyWordNameField.setText(keyWord.getName());
     }
 
@@ -30,6 +33,7 @@ public class ModalKeyWordWindowController {
             return;
         }
         keyWord.setName(keyWordNameField.getText());
+        keyWord.setPersonId(person.getId());
         actionClose(actionEvent);
     }
 

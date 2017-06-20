@@ -3,6 +3,7 @@ package com.gb.statistics.features.ai.controllers;
 import com.gb.statistics.features.ai.interfaces.KeyWordsInterface;
 import com.gb.statistics.features.ai.interfaces.PersonListInterface;
 import com.gb.statistics.features.ai.interfaces.impls.FakeKeyWordsList;
+import com.gb.statistics.features.ai.interfaces.impls.KeyWordsList;
 import com.gb.statistics.features.ai.model.KeyWord;
 import com.gb.statistics.features.ai.model.Person;
 import javafx.collections.ListChangeListener;
@@ -26,7 +27,7 @@ public class KeyWordsListController {
     private final String EMPTY_LIST_MESSAGE = "Список пуст";
 
     private PersonListInterface personList;
-    private KeyWordsInterface keyWordsList = new FakeKeyWordsList();
+    private KeyWordsInterface keyWordsList = new KeyWordsList();
 
     @FXML
     private ComboBox<Person> comboBoxPerson;
@@ -60,40 +61,54 @@ public class KeyWordsListController {
     private void initialize() {
         columnKeyWordName.setCellValueFactory(cellData -> cellData.getValue().getNameProperty());
         keyWordTableView.setPlaceholder(new Label(EMPTY_LIST_MESSAGE));
-        initListener();
         initEditModalWindow();
         initDeleteModalWindow();
     }
 
-    private void initListener() {
+    private void initListeners() {
         comboBoxPerson.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
-                comboBoxPerson.setDisable(false);
                 System.out.println("Person: " + newValue.getName());
-                initTableView(newValue);
-            } else comboBoxPerson.setDisable(true);
+                keyWordsList.setPerson(newValue);
+                keyWordsList.refreshKeyWordList();
+            }
+
+            //initTableView(newValue);
         });
+
+        personList.getPersonList().addListener((ListChangeListener<Person>) c -> {
+            if (personList.getPersonList().size() == 0) {
+                comboBoxPerson.setDisable(true);
+            } else comboBoxPerson.setDisable(false);
+        });
+
+
     }
 
     private void initTableView(Person person) {
         System.out.println(person);
-        keyWordTableView.setItems(keyWordsList.getKeyWordsByPerson(person));
+        keyWordsList.setPerson(person);
+        keyWordTableView.setItems(keyWordsList.getKeyWordList());
     }
 
     public void setPersonList(PersonListInterface personList) {
         this.personList = personList;
+        initListeners();
         initComboBox();
-        keyWordsList.getKeyWordsByPerson(comboBoxPerson.getValue()).addListener((ListChangeListener<KeyWord>) c -> {
-            updateKeyWordsListCount();
-            setActivityButtons();
-            setFocus();
+
+        keyWordsList.getKeyWordList().addListener((ListChangeListener<KeyWord>) c -> {
+
+            //updateKeyWordsListCount();
+            //setActivityButtons();
+            //setFocus();
         });
 
         keyWordTableView.setOnMouseClicked(event -> {
-            if (event.getClickCount() == CLICK_COUNT && !keyWordsList.getKeyWordsByPerson(comboBoxPerson.getValue()).isEmpty()) {
+            if (event.getClickCount() == CLICK_COUNT && !keyWordsList.getKeyWordList().isEmpty()) {
                 actionButtonEditKeyWord();
             }
         });
+
     }
 
     private void initComboBox() {
@@ -125,7 +140,7 @@ public class KeyWordsListController {
 
     @FXML
     private void actionButtonAddKeyWord() {
-        editKeyWordController.setKeyWord(new KeyWord());
+        editKeyWordController.setKeyWord(new KeyWord(), comboBoxPerson.getValue());
         showDialog(ADD_TITLE, modalEditWindowStage, parentEdit, MODAL_WIDTH, MODAL_HEIGHT);
         if (!editKeyWordController.nameFieldIsEmpty(editKeyWordController.getKeyWord().getName())) {
             keyWordsList.addKeyWord(editKeyWordController.getKeyWord());
@@ -134,7 +149,7 @@ public class KeyWordsListController {
 
     @FXML
     private void actionButtonEditKeyWord() {
-        editKeyWordController.setKeyWord(keyWordTableView.getSelectionModel().getSelectedItem());
+        editKeyWordController.setKeyWord(keyWordTableView.getSelectionModel().getSelectedItem(), comboBoxPerson.getValue());
         showDialog(EDIT_TITLE, modalEditWindowStage, parentEdit, MODAL_WIDTH, MODAL_HEIGHT);
     }
 
@@ -171,7 +186,7 @@ public class KeyWordsListController {
     }
 
     private void updateKeyWordsListCount() {
-        keyWordsListCount.setText(String.valueOf(keyWordsList.getKeyWords().size()));
+        keyWordsListCount.setText(String.valueOf(keyWordsList.getKeyWordList().size()));
     }
 
     private void setActivityButtons() {
@@ -185,7 +200,7 @@ public class KeyWordsListController {
     }
 
     private void setFocus() {
-        if (keyWordsList.getKeyWords().size() == 1) keyWordTableView.getSelectionModel().select(0);
+        if (keyWordsList.getKeyWordList().size() == 1) keyWordTableView.getSelectionModel().select(0);
     }
 
     public void setMainStage(Stage mainStage) {

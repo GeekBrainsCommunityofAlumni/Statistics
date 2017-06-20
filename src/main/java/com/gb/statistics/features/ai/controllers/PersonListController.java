@@ -1,7 +1,7 @@
 package com.gb.statistics.features.ai.controllers;
 
 import com.gb.statistics.features.ai.interfaces.PersonListInterface;
-import com.gb.statistics.features.ai.interfaces.impls.FakePersonList;
+import com.gb.statistics.features.ai.interfaces.impls.PersonList;
 import com.gb.statistics.features.ai.model.Person;
 import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
@@ -26,7 +26,7 @@ public class PersonListController {
     private final String DELETE_TITLE = "Удаление записи";
     private final String EMPTY_LIST_MESSAGE = "Список пуст";
 
-    private PersonListInterface personList = new FakePersonList();
+    private PersonListInterface personList;
     private Parent parentEdit;
     private Parent parentDelete;
     private FXMLLoader loaderAddEdit = new FXMLLoader();
@@ -55,21 +55,15 @@ public class PersonListController {
 
     @FXML
     private void initialize() {
+        personList = new PersonList();
         columnPersonName.setCellValueFactory(cellData -> cellData.getValue().getNameProperty());
         personTableView.setPlaceholder(new Label(EMPTY_LIST_MESSAGE));
         personTableView.setItems(personList.getPersonList());
         initListeners();
         initEditModalWindow();
         initDeleteModalWindow();
-        addFakeData();
-        personList.getPersonList();
-    }
-
-    private void addFakeData() {
-        personList.addPerson(new Person(1, "Путин"));
-        personList.addPerson(new Person(2, "Медведев"));
-        personList.addPerson(new Person(3, "Навальный"));
-        personList.addPerson(new Person(4, "Жириновский"));
+        personList.refreshPersonList();
+        personTableView.getSelectionModel().select(0);
     }
 
     private void initListeners() {
@@ -120,6 +114,7 @@ public class PersonListController {
     private void actionButtonEditPerson() {
         editPersonController.setPerson(personTableView.getSelectionModel().getSelectedItem());
         showDialog(EDIT_TITLE, modalEditWindowStage, parentEdit, MODAL_WIDTH, MODAL_HEIGHT);
+        personList.updatePerson(personTableView.getSelectionModel().getSelectedItem());
     }
 
     @FXML
@@ -159,7 +154,7 @@ public class PersonListController {
     }
 
     private void setActivityButtons() {
-        if (personList.getPersonList().isEmpty()) disableButtons(true);
+        if (personList.getPersonList().size() == 0) disableButtons(true);
         else disableButtons(false);
     }
 
