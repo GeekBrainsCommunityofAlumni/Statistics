@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib import admin
 
 
 class Sites(models.Model):
@@ -15,4 +16,7 @@ class Pages(models.Model):
     last_scan_date = models.DateTimeField()
 
     def __str__(self):
-        return self.last_scan_date
+        return self.url
+
+
+admin.site.register(Sites)

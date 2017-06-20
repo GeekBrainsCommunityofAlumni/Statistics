@@ -1,5 +1,6 @@
 from django.db import models
 from source_manager.models import Pages
+from django.contrib import admin
 
 
 class Persons(models.Model):
@@ -22,5 +23,6 @@ class PersonPageRank(models.Model):
     page_id = models.ForeignKey(Pages)
     rank = models.IntegerField(blank=True)
 
-    def __str__(self):
-        return self.rank
+
+admin.site.register(Persons)
+admin.site.register(Keywords)
