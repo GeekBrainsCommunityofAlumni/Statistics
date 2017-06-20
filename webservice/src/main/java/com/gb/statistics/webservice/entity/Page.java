@@ -7,6 +7,7 @@ public class Page {
     private int id;
     private String url;
     private int siteId;
+    private Site site;
 //    private Date firstScan;
 //    private Date lastScan;
 
@@ -40,5 +41,9 @@ public class Page {
 
     public void setSiteId(int siteId) {
         this.siteId = siteId;
+    }
+
+    public void setSite(Site site) {
+        this.site = site;
     }
 }

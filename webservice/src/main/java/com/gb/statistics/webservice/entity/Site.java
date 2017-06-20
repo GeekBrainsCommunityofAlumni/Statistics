@@ -1,19 +1,34 @@
 package com.gb.statistics.webservice.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
-public class Site {
+import java.io.Serializable;
+import javax.persistence.*;
+import java.util.List;
 
+@Entity
+@Table(name="sites")
+@NamedQuery(name="Site.findAll", query="SELECT s FROM Site s")
+public class Site implements Serializable {
+    private static final long serialVersionUID = 1L;
+
+    @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @Column(unique=true, nullable=false)
     private int id;
+
+    @Column(nullable=false, length=256)
     private String name;
 
-    public Site(int id, String name) {
-        this.id = id;
-        this.name = name;
+    @JsonIgnore
+    @OneToMany(mappedBy="site")
+    private List<Page> pages;
+
+    public Site() {
     }
-    public Site(){}
 
     public int getId() {
-        return id;
+        return this.id;
     }
 
     public void setId(int id) {
@@ -21,29 +36,33 @@ public class Site {
     }
 
     public String getName() {
-        return name;
+        return this.name;
     }
 
     public void setName(String name) {
         this.name = name;
     }
 
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Site site = (Site) o;
-
-        if (id != site.id) return false;
-        return name.equals(site.name);
+    public List<Page> getPages() {
+        return this.pages;
     }
 
-    @Override
-    public int hashCode() {
-        int result = id;
-        result = 31 * result + name.hashCode();
-        return result;
+    public void setPages(List<Page> pages) {
+        this.pages = pages;
     }
+
+    public Page addPage(Page page) {
+        getPages().add(page);
+        page.setSite(this);
+
+        return page;
+    }
+
+    public Page removePage(Page page) {
+        getPages().remove(page);
+        page.setSite(null);
+
+        return page;
+    }
+
 }
