@@ -6,6 +6,7 @@ import com.gb.statistics.webservice.repository.MockSiteRepository;
 import com.gb.statistics.webservice.util.ErrorResponse;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +17,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 
 import java.util.List;
 
-import static com.gb.statistics.webservice.controller.InitTestModel.NOT_EXISTING_TEST_ID;
-import static com.gb.statistics.webservice.controller.InitTestModel.init;
+import static com.gb.statistics.webservice.controller.InitTestModel.*;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -43,46 +43,51 @@ public class SiteControllerTest {
         ResponseEntity<List<Site>> responseEntity = siteController.getAllSites();
         List<Site> responseBody = responseEntity.getBody();
         Assert.assertEquals(MockSiteRepository.siteList.size(), responseBody.size());
+
     }
 
     @Test
     public void addSiteToMock() throws Exception {
-        Site siteToAdd = new Site(3, "regnum.ru", "regnum.ru/news");
+        Site siteToAdd = new Site(NOT_EXISTING_ID,
+                NOT_EXISTING_SITE_NAME,
+                NOT_EXISTING_SITE_URL);
         siteController.addSite(siteToAdd);
         Assert.assertTrue(MockSiteRepository.siteList.contains(siteToAdd));
     }
 
     @Test
     public void addSiteNullNameOrUrl() throws Exception {
-        ResponseEntity responseEntityNameNull = siteController.addSite(new Site(4, null, "news.ru"));
+        ResponseEntity responseEntityNameNull = siteController.addSite(new Site(NOT_EXISTING_ID, null, NOT_EXISTING_SITE_URL));
         Assert.assertTrue(responseEntityNameNull.getBody() instanceof ErrorResponse);
 
-        ResponseEntity responseEntityUrlNull = siteController.addSite(new Site(5, "site", null));
+        ResponseEntity responseEntityUrlNull = siteController.addSite(new Site(NOT_EXISTING_ID, NOT_EXISTING_SITE_NAME, null));
         Assert.assertTrue(responseEntityUrlNull.getBody() instanceof ErrorResponse);
     }
 
     @Test
     public void addSiteEquals() throws Exception {
-        Site siteToAdd = new Site(10, "russiatoday.ru", "rt.ru");
+        Site siteToAdd = new Site(NOT_EXISTING_ID, NOT_EXISTING_SITE_NAME, NOT_EXISTING_SITE_URL);
         ResponseEntity responseEntity = siteController.addSite(siteToAdd);
         Assert.assertTrue(responseEntity.getBody().equals(siteToAdd));
     }
 
     @Test
     public void addSiteIsExist() throws Exception {
-        ResponseEntity responseEntity = siteController.addSite(new Site(1, "lenta.ru", "lenta.ru/index"));
+        ResponseEntity responseEntity = siteController.addSite(new Site(EXISTING_ID, EXISTING_SITE_NAME, EXISTING_SITE_URL));
         Assert.assertTrue(responseEntity.getBody() instanceof ErrorResponse);
     }
 
     @Test
     public void updateSiteIsNotExist() throws Exception {
-        ResponseEntity responseEntity = siteController.updateSite(new Site(NOT_EXISTING_TEST_ID, "notFoundName", "notfoundsite.ru"));
-        Assert.assertTrue(responseEntity.getBody() instanceof ErrorResponse);
+        ResponseEntity responseEntity = siteController.updateSite(new Site(NOT_EXISTING_ID, NOT_EXISTING_SITE_NAME, NOT_EXISTING_SITE_URL));
+        Assert.assertTrue(responseEntity.getStatusCode().is4xxClientError());
     }
 
+    @Ignore
     @Test
     public void updateSiteIsExistReturnOk() throws Exception {
-        ResponseEntity responseEntity = siteController.updateSite(new Site(1, "lenta.ru", "lenta.ru/index"));
+        ResponseEntity responseEntity = siteController.updateSite
+                (new Site(EXISTING_ID, UPDATED_SITE_NAME, UPDATED_SITE_URL));
         Assert.assertTrue(responseEntity.getStatusCode().is2xxSuccessful());
     }
 
@@ -102,7 +107,7 @@ public class SiteControllerTest {
 
     @Test
     public void deleteSiteNotFound() throws Exception {
-        Assert.assertTrue(siteController.deleteSite(NOT_EXISTING_TEST_ID)
+        Assert.assertTrue(siteController.deleteSite(NOT_EXISTING_ID)
                 .getStatusCode()
                 .is4xxClientError());
     }

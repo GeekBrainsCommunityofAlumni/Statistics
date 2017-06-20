@@ -47,9 +47,10 @@ public class PersonController {
     @RequestMapping(value="/person", method= RequestMethod.PUT)
     public ResponseEntity<?> updatePerson(@RequestBody Person person){
 
-        Person p = personRepository.update(person);
-        if(p==null) return ResponseEntity.status(HttpStatus.NOT_FOUND)
+        if(person==null) return ResponseEntity.status(HttpStatus.NOT_FOUND)
                 .body(new ErrorResponse("Person not found"));
+
+        Person p = personRepository.update(person);
 
         return ResponseEntity.ok(p);
     }

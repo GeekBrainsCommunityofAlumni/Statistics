@@ -15,8 +15,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 
 import java.util.List;
 
-import static com.gb.statistics.webservice.controller.InitTestModel.NOT_EXISTING_TEST_ID;
-
+import static com.gb.statistics.webservice.controller.InitTestModel.*;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -36,13 +35,14 @@ public class PersonControllerTest {
 
     @Test
     public void getPersonNotFoundTest() throws Exception {
-        Assert.assertTrue(personController.getPerson(NOT_EXISTING_TEST_ID).getStatusCode().is4xxClientError());
+        Assert.assertTrue(personController.getPerson(NOT_EXISTING_ID).getStatusCode().is4xxClientError());
     }
 
     @Test
     public void getPersonEqualsMock() throws Exception {
-        Person person = MockPersonRepository.personsList.get(0);
+        Person person = MockPersonRepository.personsList.get(EXISTING_ID);
         Assert.assertEquals(person, personController.getPerson(person.getId()).getBody());
+
     }
 
     @Test
@@ -54,27 +54,36 @@ public class PersonControllerTest {
 
     @Test
     public void addPersonExisting() throws Exception {
-        Person existingPerson = new Person(1, "Путин");
+        Person existingPerson = new Person(EXISTING_ID, EXISTING_PERSON_NAME);
         ResponseEntity responseEntity = personController.addPerson(existingPerson);
         Assert.assertTrue(responseEntity.getStatusCode().is4xxClientError());
     }
 
     @Test
     public void addPersonResponseIsOk() throws Exception {
-        Person personToAdd = new Person(NOT_EXISTING_TEST_ID, "Медведев");
+        Person personToAdd = new Person(NOT_EXISTING_ID, NOT_EXISTING_PERSON_NAME);
         ResponseEntity responseEntity = personController.addPerson(personToAdd);
         Assert.assertTrue(responseEntity.getStatusCode().is2xxSuccessful());
     }
 
     @Test
     public void addPersonContainsMock() throws Exception {
-        Person personToAdd = new Person(NOT_EXISTING_TEST_ID, "Медведев");
+        Person personToAdd = new Person(NOT_EXISTING_ID, NOT_EXISTING_PERSON_NAME);
         personController.addPerson(personToAdd);
         Assert.assertTrue(MockPersonRepository.personsList.contains(personToAdd));
     }
 
     @Test
-    public void updatePerson() throws Exception {
-
+    public void mockPersonContainsUpdatePerson() throws Exception {
+        Person updatedPerson = new Person(EXISTING_ID, UPDATED_PERSON_NAME);
+        personController.updatePerson(updatedPerson);
+        Assert.assertTrue(MockPersonRepository.personsList.contains(updatedPerson));
     }
+
+    @Test
+    public void updatePersonNullReturnError() throws Exception {
+        Person nullPerson = null;
+        Assert.assertTrue(personController.updatePerson(nullPerson).getStatusCode().is4xxClientError());
+    }
+
 }
