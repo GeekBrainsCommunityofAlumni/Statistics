@@ -6,58 +6,59 @@ import com.gb.statistics.webservice.util.ErrorResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 
 @RestController
+@RequestMapping(path = "/api")
 public class SiteController {
 
     @Autowired
-    SiteRepository siteRepository;
+    private SiteRepository siteRepository;
 
-    @RequestMapping(value="/site", method = RequestMethod.GET)
-    public ResponseEntity<List<Site>> getAllSites(){
-        return ResponseEntity.ok(siteRepository.getAll());
+    @RequestMapping(path = "/site", method = RequestMethod.GET)
+    public ResponseEntity<?> getAllSites(){
+        return ResponseEntity.ok(siteRepository.findAll());
     }
 
-    @RequestMapping(value="/site", method = RequestMethod.POST)
-    public ResponseEntity<?> addSite(@RequestBody Site site){
-        if(site.getName()==null)
-            return ResponseEntity.badRequest()
-                    .body(new ErrorResponse("Name and URL not be null!"));
-
-        if (siteRepository.isExists(site))
-            return ResponseEntity.status(HttpStatus.CONFLICT)
-                    .body(new ErrorResponse("Site already exists!"));
-
-        Site s = siteRepository.add(site);
-        return ResponseEntity.ok(s);
-    }
-
-    @RequestMapping(value="/site", method = RequestMethod.PUT)
-    public ResponseEntity<?> updateSite(@RequestBody Site site){
-        if (!siteRepository.isExists(site))
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body(new ErrorResponse("Site not exists!"));
-
-        Site s = siteRepository.update(site);
-        return ResponseEntity.ok(s);
-    }
-
-    @RequestMapping(value="/site/{id}", method = RequestMethod.DELETE)
-    public ResponseEntity<?> deleteSite(@PathVariable Integer id){
-        Site s = siteRepository.get(id);
-
-        if(siteRepository.delete(s))
-            return ResponseEntity.ok().body(null);
-        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+    @RequestMapping(path = "/site/{id}", method = RequestMethod.GET)
+    public ResponseEntity<?> getBySiteId(@PathVariable Integer id){
+        if(!siteRepository.exists(id)) return ResponseEntity.status(HttpStatus.NOT_FOUND)
                 .body(new ErrorResponse("Person not found"));
+        return ResponseEntity.ok(siteRepository.findOne(id));
     }
 
-    @ExceptionHandler(NullPointerException.class)
-    public ResponseEntity badRequest(){
-        return ResponseEntity.badRequest().body(new ErrorResponse("Bad Request"));
+    @RequestMapping(path = "/site", method = RequestMethod.POST)
+    public ResponseEntity<?> addSite(@RequestBody Site site){
+        String name = site.getName();
+        if (name == null || name.equals(""))
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(new ErrorResponse("Name must be not null or empty"));
+        return ResponseEntity.ok(siteRepository.save(site));
     }
+
+    @RequestMapping(path = "/site", method = RequestMethod.PUT)
+    public ResponseEntity<?> updateSite(@RequestBody Site site){
+        Site s = siteRepository.findOne(site.getId());
+        if (s == null) return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(new ErrorResponse("Person not found"));
+
+        String name = site.getName();
+        if (name == null || name.equals(""))
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(new ErrorResponse("Name must be not null or empty"));
+
+        s.setName(name);
+        return ResponseEntity.ok(siteRepository.save(s));
+    }
+
+    @RequestMapping(path = "/site/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<?> deleteSite(@PathVariable Integer id){
+        if (!siteRepository.exists(id)) return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(new ErrorResponse("Person not found"));
+
+        siteRepository.delete(id);
+        return ResponseEntity.ok(null);
+    }
+
 }
