@@ -83,7 +83,7 @@ public class SiteControllerTest {
         Assert.assertTrue(responseEntity.getStatusCode().is4xxClientError());
     }
 
-    @Ignore
+    @Ignore  // MockSiteRepository isExist() strange
     @Test
     public void updateSiteIsExistReturnOk() throws Exception {
         ResponseEntity responseEntity = siteController.updateSite

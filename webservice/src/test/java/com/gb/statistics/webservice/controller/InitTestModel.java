@@ -19,6 +19,9 @@ public class InitTestModel {
     public static final String UPDATED_SITE_NAME = "LENTA.RU";
     public static final String UPDATED_PERSON_NAME = "Путин В.В";
     public static final String UPDATED_SITE_URL = "www.lenta.ru/index/news";
+    public static final String EXISTING_KEYWORD = "Путин";
+    public static final String NOT_EXISTING_KEYWORD = "NOT EXISTING";
+    public static final String UPDATED_KEYWORD = "UPDATED KEYWORD";
 
 
 

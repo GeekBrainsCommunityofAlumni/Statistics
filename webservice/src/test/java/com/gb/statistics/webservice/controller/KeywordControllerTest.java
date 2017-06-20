@@ -5,6 +5,7 @@ import com.gb.statistics.webservice.entity.Keyword;
 import com.gb.statistics.webservice.repository.MockKeywordRepository;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 
 import java.util.*;
 
-import static com.gb.statistics.webservice.controller.InitTestModel.init;
+import static com.gb.statistics.webservice.controller.InitTestModel.*;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -39,7 +40,49 @@ public class KeywordControllerTest {
         Assert.assertTrue(resultList.containsAll(MockKeywordRepository.keywordList));
         Assert.assertTrue(responseEntity.getStatusCode().is2xxSuccessful());
     }
-    
+
+    @Test
+    public void getByPersonTest() throws Exception {
+        ResponseEntity responseEntity = keywordController.getByPerson(EXISTING_ID);
+        List<Keyword> resultList = (List<Keyword>) responseEntity.getBody();
+        List<Keyword> listInMock = new LinkedList<Keyword>();
+        for (Keyword k : MockKeywordRepository.keywordList) {
+            if (k.getPersonId() == EXISTING_ID) {
+                listInMock.add(k);
+            }
+        }
+        Assert.assertTrue(resultList.containsAll(listInMock));
+    }
+
+    @Test
+    public void testAddNullKeywordOrPerson() throws Exception {
+        Assert.assertTrue(keywordController.add(new Keyword(0, NOT_EXISTING_KEYWORD))
+                .getStatusCode().is4xxClientError());
+        Assert.assertTrue(keywordController.add(new Keyword(EXISTING_ID, null))
+                .getStatusCode().is4xxClientError());
+    }
+
+    @Test
+    public void addKeywordIsExistTest() throws Exception {
+        Assert.assertTrue(keywordController.add(new Keyword(EXISTING_ID, EXISTING_KEYWORD))
+                .getStatusCode().is4xxClientError());
+    }
+
+    @Test
+    public void addKeywordReturnOk() throws Exception {
+        Assert.assertTrue(keywordController.add(new Keyword(EXISTING_ID, NOT_EXISTING_KEYWORD))
+                .getStatusCode().is2xxSuccessful());
+    }
+
+    @Ignore // MockKeywordRepository isExist() strange
+    @Test
+    public void updateKeywordReturnOk() throws Exception {
+        Assert.assertTrue(keywordController.update(new Keyword(EXISTING_ID, UPDATED_KEYWORD))
+                .getStatusCode().is2xxSuccessful());
+    }
+
+
+
 
 
 }
