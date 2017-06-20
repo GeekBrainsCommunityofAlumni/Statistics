@@ -52,16 +52,17 @@ def registration(request):
         your_photo = request.POST.get("photo")
         your_status = request.POST.get("status")
         print(request.POST)
-        user = User()
-        user.username = 'Admin1'
-        user.set_password('testgbca')
+        # user = User()
+        # user.username = 'Admin1'
+        # user.set_password('testgbca')
         # Validate data
         if password != confirmpassword:
             errors['password'] = 'Извините, пароли не совпадают... Попробуйте снова!'
-        p = Person(user=username, email=email, first_name=first_name,
-                      last_name=last_name, middle_name=middle_name, login=login, phone_number=phone_number, gender=gender,
-                      birthdate=birthdate, country=country, district=district, city=city,
-                      your_photo=your_photo, your_status=your_status)
+        user = User(username=login, password=password, email=email)  # почему не "(login=login, email=email)" ?
+        # p = Person(user=username, email=email, first_name=first_name,
+        #               last_name=last_name, middle_name=middle_name, login=login, phone_number=phone_number, gender=gender,
+        #               birthdate=birthdate, country=country, district=district, city=city,
+        #               your_photo=your_photo, your_status=your_status)
         # Пароли хранятся в виде хэшей, поэтому их нельзя передавать напрямую
         user.set_password(password)
         # Проверяем, существует ли пользователь с таким именем
@@ -76,7 +77,6 @@ def registration(request):
         user.save()
         return HttpResponseRedirect("/privateroom/")
     return render(request, "registration.html")
-
 
 # def registration1(request):
 #     if request.method == 'POST':
