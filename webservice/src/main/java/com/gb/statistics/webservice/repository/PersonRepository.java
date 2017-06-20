@@ -2,19 +2,12 @@ package com.gb.statistics.webservice.repository;
 
 
 import com.gb.statistics.webservice.entity.Person;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 
-import java.util.List;
 
-public interface PersonRepository {
+public interface PersonRepository extends JpaRepository<Person,Long> {
 
-    Person get(Integer id);
-    List<Person> getAll();
-    Person getByName(String name);
-
+    @Modifying
     Person update(Person p);
-
-    Person add(Person person);
-    boolean isExists(Person person);
-
-    boolean delete(Person p);
 }

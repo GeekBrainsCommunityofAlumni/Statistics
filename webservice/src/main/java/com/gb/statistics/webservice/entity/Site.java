@@ -3,22 +3,22 @@ package com.gb.statistics.webservice.entity;
 
 public class Site {
 
-    private int id;
+    private Long id;
     private String name;
     private String url;
 
-    public Site(int id, String name, String url) {
+    public Site(Long id, String name, String url) {
         this.id = id;
         this.name = name;
         this.url = url;
     }
     public Site(){};
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -52,7 +52,7 @@ public class Site {
 
     @Override
     public int hashCode() {
-        int result = id;
+        int result = id.intValue();
         result = 31 * result + name.hashCode();
         result = 31 * result + url.hashCode();
         return result;

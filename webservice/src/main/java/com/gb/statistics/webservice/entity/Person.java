@@ -1,7 +1,13 @@
 package com.gb.statistics.webservice.entity;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
+@Entity
 public class Person {
+    @Id
+    @GeneratedValue
     private Long id;
     private String name;
     private int rank;
@@ -39,20 +45,20 @@ public class Person {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof Person)) return false;
 
         Person person = (Person) o;
 
-        if (id != person.id) return false;
-        if (rank != person.rank) return false;
-        return name.equals(person.name);
+        if (getRank() != person.getRank()) return false;
+        if (!getId().equals(person.getId())) return false;
+        return getName().equals(person.getName());
     }
 
     @Override
     public int hashCode() {
-        int result = new Integer(String.valueOf(id));
-        result = 31 * result + name.hashCode();
-        result = 31 * result + rank;
+        int result = getId().hashCode();
+        result = 31 * result + getName().hashCode();
+        result = 31 * result + getRank();
         return result;
     }
 }

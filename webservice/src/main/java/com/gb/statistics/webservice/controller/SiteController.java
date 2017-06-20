@@ -19,7 +19,7 @@ public class SiteController {
 
     @RequestMapping(value="/site", method = RequestMethod.GET)
     public ResponseEntity<List<Site>> getAllSites(){
-        return ResponseEntity.ok(siteRepository.getAll());
+        return ResponseEntity.ok(siteRepository.findAll());
     }
 
     @RequestMapping(value="/site", method = RequestMethod.POST)
@@ -28,17 +28,17 @@ public class SiteController {
             return ResponseEntity.badRequest()
                     .body(new ErrorResponse("Name and URL not be null!"));
 
-        if (siteRepository.isExists(site))
+        if (siteRepository.exists(site.getId()))
             return ResponseEntity.status(HttpStatus.CONFLICT)
                     .body(new ErrorResponse("Site already exists!"));
 
-        Site s = siteRepository.add(site);
+        Site s = siteRepository.save(site);
         return ResponseEntity.ok(s);
     }
 
     @RequestMapping(value="/site", method = RequestMethod.PUT)
     public ResponseEntity<?> updateSite(@RequestBody Site site){
-        if (!siteRepository.isExists(site))
+        if (!siteRepository.exists(site.getId()))
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body(new ErrorResponse("Site not exists!"));
 
@@ -47,10 +47,10 @@ public class SiteController {
     }
 
     @RequestMapping(value="/site/{id}", method = RequestMethod.DELETE)
-    public ResponseEntity<?> deleteSite(@PathVariable Integer id){
-        Site s = siteRepository.get(id);
-
-        if(siteRepository.delete(s))
+    public ResponseEntity<?> deleteSite(@PathVariable Long id){
+        Site s = siteRepository.getOne(id);
+        siteRepository.delete(s);
+        if(siteRepository.exists(s.getId()))
             return ResponseEntity.ok().body(null);
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
                 .body(new ErrorResponse("Person not found"));
