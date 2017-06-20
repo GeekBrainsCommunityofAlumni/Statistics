@@ -12,7 +12,7 @@ import java.util.List;
 public class MockKeywordRepository implements KeywordRepository {
 
     private static int count;
-    private static List<Keyword> keywordList = new LinkedList<Keyword>();
+    public static List<Keyword> keywordList = new LinkedList<Keyword>();
     private static List<Person> personList = MockPersonRepository.personsList;
 
 

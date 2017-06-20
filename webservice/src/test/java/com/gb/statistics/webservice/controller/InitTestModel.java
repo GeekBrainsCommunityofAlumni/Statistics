@@ -1,7 +1,9 @@
 package com.gb.statistics.webservice.controller;
 
+import com.gb.statistics.webservice.entity.Keyword;
 import com.gb.statistics.webservice.entity.Person;
 import com.gb.statistics.webservice.entity.Site;
+import com.gb.statistics.webservice.repository.MockKeywordRepository;
 import com.gb.statistics.webservice.repository.MockPersonRepository;
 import com.gb.statistics.webservice.repository.MockSiteRepository;
 
@@ -23,6 +25,7 @@ public class InitTestModel {
     private InitTestModel(){
         initPersonRepositoryMock();
         initSiteRepositoryMock();
+        initKeywordListMock();
     }
 
 
@@ -41,4 +44,15 @@ public class InitTestModel {
         MockSiteRepository.siteList.add(new Site(2, "ria.ru", "ria.ru/index"));
         MockSiteRepository.siteList.add(new Site(3, "newsru.com", "newsru.com"));
     }
+
+    private void initKeywordListMock(){
+        MockKeywordRepository.keywordList.add(new Keyword(1, "Путин"));
+        MockKeywordRepository.keywordList.add(new Keyword(1, "Владимир Владимирович Путин"));
+        MockKeywordRepository.keywordList.add(new Keyword(2, "Навальный"));
+        MockKeywordRepository.keywordList.add(new Keyword(2, "Алексей Навальный"));
+        MockKeywordRepository.keywordList.add(new Keyword(3, "Зюганов"));
+        MockKeywordRepository.keywordList.add(new Keyword(3, "Генадий Зюганов"));
+
+    }
+
 }
