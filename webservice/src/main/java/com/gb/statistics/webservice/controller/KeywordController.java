@@ -1,67 +1,71 @@
 package com.gb.statistics.webservice.controller;
 
 import com.gb.statistics.webservice.entity.Keyword;
+import com.gb.statistics.webservice.entity.Person;
 import com.gb.statistics.webservice.repository.KeywordRepository;
+import com.gb.statistics.webservice.repository.PersonRepository;
 import com.gb.statistics.webservice.util.ErrorResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
+@RequestMapping(path = "/api")
 public class KeywordController {
+
 
     @Autowired
     private KeywordRepository keywordRepository;
+    @Autowired
+    private PersonRepository personRepository;
 
-    @RequestMapping(value = "/keyword", method = RequestMethod.GET)
-    public ResponseEntity<?> getAll(){
-        return ResponseEntity.ok(keywordRepository.getAll());
+    @RequestMapping(path = "/keyword", method = RequestMethod.GET)
+    public ResponseEntity<?> getAllKeywords(){
+        return ResponseEntity.ok(keywordRepository.findAll());
     }
 
-    @RequestMapping(value = "/keyword/{personId}", method = RequestMethod.GET)
-    public ResponseEntity<?> getByPerson(@PathVariable Integer personId){
-        return ResponseEntity.ok(keywordRepository.getByPerson(personId));
-    }
-
-    @RequestMapping(value = "/keyword", method = RequestMethod.POST)
-    public ResponseEntity<?> add(@RequestBody Keyword keyword){
-        if(keyword.getPersonId()==0||keyword.getName()==null){
-            return ResponseEntity.badRequest()
-                    .body(new ErrorResponse("`personId` and `name` not be null!"));
-        }
-        if (keywordRepository.isExists(keyword))
-            return ResponseEntity.status(HttpStatus.CONFLICT)
-                    .body(new ErrorResponse("Keyword already exists!"));
-
-        Keyword k = keywordRepository.add(keyword);
-        if(k!=null)
-            return ResponseEntity.ok(k);
-        return ResponseEntity.badRequest().body(new ErrorResponse("Bad Request"));
-    }
-
-    @RequestMapping(value = "/keyword", method = RequestMethod.PUT)
-    public ResponseEntity<?> update(@RequestBody Keyword keyword){
-        if(!keywordRepository.isExists(keyword)){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body(new ErrorResponse("Keyword not exists!"));
-        }
-        Keyword k = keywordRepository.update(keyword);
+    @RequestMapping(path = "/keyword/{personId}", method = RequestMethod.GET)
+    public ResponseEntity<?> getByPersonId(@PathVariable Integer personId){
+        List<Keyword> k = keywordRepository.findByPersonId(personId);
+        if(k.size() == 0) return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(new ErrorResponse("Keywords not found"));
         return ResponseEntity.ok(k);
     }
 
-    @RequestMapping(value = "/keyword/{id}", method = RequestMethod.DELETE)
-    public ResponseEntity<?> delete(@PathVariable Integer id){
-        Keyword k = keywordRepository.get(id);
-
-        if(keywordRepository.delete(k))
-            return ResponseEntity.ok().body(null);
-        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+    @RequestMapping(path = "/keyword/{personId}", method = RequestMethod.POST)
+    public ResponseEntity<?> addKeyword(@PathVariable Integer personId, @RequestBody Keyword keyword){
+        Person p = personRepository.findOne(personId);
+        if (keyword.getName().equals("")) return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(new ErrorResponse("Name must not be empty!"));
+        if (p == null) return ResponseEntity.status(HttpStatus.NOT_FOUND)
                 .body(new ErrorResponse("Person not found"));
+        keyword.setPerson(p);
+
+        return ResponseEntity.ok(keywordRepository.save(keyword));
     }
 
-    @ExceptionHandler(NullPointerException.class)
-    public ResponseEntity badRequest(){
-        return ResponseEntity.badRequest().body(new ErrorResponse("Bad Request"));
+    @RequestMapping(path = "/keyword", method = RequestMethod.PUT)
+    public ResponseEntity<?> updatePerson(@RequestBody Keyword keyword){
+
+        if(!keywordRepository.exists(keyword.getId())) return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(new ErrorResponse("Keyword not found"));
+        if (keyword.getName()==null||keyword.getName().equals(""))
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(new ErrorResponse("Name must not be empty!"));
+
+        Keyword k = keywordRepository.findOne(keyword.getId());
+        k.setName(keyword.getName());
+        return ResponseEntity.ok(keywordRepository.save(k));
+    }
+
+    @RequestMapping(path = "/keyword/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<?> deletePerson(@PathVariable Integer id){
+        if(!keywordRepository.exists(id)) return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(new ErrorResponse("Keyword not found"));
+        keywordRepository.delete(id);
+        return ResponseEntity.ok(null);
     }
 }
