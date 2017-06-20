@@ -1,49 +1,104 @@
 package com.gb.statistics.webservice.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import java.io.Serializable;
+import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
-public class Page {
+@Entity
+@Table(name="pages")
+@NamedQuery(name="Page.findAll", query="SELECT p FROM Page p")
+public class Page implements Serializable {
+    private static final long serialVersionUID = 1L;
+
+    @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @Column(unique=true, nullable=false)
     private int id;
+
+    @Temporal(TemporalType.DATE)
+    @Column(nullable=false)
+    private Date founddatetime;
+
+    @Temporal(TemporalType.DATE)
+    private Date lastscandate;
+
+    @Column(nullable=false, length=2048)
     private String url;
-    private int siteId;
+
+    @ManyToOne
+    @JoinColumn(name="siteid", nullable=false)
     private Site site;
-//    private Date firstScan;
-//    private Date lastScan;
 
+    @JsonIgnore
+    @OneToMany(mappedBy="page")
+    private List<Personpagerank> personpageranks;
 
-    public Page(int id, String url, int siteId) {
-        this.id = id;
-        this.url = url;
-        this.siteId = siteId;
+    public Page() {
     }
-    public Page(){}
 
     public int getId() {
-        return id;
+        return this.id;
     }
 
     public void setId(int id) {
         this.id = id;
     }
 
+    public Date getFounddatetime() {
+        return this.founddatetime;
+    }
+
+    public void setFounddatetime(Date founddatetime) {
+        this.founddatetime = founddatetime;
+    }
+
+    public Date getLastscandate() {
+        return this.lastscandate;
+    }
+
+    public void setLastscandate(Date lastscandate) {
+        this.lastscandate = lastscandate;
+    }
+
     public String getUrl() {
-        return url;
+        return this.url;
     }
 
     public void setUrl(String url) {
         this.url = url;
     }
 
-    public int getSiteId() {
-        return siteId;
-    }
-
-    public void setSiteId(int siteId) {
-        this.siteId = siteId;
+    public Site getSite() {
+        return this.site;
     }
 
     public void setSite(Site site) {
         this.site = site;
     }
+
+    public List<Personpagerank> getPersonpageranks() {
+        return this.personpageranks;
+    }
+
+    public void setPersonpageranks(List<Personpagerank> personpageranks) {
+        this.personpageranks = personpageranks;
+    }
+
+    public Personpagerank addPersonpagerank(Personpagerank personpagerank) {
+        getPersonpageranks().add(personpagerank);
+        personpagerank.setPage(this);
+
+        return personpagerank;
+    }
+
+    public Personpagerank removePersonpagerank(Personpagerank personpagerank) {
+        getPersonpageranks().remove(personpagerank);
+        personpagerank.setPage(null);
+
+        return personpagerank;
+    }
+
 }
