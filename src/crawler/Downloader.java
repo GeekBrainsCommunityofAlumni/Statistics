@@ -1,5 +1,9 @@
 package crawler;
 
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+
 import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -30,43 +34,53 @@ public class Downloader {
     }
 
     public String download(String urlProtocol) throws IOException {
-
-
-        String result = null;
-        if (isItGzArchiveLink(urlProtocol)) {
-            result = downloadGzipFile(urlProtocol);
-        } else {
-
-            URL urlAddress = null;
-            StringBuilder stringBuilder = new StringBuilder();
-
-            try {
-                urlAddress = new URL(urlProtocol);
-            } catch (MalformedURLException malformedURLException) {
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder()
+                .url(urlProtocol)
+                .build();
+        try (Response response = client.newCall(request).execute()) {
+            return response.body().string();
         }
 
-            try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlAddress.openConnection().getInputStream()))) {
-                int i;
-                while ((i = bufferedReader.read()) != -1) {
-                    stringBuilder.append((char) i);
-                }
-                bufferedReader.close();
-            } catch (FileNotFoundException fileException) {
-
-                //throw new IOException(PAGE_NOT_FOUND);
-            } catch (UnknownHostException hostException) {
-                if (isReachable()) {
-                    throw new IOException(SITE_NOT_FOUND);
-                } else {
-                    throw new IOException(INTERNET_CONNECTION_LOST);
-                }
-            } catch (IOException ioException) {
-                throw new IOException(UNIDENTIFIED_ERROR);
-            }
-            result = stringBuilder.toString();
-        }
-
-        return result;
+//        String result = null;
+//        if (isItGzArchiveLink(urlProtocol)) {
+//            result = downloadGzipFile(urlProtocol);
+//        } else {
+//
+//            URL urlAddress = null;
+//            StringBuilder stringBuilder = new StringBuilder();
+//
+//            try {
+//                urlAddress = new URL(urlProtocol);
+//            } catch (MalformedURLException malformedURLException) {
+//        }
+//
+//            try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlAddress.openConnection().getInputStream()))) {
+//                int i;
+//                while ((i = bufferedReader.read()) != -1) {
+//                    stringBuilder.append((char) i);
+//                }
+//                bufferedReader.close();
+//            } catch (FileNotFoundException fileException) {
+//
+//                //throw new IOException(PAGE_NOT_FOUND);
+//            } catch (UnknownHostException hostException) {
+//                if (isReachable()) {
+//                    System.out.println("throw new IOException(SITE_NOT_FOUND);");
+//                    throw new IOException(SITE_NOT_FOUND);
+//                } else {
+//                    System.out.println("throw new IOException(INTERNET_CONNECTION_LOST);");
+//                    throw new IOException(INTERNET_CONNECTION_LOST);
+//                }
+//            } catch (IOException ioException) {
+//                System.out.println("throw new IOException(UNIDENTIFIED_ERROR);");
+//                throw new IOException(UNIDENTIFIED_ERROR);
+//            }
+//            result = stringBuilder.toString();
+//            System.out.println(result);
+//        }
+//
+//        return result;
     }
 
 
@@ -114,6 +128,7 @@ public class Downloader {
             urlProtocol = site;
         }
         String robotTxt;
+        System.out.println("Адрес сайта robots.txt: " + urlProtocol + "/robots.txt");
         robotTxt = download(urlProtocol + "/robots.txt");
         if (robotTxt.contains("301 Moved Permanently")) {
             String httpsURLSite = "https://" + site;
