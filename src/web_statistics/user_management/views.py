@@ -1,11 +1,10 @@
-# import table as table
 from django.contrib import auth
 from django.shortcuts import render, HttpResponseRedirect
 from django.http import Http404
 from django.contrib.auth.models import User
-from user_management.models import Person
+# from user_management.models import Person
 from django.core.exceptions import ValidationError
-from user_management.forms import MyRegistrationForm
+# from user_management.forms import MyRegistrationForm
 # from .forms import UploadFileForm
 # from UploadFileForm import handle_uploaded_file
 
@@ -38,19 +37,19 @@ def registration(request):
         username = request.POST.get("login")
         last_name = request.POST.get("last_name")
         first_name = request.POST.get("first_name")
-        middle_name = request.POST.get("middle_name")
+        # middle_name = request.POST.get("middle_name")
         login = request.POST.get("login")
         password = request.POST.get("password")
         confirmpassword = request.POST.get("confirmpassword")
         email = request.POST.get("email")
         phone_number = request.POST.get("phone_number")
-        gender = request.POST.get("gender")
-        birthdate = request.POST.get("birthdate")
-        country = request.POST.get("country")
-        district = request.POST.get("district")
-        city = request.POST.get("city")
-        your_photo = request.POST.get("photo")
-        your_status = request.POST.get("status")
+        # gender = request.POST.get("gender")
+        # birthdate = request.POST.get("birthdate")
+        # country = request.POST.get("country")
+        # district = request.POST.get("district")
+        # city = request.POST.get("city")
+        photo = request.POST.get("your_photo")
+        status = request.POST.get("your_status")
         print(request.POST)
         # user = User()
         # user.username = 'Admin1'
@@ -58,7 +57,7 @@ def registration(request):
         # Validate data
         if password != confirmpassword:
             errors['password'] = 'Извините, пароли не совпадают... Попробуйте снова!'
-        user = User(username=login, password=password, email=email)  # почему не "(login=login, email=email)" ?
+        user = User(username=login, password=password, email=email)  # photo, status?
         # p = Person(user=username, email=email, first_name=first_name,
         #               last_name=last_name, middle_name=middle_name, login=login, phone_number=phone_number, gender=gender,
         #               birthdate=birthdate, country=country, district=district, city=city,
@@ -77,19 +76,3 @@ def registration(request):
         user.save()
         return HttpResponseRedirect("/privateroom/")
     return render(request, "registration.html")
-
-# def registration1(request):
-#     if request.method == 'POST':
-#         form = MyRegistrationForm(request.POST, request.FILES)
-#         if form.is_valid():
-#             cd = form.cleaned_data
-#             table.your_photo = cd['your_photo']      #'value_from_datadict'
-#             form.save()
-#             print("===FORM SAVED!!!!!===")
-#             return HttpResponseRedirect('/privateroom/')
-#         else:
-#             print("===FORM INVALID!!!!!===")
-#         context = {'form': form}
-#         return render(request, 'registration.html', context)
-#     context = {'form': MyRegistrationForm()}
-#     return render(request, 'registration.html', context)
