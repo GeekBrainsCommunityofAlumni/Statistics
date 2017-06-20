@@ -13,10 +13,8 @@
 
 .sprites {
     padding-top: 10px;
-    padding-bottom: 10px;
-    padding-left: 15px;
 	justify-content: space-around;
-	width: 180px;
+	width: 200px;
 	height: 10px;
 }
 
@@ -32,4 +30,12 @@
 .sprites ul li:hover a {
 	color: red;
 	transition: all .3s ease;
+}
+
+.side {
+    float: left;
+    width: 48%;
+    display: block;
+    justify-content: space-around;
+    margin-right: 10px;
 }

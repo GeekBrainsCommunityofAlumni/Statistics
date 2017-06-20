@@ -3,7 +3,88 @@
 {% load static from staticfiles %}
 
 {% block content %}
-    <h1>
-        Здесь будет статистика за период!
-    </h1>
+
+    <h3>
+        Вы просматриваете статистику за период
+    </h3>
+<hr>
+<div class="side">
+    <h4>
+        Настройки поиска:
+    </h4>
+    <hr>
+    <div class="row">
+        <label class="control-label col-sm-6">
+            <i class="fa fa-laptop" aria-hidden="true"></i>
+            Выберите ресурс:
+        </label>
+        <div class="control-label col-sm-6">
+            <select id="source" class="form-control" name="source" required="">
+                <option value="unknown">...</option>
+                <option value="#">РБК</option>
+                <option value="#">Ведомости</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="row">
+        <label class="control-label col-sm-6">
+            <i class="fa fa-address-card-o" aria-hidden="true"></i>
+            Выберите объект:
+        </label>
+        <div class="control-label col-sm-6">
+            <select id="profile" class="form-control" name="profile" required="">
+                <option value="unknown">...</option>
+                <option value="#">Путин</option>
+                <option value="#">Навальный</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="row">
+        <label class="control-label col-sm-6">
+            <i class="fa fa-bar-chart" aria-hidden="true"></i>
+            Визуализация:
+        </label>
+        <div class="control-label col-sm-6">
+            <select id="visualization" class="form-control" name="visualization" required="">
+                <option value="unknown">...</option>
+                <option value="#">График</option>
+                <option value="#">Диаграмма</option>
+                <option value="#">Таблица</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="row">
+        <label class="control-label col-sm-6">
+            <i class="fa fa-calendar" aria-hidden="true"></i>
+            Начало периода:
+        </label>
+        <form class="control-label col-sm-6">
+            <input type="date" name="calendar" value="гггг-мм-дд" max="2050-06-04" min="2017-06-20">
+        </form>
+    </div>
+
+    <div class="row">
+        <label class="control-label col-sm-6">
+            <i class="fa fa-calendar" aria-hidden="true"></i>
+            Конец периода:
+        </label>
+        <form class="control-label col-sm-6">
+            <input type="date" name="calendar" value="гггг-мм-дд" max="2050-06-04" min="2017-06-20">
+        </form>
+    </div>
+
+    <button type="submit" value="Ок" class="btn btn-success btn-sm">Поиск</button>
+    <button type="submit" value="Ок" class="btn btn-danger btn-xs">Сбросить</button>
+</div>
+
+<div class="side">
+    <h4>
+        Результат:
+    </h4>
+    <hr>
+</div>
+
 {% endblock %}
