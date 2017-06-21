@@ -9,7 +9,8 @@
 import UIKit
 
 class TableViewController: UITableViewController, DataManagerProtocol {
-    var dm = DataManager.initWithFakeManager()
+//    var dm = DataManager.initWithFakeManager()
+    var dm = DataManager.initWithNetworkManager()
     var data: [SiteData] = []{
         didSet{
             self.sites = self.uniqueSite(data: data)
