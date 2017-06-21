@@ -13,6 +13,9 @@ import java.util.zip.GZIPInputStream;
 
 public class Downloader {
     public static final String NO_PROTOCOL = "No protocol";
+    //Exception in thread "main" java.lang.IllegalArgumentException: unexpected url: www.kommersant.ru
+    //Exception in thread "main" java.net.UnknownHostException: www.kommersant
+    //Exception in thread "main" java.net.UnknownHostException: www.kommersant.ru - !нет интернета
     public static final String PAGE_NOT_FOUND = "Page not found";
     public static final String SITE_NOT_FOUND = "Site not found";
     public static final String INTERNET_CONNECTION_LOST = "Internet connection lost";
@@ -22,16 +25,16 @@ public class Downloader {
 
     public static void main(String[] args) throws IOException { //Метод для тестирования класса
 
-//        long t = System.currentTimeMillis();
-//        Downloader downloader = new Downloader();
-//        String url = "http://lenta.ru/robots.txt";
-//        //String url = "https://www.kommersant.ru/robots.txt";
-//        String s = downloader.download(url);
-//        System.out.println(s);
-//        BufferedWriter bw = new BufferedWriter(new FileWriter("1.html"));
-//        bw.write(s);
-//        bw.close();
-//        System.out.println(System.currentTimeMillis() - t);
+        long t = System.currentTimeMillis();
+        Downloader downloader = new Downloader();
+        //String url = "http://lenta.ru"; //robots.txt";
+        String url = "http://www.kommersant.ru";
+        String s = downloader.download(url);
+        System.out.println(s);
+        BufferedWriter bw = new BufferedWriter(new FileWriter("C:\\Users\\Юрий\\Desktop\\1.html"));
+        bw.write(s);
+        bw.close();
+        //System.out.println(System.currentTimeMillis() - t);
     }
 
     public String download(String urlProtocol) throws IOException {
@@ -49,8 +52,14 @@ public class Downloader {
             String result = response.body().string();
             response.close();
             System.gc();
+            // System.out.println(result.indexOf("windows-1251"));
+
             return result;
-        }
+            //return result.replaceFirst("windows-1251", "utf-8");
+        } /*catch (UnknownHostException e) {
+            return isReachable() ? ".ru" : INTERNET_CONNECTION_LOST;
+        }*/
+
 
 //        String result = null;
 //        if (isItGzArchiveLink(urlProtocol)) {
@@ -99,32 +108,19 @@ public class Downloader {
     }
 
     private static boolean isReachable() {
-        boolean test1;
-        boolean test2;
-        boolean test3;
-
         try {
             new BufferedReader(new InputStreamReader(new URL("https://www.google.ru").openConnection().getInputStream()));
-            test1 = true;
-        } catch (IOException e) {
-            test1 = false;
-        } finally {
-            try {
-                new BufferedReader(new InputStreamReader(new URL("https://www.yandex.ru/").openConnection().getInputStream()));
-                test2 = true;
-            } catch (IOException e) {
-                test2 = false;
-            } finally {
-                try {
-                    new BufferedReader(new InputStreamReader(new URL("https://mail.ru/").openConnection().getInputStream()));
-                    test3 = true;
-                } catch (IOException e) {
-                    test3 = false;
-                }
-            }
-        }
-
-        return test1 || test2 || test3;
+            return true;
+        } catch (IOException ignored) {}
+        try {
+            new BufferedReader(new InputStreamReader(new URL("https://www.yandex.ru/").openConnection().getInputStream()));
+            return true;
+        } catch (IOException ignored) {}
+        try {
+            new BufferedReader(new InputStreamReader(new URL("https://mail.ru/").openConnection().getInputStream()));
+            return true;
+        } catch (IOException ignored) {} 
+        return false;
     }
 
 
