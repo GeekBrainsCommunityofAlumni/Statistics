@@ -170,8 +170,12 @@ public class DBHelper {
 
     public void setLastScanDateNow(int pageID) {
         try {
-            statement = connectionToDB.createStatement();
-            statement.executeUpdate("UPDATE pages SET lastscandate = NOW() WHERE id = " + pageID + ";");
+            if (existPageID(pageID)) {
+                statement = connectionToDB.createStatement();
+                statement.executeUpdate("UPDATE pages SET lastscandate = NOW() WHERE id = " + pageID + ";");
+            } else {
+            throw new SQLException("Неправильный pageID передан через dbHelper.setLastScanDateNow, вызываемый в краулере.");
+        }
         } catch (SQLException e) {
             e.printStackTrace();
         }
