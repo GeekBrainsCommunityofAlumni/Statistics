@@ -14,6 +14,7 @@
 		683E17351EF154A8008DDB11 /* SiteData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683E17341EF154A8008DDB11 /* SiteData.swift */; };
 		683E17381EF15505008DDB11 /* SiteDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683E17371EF15505008DDB11 /* SiteDataProvider.swift */; };
 		823FFF711EF8202E00A9DF6A /* StatDVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 823FFF701EF8202E00A9DF6A /* StatDVCell.swift */; };
+		823FFF731EF864AC00A9DF6A /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 823FFF721EF864AC00A9DF6A /* Utils.swift */; };
 		82F044261EF19D29006E4AE2 /* DataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82F044251EF19D29006E4AE2 /* DataProvider.swift */; };
 		82F044281EF19D3C006E4AE2 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82F044271EF19D3C006E4AE2 /* NetworkManager.swift */; };
 		82F0442A1EF19D4C006E4AE2 /* FakeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82F044291EF19D4C006E4AE2 /* FakeManager.swift */; };
@@ -36,6 +37,7 @@
 		683E17341EF154A8008DDB11 /* SiteData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SiteData.swift; path = ../SiteData.swift; sourceTree = "<group>"; };
 		683E17371EF15505008DDB11 /* SiteDataProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SiteDataProvider.swift; sourceTree = "<group>"; };
 		823FFF701EF8202E00A9DF6A /* StatDVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatDVCell.swift; sourceTree = "<group>"; };
+		823FFF721EF864AC00A9DF6A /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		82F044251EF19D29006E4AE2 /* DataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataProvider.swift; sourceTree = "<group>"; };
 		82F044271EF19D3C006E4AE2 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		82F044291EF19D4C006E4AE2 /* FakeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeManager.swift; sourceTree = "<group>"; };
@@ -109,6 +111,7 @@
 				82F044271EF19D3C006E4AE2 /* NetworkManager.swift */,
 				82F044291EF19D4C006E4AE2 /* FakeManager.swift */,
 				82F0442B1EF19D5B006E4AE2 /* DBManager.swift */,
+				823FFF721EF864AC00A9DF6A /* Utils.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -280,6 +283,7 @@
 				82F044281EF19D3C006E4AE2 /* NetworkManager.swift in Sources */,
 				82F0442E1EF19D70006E4AE2 /* DataManager.swift in Sources */,
 				683E172F1EEF2353008DDB11 /* TableViewControllerDayStatDV.swift in Sources */,
+				823FFF731EF864AC00A9DF6A /* Utils.swift in Sources */,
 				82F0442A1EF19D4C006E4AE2 /* FakeManager.swift in Sources */,
 				683E17291EEF08DE008DDB11 /* TableViewControllerAllStat.swift in Sources */,
 				82F044261EF19D29006E4AE2 /* DataProvider.swift in Sources */,

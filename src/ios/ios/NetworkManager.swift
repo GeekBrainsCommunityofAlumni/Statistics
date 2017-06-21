@@ -171,6 +171,8 @@ class NetworkProcess {
             }
         }
     }
+    
+    
     // загрузка персон
     private func getAllPerson(){
         let url = baseURL + "/person"
