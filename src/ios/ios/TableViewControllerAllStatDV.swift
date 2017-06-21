@@ -9,10 +9,15 @@
 import UIKit
 
 class TableViewControllerAllStatDV: UITableViewController {
+    var siteName: String = ""
+    var persons: [PersonInfo] = []
 
+    @IBOutlet weak var siteNameLabel: UINavigationItem!
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        siteNameLabel.title = siteName
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -29,23 +34,24 @@ class TableViewControllerAllStatDV: UITableViewController {
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 0
+        return persons.count
     }
 
-    /*
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
+        let cell = tableView.dequeueReusableCell(withIdentifier: "StatDVCell", for: indexPath) as! StatDVCell
+        cell.titleLabel.text = persons[indexPath.row].name
+        cell.countLabel.text = String(persons[indexPath.row].count)
+        
 
         return cell
     }
-    */
+    
 
     /*
     // Override to support conditional editing of the table view.

@@ -8,11 +8,39 @@
 
 import UIKit
 
-class TableViewController: UITableViewController {
-
+class TableViewController: UITableViewController, DataManagerProtocol {
+    var dm = DataManager.initWithFakeManager()
+    var data: [SiteData] = []{
+        didSet{
+            self.sites = self.uniqueSite(data: data)
+        }
+    }
+    
+    var sites: [String] = []{
+        didSet{
+            tableView.reloadData()
+        }
+    }
+    
+    func uniqueSite(data: [SiteData]) -> [String]{
+        var arrayOfSiteName: [String] = []
+        for item in data {
+            arrayOfSiteName.append(item.site)
+        }
+        arrayOfSiteName = Array(Set(arrayOfSiteName))
+        return arrayOfSiteName
+    }
+    func didCompliteRequestOnData(data: [SiteData], date1: Date, date2: Date){
+    }
+    
+    func didCompliteRequestTotal(data: [SiteData]){
+            self.data = data
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        dm.delegat = self
+        dm.getSumaryData()
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -34,14 +62,14 @@ class TableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 4
+        return sites.count
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
 
-        cell.textLabel?.text = "TEST1"
+        cell.textLabel?.text = sites[indexPath.row]
 
         return cell
     }
@@ -82,14 +110,27 @@ class TableViewController: UITableViewController {
     }
     */
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        if segue.identifier == "statDV" {
+            let destenationVC = segue.destination as! TableViewControllerAllStatDV
+            if let selectedItem = tableView.indexPathForSelectedRow{
+                destenationVC.siteName = sites[selectedItem.row]
+                let site = self.data.filter({ (item) -> Bool in
+                    if item.site == destenationVC.siteName{
+                        return true
+                    } else {
+                        return false
+                    }
+                }).first
+                destenationVC.persons = (site?.personArray())!
+            }
+        }
     }
-    */
+ 
 
 }
+
