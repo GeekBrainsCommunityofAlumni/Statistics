@@ -7,43 +7,6 @@
     Отзывы | {{block.super}}
 {% endblock %}
 
-
-{% block menu %}
-<!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
-<div class="collapse navbar-collapse navbar-ex1-collapse">
-    <ul class="nav navbar-nav side-nav">
-        <li>
-            <a href="/"><i class="fa fa-home" aria-hidden="true"></i> О компании </a>
-        </li>
-        <li>
-            <a href="/privateroom/"><i class="fa fa-user-circle"></i> Личный кабинет </a>
-        </li>
-        <li>
-            <a href="javascript:;" data-toggle="collapse" data-target="#demo">
-                <i class="fa fa-fw fa-arrows-v"></i> Статистика <i class="fa fa-fw fa-caret-down"></i>
-            </a>
-            <ul id="demo" class="collapse">
-                <li><a href="/daily_statistics/"> Ежедневная статистика <i class="fa fa-fw fa-bar-chart-o"></i></a></li>
-                <li><a href="/periodic_statistics/"> Статистика за период <br> <i class="fa fa-fw fa-table"></i></a></li>
-            </ul>
-        </li>
-        <li>
-            <a href="/partnership/"><i class="fa fa-fw fa-handshake-o"></i> Партнерство </a>
-        </li>
-        <li>
-            <a href="/contacts/"><i class="fa fa-address-book-o"></i> Контакты </a>
-        </li>
-        <li class="active">
-            <a href="/review/"><i class="fa fa-commenting"></i> Отзывы </a>
-        </li>
-        <li>
-            <a href="/support/"><i class="fa fa-fw fa-wrench"></i> ТехПоддержка </a>
-        </li>
-    </ul>
-</div>
-<!-- /.navbar-collapse -->
-{% endblock %}
-
 {% block content %}
 
 <section class='text-center'>
