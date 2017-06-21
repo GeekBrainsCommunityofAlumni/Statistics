@@ -39,11 +39,3 @@
     justify-content: space-around;
     margin-right: 10px;
 }
-
-.btn-danger {
-    background-color: red;
-}
-
-.btn-success {
-    background-color: #222222;
-}
