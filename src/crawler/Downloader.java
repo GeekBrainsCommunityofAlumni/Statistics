@@ -54,8 +54,8 @@ public class Downloader {
             System.gc();
             // System.out.println(result.indexOf("windows-1251"));
 
-            return result;
-            //return result.replaceFirst("windows-1251", "utf-8");
+            //return result;
+            return result.replaceFirst("windows-1251", "utf-8");
         } /*catch (UnknownHostException e) {
             return isReachable() ? ".ru" : INTERNET_CONNECTION_LOST;
         }*/
@@ -119,7 +119,7 @@ public class Downloader {
         try {
             new BufferedReader(new InputStreamReader(new URL("https://mail.ru/").openConnection().getInputStream()));
             return true;
-        } catch (IOException ignored) {} 
+        } catch (IOException ignored) {}
         return false;
     }
 
