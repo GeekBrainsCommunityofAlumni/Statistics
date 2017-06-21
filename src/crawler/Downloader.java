@@ -28,7 +28,7 @@ public class Downloader {
         long t = System.currentTimeMillis();
         Downloader downloader = new Downloader();
         //String url = "http://lenta.ru"; //robots.txt";
-        String url = "http://www.kommersant.ru";
+        String url = "http://www.kommersantyyy.ru";
         String s = downloader.download(url);
         System.out.println(s);
         BufferedWriter bw = new BufferedWriter(new FileWriter("C:\\Users\\Юрий\\Desktop\\1.html"));
@@ -56,9 +56,9 @@ public class Downloader {
 
             //return result;
             return result.replaceFirst("windows-1251", "utf-8");
-        } /*catch (UnknownHostException e) {
-            return isReachable() ? ".ru" : INTERNET_CONNECTION_LOST;
-        }*/
+        } catch (UnknownHostException e) {
+            return isReachable() ? PAGE_NOT_FOUND : INTERNET_CONNECTION_LOST;
+        }
 
 
 //        String result = null;
