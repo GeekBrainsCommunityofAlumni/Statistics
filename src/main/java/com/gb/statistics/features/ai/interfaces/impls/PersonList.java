@@ -2,7 +2,6 @@ package com.gb.statistics.features.ai.interfaces.impls;
 
 import com.gb.statistics.features.ai.interfaces.PersonListInterface;
 import com.gb.statistics.features.ai.model.Person;
-import com.sun.xml.internal.ws.client.sei.ResponseBuilder;
 import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -19,14 +18,14 @@ public class PersonList implements PersonListInterface {
 
     private ObservableList<Person> personList;
     private RestTemplate template = new RestTemplate();
-    HttpHeaders headers = new HttpHeaders();
+    private HttpHeaders headers;
 
     public PersonList() {
         Callback<Person, Observable[]> extractor = s -> new Observable[] {s.getNameProperty()};
         personList = FXCollections.observableArrayList(extractor);
-        template.getInterceptors().add(new AuthHeaderInterceptor());
         template.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
-        headers.setContentType(MediaType.APPLICATION_JSON);
+        headers = new HttpHeaders();
+        headers.set("Content-Type", "application/json;charset=UTF-8");
     }
 
     public void refreshPersonList() {
@@ -37,13 +36,13 @@ public class PersonList implements PersonListInterface {
     }
 
     public boolean addPerson(Person person) {
-        template.postForObject(URL + "/person", person, Person.class);
+        template.postForObject(URL + "/person", new HttpEntity<>(person, headers), Person.class);
         refreshPersonList();
         return true;
     }
 
     public boolean updatePerson(Person person) {
-        template.put(URL + "/person", person, Person.class);
+        template.put(URL + "/person", new HttpEntity<>(person, headers), Person.class);
         refreshPersonList();
         return false;
     }

@@ -62,8 +62,7 @@ public class PersonListController {
         initListeners();
         initEditModalWindow();
         initDeleteModalWindow();
-        personList.refreshPersonList();
-        personTableView.getSelectionModel().select(0);
+        setActivityButtons();
     }
 
     private void initListeners() {

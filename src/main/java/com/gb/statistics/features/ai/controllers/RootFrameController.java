@@ -31,12 +31,11 @@ public class RootFrameController {
         initPersonList();
         initKeyWordsList();
         personListController.setKeyWordsListController(keyWordsListController);
-
-
-
         personListTab.setContent(parentPersonList);
         keyWordsListTab.setContent(parentKeyWordsList);
         rootTabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
+
+        personListController.getPersonList().refreshPersonList();
     }
 
     private void initPersonList() {

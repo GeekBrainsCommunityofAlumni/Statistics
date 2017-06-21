@@ -41,6 +41,9 @@ public class KeyWordsListController {
     private Label keyWordsListCount;
 
     @FXML
+    private Button addButton;
+
+    @FXML
     private Button editButton;
 
     @FXML
@@ -55,13 +58,16 @@ public class KeyWordsListController {
     private Stage modalEditWindowStage;
     private Stage modalDeleteWindowStage;
     private Stage mainStage;
+    Label loadLabel = new Label("loading");
 
     @FXML
     private void initialize() {
         columnKeyWordName.setCellValueFactory(cellData -> cellData.getValue().getNameProperty());
         keyWordTableView.setPlaceholder(new Label(EMPTY_LIST_MESSAGE));
-        //keyWordsList.setPerson(person);
         keyWordTableView.setItems(keyWordsList.getKeyWordList());
+        comboBoxPerson.setDisable(true);
+        disableButtons(true);
+        addButton.setDisable(true);
         initEditModalWindow();
         initDeleteModalWindow();
     }
@@ -69,31 +75,26 @@ public class KeyWordsListController {
     private void initListeners() {
         comboBoxPerson.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
-                System.out.println("Person: " + newValue.getName());
                 keyWordsList.setPerson(newValue);
                 keyWordsList.refreshKeyWordList();
+            } else {
+                comboBoxPerson.getSelectionModel().select(-1);
+                keyWordsList.getKeyWordList().clear();
             }
-
-            //initTableView(newValue);
         });
 
         personList.getPersonList().addListener((ListChangeListener<Person>) c -> {
             if (personList.getPersonList().size() == 0) {
                 comboBoxPerson.getSelectionModel().select(-1);
                 comboBoxPerson.setDisable(true);
+                addButton.setDisable(true);
+
             } else {
                 comboBoxPerson.setDisable(false);
+                addButton.setDisable(false);
                 comboBoxPerson.getSelectionModel().selectFirst();
             }
         });
-
-
-    }
-
-    private void initTableView(Person person) {
-        System.out.println(person);
-        keyWordsList.setPerson(person);
-        keyWordTableView.setItems(keyWordsList.getKeyWordList());
     }
 
     public void setPersonList(PersonListInterface personList) {
@@ -103,9 +104,8 @@ public class KeyWordsListController {
 
 
         keyWordsList.getKeyWordList().addListener((ListChangeListener<KeyWord>) c -> {
-
-            //updateKeyWordsListCount();
-            //setActivityButtons();
+            updateKeyWordsListCount();
+            setActivityButtons();
             //setFocus();
         });
 
@@ -118,6 +118,7 @@ public class KeyWordsListController {
     }
 
     private void initComboBox() {
+        comboBoxPerson.setPlaceholder(loadLabel);
         comboBoxPerson.setItems(personList.getPersonList());
         comboBoxPerson.getSelectionModel().selectFirst();
     }
@@ -198,7 +199,7 @@ public class KeyWordsListController {
     }
 
     private void setActivityButtons() {
-        if (personList.getPersonList().isEmpty()) disableButtons(true);
+        if (keyWordsList.getKeyWordList().isEmpty()) disableButtons(true);
         else disableButtons(false);
     }
 
@@ -218,9 +219,4 @@ public class KeyWordsListController {
     public PersonListInterface getPersonList() {
         return personList;
     }
-/*
-    public void setKeyWordsListController(KeyWordsListController keyWordsListController) {
-        System.out.println(keyWordsListController);
-        this.keyWordsListController = keyWordsListController;
-    }*/
 }
