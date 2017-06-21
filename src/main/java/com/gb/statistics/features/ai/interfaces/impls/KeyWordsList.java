@@ -8,33 +8,50 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.util.Callback;
 import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
+import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
+import java.nio.charset.Charset;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class KeyWordsList implements KeyWordsInterface {
 
-    private String URL = "http://127.0.0.1:8080/";
+    private String URL = "http://94.130.27.143:8080/api";
 
     private ObservableList<KeyWord> keyWordList;
     private RestTemplate template = new RestTemplate();
     private Person person;
+    HttpEntity<String> entity;
+    HttpHeaders headers;
 
     public KeyWordsList() {
         Callback<KeyWord, Observable[]> extractor = s -> new Observable[] {s.getNameProperty()};
         keyWordList = FXCollections.observableArrayList(extractor);
+        //template.getInterceptors().add(new AuthHeaderInterceptor());
         template.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+        template.getMessageConverters().add(0, new StringHttpMessageConverter(Charset.forName("UTF-8")));
+        headers = new HttpHeaders();
+        headers.set("Content-Type", "application/json;charset=UTF-8");
+
+        //entity = new HttpEntity<String>(headers);
     }
 
     @Override
     public void refreshKeyWordList() {
-        ResponseEntity<List<KeyWord>> rateResponse = template.exchange(URL + "/keyword/" + person.getId(), HttpMethod.GET, null, new ParameterizedTypeReference<List<KeyWord>>() {
-        });
-        keyWordList.clear();
-        keyWordList.setAll(rateResponse.getBody());
+        try {
+            System.out.println("personid " + person.getId());
+            ResponseEntity<List<KeyWord>> rateResponse = template.exchange(URL + "/keyword/" + person.getId(), HttpMethod.GET, null, new ParameterizedTypeReference<List<KeyWord>>() {
+            });
+            keyWordList.clear();
+            keyWordList.setAll(rateResponse.getBody());
+        } catch (HttpClientErrorException e) {
+            keyWordList.clear();
+        }
     }
 
     @Override
@@ -44,7 +61,8 @@ public class KeyWordsList implements KeyWordsInterface {
 
     @Override
     public boolean addKeyWord(KeyWord keyWord) {
-        template.postForObject(URL + "/keyword", keyWord, KeyWord.class);
+        System.out.println("id " + keyWord.getId() + "pid " + keyWord.getPersonId() + "name" + keyWord.getName());
+        template.postForObject(URL + "/keyword/" + person.getId(), new HttpEntity<KeyWord>(keyWord, headers), KeyWord.class);
         refreshKeyWordList();
         return false;
     }

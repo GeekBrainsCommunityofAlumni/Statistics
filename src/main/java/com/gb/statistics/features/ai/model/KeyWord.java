@@ -17,8 +17,8 @@ public class KeyWord {
 
     public KeyWord(int id, int personId, String name) {
         this.id = id;
-        this.personId = personId;
         this.name = new SimpleStringProperty(name);
+        this.personId = personId;
     }
 
     public int getId() {

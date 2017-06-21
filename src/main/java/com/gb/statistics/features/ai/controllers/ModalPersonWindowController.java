@@ -30,7 +30,6 @@ public class ModalPersonWindowController {
             return;
         }
         person.setName(personNameField.getText());
-
         actionClose(actionEvent);
     }
 

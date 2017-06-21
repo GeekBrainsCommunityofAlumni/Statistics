@@ -2,7 +2,6 @@ package com.gb.statistics.features.ai.controllers;
 
 import com.gb.statistics.features.ai.interfaces.KeyWordsInterface;
 import com.gb.statistics.features.ai.interfaces.PersonListInterface;
-import com.gb.statistics.features.ai.interfaces.impls.FakeKeyWordsList;
 import com.gb.statistics.features.ai.interfaces.impls.KeyWordsList;
 import com.gb.statistics.features.ai.model.KeyWord;
 import com.gb.statistics.features.ai.model.Person;
@@ -61,6 +60,8 @@ public class KeyWordsListController {
     private void initialize() {
         columnKeyWordName.setCellValueFactory(cellData -> cellData.getValue().getNameProperty());
         keyWordTableView.setPlaceholder(new Label(EMPTY_LIST_MESSAGE));
+        //keyWordsList.setPerson(person);
+        keyWordTableView.setItems(keyWordsList.getKeyWordList());
         initEditModalWindow();
         initDeleteModalWindow();
     }
@@ -78,8 +79,12 @@ public class KeyWordsListController {
 
         personList.getPersonList().addListener((ListChangeListener<Person>) c -> {
             if (personList.getPersonList().size() == 0) {
+                comboBoxPerson.getSelectionModel().select(-1);
                 comboBoxPerson.setDisable(true);
-            } else comboBoxPerson.setDisable(false);
+            } else {
+                comboBoxPerson.setDisable(false);
+                comboBoxPerson.getSelectionModel().selectFirst();
+            }
         });
 
 
@@ -95,6 +100,7 @@ public class KeyWordsListController {
         this.personList = personList;
         initListeners();
         initComboBox();
+
 
         keyWordsList.getKeyWordList().addListener((ListChangeListener<KeyWord>) c -> {
 
@@ -151,6 +157,8 @@ public class KeyWordsListController {
     private void actionButtonEditKeyWord() {
         editKeyWordController.setKeyWord(keyWordTableView.getSelectionModel().getSelectedItem(), comboBoxPerson.getValue());
         showDialog(EDIT_TITLE, modalEditWindowStage, parentEdit, MODAL_WIDTH, MODAL_HEIGHT);
+        System.out.println(editKeyWordController.getKeyWord());
+        keyWordsList.updateKeyWord(editKeyWordController.getKeyWord());
     }
 
     @FXML
