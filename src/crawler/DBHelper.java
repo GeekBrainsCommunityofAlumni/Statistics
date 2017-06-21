@@ -167,6 +167,15 @@ public class DBHelper {
         }
     }
 
+    public void setLastScanDateNow(int pageID) {
+        try {
+            statement = connectionToDB.createStatement();
+            statement.executeUpdate("UPDATE pages SET lastscandate = NOW() WHERE id = " + pageID + ";");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public boolean existPageWithPerson(int personID, int pageID) {  //Проверяет, существует ли уже в таблице personpagerank указанная запись с personID и pageID
         try {
             preparedStatement = connectionToDB.prepareStatement("SELECT personID, pageID FROM personpagerank WHERE (personID = ? AND pageID = ?);");
