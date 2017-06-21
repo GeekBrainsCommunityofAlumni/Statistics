@@ -46,7 +46,6 @@ def registration(request):
         # gender = request.POST.get("gender")
         # birthdate = request.POST.get("birthdate")
         # country = request.POST.get("country")
-        # district = request.POST.get("district")
         # city = request.POST.get("city")
         photo = request.POST.get("your_photo")
         status = request.POST.get("your_status")
