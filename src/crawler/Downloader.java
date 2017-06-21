@@ -13,12 +13,13 @@ import java.util.zip.GZIPInputStream;
 
 public class Downloader {
     public static final String NO_PROTOCOL = "No protocol";
+    public static final String UNEXPECTED_URL = "unexpected url";
     //Exception in thread "main" java.lang.IllegalArgumentException: unexpected url: www.kommersant.ru
-    //Exception in thread "main" java.net.UnknownHostException: www.kommersant
+    //Exception in thread "main" java.net.UnknownHostException:
     //Exception in thread "main" java.net.UnknownHostException: www.kommersant.ru - !нет интернета
     public static final String PAGE_NOT_FOUND = "Page not found";
     public static final String SITE_NOT_FOUND = "Site not found";
-    public static final String INTERNET_CONNECTION_LOST = "Internet connection lost";
+    public static final String INTERNET_CONNECTION_LOST = "Internet connection lost"; //http://www.kommersant, http://www.kommersantyyy.ru
     public static final String UNIDENTIFIED_ERROR = "Unidentified error";
     public static final String ROBOTSTXT_NOT_FOUND = "Robots.txt not found";
     public static final String SITE_MAP_NOT_FOUND = "Site map not found";
@@ -28,7 +29,7 @@ public class Downloader {
         long t = System.currentTimeMillis();
         Downloader downloader = new Downloader();
         //String url = "http://lenta.ru"; //robots.txt";
-        String url = "http://www.kommersantyyy.ru";
+        String url = "www.kommersant";
         String s = downloader.download(url);
         System.out.println(s);
         BufferedWriter bw = new BufferedWriter(new FileWriter("C:\\Users\\Юрий\\Desktop\\1.html"));
@@ -44,11 +45,18 @@ public class Downloader {
                 .readTimeout(5, TimeUnit.MINUTES);
         OkHttpClient client = builder.build();
 
-        Request request = new Request.Builder()
-                .url(urlProtocol)
-                .build();
+        Request request;
+        try {
+            request = new Request.Builder()
+                    .url(urlProtocol)
+                    .build();
+        } catch (IllegalArgumentException e) {
+            return UNEXPECTED_URL;
+        }
+
+
         //TODO Дописать загрузку и распаковку GZip как в методе ранее.
-        try (Response response = client.newCall(request).execute()) {
+        try (Response response = client.newCall(request).execute()) { //UnknownHostException
             String result = response.body().string();
             response.close();
             System.gc();
@@ -57,6 +65,7 @@ public class Downloader {
             //return result;
             return result.replaceFirst("windows-1251", "utf-8");
         } catch (UnknownHostException e) {
+            e.printStackTrace();
             return isReachable() ? PAGE_NOT_FOUND : INTERNET_CONNECTION_LOST;
         }
 
@@ -111,15 +120,18 @@ public class Downloader {
         try {
             new BufferedReader(new InputStreamReader(new URL("https://www.google.ru").openConnection().getInputStream()));
             return true;
-        } catch (IOException ignored) {}
+        } catch (IOException ignored) {
+        }
         try {
             new BufferedReader(new InputStreamReader(new URL("https://www.yandex.ru/").openConnection().getInputStream()));
             return true;
-        } catch (IOException ignored) {}
+        } catch (IOException ignored) {
+        }
         try {
             new BufferedReader(new InputStreamReader(new URL("https://mail.ru/").openConnection().getInputStream()));
             return true;
-        } catch (IOException ignored) {}
+        } catch (IOException ignored) {
+        }
         return false;
     }
 
