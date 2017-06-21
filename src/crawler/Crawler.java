@@ -111,8 +111,6 @@ public class Crawler {
     }
 
     private static void init() {
-        //downloader = new Downloader();
-        //parser = new Parser();
         dbHelper = new DBHelper();
         dbHelper.connectToDB();
         personsID = dbHelper.getPersonsID();
