@@ -1,7 +1,14 @@
+/**
+ * Created by Cappoocha on 20.06.2017.
+ */
+
 package desktop_ui.Controller;
+
 import desktop_ui.MainApp;
 import desktop_ui.Module.DTO.DailyStatisticResultItem;
 import desktop_ui.Module.Proxy;
+import desktop_ui.Module.Service.PersonService;
+import desktop_ui.Module.Service.SiteService;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
@@ -13,7 +20,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 /**
- * Created by Cappoocha on 20.06.2017.
+ * Контроллер для отображения ежедневной статистики
  */
 public class DailyStatisticController
 {
@@ -38,6 +45,16 @@ public class DailyStatisticController
     @FXML
     private DatePicker endDate;
 
+    /**
+     * Сервис для работы с сайтами
+     */
+    private SiteService siteService;
+
+    /**
+     * Сервис для работы с личностями
+     */
+    private PersonService personService;
+
     public DailyStatisticController()
     {
     }
@@ -45,9 +62,13 @@ public class DailyStatisticController
     @FXML
     private void initialize()
     {
-        sites.setItems(Proxy.getAvailableSiteList());
+        this.siteService = new SiteService();
+        this.personService = new PersonService();
+
+        sites.setItems(this.siteService.getAvailableSiteList());
         sites.setValue(sites.getItems().get(0));
-        persons.setItems(Proxy.getAvailablePersonNameList());
+
+        persons.setItems(this.personService.getAvailablePersonList());
         persons.setValue(persons.getItems().get(0));
 
         newPageCountColumn.setCellValueFactory(cellData -> cellData.getValue().newPageCount.asObject());
