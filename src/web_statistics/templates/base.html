@@ -3,7 +3,6 @@
 {% load static from staticfiles %}
 
 <html lang="ru-en">
-
 <head>
     <title>
         {% block title %}
@@ -13,7 +12,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-<!--     <meta name="description" content="">
+<!--<meta name="description" content="">
     <meta name="author" content=""> -->
 
     <link rel="shortcut icon" href="{% static 'img/favicon.png' %}" type="image/x-icon"/>
@@ -37,11 +36,8 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-
 </head>
-
 <body>
-
     <div id="wrapper">
 
         <!-- Navigation -->
@@ -93,21 +89,6 @@
                                 </div>
                             </a>
                         </li>
-                        <li class="message-preview">
-                            <a href="#">
-                                <div class="media">
-                                    <span class="pull-left">
-                                        <img class="media-object" src="http://placehold.it/50x50" alt="">
-                                    </span>
-                                    <div class="media-body">
-                                        <h5 class="media-heading"><strong>John Smith</strong>
-                                        </h5>
-                                        <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
-                                        <p>Lorem ipsum dolor sit amet, consectetur...</p>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
                         <li class="message-footer">
                             <a href="#">Read All New Messages</a>
                         </li>
@@ -132,12 +113,35 @@
                     </ul>
                 </li>
             </ul>
-            {% block menu %}
-            {% endblock %}
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
+                <ul class="nav navbar-nav side-nav">
+                    <li class="{% if request.path == '/' %}active{% endif %}">
+                        <a href="/"><i class="fa fa-home" aria-hidden="true"></i> О компании </a></li>
+                    <li class="{% if request.path == '/privateroom/' %}active{% endif %}">
+                        <a href="/privateroom/"><i class="fa fa-user-circle"></i> Личный кабинет </a></li>
+                    <li class="{% if request.path == '/daily_statistic/' or request.path == '/periodic_statistic/' %}active{% endif %}">
+                        <a href="javascript:;" data-toggle="collapse" data-target="#demo">
+                            <i class="fa fa-fw fa-arrows-v"></i> Статистика <i class="fa fa-fw fa-caret-down"></i>
+                        </a>
+                        <ul id="demo" class="collapse">
+                            <li><a href="/daily_statistics/"> Ежедневная статистика <i class="fa fa-fw fa-bar-chart-o"></i></a></li>
+                            <li ><a href="/periodic_statistics/"> Общая статистика <br> <i class="fa fa-fw fa-table"></i></a></li>
+                        </ul>
+                    </li>
+                    <li class="{% if request.path == '/partnership/' %}active{% endif %}">
+                    <a href="/partnership/"><i class="fa fa-fw fa-handshake-o"></i> Партнерство </a></li>
+                    <li class="{% if request.path == '/contacts/' %}active{% endif %}">
+                        <a href="/contacts/"><i class="fa fa-address-book-o"></i> Контакты </a></li>
+                    <li class="{% if request.path == '/review/' %}active{% endif %}">
+                        <a href="/review/"><i class="fa fa-commenting"></i> Отзывы </a></li>
+                    <li class="{% if request.path == '/support/' %}active{% endif %}">
+                        <a href="/support/"><i class="fa fa-fw fa-wrench"></i> ТехПоддержка </a></li>
+                </ul>
+            </div>
+
         </nav>
 
         <div id="page-wrapper">
-
             <div class="container-fluid">
 				{% block content %}
                 {% endblock %}
@@ -145,7 +149,7 @@
             <!-- /.container-fluid -->
         </div>
         <!-- /#page-wrapper -->
-    <h4 class='text-center'>&copy 2017 GeekBrains Community af Alumni. All Rights Reserved.</h4>
+    <h4 class='text-center'>&copy {% now "Y" %} GeekBrains Community af Alumni. All Rights Reserved.</h4>
     </div>
     <!-- /#wrapper -->
 
@@ -161,5 +165,4 @@
     <script src="{% static 'js/plugins/morris/morris-data.js' %}"></script>
 
 </body>
-
 </html>
