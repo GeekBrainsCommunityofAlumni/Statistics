@@ -36,13 +36,33 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="edY-GJ-G0D">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" id="edY-GJ-G0D" customClass="StatEveryDVCell" customModule="ios" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="edY-GJ-G0D" id="tZO-re-LGJ">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GlI-SF-nfY" userLabel="Person">
+                                            <rect key="frame" x="28" y="15" width="139" height="21"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BDc-aY-o2R" userLabel="Count">
+                                            <rect key="frame" x="307" y="15" width="42" height="21"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="countLabel" destination="BDc-aY-o2R" id="Sr3-wj-WDQ"/>
+                                    <outlet property="nameLabel" destination="GlI-SF-nfY" id="LC8-AL-KOC"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -53,10 +73,13 @@
                     <navigationItem key="navigationItem" title="Название сайта" id="iWs-hA-nPj">
                         <barButtonItem key="backBarButtonItem" title="Назад" id="I8X-at-Oys"/>
                     </navigationItem>
+                    <connections>
+                        <outlet property="titleNameSite" destination="iWs-hA-nPj" id="8EF-Uj-1Sr"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kc6-oW-fMh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2728" y="568"/>
+            <point key="canvasLocation" x="2727.1999999999998" y="567.16641679160421"/>
         </scene>
         <!--Общая статистика-->
         <scene sceneID="B8U-LA-ibN">

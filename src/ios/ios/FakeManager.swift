@@ -33,10 +33,11 @@ class FakeManager:DataProvider{
     override func getDataOnDate(date1: Date, date2: Date){
         var result: [SiteData] = []
         let count = sitesName.count
-        for _ in 0..<count{
+        for num in 0..<count{
             let item: SiteData = SiteData()
             item.date = date1
-            item.site = sitesName[Int(arc4random()) % count]
+            //item.site = sitesName[Int(arc4random()) % count]
+            item.site = sitesName[num]
             for person in 0..<personsName.count{
                 item.stats[personsName[person]] = Int(arc4random()) % 100
             }

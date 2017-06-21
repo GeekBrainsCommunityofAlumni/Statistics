@@ -14,12 +14,14 @@ class ViewControllerDayStat: UIViewController, DataManagerProtocol, UIPickerView
     @IBOutlet weak var pickerDate1: UIDatePicker!
     @IBOutlet weak var pickerDate2: UIDatePicker!
     
-    var dm = DataManager.initWithFakeManager()
+    var dm = DataManager.initWithFakeManager() // служит для загрузки списка всех сайтов
+    
+    var dmDate = DataManager.initWithFakeManager() //служит уже для загрузки данных по дате
     
     
     var choosenSite: String = ""
-    var choosenDate1: Date = Date()
-    var choosenDate2: Date = Date()
+//    var choosenDate1: Date = Date()
+//    var choosenDate2: Date = Date()
     
     
     
@@ -45,10 +47,29 @@ class ViewControllerDayStat: UIViewController, DataManagerProtocol, UIPickerView
     }
     
     
+    var dataEvery: [SiteData] = []{
+        didSet{
+            self.sitesEvery = self.uniqueSiteEvery(dataEvery: dataEvery)
+        }
+    }
+        
+    var sitesEvery: [String] = []
+    
+    func uniqueSiteEvery(dataEvery: [SiteData]) -> [String]{
+        var arrayOfSiteName: [String] = []
+        for item in dataEvery {
+            arrayOfSiteName.append(item.site)
+        }
+        arrayOfSiteName = Array(Set(arrayOfSiteName))
+        return arrayOfSiteName
+    }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         dm.delegat = self
         dm.getSumaryData()
+        
         pickerSite.delegate = self
         pickerSite.dataSource = self
         self.choosenSite = self.sites[0]
@@ -81,24 +102,49 @@ class ViewControllerDayStat: UIViewController, DataManagerProtocol, UIPickerView
     // ВЫБОР САЙТА ЗАВЕРШЕН
     
     func didCompliteRequestOnData(data: [SiteData], date1: Date, date2: Date){
-        //self.data = data
+        self.dataEvery = data
+        
     }
     
     func didCompliteRequestTotal(data: [SiteData]){
         self.data = data
     }
     
+    
+    func DataRange() {
+        dmDate.delegat = self
+        dmDate.getDataOnDate(date1: pickerDate1.date, date2: pickerDate2.date)
+    }
+    
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "ShowStat"{
-            let destinatinVC: TableViewControllerDayStatDV = segue.destination as! TableViewControllerDayStatDV
-            destinatinVC.choosenSite = self.choosenSite
-            destinatinVC.choosenDate1 = self.pickerDate1.date
-            destinatinVC.choosenDate2 = self.pickerDate2.date
-        }
-        else{
+            self.DataRange()
+            
+            for i in sitesEvery{
+                
+                if self.choosenSite == i
+                {
+                    let destinatinVC: TableViewControllerDayStatDV = segue.destination as! TableViewControllerDayStatDV
+                    destinatinVC.choosenSite = i
+                    destinatinVC.choosenDate1 = self.pickerDate1.date
+                    destinatinVC.choosenDate2 = self.pickerDate2.date
+                    
+                    let site = self.dataEvery.filter({ (item) -> Bool in
+                        if item.site == destinatinVC.choosenSite{
+                            return true
+                        } else {
+                            return false
+                        }
+                    }).first
+                    destinatinVC.persons = (site?.personArray())!
+
+                }
+            }
+            
             
         }
+       
     }
 
 

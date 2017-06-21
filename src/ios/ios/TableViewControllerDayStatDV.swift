@@ -13,11 +13,15 @@ class TableViewControllerDayStatDV: UITableViewController {
     var choosenSite: String = "Default Name"
     var choosenDate1: Date = Date()
     var choosenDate2: Date = Date()
+    var persons: [PersonInfo] = []
+
+    @IBOutlet weak var namePersonLabel: UILabel!
+    @IBOutlet weak var titleNameSite: UINavigationItem!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-       print("\(self.choosenDate1) \(self.choosenDate2) \(self.choosenSite)")
+       titleNameSite.title = self.choosenSite
     }
 
     override func didReceiveMemoryWarning() {
@@ -29,23 +33,24 @@ class TableViewControllerDayStatDV: UITableViewController {
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 0
+        return persons.count
     }
 
-    /*
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! StatEveryDVCell
 
-        // Configure the cell...
+        cell.nameLabel.text = persons[indexPath.row].name
+        cell.countLabel.text = String(persons[indexPath.row].count)
 
         return cell
     }
-    */
+
 
     /*
     // Override to support conditional editing of the table view.
