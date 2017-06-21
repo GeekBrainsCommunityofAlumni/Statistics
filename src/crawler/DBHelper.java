@@ -148,7 +148,7 @@ public class DBHelper {
                 preparedStatement.setInt(3, pageID);
                 preparedStatement.executeUpdate();
             } else {
-                if (existPersonID(personID)) {
+                if (existPersonID(personID)) {  //конечно, я могу поставить эту проверку в начале метода, но мне кажется, что код станет плохо читаемым.
                     if (existPageID(pageID)) {
                         preparedStatement = connectionToDB.prepareStatement("INSERT INTO personpagerank (personid, pageid, rank) VALUES (?, ?, ?);");
                         preparedStatement.setInt(1, personID);
@@ -161,7 +161,8 @@ public class DBHelper {
                     }
                 } else {
                     throw new SQLException("Неправильный personID передан через dbHelper.savePersonPageRank, вызываемый в краулере.");
-                }              }
+                }
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
