@@ -2,7 +2,6 @@ package com.gb.statistics.webservice.controller;
 
 import com.gb.statistics.webservice.AppConfig;
 import com.gb.statistics.webservice.entity.Person;
-import com.gb.statistics.webservice.repository.MockPersonRepository;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -11,8 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
-
-import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
