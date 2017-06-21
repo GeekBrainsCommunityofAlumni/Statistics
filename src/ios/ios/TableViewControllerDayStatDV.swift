@@ -9,15 +9,15 @@
 import UIKit
 
 class TableViewControllerDayStatDV: UITableViewController {
+    
+    var choosenSite: String = "Default Name"
+    var choosenDate1: Date = Date()
+    var choosenDate2: Date = Date()
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+       print("\(self.choosenDate1) \(self.choosenDate2) \(self.choosenSite)")
     }
 
     override func didReceiveMemoryWarning() {
