@@ -86,9 +86,9 @@
                                         <img class="media-object" src="http://placehold.it/50x50" alt="">
                                     </span>
                                     <div class="media-body">
-                                        <h5 class="media-heading"><strong>John Smith</strong></h5>
+                                        <h5 class="media-heading"><strong>Support</strong></h5>
                                         <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
-                                        <p>Lorem ipsum dolor sit amet, consectetur...</p>
+                                        <p>...</p>
                                     </div>
                                 </div>
                             </a>
@@ -100,10 +100,10 @@
                                         <img class="media-object" src="http://placehold.it/50x50" alt="">
                                     </span>
                                     <div class="media-body">
-                                        <h5 class="media-heading"><strong>John Smith</strong>
+                                        <h5 class="media-heading"><strong>Support</strong>
                                         </h5>
                                         <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
-                                        <p>Lorem ipsum dolor sit amet, consectetur...</p>
+                                        <p>Welcome to our website!...</p>
                                     </div>
                                 </div>
                             </a>
@@ -123,12 +123,18 @@
                     </ul>
                 </li>
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> John Smith <b class="caret"></b></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> {{user.username}} <b class="caret"></b></a>
                     <ul class="dropdown-menu">
-                        <li><a href="/privateroom/"><i class="fa fa-fw fa-user"></i> Profile</a></li>
-                        <li><a href="#"><i class="fa fa-fw fa-gear"></i> Settings</a></li>
+                        <li><a href="/privateroom/"><i class="fa fa-fw fa-user"></i> Личный кабинет </a></li>
+                        <li><a href="/myadmin/"><i class="fa fa-fw fa-gear"></i> Настройки </a></li>
                         <li class="divider"></li>
-                        <li><a href="#"><i class="fa fa-fw fa-power-off"></i> Log Out</a></li>
+                        <li>
+                            <form method="post" class="logout" action="/user/logout/">
+                                <i class="fa fa-fw fa-power-off"></i>
+                                {% csrf_token %}
+                                <input class="btn btn-primary btn-sm" type="submit" value="Log Out">
+                            </form>
+                        </li>
                     </ul>
                 </li>
             </ul>
