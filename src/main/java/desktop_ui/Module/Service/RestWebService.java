@@ -45,6 +45,7 @@ public class RestWebService
     }
 
     /**
+     * Возвращает сайт по id
      *
      * @param id
      *
