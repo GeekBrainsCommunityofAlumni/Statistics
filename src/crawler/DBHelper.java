@@ -4,6 +4,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.text.*;
+import static java.lang.Thread.sleep;
 
 /**
  * Created by Serg on 09.06.2017.
@@ -139,7 +140,7 @@ public class DBHelper {
         return urlOfPage;
     }
 
-    public void savePersonPageRank(int personID, int pageID, int rank) { //Сохраняет данные в таблицу PersonPageRank
+    public synchronized void savePersonPageRank(int personID, int pageID, int rank) { //Сохраняет данные в таблицу PersonPageRank
         try {
             if (existPageWithPerson(personID, pageID)) {
                 preparedStatement = connectionToDB.prepareStatement("UPDATE personpagerank SET rank = ? WHERE (personid = ? AND pageid = ?);");
@@ -168,7 +169,7 @@ public class DBHelper {
         }
     }
 
-    public void setLastScanDateNow(int pageID) {
+    public synchronized void setLastScanDateNow(int pageID) {
         try {
             if (existPageID(pageID)) {
                 statement = connectionToDB.createStatement();
@@ -259,6 +260,26 @@ public class DBHelper {
             e.printStackTrace();
         }
         return resultingArrayList;
+    }
+
+    public String getNewSite() { //Для многопоточности. Возвращает URL одного сайта для которого нет НИ ОДНОЙ строки в таблице Pages
+        String result = "";
+        try {
+            statement = connectionToDB.createStatement();
+            resultSet = statement.executeQuery("SELECT name FROM sites WHERE id NOT IN (SELECT siteid FROM pages) ORDER BY RAND() LIMIT 1;");
+            if(resultSet.next()) {
+                result = resultSet.getString(1);
+            }
+            sleep(1000);
+        } catch (SQLException | InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        if (result.length() > 0) {
+            return result;
+        } else {
+            return null;
+        }
     }
 
     public ArrayList<String> getOldScannedSites() { //возвращает список URL страниц из таблицы pages, сканирование которых было более 24 часов назад
