@@ -19,12 +19,14 @@ public class Crawler {
 
     public static void main(String[] args) throws IOException, ParserConfigurationException, SAXException {
         init();
-        //addNewSitesToPages();
+        addNewSitesToPages();
+
         try {
             crawlsNewSite();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+
         recrawls();
     }
 
@@ -117,57 +119,57 @@ public class Crawler {
         personsID = dbHelper.getPersonsID();
     }
 
-//    private static void addNewSitesToPages() throws IOException, ParserConfigurationException, SAXException { // Решить что делать с пробрасываемыми исключениями. throws IOException, ParserConfigurationException, SAXException
-//        ArrayList<String> newSites = dbHelper.getNewSites();
-//        System.out.println("Новых сайтов в базе " + newSites.size());
-//        if (newSites.size()>0) {
-//
-//            for (String site : newSites) {
-//                String robotTxt = null;
-//                ArrayList<String> urlPages = new ArrayList<>();
-//
-//                try {
-//                    robotTxt = new Downloader().downloadRobot(site);
-//                    System.out.println("Robots.txt содержит:");
-//                    System.out.println(robotTxt);
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-//                String sitemapURL = null;
-//
-//                if (robotTxt != null) {
-//                    sitemapURL = parser.parseRobotTxt(robotTxt);
-//                    System.out.println("Найден sitemap.xml : " + sitemapURL);
-//                }
-//
-//                if (sitemapURL != null) {
-//                    String sitemap = null;
-//                    sitemap = downloader.downloadSiteMap(sitemapURL);
-//                    if (isItSitemapIndex(sitemap)) {
-//                        ArrayList<String> sitemapsURL = parser.parseSiteMapIndex(sitemap);
-//                        for (String sitemapUrl : sitemapsURL) {
-//                            sitemap = downloader.downloadSiteMap(sitemapUrl);
-//                            System.gc();
-//                            ArrayList<String> urlPagesSiteMapIndex = parser.parseSiteMap(sitemap);
-//                            long mem = Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory();
-//                            for (String url : urlPagesSiteMapIndex) {
-//                                urlPages.add(url);
-//                            }
-//                            dbHelper.addPagesToSite(urlPages, site);
-//                            urlPages.clear();
-//                        }
-//                    }
-//
-//                    if (isItSitemap(sitemap)) {
-//                        urlPages = parser.parseSiteMap(sitemap);
-//                        dbHelper.addPagesToSite(urlPages, site);
-//                    }
-//                } else {
-//                    //TODO Сайтмэп не найден - здесь будет функция построения карты сайта без сайтмэпа
-//                }
-//            }
-//        }
-//    }
+    private static void addNewSitesToPages() throws IOException, ParserConfigurationException, SAXException { // Решить что делать с пробрасываемыми исключениями. throws IOException, ParserConfigurationException, SAXException
+        ArrayList<String> newSites = dbHelper.getNewSites();
+        System.out.println("Новых сайтов в базе " + newSites.size());
+        if (newSites.size()>0) {
+
+            for (String site : newSites) {
+                String robotTxt = null;
+                ArrayList<String> urlPages = new ArrayList<>();
+
+                try {
+                    robotTxt = new Downloader().downloadRobot(site);
+                    System.out.println("Robots.txt содержит:");
+                    System.out.println(robotTxt);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                String sitemapURL = null;
+
+                if (robotTxt != null) {
+                    sitemapURL = new Parser().parseRobotTxt(robotTxt);
+                    System.out.println("Найден sitemap.xml : " + sitemapURL);
+                }
+
+                if (sitemapURL != null) {
+                    String sitemap = null;
+                    sitemap = new Downloader().downloadSiteMap(sitemapURL);
+                    if (isItSitemapIndex(sitemap)) {
+                        ArrayList<String> sitemapsURL = new Parser().parseSiteMapIndex(sitemap);
+                        for (String sitemapUrl : sitemapsURL) {
+                            sitemap = new Downloader().downloadSiteMap(sitemapUrl);
+                            System.gc();
+                            ArrayList<String> urlPagesSiteMapIndex = new Parser().parseSiteMap(sitemap);
+                            long mem = Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory();
+                            for (String url : urlPagesSiteMapIndex) {
+                                urlPages.add(url);
+                            }
+                            dbHelper.addPagesToSite(urlPages, site);
+                            urlPages.clear();
+                        }
+                    }
+
+                    if (isItSitemap(sitemap)) {
+                        urlPages = new Parser().parseSiteMap(sitemap);
+                        dbHelper.addPagesToSite(urlPages, site);
+                    }
+                } else {
+                    //TODO Сайтмэп не найден - здесь будет функция построения карты сайта без сайтмэпа
+                }
+            }
+        }
+    }
 
     private static boolean isItSitemap(String sitemap) {
         return sitemap.contains("urlset");
