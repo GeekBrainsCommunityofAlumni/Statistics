@@ -90,7 +90,7 @@ public class SiteListController extends ListController {
     }
 
     private void setFocus() {
-        if (siteList.getSiteList().size() == 1) personTableView.getSelectionModel().select(0);
+        personTableView.getSelectionModel().select(0);
     }
 
     public void setMainStage(Stage mainStage) {

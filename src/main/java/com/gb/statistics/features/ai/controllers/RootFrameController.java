@@ -82,5 +82,7 @@ public class RootFrameController {
 
     public void setMainStage(Stage mainStage) {
         personListController.setMainStage(mainStage);
+        keyWordsListController.setMainStage(mainStage);
+        siteListController.setMainStage(mainStage);
     }
 }

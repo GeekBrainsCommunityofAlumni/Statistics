@@ -30,21 +30,21 @@ public class PersonListController extends ListController {
         personList = new PersonList();
         columnPersonName.setCellValueFactory(cellData -> cellData.getValue().getNameProperty());
         personTableView.setPlaceholder(new Label(EMPTY_LIST_MESSAGE));
-        personTableView.setItems(personList.getSiteList());
+        personTableView.setItems(personList.getPersonList());
         initListeners();
         deleteController.setPersonList(personList);
         setActivityButtons();
     }
 
     private void initListeners() {
-        personList.getSiteList().addListener((ListChangeListener<Person>) c -> {
+        personList.getPersonList().addListener((ListChangeListener<Person>) c -> {
             updatePersonListCount();
             setActivityButtons();
             setFocus();
         });
 
         personTableView.setOnMouseClicked(event -> {
-            if (event.getClickCount() == CLICK_COUNT && !personList.getSiteList().isEmpty()) {
+            if (event.getClickCount() == CLICK_COUNT && !personList.getPersonList().isEmpty()) {
                 actionButtonEdit();
             }
         });
@@ -76,11 +76,11 @@ public class PersonListController extends ListController {
     }
 
     private void updatePersonListCount() {
-        personListCount.setText(String.valueOf(personList.getSiteList().size()));
+        personListCount.setText(String.valueOf(personList.getPersonList().size()));
     }
 
     private void setActivityButtons() {
-        if (personList.getSiteList().size() == 0) disableButtons(true);
+        if (personList.getPersonList().size() == 0) disableButtons(true);
         else disableButtons(false);
     }
 
@@ -90,7 +90,7 @@ public class PersonListController extends ListController {
     }
 
     private void setFocus() {
-        if (personList.getSiteList().size() == 1) personTableView.getSelectionModel().select(0);
+        personTableView.getSelectionModel().select(0);
     }
 
     public void setMainStage(Stage mainStage) {

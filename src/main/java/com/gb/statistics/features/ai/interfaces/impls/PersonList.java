@@ -53,7 +53,7 @@ public class PersonList implements PersonListInterface {
         return true;
     }
 
-    public ObservableList<Person> getSiteList() {
+    public ObservableList<Person> getPersonList() {
         return personList;
     }
 }

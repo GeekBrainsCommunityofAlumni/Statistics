@@ -16,8 +16,6 @@ public class KeyWordsListController extends ListController {
     private PersonListInterface personList;
     private KeyWordsInterface keyWordsList = new KeyWordsList();
 
-    Label loadLabel = new Label("loading");
-
     @FXML
     private ComboBox<Person> comboBoxPerson;
 
@@ -39,7 +37,6 @@ public class KeyWordsListController extends ListController {
         columnKeyWordName.setCellValueFactory(cellData -> cellData.getValue().getNameProperty());
         keyWordTableView.setPlaceholder(new Label(EMPTY_LIST_MESSAGE));
         keyWordTableView.setItems(keyWordsList.getKeyWordList());
-        comboBoxPerson.setDisable(true);
         disableButtons(true);
         addButton.setDisable(true);
         deleteController.setKeyWordList(keyWordsList);
@@ -51,22 +48,18 @@ public class KeyWordsListController extends ListController {
                 keyWordsList.setPerson(newValue);
                 keyWordsList.refreshKeyWordList();
             } else {
-                comboBoxPerson.getSelectionModel().select(-1);
                 keyWordsList.getKeyWordList().clear();
             }
+            comboBoxPerson.getSelectionModel().selectFirst();
         });
 
-        personList.getSiteList().addListener((ListChangeListener<Person>) c -> {
-            if (personList.getSiteList().size() == 0) {
-                comboBoxPerson.getSelectionModel().select(-1);
-                comboBoxPerson.setDisable(true);
+        personList.getPersonList().addListener((ListChangeListener<Person>) c -> {
+            if (personList.getPersonList().size() == 0) {
                 addButton.setDisable(true);
-
             } else {
-                comboBoxPerson.setDisable(false);
                 addButton.setDisable(false);
-                comboBoxPerson.getSelectionModel().selectFirst();
             }
+            comboBoxPerson.getSelectionModel().selectFirst();
         });
     }
 
@@ -78,7 +71,7 @@ public class KeyWordsListController extends ListController {
         keyWordsList.getKeyWordList().addListener((ListChangeListener<KeyWord>) c -> {
             updateKeyWordsListCount();
             setActivityButtons();
-            //setFocus();
+            setFocus();
         });
 
         keyWordTableView.setOnMouseClicked(event -> {
@@ -86,12 +79,10 @@ public class KeyWordsListController extends ListController {
                 actionButtonEdit();
             }
         });
-
     }
 
     private void initComboBox() {
-        comboBoxPerson.setPlaceholder(loadLabel);
-        comboBoxPerson.setItems(personList.getSiteList());
+        comboBoxPerson.setItems(personList.getPersonList());
         comboBoxPerson.getSelectionModel().selectFirst();
     }
 
@@ -135,14 +126,10 @@ public class KeyWordsListController extends ListController {
     }
 
     private void setFocus() {
-        if (keyWordsList.getKeyWordList().size() == 1) keyWordTableView.getSelectionModel().select(0);
+        keyWordTableView.getSelectionModel().select(0);
     }
 
     public void setMainStage(Stage mainStage) {
         this.mainStage = mainStage;
-    }
-
-    public PersonListInterface getPersonList() {
-        return personList;
     }
 }
