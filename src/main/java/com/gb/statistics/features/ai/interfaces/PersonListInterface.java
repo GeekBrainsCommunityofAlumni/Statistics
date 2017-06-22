@@ -13,5 +13,5 @@ public interface PersonListInterface {
 
     boolean deletePerson(Person person);
 
-    ObservableList<Person> getPersonList();
+    ObservableList<Person> getSiteList();
 }

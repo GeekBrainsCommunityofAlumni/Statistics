@@ -1,8 +1,8 @@
 package com.gb.statistics.features.ai.controllers;
 
-import com.gb.statistics.features.ai.interfaces.PersonListInterface;
-import com.gb.statistics.features.ai.interfaces.impls.PersonList;
-import com.gb.statistics.features.ai.model.Person;
+import com.gb.statistics.features.ai.interfaces.SiteListInterface;
+import com.gb.statistics.features.ai.interfaces.impls.SiteList;
+import com.gb.statistics.features.ai.model.Site;
 import com.gb.statistics.features.ai.window.ModalWindow;
 import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
@@ -11,15 +11,15 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.stage.Stage;
 
-public class PersonListController extends ListController {
+public class SiteListController extends ListController {
 
-    private PersonListInterface personList;
-
-    @FXML
-    private TableView<Person> personTableView;
+    private SiteListInterface siteList;
 
     @FXML
-    private TableColumn<Person, String> columnPersonName;
+    private TableView<Site> personTableView;
+
+    @FXML
+    private TableColumn<Site, String> columnPersonName;
 
     @FXML
     private Label personListCount;
@@ -27,24 +27,24 @@ public class PersonListController extends ListController {
     @FXML
     protected void initialize() {
         super.initialize();
-        personList = new PersonList();
+        siteList = new SiteList();
         columnPersonName.setCellValueFactory(cellData -> cellData.getValue().getNameProperty());
         personTableView.setPlaceholder(new Label(EMPTY_LIST_MESSAGE));
-        personTableView.setItems(personList.getSiteList());
+        personTableView.setItems(siteList.getSiteList());
         initListeners();
-        deleteController.setPersonList(personList);
+        deleteController.setSiteList(siteList);
         setActivityButtons();
     }
 
     private void initListeners() {
-        personList.getSiteList().addListener((ListChangeListener<Person>) c -> {
+        siteList.getSiteList().addListener((ListChangeListener<Site>) c -> {
             updatePersonListCount();
             setActivityButtons();
             setFocus();
         });
 
         personTableView.setOnMouseClicked(event -> {
-            if (event.getClickCount() == CLICK_COUNT && !personList.getSiteList().isEmpty()) {
+            if (event.getClickCount() == CLICK_COUNT && !siteList.getSiteList().isEmpty()) {
                 actionButtonEdit();
             }
         });
@@ -52,35 +52,35 @@ public class PersonListController extends ListController {
 
     @FXML
     protected void actionButtonAdd() {
-        addController.setPerson(new Person(), this);
+        addController.setSite(new Site(), this);
         if (addWindow == null) addWindow = new ModalWindow(ADD_TITLE, mainStage, parentAdd, MODAL_WIDTH, MODAL_HEIGHT);
         addWindow.getStage().showAndWait();
-        if (!addController.nameFieldIsEmpty(addController.getPerson().getName())) {
-            personList.addPerson(addController.getPerson());
+        if (!addController.nameFieldIsEmpty(addController.getSite().getName())) {
+            siteList.addSite(addController.getSite());
         }
     }
 
     @FXML
     protected void actionButtonEdit() {
-        editController.setPerson(personTableView.getSelectionModel().getSelectedItem(), this);
+        editController.setSite(personTableView.getSelectionModel().getSelectedItem(), this);
         if (editWindow == null) editWindow = new ModalWindow(EDIT_TITLE, mainStage, parentEdit, MODAL_WIDTH, MODAL_HEIGHT);
         editWindow.getStage().showAndWait();
-        personList.updatePerson(personTableView.getSelectionModel().getSelectedItem());
+        siteList.updateSite(personTableView.getSelectionModel().getSelectedItem());
     }
 
     @FXML
     protected void actionButtonDelete() {
-        deleteController.setPerson(personTableView.getSelectionModel().getSelectedItem(), this);
+        deleteController.setSite(personTableView.getSelectionModel().getSelectedItem(), this);
         if (deleteWindow == null) deleteWindow = new ModalWindow(DELETE_TITLE, mainStage, parentDelete, MODAL_WIDTH, MODAL_HEIGHT);
         deleteWindow.getStage().showAndWait();
     }
 
     private void updatePersonListCount() {
-        personListCount.setText(String.valueOf(personList.getSiteList().size()));
+        personListCount.setText(String.valueOf(siteList.getSiteList().size()));
     }
 
     private void setActivityButtons() {
-        if (personList.getSiteList().size() == 0) disableButtons(true);
+        if (siteList.getSiteList().size() == 0) disableButtons(true);
         else disableButtons(false);
     }
 
@@ -90,14 +90,14 @@ public class PersonListController extends ListController {
     }
 
     private void setFocus() {
-        if (personList.getSiteList().size() == 1) personTableView.getSelectionModel().select(0);
+        if (siteList.getSiteList().size() == 1) personTableView.getSelectionModel().select(0);
     }
 
     public void setMainStage(Stage mainStage) {
         this.mainStage = mainStage;
     }
 
-    public PersonListInterface getPersonList() {
-        return personList;
+    public SiteListInterface getSiteList() {
+        return siteList;
     }
 }

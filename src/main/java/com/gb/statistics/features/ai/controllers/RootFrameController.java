@@ -12,10 +12,13 @@ public class RootFrameController {
 
     private FXMLLoader loaderPersonList = new FXMLLoader();
     private FXMLLoader loaderKeyWordsList = new FXMLLoader();
+    private FXMLLoader loaderSiteList = new FXMLLoader();
     private PersonListController personListController;
     private KeyWordsListController keyWordsListController;
+    private SiteListController siteListController;
     private Parent parentPersonList;
     private Parent parentKeyWordsList;
+    private Parent parentSiteList;
 
     @FXML
     private TabPane rootTabPane;
@@ -27,20 +30,26 @@ public class RootFrameController {
     private Tab keyWordsListTab;
 
     @FXML
+    private Tab siteListTab;
+
+    @FXML
     private void initialize() {
         initPersonList();
         initKeyWordsList();
-        personListController.setKeyWordsListController(keyWordsListController);
+        initSiteList();
         personListTab.setContent(parentPersonList);
         keyWordsListTab.setContent(parentKeyWordsList);
+        siteListTab.setContent(parentSiteList);
         rootTabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
 
         personListController.getPersonList().refreshPersonList();
+        siteListController.getSiteList().refreshSiteList();
     }
 
     private void initPersonList() {
         try {
-            loaderPersonList.setLocation(getClass().getResource("/fxml/personListWindow.fxml"));
+            loaderPersonList.setLocation(getClass().getResource("/fxml/personAndSiteListWindow.fxml"));
+            loaderPersonList.setController(new PersonListController());
             parentPersonList = loaderPersonList.load();
             personListController = loaderPersonList.getController();
         } catch (IOException e) {
@@ -51,6 +60,7 @@ public class RootFrameController {
     private void initKeyWordsList() {
         try {
             loaderKeyWordsList.setLocation(getClass().getResource("/fxml/keyWordsListWindow.fxml"));
+            loaderKeyWordsList.setController(new KeyWordsListController());
             parentKeyWordsList = loaderKeyWordsList.load();
             keyWordsListController = loaderKeyWordsList.getController();
             keyWordsListController.setPersonList(personListController.getPersonList());
@@ -59,8 +69,18 @@ public class RootFrameController {
         }
     }
 
+    private void initSiteList() {
+        try {
+            loaderSiteList.setLocation(getClass().getResource("/fxml/personAndSiteListWindow.fxml"));
+            loaderSiteList.setController(new SiteListController());
+            parentSiteList = loaderSiteList.load();
+            siteListController = loaderSiteList.getController();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void setMainStage(Stage mainStage) {
         personListController.setMainStage(mainStage);
-        keyWordsListController.setMainStage(mainStage);
     }
 }
