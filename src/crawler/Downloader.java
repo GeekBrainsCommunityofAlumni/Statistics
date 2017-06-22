@@ -29,7 +29,7 @@ public class Downloader {
         long t = System.currentTimeMillis();
         Downloader downloader = new Downloader();
         //String url = "http://lenta.ru"; //robots.txt";
-        String url = "www.kommersant";
+        String url = "www.kommersant.ru";
         String s = downloader.download(url);
         System.out.println(s);
         BufferedWriter bw = new BufferedWriter(new FileWriter("C:\\Users\\Юрий\\Desktop\\1.html"));
@@ -38,7 +38,11 @@ public class Downloader {
         //System.out.println(System.currentTimeMillis() - t);
     }
 
-    public String download(String urlProtocol) throws UnknownHostException, IllegalArgumentException {
+    public String download(String urlProtocol) throws UnknownHostException {
+
+        if (!haveProtocol(urlProtocol)){
+            urlProtocol = "http://" + urlProtocol;
+        }
         try {
 
             OkHttpClient.Builder builder = new OkHttpClient.Builder();
@@ -48,20 +52,20 @@ public class Downloader {
             OkHttpClient client = builder.build();
 
             Request request;
-            try {
+           // try {
                 request = new Request.Builder()
                         .url(urlProtocol)
                         .build();
-            } catch (IllegalArgumentException e1) {
-                try {
-                    request = new Request.Builder()
-                            .url("http://" + urlProtocol)
-                            .build();
-                } catch (IllegalArgumentException e2) {
-                    throw e2; // while site not found
-                }
+            //} catch (IllegalArgumentException e1) {
+                //try {
+//                    request = new Request.Builder()
+//                            .url("http://" + urlProtocol)
+//                            .build();
+//                } catch (IllegalArgumentException e2) {
+//                    throw e2; // while site not found
+//                }
 
-            }
+            //}
 
 
             //TODO Дописать загрузку и распаковку GZip как в методе ранее.
@@ -83,7 +87,6 @@ public class Downloader {
         } catch (Exception e) {
             return null;
         }
-
 
 //        String result = null;
 //        if (isItGzArchiveLink(urlProtocol)) {
@@ -132,7 +135,6 @@ public class Downloader {
     }
 
     private static boolean isReachable() {
-        byte countSeries = 0;
         for (int i = 0; i < 2; i++) {
 
             try {
@@ -164,7 +166,6 @@ public class Downloader {
         }
         return false;
     }
-
 
     public String downloadRobot(String site) throws IOException {
         String urlProtocol = null;
