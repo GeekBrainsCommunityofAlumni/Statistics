@@ -1,10 +1,7 @@
 from django.contrib import auth
-from django.shortcuts import render, render_to_response, HttpResponseRedirect
+from django.shortcuts import render, HttpResponseRedirect
 from django.http import Http404
 from django.contrib.auth.models import User
-from django.contrib.auth.decorators import login_required
-from tag_manager.models import Persons, Keywords
-from source_manager.models import Pages, Sites
 # from user_management.models import Person
 from django.core.exceptions import ValidationError
 # from user_management.forms import MyRegistrationForm
@@ -78,11 +75,3 @@ def registration(request):
         user.save()
         return HttpResponseRedirect("/privateroom/")
     return render(request, "registration.html")
-
-
-@login_required(login_url='/privateroom/')
-def common_statistics(request):
-    sites = Sites.objects.order_by('name')
-    persons = Persons.objects.order_by('name')
-    keywords = Keywords.objects.order_by('name')
-    return render(request, "incl_daily_st.html", {'persons': persons, 'keywords': keywords, 'sites': sites})
