@@ -51,9 +51,14 @@ public class Downloader {
             request = new Request.Builder()
                     .url(urlProtocol)
                     .build();
-        } catch (IllegalArgumentException e) {
-            
-            return UNEXPECTED_URL;
+        } catch (IllegalArgumentException e1) {
+            try {
+                request = new Request.Builder()
+                        .url("http://" + urlProtocol)
+                        .build();
+            } catch (IllegalArgumentException e2) {
+                throw e2; // while site not found
+            }
 
         }
 
@@ -70,7 +75,7 @@ public class Downloader {
         } catch (UnknownHostException e) {
             e.printStackTrace();
             if (isReachable())
-                throw new UnknownHostException(); // while site not found
+                throw new UnknownHostException(urlProtocol); // while site not found
             else
                 return null; // while Internet connection lost null
         }
