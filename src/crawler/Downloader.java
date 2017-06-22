@@ -9,6 +9,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.UnknownHostException;
 import java.util.concurrent.TimeUnit;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.zip.GZIPInputStream;
 
 public class Downloader {
@@ -24,25 +26,30 @@ public class Downloader {
     public static final String ROBOTSTXT_NOT_FOUND = "Robots.txt not found";
     public static final String SITE_MAP_NOT_FOUND = "Site map not found";
 
-    public static void main(String[] args) throws IOException { //Метод для тестирования класса
+    public static void main(String[] args) { //Метод для тестирования класса
+        try {
+            //long t = System.currentTimeMillis();
+            Downloader downloader = new Downloader();
+            //String url = "http://lenta.ru"; //robots.txt";
+            String url = "http://www.kommersantyyyyyy.ru";
+            String s = downloader.download(url);
+            System.out.println(s);
+//            BufferedWriter bw = new BufferedWriter(new FileWriter("C:\\Users\\Юрий\\Desktop\\1.html"));
+//            bw.write(s);
+//            bw.close();
+            //System.out.println(System.currentTimeMillis() - t);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-        long t = System.currentTimeMillis();
-        Downloader downloader = new Downloader();
-        //String url = "http://lenta.ru"; //robots.txt";
-        String url = "www.kommersant.ru";
-        String s = downloader.download(url);
-        System.out.println(s);
-        BufferedWriter bw = new BufferedWriter(new FileWriter("C:\\Users\\Юрий\\Desktop\\1.html"));
-        bw.write(s);
-        bw.close();
-        //System.out.println(System.currentTimeMillis() - t);
     }
 
     public String download(String urlProtocol) throws UnknownHostException {
 
-        if (!haveProtocol(urlProtocol)){
+        if (!haveProtocol(urlProtocol)) {
             urlProtocol = "http://" + urlProtocol;
         }
+        System.out.println(urlProtocol);
         try {
 
             OkHttpClient.Builder builder = new OkHttpClient.Builder();
@@ -52,12 +59,12 @@ public class Downloader {
             OkHttpClient client = builder.build();
 
             Request request;
-           // try {
-                request = new Request.Builder()
-                        .url(urlProtocol)
-                        .build();
+            // try {
+            request = new Request.Builder()
+                    .url(urlProtocol)
+                    .build();
             //} catch (IllegalArgumentException e1) {
-                //try {
+            //try {
 //                    request = new Request.Builder()
 //                            .url("http://" + urlProtocol)
 //                            .build();
@@ -78,13 +85,13 @@ public class Downloader {
                 //return result;
                 return result.replaceFirst("windows-1251", "utf-8");
             } catch (UnknownHostException e) {
-                e.printStackTrace();
                 if (isReachable())
                     throw e; // while site not found
                 else
                     return null; // while Internet connection lost null
             }
         } catch (Exception e) {
+            //e.printStackTrace();
             return null;
         }
 
@@ -157,7 +164,7 @@ public class Downloader {
 
             try {
                 if (i == 0) {
-                    Thread.sleep(60000 * 5);
+                    Thread.sleep(6 * 5);
                 }
             } catch (InterruptedException e) {
                 return false;
@@ -221,8 +228,8 @@ public class Downloader {
     }
 
     private boolean haveProtocol(String url) {
-        boolean res = false;
-        res = (url.matches("^http://[.]*")) || (url.matches("^https://[.]*"));
-        return res;
+        //boolean res = false;
+        //res = (url.matches("^http://[.]*")) || (url.matches("^https://[.]*"));
+        return url.matches("^(https?)://.+");
     }
 }
