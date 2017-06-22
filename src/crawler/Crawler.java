@@ -23,12 +23,12 @@ public class Crawler {
             addNewSitesToPages();
             crawlsNewSite();
             recrawls();
-        } catch (IOException | ParserConfigurationException | SAXException e){
+        } catch (IOException e){
             e.printStackTrace();
         }
     }
 
-    private static void crawlsNewSite() throws IOException, ParserConfigurationException, SAXException {
+    private static void crawlsNewSite() throws IOException{
 //        newSites = dbHelper.getNewSites();
 //        if (newSites != null) {
 //            addNewSitesToPages(newSites);
@@ -57,7 +57,7 @@ public class Crawler {
         personsID = dbHelper.getPersonsID();
     }
 
-    private static void addNewSitesToPages() throws IOException, ParserConfigurationException, SAXException { // Решить что делать с пробрасываемыми исключениями. throws IOException, ParserConfigurationException, SAXException
+    private static void addNewSitesToPages() throws IOException { // Решить что делать с пробрасываемыми исключениями. throws IOException, ParserConfigurationException, SAXException
         ArrayList<String> newSites = dbHelper.getNewSites();
         System.out.println("Новых сайтов в базе " + newSites.size());
         if (newSites.size()>0) {
