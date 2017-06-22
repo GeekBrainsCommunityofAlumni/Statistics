@@ -1,4 +1,4 @@
-CREATE SCHEMA `statistics` ;
+CREATE SCHEMA IF NOT EXISTS `statistics` CHARACTER SET utf8 COLLATE utf8_general_ci;
 
 USE statistics;
 
