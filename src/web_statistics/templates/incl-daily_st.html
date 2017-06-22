@@ -19,7 +19,7 @@
         </label>
         <div class="control-label col-sm-6">
             <select id="source" class="form-control" name="source" required="">
-                <option value="unknown">...</option>
+                <option value="unknown">Не выбрано</option>
                 {% if sites %}
                     {% for site in sites %}
                         <option value="#">
@@ -40,7 +40,7 @@
         </label>
         <div class="control-label col-sm-6">
             <select id="profile" class="form-control" name="profile" required="">
-                <option value="unknown">...</option>
+                <option value="unknown">Не выбрано</option>
                 {% if persons %}
                     {% for person in persons %}
                         <option value="#">
@@ -77,6 +77,41 @@
         Результат:
     </h4>
     <hr>
+    <div class="row">
+    <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Ресурс</th>
+        <th>Объект</th>
+        <th>Ключевые слова</th>
+        <th>Упоминания</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% if persons %}
+        {% for person in persons %}
+    {% for site in sites %}
+        <tr>
+
+            <td>{{ site.name }}</td>
+            <td>{{ person.name }}</td>
+            <td>{% for keyword in keywords %}
+                {% if keyword.person_id_id == person.id %}
+                {{ keyword.name}};
+                {% endif %}
+                {% endfor %}
+            </td>
+            <td>
+                select sum(rank) blabla join
+            </td>
+          </tr>
+    {% endfor %}
+    {% endfor %}
+
+    {% endif %}
+    </tbody>
+  </table>
+    </div>
 </div>
 
 {% endblock %}

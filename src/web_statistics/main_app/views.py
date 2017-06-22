@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from tag_manager.models import Persons, Keywords
+from tag_manager.models import Persons, Keywords, PersonPageRank
 from source_manager.models import Sites, Pages
 from django.contrib.auth.decorators import login_required
 
@@ -11,13 +11,6 @@ def main(request):
 def statistics(request):
     return render(request, 'statistics.html')
 
-# @login_required(login_url='/privateroom/')
-# def common_statistics(request):
-#     sites = Sites.objects.order_by('name')
-#     persons = Persons.objects.order_by('name')
-#     keywords = Keywords.objects.order_by('name')
-#     return render(request, "incl_daily_st.html", {'persons': persons, 'keywords': keywords, 'sites': sites})
-
 
 @login_required(login_url='/privateroom/')
 def daily_statistics(request):
@@ -27,8 +20,14 @@ def daily_statistics(request):
     return render(request, 'daily_statistics.html', {'persons': persons, 'keywords': keywords, 'sites': sites})
 
 
+@login_required(login_url='/privateroom/')
 def periodic_statistics(request):
-    return render(request, 'periodic_statistics.html')
+    sites = Sites.objects.order_by('name')
+    persons = Persons.objects.order_by('name')
+    keywords = Keywords.objects.order_by('name')
+    ranks = PersonPageRank.objects.all()
+    return render(request, 'periodic_statistics.html', {'persons': persons, 'keywords': keywords,
+                                                        'sites': sites, 'ranks': ranks})
 
 
 def registration(request):
