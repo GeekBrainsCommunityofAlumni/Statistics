@@ -140,7 +140,7 @@ public class DBHelper {
         return urlOfPage;
     }
 
-    public void savePersonPageRank(int personID, int pageID, int rank) { //Сохраняет данные в таблицу PersonPageRank
+    public synchronized void savePersonPageRank(int personID, int pageID, int rank) { //Сохраняет данные в таблицу PersonPageRank
         try {
             if (existPageWithPerson(personID, pageID)) {
                 preparedStatement = connectionToDB.prepareStatement("UPDATE personpagerank SET rank = ? WHERE (personid = ? AND pageid = ?);");
@@ -169,7 +169,7 @@ public class DBHelper {
         }
     }
 
-    public void setLastScanDateNow(int pageID) {
+    public synchronized void setLastScanDateNow(int pageID) {
         try {
             if (existPageID(pageID)) {
                 statement = connectionToDB.createStatement();
