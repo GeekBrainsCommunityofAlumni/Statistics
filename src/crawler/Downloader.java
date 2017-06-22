@@ -38,47 +38,48 @@ public class Downloader {
         //System.out.println(System.currentTimeMillis() - t);
     }
 
-    public String download(String urlProtocol) throws IOException {
+    public String download(String urlProtocol) throws UnknownHostException, IllegalArgumentException {
 
-        OkHttpClient.Builder builder = new OkHttpClient.Builder();
-        builder.connectTimeout(5, TimeUnit.MINUTES)
-                .writeTimeout(5, TimeUnit.MINUTES)
-                .readTimeout(5, TimeUnit.MINUTES);
-        OkHttpClient client = builder.build();
+            OkHttpClient.Builder builder = new OkHttpClient.Builder();
+            builder.connectTimeout(5, TimeUnit.MINUTES)
+                    .writeTimeout(5, TimeUnit.MINUTES)
+                    .readTimeout(5, TimeUnit.MINUTES);
+            OkHttpClient client = builder.build();
 
-        Request request;
-        try {
-            request = new Request.Builder()
-                    .url(urlProtocol)
-                    .build();
-        } catch (IllegalArgumentException e1) {
+            Request request;
             try {
                 request = new Request.Builder()
-                        .url("http://" + urlProtocol)
+                        .url(urlProtocol)
                         .build();
-            } catch (IllegalArgumentException e2) {
-                throw e2; // while site not found
+            } catch (IllegalArgumentException e1) {
+                try {
+                    request = new Request.Builder()
+                            .url("http://" + urlProtocol)
+                            .build();
+                } catch (IllegalArgumentException e2) {
+                    throw e2; // while site not found
+                }
+
             }
 
-        }
 
+            //TODO Дописать загрузку и распаковку GZip как в методе ранее.
+            try (Response response = client.newCall(request).execute()) { //UnknownHostException
+                String result = response.body().string();
+                response.close();
+                System.gc();
+                // System.out.println(result.indexOf("windows-1251"));
 
-        //TODO Дописать загрузку и распаковку GZip как в методе ранее.
-        try (Response response = client.newCall(request).execute()) { //UnknownHostException
-            String result = response.body().string();
-            response.close();
-            System.gc();
-            // System.out.println(result.indexOf("windows-1251"));
-
-            //return result;
-            return result.replaceFirst("windows-1251", "utf-8");
-        } catch (UnknownHostException e) {
-            e.printStackTrace();
-            if (isReachable())
-                throw e; // while site not found
-            else
-                return null; // while Internet connection lost null
-        }
+                //return result;
+                return result.replaceFirst("windows-1251", "utf-8");
+            } catch (UnknownHostException e) {
+                e.printStackTrace();
+                if (isReachable())
+                    throw e; // while site not found
+                else
+                    return null; // while Internet connection lost null
+            }
+       
 
 
 //        String result = null;
