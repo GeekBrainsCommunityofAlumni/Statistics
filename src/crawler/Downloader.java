@@ -39,6 +39,7 @@ public class Downloader {
     }
 
     public String download(String urlProtocol) throws UnknownHostException, IllegalArgumentException {
+        try {
 
             OkHttpClient.Builder builder = new OkHttpClient.Builder();
             builder.connectTimeout(5, TimeUnit.MINUTES)
@@ -79,7 +80,9 @@ public class Downloader {
                 else
                     return null; // while Internet connection lost null
             }
-       
+        } catch (Exception e){
+            return null;
+        }
 
 
 //        String result = null;
