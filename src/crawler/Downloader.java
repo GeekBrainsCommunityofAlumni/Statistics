@@ -80,7 +80,7 @@ public class Downloader {
                 else
                     return null; // while Internet connection lost null
             }
-        } catch (Exception e){
+        } catch (Exception e) {
             return null;
         }
 
@@ -132,20 +132,35 @@ public class Downloader {
     }
 
     private static boolean isReachable() {
-        try {
-            new BufferedReader(new InputStreamReader(new URL("https://www.google.ru").openConnection().getInputStream()));
-            return true;
-        } catch (IOException ignored) {
-        }
-        try {
-            new BufferedReader(new InputStreamReader(new URL("https://www.yandex.ru/").openConnection().getInputStream()));
-            return true;
-        } catch (IOException ignored) {
-        }
-        try {
-            new BufferedReader(new InputStreamReader(new URL("https://mail.ru/").openConnection().getInputStream()));
-            return true;
-        } catch (IOException ignored) {
+        byte countSeries = 0;
+        for (int i = 0; i < 2; i++) {
+
+            try {
+                new BufferedReader(new InputStreamReader(new URL("https://www.google.ru").openConnection().getInputStream()));
+                return true;
+            } catch (IOException ignored) {
+            }
+
+            try {
+                new BufferedReader(new InputStreamReader(new URL("https://www.yandex.ru/").openConnection().getInputStream()));
+                return true;
+            } catch (IOException ignored) {
+            }
+
+            try {
+                new BufferedReader(new InputStreamReader(new URL("https://mail.ru/").openConnection().getInputStream()));
+                return true;
+            } catch (IOException ignored) {
+            }
+
+            try {
+                if (i == 0) {
+                    Thread.sleep(60000 * 5);
+                }
+            } catch (InterruptedException e) {
+                return false;
+            }
+
         }
         return false;
     }
