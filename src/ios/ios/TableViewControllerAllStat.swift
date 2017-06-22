@@ -9,11 +9,11 @@
 import UIKit
 
 class TableViewController: UITableViewController, DataManagerProtocol {
-//    var dm = DataManager.initWithFakeManager()
-    var dm = DataManager.initWithNetworkManager()
-    var data: [SiteData] = []{
+    var dm = DataManager.initWithFakeManager()
+//    var dm = DataManager.initWithNetworkManager()
+    var data = SiteDataArray(){
         didSet{
-            self.sites = self.uniqueSite(data: data)
+            self.sites = data.siteNameArray()
         }
     }
     
@@ -23,18 +23,18 @@ class TableViewController: UITableViewController, DataManagerProtocol {
         }
     }
     
-    func uniqueSite(data: [SiteData]) -> [String]{
-        var arrayOfSiteName: [String] = []
-        for item in data {
-            arrayOfSiteName.append(item.site)
-        }
-        arrayOfSiteName = Array(Set(arrayOfSiteName))
-        return arrayOfSiteName
-    }
-    func didCompliteRequestOnData(data: [SiteData], date1: Date, date2: Date){
+//    func uniqueSite(data: [SiteData]) -> [String]{
+//        var arrayOfSiteName: [String] = []
+//        for item in data {
+//            arrayOfSiteName.append(item.site)
+//        }
+//        arrayOfSiteName = Array(Set(arrayOfSiteName))
+//        return arrayOfSiteName
+//    }
+    func didCompliteRequestOnData(data: SiteDataArray, date1: Date, date2: Date){
     }
     
-    func didCompliteRequestTotal(data: [SiteData]){
+    func didCompliteRequestTotal(data: SiteDataArray){
             self.data = data
     }
     
@@ -120,14 +120,8 @@ class TableViewController: UITableViewController, DataManagerProtocol {
             let destenationVC = segue.destination as! TableViewControllerAllStatDV
             if let selectedItem = tableView.indexPathForSelectedRow{
                 destenationVC.siteName = sites[selectedItem.row]
-                let site = self.data.filter({ (item) -> Bool in
-                    if item.site == destenationVC.siteName{
-                        return true
-                    } else {
-                        return false
-                    }
-                }).first
-                destenationVC.persons = (site?.personArray())!
+                let siteInfo = self.data.filterBySite(siteName: destenationVC.siteName)
+                destenationVC.persons = (siteInfo.first?.personArray())!
             }
         }
     }

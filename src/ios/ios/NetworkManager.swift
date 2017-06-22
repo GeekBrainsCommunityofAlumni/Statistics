@@ -401,12 +401,12 @@ class NetworkManager:DataProvider, NetworkProcessProtocol {
     // получаем от процесса данные, передаем их на уровень выше и удаляем процесс.
     internal func didCompliteTotalRankProcess(siteData: [SiteData]){
         self.removeNetworkProcess()
-        delegat.didCompliteRequestTotal(data: siteData, dataProvider: self)
+        delegat.didCompliteRequestTotal(data: SiteDataArray(data: siteData), dataProvider: self)
     }
     // получаем от процесса данные, передаем их на уровень выше и удаляем процесс.
     internal func didCompliteOnDateRankProcess(siteData: [SiteData], date1: Date, date2: Date) {
         self.removeNetworkProcess()
-        delegat.didCompliteRequestOnData(data: siteData, date1: date1, date2: date2, dataProvider: self)
+        delegat.didCompliteRequestOnData(data: SiteDataArray(data: siteData), date1: date1, date2: date2, dataProvider: self)
     }
     
 }

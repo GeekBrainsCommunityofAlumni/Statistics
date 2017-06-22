@@ -101,13 +101,13 @@ class ViewControllerDayStat: UIViewController, DataManagerProtocol, UIPickerView
     }
     // ВЫБОР САЙТА ЗАВЕРШЕН
     
-    func didCompliteRequestOnData(data: [SiteData], date1: Date, date2: Date){
-        self.dataEvery = data
+    func didCompliteRequestOnData(data: SiteDataArray, date1: Date, date2: Date){
+        self.dataEvery = data.array
         
     }
     
-    func didCompliteRequestTotal(data: [SiteData]){
-        self.data = data
+    func didCompliteRequestTotal(data: SiteDataArray){
+        self.data = data.array
     }
     
     

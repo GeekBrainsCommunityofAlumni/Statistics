@@ -11,7 +11,7 @@ import UIKit
 class TableViewControllerAllStatDV: UITableViewController {
     var siteName: String = ""
     var persons: [PersonInfo] = []
-
+    
     @IBOutlet weak var siteNameLabel: UINavigationItem!
 
     
@@ -47,8 +47,6 @@ class TableViewControllerAllStatDV: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "StatDVCell", for: indexPath) as! StatDVCell
         cell.titleLabel.text = persons[indexPath.row].name
         cell.countLabel.text = String(persons[indexPath.row].count)
-        
-
         return cell
     }
     

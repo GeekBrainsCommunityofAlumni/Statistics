@@ -39,6 +39,6 @@ extension SiteData{
     }
 }
 
-protocol SiteDataProviderDelegate {
-    func requestDidCompleteSite(data: SiteData, forIndex index: Int)
-}
+//protocol SiteDataProviderDelegate {
+//    func requestDidCompleteSite(data: SiteData, forIndex index: Int)
+//}

@@ -24,7 +24,7 @@ class FakeManager:DataProvider{
             item.total = false
             result.append(item)
         }
-        delegat.didCompliteRequestTotal(data: result, dataProvider: self)
+        delegat.didCompliteRequestTotal(data: SiteDataArray(data: result), dataProvider: self)
     }
     override init() {
         super.init()
@@ -44,7 +44,7 @@ class FakeManager:DataProvider{
             item.total = true
             result.append(item)
         }
-        delegat.didCompliteRequestOnData(data: result, date1: date1, date2: date2, dataProvider: self)
+        delegat.didCompliteRequestOnData(data: SiteDataArray(data: result), date1: date1, date2: date2, dataProvider: self)
         
     }
     
