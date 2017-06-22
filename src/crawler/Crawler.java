@@ -100,6 +100,7 @@ public class Crawler {
                     ArrayList<String> personKeywords = person.getKeywordsList();
                     int rank = parser.calculateRank(pageSource, personKeywords);
                     dbHelper.savePersonPageRank(person.getID(), pageID, rank);
+                    dbHelper.setLastScanDateNow(pageID);
                 }
             }
             System.out.println("Поток завершен");
