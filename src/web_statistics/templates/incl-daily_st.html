@@ -19,6 +19,7 @@
         </label>
         <div class="control-label col-sm-6">
             <select id="source" class="form-control" name="source" required="">
+                <option value="unknown">...</option>
                 {% if sites %}
                     {% for site in sites %}
                         <option value="#">
@@ -28,8 +29,6 @@
                 {% else %}
                 <option value="#">Have no sites</option>
                 {% endif %}
-                <option value="#">РБК</option>
-                <option value="#">Ведомости</option>
             </select>
         </div>
     </div>
@@ -41,6 +40,7 @@
         </label>
         <div class="control-label col-sm-6">
             <select id="profile" class="form-control" name="profile" required="">
+                <option value="unknown">...</option>
                 {% if persons %}
                     {% for person in persons %}
                         <option value="#">
@@ -50,9 +50,6 @@
                 {% else %}
                 <option value="#">Have no source</option>
                 {% endif %}
-                <option value="unknown">...</option>
-                <option value="#">Путин</option>
-                <option value="#">Навальный</option>
             </select>
         </div>
     </div>
