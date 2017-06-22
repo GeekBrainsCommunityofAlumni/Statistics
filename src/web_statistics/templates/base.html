@@ -157,6 +157,13 @@
                         <a href="/review/"><i class="fa fa-commenting"></i> Отзывы </a></li>
                     <li class="{% if request.path == '/support/' %}active{% endif %}">
                         <a href="/support/"><i class="fa fa-fw fa-wrench"></i> ТехПоддержка </a></li>
+                    <li class="{% if request.path == '/support/' %}active{% endif %}">
+                        <a href="/registration/">
+                            <button class="btn btn-danger btn-sm" type="submit">
+                                <i class="fa fa-plus-square"></i> Зарегистрироваться
+                            </button>
+                        </a>
+                    </li>
                 </ul>
             </div>
 

@@ -2,7 +2,7 @@ from django.contrib import auth
 from django.shortcuts import render, HttpResponseRedirect
 from django.http import Http404
 from django.contrib.auth.models import User
-# from user_management.models import Person
+from user_management.models import Person
 from django.core.exceptions import ValidationError
 # from user_management.forms import MyRegistrationForm
 # from .forms import UploadFileForm
@@ -39,7 +39,7 @@ def registration(request):
         first_name = request.POST.get("first_name")
         # middle_name = request.POST.get("middle_name")
         login = request.POST.get("login")
-        password = request.POST.get("password")
+        password = request.POST.get("set_password")
         confirmpassword = request.POST.get("confirmpassword")
         email = request.POST.get("email")
         phone_number = request.POST.get("phone_number")
@@ -47,8 +47,8 @@ def registration(request):
         # birthdate = request.POST.get("birthdate")
         # country = request.POST.get("country")
         # city = request.POST.get("city")
-        photo = request.POST.get("your_photo")
-        status = request.POST.get("your_status")
+        photo = request.POST.get("photo")
+        status = request.POST.get("status")
         print(request.POST)
         # user = User()
         # user.username = 'Admin1'
@@ -56,7 +56,7 @@ def registration(request):
         # Validate data
         if password != confirmpassword:
             errors['password'] = 'Извините, пароли не совпадают... Попробуйте снова!'
-        user = User(username=login, password=password, email=email)  # photo, status?
+        user = Person(username=login, password=password, email=email, photo=photo, status=status)  # photo, status?
         # p = Person(user=username, email=email, first_name=first_name,
         #               last_name=last_name, middle_name=middle_name, login=login, phone_number=phone_number, gender=gender,
         #               birthdate=birthdate, country=country, district=district, city=city,

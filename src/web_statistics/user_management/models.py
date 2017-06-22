@@ -14,7 +14,7 @@ class Person(models.Model):
     first_name = models.CharField(verbose_name="Имя:", max_length=32)
     # middle_name = models.CharField(verbose_name="Отчество:", max_length=32)
     login = models.CharField(verbose_name="Ваш Логин:", max_length=32)
-    password = models.CharField(verbose_name="Пароль для доступа к ЛК:", max_length=32)
+    set_password = models.CharField(verbose_name="Пароль для доступа к ЛК:", max_length=32)
     confirmpassword = models.CharField(verbose_name="Подтвердите пароль:", max_length=32)
     email = models.EmailField(verbose_name="E-mail:", max_length=64)
     # phone_number = PhoneNumberField(verbose_name="Контактный номер:", blank=True)

@@ -45,7 +45,7 @@ def get_user_form(request, user_id):
 def create_user(request, user_id=None):
     """
     Создает Пользователя(User)
-    Или редактирует существующего, если указан  user_id
+    Или редактирует существующего, если указан user_id
     """
     if request.is_ajax():
         #print('user_id = ', user_id)
