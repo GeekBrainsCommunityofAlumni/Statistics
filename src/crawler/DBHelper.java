@@ -262,21 +262,21 @@ public class DBHelper {
         return resultingArrayList;
     }
 
-    public ArrayList<String> getNewSite() { //Для многопоточности. Возвращает URL одного сайта для которого нет НИ ОДНОЙ строки в таблице Pages
-        ArrayList<String> resultingArrayList = new ArrayList<>();
+    public String getNewSite() { //Для многопоточности. Возвращает URL одного сайта для которого нет НИ ОДНОЙ строки в таблице Pages
+        String result = "";
         try {
             statement = connectionToDB.createStatement();
-            resultSet = statement.executeQuery("SELECT name FROM sites WHERE id NOT IN (SELECT siteid FROM pages) LIMIT 1;");
+            resultSet = statement.executeQuery("SELECT name FROM sites WHERE id NOT IN (SELECT siteid FROM pages) ORDER BY RAND() LIMIT 1;");
             if(resultSet.next()) {
-                resultingArrayList.add(resultSet.getString(1));
+                result = resultSet.getString(1);
             }
             sleep(1000);
         } catch (SQLException | InterruptedException e) {
             e.printStackTrace();
         }
 
-        if (resultingArrayList.size() > 0) {
-            return resultingArrayList;
+        if (result.length() > 0) {
+            return result;
         } else {
             return null;
         }
