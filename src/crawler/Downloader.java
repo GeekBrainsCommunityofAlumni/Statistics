@@ -31,7 +31,7 @@ public class Downloader {
             //long t = System.currentTimeMillis();
             Downloader downloader = new Downloader();
             //String url = "http://lenta.ru"; //robots.txt";
-            String url = "http://www.kommersantyyyyyy.ru";
+            String url = "www.kommersantyyyyyy.ru";
             String s = downloader.download(url);
             System.out.println(s);
 //            BufferedWriter bw = new BufferedWriter(new FileWriter("C:\\Users\\Юрий\\Desktop\\1.html"));
@@ -45,11 +45,11 @@ public class Downloader {
     }
 
     public String download(String urlProtocol) throws UnknownHostException {
+        UnknownHostException e = null;
 
         if (!haveProtocol(urlProtocol)) {
             urlProtocol = "http://" + urlProtocol;
         }
-        System.out.println(urlProtocol);
         try {
 
             OkHttpClient.Builder builder = new OkHttpClient.Builder();
@@ -84,15 +84,20 @@ public class Downloader {
 
                 //return result;
                 return result.replaceFirst("windows-1251", "utf-8");
-            } catch (UnknownHostException e) {
+            } catch (UnknownHostException e1) {
+                e = e1;
                 if (isReachable())
                     throw e; // while site not found
                 else
                     return null; // while Internet connection lost null
             }
-        } catch (Exception e) {
-            //e.printStackTrace();
-            return null;
+        } catch (Exception e2) {
+            if (e2.getClass().toString().equals("class java.net.UnknownHostException"))
+                throw e;
+            else
+                return null;
+
+
         }
 
 //        String result = null;
