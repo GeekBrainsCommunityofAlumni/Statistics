@@ -183,7 +183,7 @@ public class DBHelper {
 
     public boolean existPageWithPerson(int personID, int pageID) {  //Проверяет, существует ли уже в таблице personpagerank указанная запись с personID и pageID
         try {
-            preparedStatement = connectionToDB.prepareStatement("SELECT personID, pageID FROM personpagerank WHERE (personID = ? AND pageID = ?);");
+            preparedStatement = connectionToDB.prepareStatement("SELECT personID, pageID FROM personpagerank WHERE ((personID = ?) AND (pageID = ?));");
             preparedStatement.setInt(1, personID);
             preparedStatement.setInt(2, pageID);
             resultSet = preparedStatement.executeQuery();
