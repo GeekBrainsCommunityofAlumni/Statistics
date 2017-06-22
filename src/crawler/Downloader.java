@@ -39,6 +39,7 @@ public class Downloader {
     }
 
     public String download(String urlProtocol) throws IOException {
+
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
         builder.connectTimeout(5, TimeUnit.MINUTES)
                 .writeTimeout(5, TimeUnit.MINUTES)
@@ -51,7 +52,9 @@ public class Downloader {
                     .url(urlProtocol)
                     .build();
         } catch (IllegalArgumentException e) {
+            
             return UNEXPECTED_URL;
+
         }
 
 
@@ -66,7 +69,10 @@ public class Downloader {
             return result.replaceFirst("windows-1251", "utf-8");
         } catch (UnknownHostException e) {
             e.printStackTrace();
-            return isReachable() ? PAGE_NOT_FOUND : INTERNET_CONNECTION_LOST;
+            if (isReachable())
+                throw new UnknownHostException(); // while site not found
+            else
+                return null; // while Internet connection lost null
         }
 
 
