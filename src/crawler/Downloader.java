@@ -8,7 +8,6 @@ import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.UnknownHostException;
-import java.util.concurrent.TimeUnit;
 import java.util.zip.GZIPInputStream;
 
 public class Downloader {
@@ -35,21 +34,12 @@ public class Downloader {
     }
 
     public String download(String urlProtocol) throws IOException {
-        OkHttpClient.Builder builder = new OkHttpClient.Builder();
-        builder.connectTimeout(5, TimeUnit.MINUTES)
-                .writeTimeout(5, TimeUnit.MINUTES)
-                .readTimeout(5, TimeUnit.MINUTES);
-        OkHttpClient client = builder.build();
-
+        OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
                 .url(urlProtocol)
                 .build();
-        //TODO Дописать загрузку и распаковку GZip как в методе ранее.
         try (Response response = client.newCall(request).execute()) {
-            String result = response.body().string();
-            response.close();
-            System.gc();
-            return result;
+            return response.body().string();
         }
 
 //        String result = null;

@@ -12,97 +12,36 @@ import java.util.ArrayList;
 public class Crawler {
     private static ArrayList<Integer> pagesIDForScan;
     private static ArrayList<Integer> personsID;
-    //private static Downloader downloader;
-    //private static ArrayList<String> newSites;
-    //private static Parser parser;
+    private static Downloader downloader;
+    //    private static ArrayList<String> newSites;
+    private static Parser parser;
     private static DBHelper dbHelper;
 
-    public static void main(String[] args) throws IOException, ParserConfigurationException, SAXException {
-        init();
-        //addNewSitesToPages();
-        try {
+    public static void main(String[] args) {
+        try{
+            init();
+            addNewSitesToPages();
             crawlsNewSite();
-        } catch (InterruptedException e) {
+            recrawls();
+        } catch (IOException | ParserConfigurationException | SAXException e){
             e.printStackTrace();
         }
-        recrawls();
     }
 
-    private static void crawlsNewSite() throws IOException, ParserConfigurationException, SAXException, InterruptedException {
-        CrawlerTaskRepository crawlerTaskRepository = new CrawlerTaskRepository();
-
-        //подготавливаем список персон для загрузки в CrawlerTask
-        ArrayList<Person> personArrayList = new ArrayList<>();
-        for (int personID : personsID) {
-            personArrayList.add(new Person(personID, dbHelper.getPersonKeywords(personID)));
-        }
-
-        pagesIDForScan = dbHelper.getPagesIDWithoutScanDate(); //Метод возвращает список ID старниц для сканирования. БЕЗ robots.txt и sitemap
-        for (int pageID : pagesIDForScan){
-            CrawlerTask crawlerTask = new CrawlerTask();
-            crawlerTask.addPageForScanning(new PageForScanning(pageID, dbHelper.getUrlPageViaID(pageID)));
-            crawlerTask.addPersonList(personArrayList);
-            crawlerTaskRepository.addTask(crawlerTask);
-        }
-
-        System.out.println("Заданий в crawlerTaskRepository - " + crawlerTaskRepository.size());
-
-        CrawlerThread crawlerThread1 = new CrawlerThread(crawlerTaskRepository, "thread1");
-        CrawlerThread crawlerThread2 = new CrawlerThread(crawlerTaskRepository, "thread2");
-        CrawlerThread crawlerThread3 = new CrawlerThread(crawlerTaskRepository, "thread3");
-
-        crawlerThread1.start();
-        crawlerThread2.start();
-        crawlerThread3.start();
-
-        crawlerThread1.join();
-        crawlerThread2.join();
-        crawlerThread3.join();
-
-
-
-//        for (int pageID : pagesIDForScan) {
-//            String pageSource = downloader.download(dbHelper.getUrlPageViaID(pageID));
-//            //т.к. страницы мы не сохраняем то статистику придется считать "налету"
-//            for (int personID : personsID)
-//                ArrayList<String> personKeywords = dbHelper.getPersonKeywords(personID);
-//                int rank = parser.calculateRank(pageSource, personKeywords);
-//                dbHelper.savePersonPageRank(personID, pageID, rank);
-//            }
+    private static void crawlsNewSite() throws IOException, ParserConfigurationException, SAXException {
+//        newSites = dbHelper.getNewSites();
+//        if (newSites != null) {
+//            addNewSitesToPages(newSites);
 //        }
-    }
-
-    static class CrawlerThread extends Thread {
-        CrawlerTaskRepository crawlerTaskRepository;
-        CrawlerTask crawlerTask;
-        Downloader downloader = new Downloader();
-        Parser parser = new Parser();
-        String threadName;
-        public CrawlerThread(CrawlerTaskRepository crawlerTaskRepository, String threadName){
-            this.crawlerTaskRepository = crawlerTaskRepository;
-            this.threadName = threadName;
-        }
-
-        @Override
-        public void run(){
-            while((crawlerTask = crawlerTaskRepository.getTask())!= null){
-                System.out.println("Поток: " + threadName + "  Заданий в crawlerTaskRepository - " + crawlerTaskRepository.size());
-                int pageID = crawlerTask.getPage().getPageID();
-                String pageSource = null;
-
-                try {
-                    pageSource = downloader.download(crawlerTask.getPage().getUrl());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-                for (Person person: crawlerTask.getPersonList()) {
-                    ArrayList<String> personKeywords = person.getKeywordsList();
-                    int rank = parser.calculateRank(pageSource, personKeywords);
-                    dbHelper.savePersonPageRank(person.getID(), pageID, rank);
-                }
+        pagesIDForScan = dbHelper.getPagesIDWithoutScanDate(); //Метод возвращает список ID старниц для сканирования. БЕЗ robots.txt и sitemap
+        for (int pageID : pagesIDForScan) {
+            String pageSource = downloader.download(dbHelper.getUrlPageViaID(pageID));
+            //т.к. страницы мы не сохраняем то статистику придется считать "налету"
+            for (int personID : personsID) {
+                ArrayList<String> personKeywords = dbHelper.getPersonKeywords(personID);
+                int rank = parser.calculateRank(pageSource, personKeywords);
+                dbHelper.savePersonPageRank(personID, pageID, rank);
             }
-            System.out.println("Поток завершен");
         }
     }
 
@@ -111,62 +50,64 @@ public class Crawler {
     }
 
     private static void init() {
+        downloader = new Downloader();
+        parser = new Parser();
         dbHelper = new DBHelper();
         dbHelper.connectToDB();
         personsID = dbHelper.getPersonsID();
     }
 
-//    private static void addNewSitesToPages() throws IOException, ParserConfigurationException, SAXException { // Решить что делать с пробрасываемыми исключениями. throws IOException, ParserConfigurationException, SAXException
-//        ArrayList<String> newSites = dbHelper.getNewSites();
-//        System.out.println("Новых сайтов в базе " + newSites.size());
-//        if (newSites.size()>0) {
-//
-//            for (String site : newSites) {
-//                String robotTxt = null;
-//                ArrayList<String> urlPages = new ArrayList<>();
-//
-//                try {
-//                    robotTxt = new Downloader().downloadRobot(site);
-//                    System.out.println("Robots.txt содержит:");
-//                    System.out.println(robotTxt);
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-//                String sitemapURL = null;
-//
-//                if (robotTxt != null) {
-//                    sitemapURL = parser.parseRobotTxt(robotTxt);
-//                    System.out.println("Найден sitemap.xml : " + sitemapURL);
-//                }
-//
-//                if (sitemapURL != null) {
-//                    String sitemap = null;
-//                    sitemap = downloader.downloadSiteMap(sitemapURL);
-//                    if (isItSitemapIndex(sitemap)) {
-//                        ArrayList<String> sitemapsURL = parser.parseSiteMapIndex(sitemap);
-//                        for (String sitemapUrl : sitemapsURL) {
-//                            sitemap = downloader.downloadSiteMap(sitemapUrl);
-//                            System.gc();
-//                            ArrayList<String> urlPagesSiteMapIndex = parser.parseSiteMap(sitemap);
-//                            long mem = Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory();
-//                            for (String url : urlPagesSiteMapIndex) {
-//                                urlPages.add(url);
-//                            }
-//                            dbHelper.addPagesToSite(urlPages, site);
-//                            urlPages.clear();
-//                        }
-//                    }
-//
-//                    if (isItSitemap(sitemap)) {
-//                        urlPages = parser.parseSiteMap(sitemap);
-//                        dbHelper.addPagesToSite(urlPages, site);
-//                    }
-//                } else {
-//                    //TODO Сайтмэп не найден - здесь будет функция построения карты сайта без сайтмэпа
-//                }
-//            }
-//        }
-//    }
+    private static void addNewSitesToPages() throws IOException, ParserConfigurationException, SAXException { // Решить что делать с пробрасываемыми исключениями. throws IOException, ParserConfigurationException, SAXException
+        ArrayList<String> newSites = dbHelper.getNewSites();
+        System.out.println("Новых сайтов в базе " + newSites.size());
+        if (newSites.size()>0) {
+
+            for (String site : newSites) {
+                String robotTxt = null;
+                ArrayList<String> urlPages = new ArrayList<>();
+
+                try {
+                    robotTxt = downloader.downloadRobot(site);
+                    System.out.println("Robots.txt содержит:");
+                    System.out.println(robotTxt);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                String sitemapURL = null;
+
+                if (robotTxt != null) {
+                    sitemapURL = parser.parseRobotTxt(robotTxt);
+                    System.out.println("Найден sitemap.xml : " + sitemapURL);
+                }
+
+                if (sitemapURL != null) {
+                    String sitemap = null;
+                    sitemap = downloader.downloadSiteMap(sitemapURL);
+                    if (isItSitemapIndex(sitemap)) {
+                        ArrayList<String> sitemapsURL = parser.parseSiteMapIndex(sitemap);
+                        for (String sitemapUrl : sitemapsURL) {
+                            sitemap = downloader.downloadSiteMap(sitemapUrl);
+                            System.gc();
+                            ArrayList<String> urlPagesSiteMapIndex = parser.parseSiteMap(sitemap);
+                            long mem = Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory();
+                            for (String url : urlPagesSiteMapIndex) {
+                                urlPages.add(url);
+                            }
+                            dbHelper.addPagesToSite(urlPages, site);
+                            urlPages.clear();
+                        }
+                    }
+
+                    if (isItSitemap(sitemap)) {
+                        urlPages = parser.parseSiteMap(sitemap);
+                        dbHelper.addPagesToSite(urlPages, site);
+                    }
+                } else {
+                    //TODO Сайтмэп не найден - здесь будет функция построения карты сайта без сайтмэпа
+                }
+            }
+        }
+    }
 
     private static boolean isItSitemap(String sitemap) {
         return sitemap.contains("urlset");
