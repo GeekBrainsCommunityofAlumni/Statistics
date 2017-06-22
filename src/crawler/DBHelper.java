@@ -4,6 +4,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.text.*;
+import static java.lang.Thread.sleep;
 
 /**
  * Created by Serg on 09.06.2017.
@@ -183,7 +184,7 @@ public class DBHelper {
 
     public boolean existPageWithPerson(int personID, int pageID) {  //Проверяет, существует ли уже в таблице personpagerank указанная запись с personID и pageID
         try {
-            preparedStatement = connectionToDB.prepareStatement("SELECT personID, pageID FROM personpagerank WHERE (personID = ? AND pageID = ?);");
+            preparedStatement = connectionToDB.prepareStatement("SELECT personID, pageID FROM personpagerank WHERE ((personID = ?) AND (pageID = ?));");
             preparedStatement.setInt(1, personID);
             preparedStatement.setInt(2, pageID);
             resultSet = preparedStatement.executeQuery();
@@ -259,6 +260,26 @@ public class DBHelper {
             e.printStackTrace();
         }
         return resultingArrayList;
+    }
+
+    public ArrayList<String> getNewSite() { //Для многопоточности. Возвращает URL одного сайта для которого нет НИ ОДНОЙ строки в таблице Pages
+        ArrayList<String> resultingArrayList = new ArrayList<>();
+        try {
+            statement = connectionToDB.createStatement();
+            resultSet = statement.executeQuery("SELECT name FROM sites WHERE id NOT IN (SELECT siteid FROM pages) LIMIT 1;");
+            if(resultSet.next()) {
+                resultingArrayList.add(resultSet.getString(1));
+            }
+            sleep(1000);
+        } catch (SQLException | InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        if (resultingArrayList.size() > 0) {
+            return resultingArrayList;
+        } else {
+            return null;
+        }
     }
 
     public ArrayList<String> getOldScannedSites() { //возвращает список URL страниц из таблицы pages, сканирование которых было более 24 часов назад
