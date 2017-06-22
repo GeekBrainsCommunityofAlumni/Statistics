@@ -75,7 +75,7 @@ public class Downloader {
         } catch (UnknownHostException e) {
             e.printStackTrace();
             if (isReachable())
-                throw new UnknownHostException(urlProtocol); // while site not found
+                throw e; // while site not found
             else
                 return null; // while Internet connection lost null
         }
