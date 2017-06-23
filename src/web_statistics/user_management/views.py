@@ -2,13 +2,23 @@ from django.contrib import auth
 from django.shortcuts import render, HttpResponseRedirect
 from django.http import Http404
 from django.contrib.auth.models import User
-# from user_management.models import Person
+from user_management.models import Person
 from django.core.exceptions import ValidationError
-# from user_management.forms import MyRegistrationForm
 # from .forms import UploadFileForm
-# from UploadFileForm import handle_uploaded_file
+# from .forms import handle_uploaded_file
 
 # Create your views here.
+
+# def upload_file(request):
+#     if request.method == 'POST':
+#         form = UploadFileForm(request.POST, request.FILES)
+#         if form.is_valid():
+#             handle_uploaded_file(request.FILES['file'])
+#             return HttpResponseRedirect('/success/url/')
+#     else:
+#         form = UploadFileForm()
+#     return render_to_response('upload.html', {'form': form})
+
 def login(request):
     if request.method == 'POST':
         print("POST data =", request.POST)
@@ -18,7 +28,7 @@ def login(request):
         print('login -> user =', user)
         if user is not None:
             auth.login(request, user)
-            return HttpResponseRedirect("/privateroom/")    # /privateroom/
+            return HttpResponseRedirect("/privateroom/")
         else:
             return render(request, 'privateroom.html', {'username': username, 'errors': True})
     raise Http404
@@ -37,7 +47,6 @@ def registration(request):
         username = request.POST.get("login")
         last_name = request.POST.get("last_name")
         first_name = request.POST.get("first_name")
-        # middle_name = request.POST.get("middle_name")
         login = request.POST.get("login")
         password = request.POST.get("password")
         confirmpassword = request.POST.get("confirmpassword")
@@ -47,20 +56,18 @@ def registration(request):
         # birthdate = request.POST.get("birthdate")
         # country = request.POST.get("country")
         # city = request.POST.get("city")
-        photo = request.POST.get("your_photo")
-        status = request.POST.get("your_status")
+        # photo = request.FILES.get("photo")
+        photo = request.POST.get("photo")
+        status = request.POST.get("status")
         print(request.POST)
         # user = User()
-        # user.username = 'Admin1'
+        # user.username = 'Admin'
         # user.set_password('testgbca')
         # Validate data
         if password != confirmpassword:
             errors['password'] = 'Извините, пароли не совпадают... Попробуйте снова!'
         user = User(username=login, password=password, email=email)  # photo, status?
-        # p = Person(user=username, email=email, first_name=first_name,
-        #               last_name=last_name, middle_name=middle_name, login=login, phone_number=phone_number, gender=gender,
-        #               birthdate=birthdate, country=country, district=district, city=city,
-        #               your_photo=your_photo, your_status=your_status)
+        p = Person(username=username, email=email, first_name=first_name, last_name=last_name, login=login, phone_number=phone_number, photo=photo, status=status)
         # Пароли хранятся в виде хэшей, поэтому их нельзя передавать напрямую
         user.set_password(password)
         # Проверяем, существует ли пользователь с таким именем

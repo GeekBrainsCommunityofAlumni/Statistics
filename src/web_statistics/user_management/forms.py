@@ -16,7 +16,7 @@ class MyRegistrationForm(forms.ModelForm):
     password = forms.CharField(max_length=32, widget=forms.PasswordInput(attrs={"type": "password", "class": "form-control", "placeholder": "пароль"}))
     confirmpassword = forms.CharField(max_length=32, widget=forms.PasswordInput(attrs={"type": "password", "class": "form-control", "placeholder": "Пожалуйста, подтвердите..."}))
     email = forms.CharField(max_length=32, widget=forms.EmailInput(attrs={"type": "email", "class": "form-control", "placeholder": "e-mail"}))
-    # phone_number = forms.CharField(max_length=32, widget=forms.NumberInput(attrs={"type": "number", "class": "form-control", "placeholder": "phone_number"}))
+    phone_number = forms.CharField(max_length=32, widget=forms.NumberInput(attrs={"type": "number", "class": "form-control", "placeholder": "phone_number"}))
     # gender = forms.CharField(widget=forms.Select(attrs={"id": "gender", "class": "form-control"}))
     # birthdate = forms.CharField(widget=forms.DateInput(attrs={"type": "date", "id": "birthdate", "class": "form-control"}))
     # country = forms.CharField(widget=forms.Select(attrs={"id": "countries", "class": "form-control"}))
@@ -28,13 +28,13 @@ class MyRegistrationForm(forms.ModelForm):
     class Meta:
         model = Person
         fields = ('__all__')
-        exclude = ('photo', 'rules',)
+        exclude = ('rules',)
 
 class UserForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ('__all__')
-        exclude = ('photo', 'rules',)
+        exclude = ('rules',)
 
 class UserChangeForm(forms.ModelForm):
     """

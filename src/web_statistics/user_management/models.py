@@ -8,7 +8,7 @@ from django.contrib.auth.models import User
 # Create your models here.
 
 class Person(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    # user = models.ForeignKey(User, on_delete=models.CASCADE)
     username = models.CharField(verbose_name="Username:", max_length=32, blank=True)
     last_name = models.CharField(verbose_name="Фамилия:", max_length=32)
     first_name = models.CharField(verbose_name="Имя:", max_length=32)
@@ -17,7 +17,7 @@ class Person(models.Model):
     password = models.CharField(verbose_name="Пароль для доступа к ЛК:", max_length=32)
     confirmpassword = models.CharField(verbose_name="Подтвердите пароль:", max_length=32)
     email = models.EmailField(verbose_name="E-mail:", max_length=64)
-    # phone_number = PhoneNumberField(verbose_name="Контактный номер:", blank=True)
+    phone_number = PhoneNumberField(verbose_name="Контактный номер:", blank=True)
     # male = 'Мужской'
     # female = 'Женский'
     # genders = (
@@ -37,14 +37,11 @@ class Person(models.Model):
     status = models.CharField(max_length=32, verbose_name="Выберите Ваш статус пользователя:", choices=types_of_users,
                               default=user_user)
     # location = GeopositionField(blank=True)
-    photo = models.ImageField(verbose_name="Загрузите Ваше главное фото:", upload_to="pictures", name="your_photo", blank=True)
+    photo = models.ImageField(verbose_name="Загрузите Ваше главное фото:", upload_to="static/img/avatars/", name="photo", blank=True)
     rules = models.BooleanField(max_length=32)
 
     def __str__(self):
         return self.login
-
-    class Meta:
-        db_table = "PersonTables"
 
     # @receiver(post_save, sender=User)
     # def create_user_profile(sender, instance, created, **kwargs):

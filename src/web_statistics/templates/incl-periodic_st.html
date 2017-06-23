@@ -3,12 +3,11 @@
 {% load static from staticfiles %}
 
 {% block content %}
-
     <h3>
-        Вы просматриваете общую статистику
+        <i class="fa fa-bar-chart" aria-hidden="true"></i> Вы просматриваете общую статистику
     </h3>
 <hr>
-<div class="side">
+<div class="side-left">
     <h4>
         Настройки поиска:
     </h4>
@@ -89,16 +88,51 @@
             <input type="date" name="calendar" value="гггг-мм-дд" max="2050-06-04" min="2017-06-20">
         </form>
     </div>
-
+<hr>
     <button type="submit" value="Ок" class="btn btn-success btn-sm">Поиск</button>
     <button type="submit" value="Ок" class="btn btn-danger btn-xs">Сбросить</button>
 </div>
 
-<div class="side">
+<div class="side-right">
     <h4>
         Результат:
     </h4>
     <hr>
+    <div class="row">
+    <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Ресурс</th>
+        <th>Объект</th>
+        <th>Ключевые слова</th>
+        <th>Упоминания</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% if persons %}
+        {% for person in persons %}
+    {% for site in sites %}
+        <tr>
+
+            <td>{{ site.name }}</td>
+            <td>{{ person.name }}</td>
+            <td>{% for keyword in keywords %}
+                {% if keyword.person_id_id == person.id %}
+                {{ keyword.name}};
+                {% endif %}
+                {% endfor %}
+            </td>
+            <td>
+                select sum(rank) blabla join
+            </td>
+          </tr>
+    {% endfor %}
+    {% endfor %}
+
+    {% endif %}
+    </tbody>
+  </table>
+    </div>
 </div>
 
 {% endblock %}

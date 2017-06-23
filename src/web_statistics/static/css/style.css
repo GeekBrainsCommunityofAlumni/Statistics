@@ -32,12 +32,19 @@
 	transition: all .3s ease;
 }
 
-.side {
-    float: left;
-    width: 48%;
+.side-left, .side-right {
+    width: 45%;
     display: block;
     justify-content: space-around;
-    margin-right: 10px;
+    margin-right: 20px;
+}
+
+.side-left {
+    float: left;
+}
+
+.side-right {
+    float: right;
 }
 
 .btn-danger {
@@ -46,4 +53,17 @@
 
 .btn-success {
     background-color: #222222;
+}
+
+#social-gb {
+    opacity: 0.8;
+}
+
+#social-gb:hover {
+        opacity: 1;
+}
+
+#user {
+    height: 200px;
+    display: inline-flex;
 }
