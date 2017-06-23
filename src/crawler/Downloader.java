@@ -18,9 +18,13 @@ public class Downloader {
     public String download(String urlProtocol) throws UnknownHostException {
         UnknownHostException e = new UnknownHostException();
 
-//        if (!haveProtocol(urlProtocol)) {
-//            urlProtocol = "http://" + urlProtocol;
-//        }
+        //System.out.println("Downloader:download: urlProtocol: " + urlProtocol );
+        if (!urlProtocol.startsWith("http")) {
+            //System.out.println("Downloader:download:!haveProtocol(urlProtocol) - true");
+            urlProtocol = "http://" + urlProtocol;
+        }
+        //System.out.println("Downloader:download: urlProtocol: " + urlProtocol );
+
         try {
 
             OkHttpClient.Builder builder = new OkHttpClient.Builder();
@@ -125,9 +129,5 @@ public class Downloader {
             e.printStackTrace();
             return null;
         }
-    }
-
-    private boolean haveProtocol(String url) {
-        return url.matches("^(https?)://.+");
     }
 }
