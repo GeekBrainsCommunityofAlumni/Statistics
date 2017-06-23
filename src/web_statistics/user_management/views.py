@@ -66,7 +66,7 @@ def registration(request):
         # Validate data
         if password != confirmpassword:
             errors['password'] = 'Извините, пароли не совпадают... Попробуйте снова!'
-        user = User(username=login, password=password, email=email)  # photo, status?
+        user = User(username=login, password=password, email=email, first_name=first_name, last_name=last_name)
         p = Person(username=username, email=email, first_name=first_name, last_name=last_name, login=login, phone_number=phone_number, photo=photo, status=status)
         # Пароли хранятся в виде хэшей, поэтому их нельзя передавать напрямую
         user.set_password(password)

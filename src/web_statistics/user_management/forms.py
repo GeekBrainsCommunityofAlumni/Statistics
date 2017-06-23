@@ -1,13 +1,13 @@
 from django import forms
 from user_management.models import Person
 from django.contrib.auth.models import User
-# from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm
 
 class UploadFileForm(forms.Form):
     title = forms.CharField(max_length=50)
     file = forms.FileField()
 
-class MyRegistrationForm(forms.ModelForm):
+class MyRegistrationForm(UserCreationForm):
     username = forms.CharField(max_length=32, widget=forms.TextInput(attrs={"type": "text", "class": "form-control", "placeholder": "Username"}))
     last_name = forms.CharField(max_length=32, widget=forms.TextInput(attrs={"type": "text", "class": "form-control", "placeholder": "Фамилия"}))
     first_name = forms.CharField(max_length=32, widget=forms.TextInput(attrs={"type": "text", "class": "form-control", "placeholder": "Имя"}))
