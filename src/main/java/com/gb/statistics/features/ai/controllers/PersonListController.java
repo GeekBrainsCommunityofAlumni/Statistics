@@ -16,7 +16,7 @@ public class PersonListController extends ListController {
     private PersonListInterface personList;
 
     @FXML
-    private TableView<Person> personTableView;
+    private TableView<Person> dataTableView;
 
     @FXML
     private TableColumn<Person, String> columnPersonName;
@@ -26,11 +26,11 @@ public class PersonListController extends ListController {
 
     @FXML
     protected void initialize() {
-        super.initialize();
+        super.initialize(PERSON_TITLE);
         personList = new PersonList();
         columnPersonName.setCellValueFactory(cellData -> cellData.getValue().getNameProperty());
-        personTableView.setPlaceholder(new Label(EMPTY_LIST_MESSAGE));
-        personTableView.setItems(personList.getPersonList());
+        dataTableView.setPlaceholder(new Label(EMPTY_LIST_MESSAGE));
+        dataTableView.setItems(personList.getPersonList());
         initListeners();
         deleteController.setPersonList(personList);
         setActivityButtons();
@@ -43,7 +43,7 @@ public class PersonListController extends ListController {
             setFocus();
         });
 
-        personTableView.setOnMouseClicked(event -> {
+        dataTableView.setOnMouseClicked(event -> {
             if (event.getClickCount() == CLICK_COUNT && !personList.getPersonList().isEmpty()) {
                 actionButtonEdit();
             }
@@ -62,15 +62,15 @@ public class PersonListController extends ListController {
 
     @FXML
     protected void actionButtonEdit() {
-        editController.setPerson(personTableView.getSelectionModel().getSelectedItem(), this);
+        editController.setPerson(dataTableView.getSelectionModel().getSelectedItem(), this);
         if (editWindow == null) editWindow = new ModalWindow(EDIT_TITLE, mainStage, parentEdit, MODAL_WIDTH, MODAL_HEIGHT);
         editWindow.getStage().showAndWait();
-        personList.updatePerson(personTableView.getSelectionModel().getSelectedItem());
+        personList.updatePerson(dataTableView.getSelectionModel().getSelectedItem());
     }
 
     @FXML
     protected void actionButtonDelete() {
-        deleteController.setPerson(personTableView.getSelectionModel().getSelectedItem(), this);
+        deleteController.setPerson(dataTableView.getSelectionModel().getSelectedItem(), this);
         if (deleteWindow == null) deleteWindow = new ModalWindow(DELETE_TITLE, mainStage, parentDelete, MODAL_WIDTH, MODAL_HEIGHT);
         deleteWindow.getStage().showAndWait();
     }
@@ -90,7 +90,7 @@ public class PersonListController extends ListController {
     }
 
     private void setFocus() {
-        personTableView.getSelectionModel().select(0);
+        dataTableView.getSelectionModel().select(0);
     }
 
     public void setMainStage(Stage mainStage) {

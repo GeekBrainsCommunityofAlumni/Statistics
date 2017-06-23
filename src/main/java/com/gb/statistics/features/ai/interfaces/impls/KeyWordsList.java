@@ -2,6 +2,7 @@ package com.gb.statistics.features.ai.interfaces.impls;
 
 import com.gb.statistics.features.ai.interfaces.KeyWordsInterface;
 import com.gb.statistics.features.ai.model.KeyWord;
+import com.gb.statistics.features.ai.model.ModelListData;
 import com.gb.statistics.features.ai.model.Person;
 import javafx.beans.Observable;
 import javafx.collections.FXCollections;
@@ -18,13 +19,13 @@ public class KeyWordsList implements KeyWordsInterface {
 
     private String URL = "http://94.130.27.143:8080/api";
 
-    private ObservableList<KeyWord> keyWordList;
+    private ObservableList<ModelListData> keyWordList;
     private RestTemplate template = new RestTemplate();
     private Person person;
     private HttpHeaders headers;
 
     public KeyWordsList() {
-        Callback<KeyWord, Observable[]> extractor = s -> new Observable[] {s.getNameProperty()};
+        Callback<ModelListData, Observable[]> extractor = s -> new Observable[] {s.getNameProperty()};
         keyWordList = FXCollections.observableArrayList(extractor);
         template.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
         headers = new HttpHeaders();
@@ -34,7 +35,6 @@ public class KeyWordsList implements KeyWordsInterface {
     @Override
     public void refreshKeyWordList() {
         try {
-            System.out.println("personid " + person.getId());
             ResponseEntity<List<KeyWord>> rateResponse = template.exchange(URL + "/keyword/" + person.getId(), HttpMethod.GET, null, new ParameterizedTypeReference<List<KeyWord>>() {
             });
             keyWordList.clear();
@@ -45,13 +45,12 @@ public class KeyWordsList implements KeyWordsInterface {
     }
 
     @Override
-    public ObservableList<KeyWord> getKeyWordList() {
+    public ObservableList<ModelListData> getKeyWordList() {
         return keyWordList;
     }
 
     @Override
     public boolean addKeyWord(KeyWord keyWord) {
-        System.out.println("id " + keyWord.getId() + "pid " + keyWord.getPersonId() + "name" + keyWord.getName());
         template.postForObject(URL + "/keyword/" + person.getId(), new HttpEntity<>(keyWord, headers), KeyWord.class);
         refreshKeyWordList();
         return false;

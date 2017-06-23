@@ -16,7 +16,7 @@
          </columnResizePolicy>
       </TableView>
       <ChoiceBox layoutX="332.0" layoutY="46.0" prefHeight="25.0" prefWidth="50.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="76.0" />
-      <Label layoutX="21.0" layoutY="14.0" text="Ключевые слова" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0">
+      <Label fx:id="listTitle" layoutX="21.0" layoutY="14.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0">
          <font>
             <Font size="16.0" />
          </font>

@@ -2,6 +2,7 @@ package com.gb.statistics.features.ai.controllers;
 
 import com.gb.statistics.features.ai.interfaces.ModalControllerInterface;
 import com.gb.statistics.features.ai.model.KeyWord;
+import com.gb.statistics.features.ai.model.ModelListData;
 import com.gb.statistics.features.ai.model.Person;
 import com.gb.statistics.features.ai.model.Site;
 import javafx.event.ActionEvent;
@@ -14,16 +15,20 @@ import javafx.stage.Stage;
 public class EditWindowController implements ModalControllerInterface {
 
     private Person person;
-    private KeyWord keyWord;
+    private ModelListData keyWord = new KeyWord();
     private Site site;
     private ListController currentController;
-
 
     @FXML
     private TextField personNameField;
 
     @FXML
     private Label errorLabel;
+
+    @FXML
+    private void initialize() {
+        personNameField.requestFocus();
+    }
 
     public void setPerson(Person person, ListController controller) {
         this.person = person;
@@ -54,7 +59,7 @@ public class EditWindowController implements ModalControllerInterface {
             person.setName(personNameField.getText());
         } else if (currentController instanceof KeyWordsListController) {
             keyWord.setName(personNameField.getText());
-            keyWord.setPersonId(person.getId());
+            ((KeyWord)keyWord).setPersonId(person.getId());
         } else if (currentController instanceof SiteListController) {
             site.setName(personNameField.getText());
         }
@@ -82,7 +87,7 @@ public class EditWindowController implements ModalControllerInterface {
     }
 
     public KeyWord getKeyWord() {
-        return keyWord;
+        return (KeyWord) keyWord;
     }
 
     public Site getSite() {

@@ -1,6 +1,7 @@
 package com.gb.statistics.features.ai.controllers;
 
 import com.gb.statistics.features.ai.interfaces.KeyWordsInterface;
+import com.gb.statistics.features.ai.model.ModelListData;
 import com.gb.statistics.features.ai.interfaces.PersonListInterface;
 import com.gb.statistics.features.ai.interfaces.impls.KeyWordsList;
 import com.gb.statistics.features.ai.model.KeyWord;
@@ -20,10 +21,7 @@ public class KeyWordsListController extends ListController {
     private ComboBox<Person> comboBoxPerson;
 
     @FXML
-    private TableView<KeyWord> keyWordTableView;
-
-    @FXML
-    private TableColumn<KeyWord, String> columnKeyWordName;
+    private TableColumn<ModelListData, String> columnKeyWordName;
 
     @FXML
     private Label keyWordsListCount;
@@ -33,10 +31,10 @@ public class KeyWordsListController extends ListController {
 
     @FXML
     protected void initialize() {
-        super.initialize();
+        super.initialize(KEYWORD_TITLE);
         columnKeyWordName.setCellValueFactory(cellData -> cellData.getValue().getNameProperty());
-        keyWordTableView.setPlaceholder(new Label(EMPTY_LIST_MESSAGE));
-        keyWordTableView.setItems(keyWordsList.getKeyWordList());
+
+        dataTableView.setItems(keyWordsList.getKeyWordList());
         disableButtons(true);
         addButton.setDisable(true);
         deleteController.setKeyWordList(keyWordsList);
@@ -48,9 +46,9 @@ public class KeyWordsListController extends ListController {
                 keyWordsList.setPerson(newValue);
                 keyWordsList.refreshKeyWordList();
             } else {
+                comboBoxPerson.getSelectionModel().selectFirst();
                 keyWordsList.getKeyWordList().clear();
             }
-            comboBoxPerson.getSelectionModel().selectFirst();
         });
 
         personList.getPersonList().addListener((ListChangeListener<Person>) c -> {
@@ -58,8 +56,8 @@ public class KeyWordsListController extends ListController {
                 addButton.setDisable(true);
             } else {
                 addButton.setDisable(false);
+                comboBoxPerson.getSelectionModel().selectFirst();
             }
-            comboBoxPerson.getSelectionModel().selectFirst();
         });
     }
 
@@ -68,13 +66,13 @@ public class KeyWordsListController extends ListController {
         initListeners();
         initComboBox();
 
-        keyWordsList.getKeyWordList().addListener((ListChangeListener<KeyWord>) c -> {
+        keyWordsList.getKeyWordList().addListener((ListChangeListener<ModelListData>) c -> {
             updateKeyWordsListCount();
             setActivityButtons();
             setFocus();
         });
 
-        keyWordTableView.setOnMouseClicked(event -> {
+        dataTableView.setOnMouseClicked(event -> {
             if (event.getClickCount() == CLICK_COUNT && !keyWordsList.getKeyWordList().isEmpty()) {
                 actionButtonEdit();
             }
@@ -98,7 +96,7 @@ public class KeyWordsListController extends ListController {
 
     @FXML
     protected void actionButtonEdit() {
-        editController.setKeyWord(keyWordTableView.getSelectionModel().getSelectedItem(), comboBoxPerson.getValue(), this);
+        editController.setKeyWord((KeyWord) dataTableView.getSelectionModel().getSelectedItem(), comboBoxPerson.getValue(), this);
         if (editWindow == null) editWindow = new ModalWindow(EDIT_TITLE, mainStage, parentEdit, MODAL_WIDTH, MODAL_HEIGHT);
         editWindow.getStage().showAndWait();
         keyWordsList.updateKeyWord(editController.getKeyWord());
@@ -106,9 +104,14 @@ public class KeyWordsListController extends ListController {
 
     @FXML
     protected void actionButtonDelete() {
-        deleteController.setKeyWord(keyWordTableView.getSelectionModel().getSelectedItem(), this);
+        deleteController.setKeyWord((KeyWord) dataTableView.getSelectionModel().getSelectedItem(), this);
         if (deleteWindow == null) deleteWindow = new ModalWindow(DELETE_TITLE, mainStage, parentDelete, MODAL_WIDTH, MODAL_HEIGHT);
         deleteWindow.getStage().showAndWait();
+    }
+
+    @Override
+    public PersonListInterface getPersonList() {
+        return null;
     }
 
     private void updateKeyWordsListCount() {
@@ -126,7 +129,7 @@ public class KeyWordsListController extends ListController {
     }
 
     private void setFocus() {
-        keyWordTableView.getSelectionModel().select(0);
+        dataTableView.getSelectionModel().select(0);
     }
 
     public void setMainStage(Stage mainStage) {

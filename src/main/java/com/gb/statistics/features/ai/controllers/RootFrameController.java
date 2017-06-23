@@ -13,7 +13,7 @@ public class RootFrameController {
     private FXMLLoader loaderPersonList = new FXMLLoader();
     private FXMLLoader loaderKeyWordsList = new FXMLLoader();
     private FXMLLoader loaderSiteList = new FXMLLoader();
-    private PersonListController personListController;
+    private ListController personListController;
     private KeyWordsListController keyWordsListController;
     private SiteListController siteListController;
     private Parent parentPersonList;

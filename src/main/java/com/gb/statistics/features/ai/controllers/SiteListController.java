@@ -1,5 +1,6 @@
 package com.gb.statistics.features.ai.controllers;
 
+import com.gb.statistics.features.ai.interfaces.PersonListInterface;
 import com.gb.statistics.features.ai.interfaces.SiteListInterface;
 import com.gb.statistics.features.ai.interfaces.impls.SiteList;
 import com.gb.statistics.features.ai.model.Site;
@@ -16,7 +17,7 @@ public class SiteListController extends ListController {
     private SiteListInterface siteList;
 
     @FXML
-    private TableView<Site> personTableView;
+    private TableView<Site> dataTableView;
 
     @FXML
     private TableColumn<Site, String> columnPersonName;
@@ -26,11 +27,11 @@ public class SiteListController extends ListController {
 
     @FXML
     protected void initialize() {
-        super.initialize();
+        super.initialize(SITE_TITLE);
         siteList = new SiteList();
         columnPersonName.setCellValueFactory(cellData -> cellData.getValue().getNameProperty());
-        personTableView.setPlaceholder(new Label(EMPTY_LIST_MESSAGE));
-        personTableView.setItems(siteList.getSiteList());
+        dataTableView.setPlaceholder(new Label(EMPTY_LIST_MESSAGE));
+        dataTableView.setItems(siteList.getSiteList());
         initListeners();
         deleteController.setSiteList(siteList);
         setActivityButtons();
@@ -43,7 +44,7 @@ public class SiteListController extends ListController {
             setFocus();
         });
 
-        personTableView.setOnMouseClicked(event -> {
+        dataTableView.setOnMouseClicked(event -> {
             if (event.getClickCount() == CLICK_COUNT && !siteList.getSiteList().isEmpty()) {
                 actionButtonEdit();
             }
@@ -62,17 +63,22 @@ public class SiteListController extends ListController {
 
     @FXML
     protected void actionButtonEdit() {
-        editController.setSite(personTableView.getSelectionModel().getSelectedItem(), this);
+        editController.setSite(dataTableView.getSelectionModel().getSelectedItem(), this);
         if (editWindow == null) editWindow = new ModalWindow(EDIT_TITLE, mainStage, parentEdit, MODAL_WIDTH, MODAL_HEIGHT);
         editWindow.getStage().showAndWait();
-        siteList.updateSite(personTableView.getSelectionModel().getSelectedItem());
+        siteList.updateSite(dataTableView.getSelectionModel().getSelectedItem());
     }
 
     @FXML
     protected void actionButtonDelete() {
-        deleteController.setSite(personTableView.getSelectionModel().getSelectedItem(), this);
+        deleteController.setSite(dataTableView.getSelectionModel().getSelectedItem(), this);
         if (deleteWindow == null) deleteWindow = new ModalWindow(DELETE_TITLE, mainStage, parentDelete, MODAL_WIDTH, MODAL_HEIGHT);
         deleteWindow.getStage().showAndWait();
+    }
+
+    @Override
+    public PersonListInterface getPersonList() {
+        return null;
     }
 
     private void updatePersonListCount() {
@@ -90,7 +96,7 @@ public class SiteListController extends ListController {
     }
 
     private void setFocus() {
-        personTableView.getSelectionModel().select(0);
+        dataTableView.getSelectionModel().select(0);
     }
 
     public void setMainStage(Stage mainStage) {
