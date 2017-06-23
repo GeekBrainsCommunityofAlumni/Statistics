@@ -22,14 +22,13 @@
                             <td><i class="fa fa-envelope-o" aria-hidden="true"></i> Ваш e-mail:</td>
                             <td>{{user.email}}</td>
                         </tr>
-                        <!--<tr>-->
-                            <!--<td><i class="fa fa-mobile" aria-hidden="true"></i> Контактный тел. (mobile):</td>-->
-                            <!--<td>{{user.Person.phone_number}}</td>-->
-                        <!--</tr>-->
+                        <tr>
+                            <td><i class="fa fa-mobile" aria-hidden="true"></i> Контактный тел. (mobile):</td>
+                            <td>{{user.person.phone_number}}</td>
+                        </tr>
                         <tr>
                             <td><i class="fa fa-address-card-o" aria-hidden="true"></i> Ваш статус пользователя:</td>
-                            <td>{{person.status}}</td>
-                            <!--(ДОЛЖНО БЫТЬ ТАК: user.person.status - НО НЕ РАБОТАЕТ)-->
+                            <td>{{user.person.status}}</td>
                         </tr>
                     </tbody>
                 </table>

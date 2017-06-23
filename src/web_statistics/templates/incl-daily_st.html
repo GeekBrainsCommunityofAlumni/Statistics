@@ -4,10 +4,10 @@
 
 {% block content %}
     <h3>
-        Вы просматриваете ежедневную статистику
+        <i class="fa fa-bar-chart" aria-hidden="true"></i> Вы просматриваете ежедневную статистику
     </h3>
 <hr>
-<div class="side">
+<div class="side-left">
     <h4>
         Настройки поиска:
     </h4>
@@ -68,11 +68,22 @@
             </select>
         </div>
     </div>
+
+    <div class="row">
+        <label class="control-label col-sm-6">
+            <i class="fa fa-calendar" aria-hidden="true"></i>
+            Введите дату поиска:
+        </label>
+        <form class="control-label col-sm-6">
+            <input type="date" name="calendar" value="гггг-мм-дд" max="2050-06-04" min="2017-06-20">
+        </form>
+    </div>
+<hr>
     <button type="submit" value="Поиск" class="btn btn-success btn-sm">Поиск</button>
     <button type="submit" value="Сбросить" class="btn btn-danger btn-xs">Сбросить</button>
 </div>
 
-<div class="side">
+<div class="side-right">
     <h4>
         Результат:
     </h4>
