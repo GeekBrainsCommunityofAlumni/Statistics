@@ -182,6 +182,22 @@ public class DBHelper {
         }
     }
 
+    public synchronized void setLastScanDate23HoursAgo(ArrayList<Integer> idsOfPages) { //устанавливает lastscandate с датой 23 часа назад
+        try {
+            String dateTimeMinus23Hours = "DATE_ADD(NOW(), INTERVAL -23 HOUR)";
+            preparedStatement = connectionToDB.prepareStatement("UPDATE pages SET lastscandate = " + dateTimeMinus23Hours + " WHERE id = ?;");
+            connectionToDB.setAutoCommit(false);
+            for (int idOfPage : idsOfPages) {
+                preparedStatement.setInt(1, idOfPage);
+                preparedStatement.addBatch();
+            }
+            preparedStatement.executeBatch();
+            connectionToDB.setAutoCommit(true);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public boolean existPageWithPerson(int personID, int pageID) {  //Проверяет, существует ли уже в таблице personpagerank указанная запись с personID и pageID
         try {
             preparedStatement = connectionToDB.prepareStatement("SELECT personID, pageID FROM personpagerank WHERE ((personID = ?) AND (pageID = ?));");
@@ -231,7 +247,7 @@ public class DBHelper {
         return false;
     }
 
-    public boolean existSite(String nameOfSite) {    //Проверяет, есть ли в таблице sites указанный сайт
+    public boolean existSite(String nameOfSite) {    //Проверяет, есть ли в таблице sites указанный сайт по имени
         try {
             preparedStatement = connectionToDB.prepareStatement("SELECT name FROM sites WHERE name = ?;");
             preparedStatement.setString(1, nameOfSite);
@@ -239,6 +255,22 @@ public class DBHelper {
             if (resultSet.next()) {
                 String resultFromResultSet = resultSet.getString(1);
                 if (resultFromResultSet.equals(nameOfSite)) {
+                    return true;
+                }
+            } else return false;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean existSiteID(int siteID) {    //Проверяет, есть ли в таблице sites указанный сайт по ID
+        try {
+            preparedStatement = connectionToDB.prepareStatement("SELECT id FROM sites WHERE id = ?;");
+            preparedStatement.setInt(1, siteID);
+            resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                if (resultSet.getInt(1) == siteID) {
                     return true;
                 }
             } else return false;
@@ -282,7 +314,40 @@ public class DBHelper {
         }
     }
 
+    public ArrayList<String> getSeveralUrlOfPages(int siteID, int quantity) {
+        //Для многоэкземплярности. Возвращает требуемое количество URL страниц, которые не просканированы или просканированы больше 24 ч назад, из таблицы pages
+        try {
+            if (existSiteID(siteID)) {
+                ArrayList<String> resultingArrayList = new ArrayList<>();
+                ArrayList<Integer> pagesIDArrayList = new ArrayList<>();
+
+                    String sqlDateTimeMinus24Hours = "DATE_ADD(NOW(), INTERVAL -24 HOUR)";
+                    statement = connectionToDB.createStatement();
+                    resultSet = statement.executeQuery("SELECT url, id FROM pages WHERE (  (siteid = " + siteID + ") AND ((lastscandate IS NULL) OR (lastscandate < " + sqlDateTimeMinus24Hours + "))  ) LIMIT " + quantity + ";");
+                    while (resultSet.next()) {
+                        resultingArrayList.add(resultSet.getString(1));
+                        pagesIDArrayList.add(resultSet.getInt(2));
+                    }
+
+                if (resultingArrayList.size() > 0) {
+                    setLastScanDate23HoursAgo(pagesIDArrayList);
+                    return resultingArrayList;
+                } else {
+                    return null;
+                }
+            } else {
+                throw new SQLException("Ошибка: неправильный siteID передан через метод dbHelper.getSeveralUrlOfPages(), вызываемый в краулере.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
+
     public ArrayList<String> getOldScannedSites() { //возвращает список URL страниц из таблицы pages, сканирование которых было более 24 часов назад
+        //похоже, этот метод не нужен больше
         ArrayList<String> resultingArrayList = new ArrayList<>();
         try {
             String sqlDateTimeMinus24Hours = "DATE_ADD(NOW(), INTERVAL -24 HOUR)";
