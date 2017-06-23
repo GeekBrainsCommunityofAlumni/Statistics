@@ -38,7 +38,7 @@ public class Crawler {
             personArrayList.add(new Person(personID, dbHelper.getPersonKeywords(personID)));
         }
 
-        pagesIDForScan = dbHelper.getPagesIDWithoutScanDate(); //Метод возвращает список ID старниц для сканирования. БЕЗ robots.txt и sitemap
+        pagesIDForScan = dbHelper.getPagesIDWithoutScanDate(); //TODO Использовать метод который возвращает определенное количество Page для многоэкземплярного режима.
         for (int pageID : pagesIDForScan) {
             CrawlerTask crawlerTask = new CrawlerTask();
             crawlerTask.addPageForScanning(new PageForScanning(pageID, dbHelper.getUrlPageViaID(pageID)));
@@ -87,12 +87,14 @@ public class Crawler {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-
-                for (Person person : crawlerTask.getPersonList()) {
-                    ArrayList<String> personKeywords = person.getKeywordsList();
-                    int rank = parser.calculateRank(pageSource, personKeywords);
-                    dbHelper.savePersonPageRank(person.getID(), pageID, rank);
-                    dbHelper.setLastScanDateNow(pageID);
+                // Проверяем  удалось ли получить страницу перед парсингом.
+                if (pageSource != null) {
+                    for (Person person : crawlerTask.getPersonList()) {
+                        ArrayList<String> personKeywords = person.getKeywordsList();
+                        int rank = parser.calculateRank(pageSource, personKeywords);
+                        dbHelper.savePersonPageRank(person.getID(), pageID, rank);
+                        dbHelper.setLastScanDateNow(pageID);
+                    }
                 }
             }
             System.out.println("Поток завершен");
@@ -111,7 +113,8 @@ public class Crawler {
 
     private static void addNewSitesToPages() throws IOException, ParserConfigurationException, SAXException { // Решить что делать с пробрасываемыми исключениями. throws IOException, ParserConfigurationException, SAXException
         String newSite;
-        while ((newSite = dbHelper.getNewSite()) != null) {
+        while ((newSite = dbHelper.getNewSite()) != null) { //TODO При получении новой сайта для парсинга сразу в pages создавать ему фейковый page с временем и при выполнении данного метода удалаять его если прошло более часа.
+            //TODO тем самым мы исключаем из вечного цикла - те сайты которые не могут распарситься в данный момент, но были по какой либо причине добавлены в список.
             System.out.println("Crawler:addNewSitesToPage: получен сайт для обработки: " + newSite);
 
             //Результирующий массив URLов, который в итоге будет записан в базу
@@ -120,6 +123,7 @@ public class Crawler {
             //Пытаемся получить robots.txt
             String robotTxt = null;
             String sitemap = null;
+            boolean sitemapFound = false;
             String sitemapURL = null;
 
             robotTxt = new Downloader().downloadRobot(newSite);
@@ -132,13 +136,16 @@ public class Crawler {
             }
 
             // Если sitemap не найде в robots.txt, то присваиваем путь по умолчанию.
+            // TODO Возможно этот функционал следует перенести в Downloader
             if (sitemapURL == null) {
                 sitemapURL = "http://" + newSite + "/sitemap.xml";
             }
 
+            System.out.println("Пробуем загрузить sitemap с адреса: " + sitemapURL);
             //  если Downloader сумел загрузить sitemap.xml по указанному адрессу то вытаскиваем из него ссылки для индексации
             if ((sitemap = new Downloader().downloadSiteMap(sitemapURL)) != null) {
                 if (isItSitemapIndex(sitemap)) {
+                    sitemapFound = true;
                     ArrayList<String> sitemapsURL = new Parser().parseSiteMapIndex(sitemap);
                     for (String sitemapUrl : sitemapsURL) {
                         sitemap = new Downloader().downloadSiteMap(sitemapUrl);
@@ -150,11 +157,14 @@ public class Crawler {
 
                 //Если это sitemap.xml
                 if (isItSitemap(sitemap)) {
+                    sitemapFound = true;
                     urlPages = new Parser().parseSiteMap(sitemap);
                     dbHelper.addPagesToSite(urlPages, newSite);
                 }
-                //если Downloader вернул null, то запускаем паука по сайту
-            } else {
+            }
+            //если sitemap не найден или ответ не сумели распарсить, то запускаем паука.
+            if (!sitemapFound) {
+                System.out.println("Crawler:addNewSitesToPage: Sitemap для сайта " + newSite + " загрузить не удалось.");
 
                 //TODO здесь запускаем паука по newSite.
 
