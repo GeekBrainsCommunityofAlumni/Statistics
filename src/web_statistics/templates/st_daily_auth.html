@@ -43,10 +43,6 @@
         {% csrf_token %}
         <input class="btn btn-primary btn-sm" type="submit" value="Выйти"> </input>
     </form>
-    <div class="thumbnail" id="user">
-        <img src="{% static '/img/unknown.png' %}" alt="You">
-        <h4>{{user.first_name}} {{user.last_name}}</h4>
-    </div>
 
     {% block content %}
         {% include 'incl-daily_st.html' %}

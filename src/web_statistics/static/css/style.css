@@ -1,3 +1,8 @@
+.logo {
+    height: 60px;
+    margin-left: -15px;
+}
+
 .logout {
     padding-left: 20px;
     padding-bottom: 20px;
@@ -66,4 +71,27 @@
 #user {
     height: 200px;
     display: inline-flex;
+}
+
+
+.navbar-header {
+    height: 110px;
+}
+
+.navbar-brand {
+    height: 70px;
+    margin-bottom: -30px;
+}
+
+.side-nav {
+    margin-top: 60px;
+}
+
+.container-fluid {
+    margin-top: 70px;
+/*
+    --webkit-box-shadow: 0px 0px 8px 40px rgba(255,255,255,1);
+    -moz-box-shadow: 0px 0px 8px 40px rgba(255,255,255,1);
+    box-shadow: 0px 0px 8px 40px rgba(255,255,255,1);
+*/
 }
