@@ -27,9 +27,9 @@ public class Downloader {
     public String download(String urlProtocol) throws UnknownHostException {
         UnknownHostException e = new UnknownHostException();
 
-        if (!haveProtocol(urlProtocol)) {
-            urlProtocol = "http://" + urlProtocol;
-        }
+//        if (!haveProtocol(urlProtocol)) {
+//            urlProtocol = "http://" + urlProtocol;
+//        }
         try {
 
             OkHttpClient.Builder builder = new OkHttpClient.Builder();
