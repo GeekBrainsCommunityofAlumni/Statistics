@@ -10,7 +10,8 @@ import org.xml.sax.SAXException;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import java.io.*;
+import java.io.IOException;
+import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,34 +24,38 @@ public class Parser {
         } else return null;
     }
 
-    public ArrayList<String> parseSiteMap(String sitemap) throws ParserConfigurationException, IOException, SAXException {
+    public ArrayList<String> parseSiteMap(String sitemap) {
         ArrayList<String> urlPages = new ArrayList<>();
-
-        DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-        DocumentBuilder db = dbf.newDocumentBuilder();
-        Document doc = db.parse(new InputSource(new StringReader(sitemap)));
-        NodeList nodeLst = doc.getElementsByTagName("url");
+        try {
+            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+            DocumentBuilder db = dbf.newDocumentBuilder();
+            Document doc = db.parse(new InputSource(new StringReader(sitemap)));
+            NodeList nodeLst = doc.getElementsByTagName("url");
 //        System.gc();
-        for (int s = 0; s < nodeLst.getLength(); s++) {
-            Node fstNode = nodeLst.item(s);
-            if (fstNode.getNodeType() == Node.ELEMENT_NODE) {
-                Element fstElmnt = (Element) fstNode;
+            for (int s = 0; s < nodeLst.getLength(); s++) {
+                Node fstNode = nodeLst.item(s);
+                if (fstNode.getNodeType() == Node.ELEMENT_NODE) {
+                    Element fstElmnt = (Element) fstNode;
 
-                NodeList fstNmElmntLst = fstElmnt.getElementsByTagName("loc");
+                    NodeList fstNmElmntLst = fstElmnt.getElementsByTagName("loc");
 
-                Element fstNmElmnt = (Element) fstNmElmntLst.item(0);
+                    Element fstNmElmnt = (Element) fstNmElmntLst.item(0);
 
-                NodeList fstNm = fstNmElmnt.getChildNodes();
+                    NodeList fstNm = fstNmElmnt.getChildNodes();
 
-                urlPages.add(((Node) fstNm.item(0)).getNodeValue());
+                    urlPages.add(((Node) fstNm.item(0)).getNodeValue());
+                }
             }
+        } catch (ParserConfigurationException | IOException | SAXException e) {
+            e.printStackTrace();
+            return null;
         }
         return urlPages;
     }
 
     public int calculateRank(String pageSource, List<String> personKeywords) {
         int count = 0;
-        int start = 0;
+        int start;
         for (int i = 0; i < personKeywords.size(); i++) {
             start = 0;
             while (true) {
@@ -64,22 +69,33 @@ public class Parser {
         return count;
     }
 
-    public ArrayList<String> parseSiteMapIndex(String sitemapIndex) throws ParserConfigurationException, IOException, SAXException { //Метод для парсинтга Sitemap Index
+    public ArrayList<String> parseSiteMapIndex(String sitemapIndex) { //Метод для парсинтга Sitemap Index
+
         ArrayList<String> urlPages = new ArrayList<>();
-        DocumentBuilder db = DocumentBuilderFactory.newInstance().newDocumentBuilder();
-        Document doc = db.parse(new InputSource(new StringReader(sitemapIndex)));
-        NodeList nodeList = doc.getElementsByTagName("sitemap");
-        for (int s = 0; s < nodeList.getLength(); s++){
-            Node fstNode = nodeList.item(s);
-            if(fstNode.getNodeType() == Node.ELEMENT_NODE){
-                Element fstElmnt = (Element) fstNode;
-                NodeList fstNmElmntLst = fstElmnt.getElementsByTagName("loc");
-                Element fstNmElmnt = (Element) fstNmElmntLst.item(0);
-                NodeList fstNm = fstNmElmnt.getChildNodes();
-                String urlPage = ((Node)fstNm.item(0)).getNodeValue();
-                urlPages.add(urlPage);
+
+        try {
+            DocumentBuilder db = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+            Document doc = db.parse(new InputSource(new StringReader(sitemapIndex)));
+            NodeList nodeList = doc.getElementsByTagName("sitemap");
+
+            for (int s = 0; s < nodeList.getLength(); s++) {
+
+                Node fstNode = nodeList.item(s);
+
+                if (fstNode.getNodeType() == Node.ELEMENT_NODE) {
+                    Element fstElmnt = (Element) fstNode;
+                    NodeList fstNmElmntLst = fstElmnt.getElementsByTagName("loc");
+                    Element fstNmElmnt = (Element) fstNmElmntLst.item(0);
+                    NodeList fstNm = fstNmElmnt.getChildNodes();
+                    String urlPage = ((Node) fstNm.item(0)).getNodeValue();
+                    urlPages.add(urlPage);
+                }
             }
+        } catch (ParserConfigurationException | IOException | SAXException e) {
+            e.printStackTrace();
+            return null;
         }
+
         return urlPages;
     }
     //TODO получаем все ссылки из html. реализовать ввиде отдельного метода.

@@ -20,7 +20,6 @@
         </plugins>
     </build>
 
-
     <dependencies>
         <!-- https://mvnrepository.com/artifact/com.squareup.okhttp3/okhttp -->
         <dependency>
