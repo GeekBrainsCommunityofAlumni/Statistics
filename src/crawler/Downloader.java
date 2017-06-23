@@ -3,73 +3,68 @@ package crawler;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
-
 import java.io.*;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.UnknownHostException;
 import java.util.concurrent.TimeUnit;
 import java.util.zip.GZIPInputStream;
 
 public class Downloader {
-    public static final String NO_PROTOCOL = "No protocol";
-    public static final String UNEXPECTED_URL = "unexpected url";
-    //Exception in thread "main" java.lang.IllegalArgumentException: unexpected url: www.kommersant.ru
-    //Exception in thread "main" java.net.UnknownHostException:
-    //Exception in thread "main" java.net.UnknownHostException: www.kommersant.ru - !нет интернета
     public static final String PAGE_NOT_FOUND = "Page not found";
-    public static final String SITE_NOT_FOUND = "Site not found";
-    public static final String INTERNET_CONNECTION_LOST = "Internet connection lost"; //http://www.kommersant, http://www.kommersantyyy.ru
-    public static final String UNIDENTIFIED_ERROR = "Unidentified error";
-    public static final String ROBOTSTXT_NOT_FOUND = "Robots.txt not found";
     public static final String SITE_MAP_NOT_FOUND = "Site map not found";
 
-    public static void main(String[] args) throws IOException { //Метод для тестирования класса
-
-        long t = System.currentTimeMillis();
-        Downloader downloader = new Downloader();
-        //String url = "http://lenta.ru"; //robots.txt";
-        String url = "www.kommersant";
-        String s = downloader.download(url);
-        System.out.println(s);
-        BufferedWriter bw = new BufferedWriter(new FileWriter("C:\\Users\\Юрий\\Desktop\\1.html"));
-        bw.write(s);
-        bw.close();
-        //System.out.println(System.currentTimeMillis() - t);
+    public static void main(String[] args) { //Метод для тестирования класса
+//        try {
+//            Downloader downloader = new Downloader();
+//            String url = "http://www.kommersant.ru";
+//            String s = downloader.download(url);
+//            System.out.println(s);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
     }
 
-    public String download(String urlProtocol) throws IOException {
-        OkHttpClient.Builder builder = new OkHttpClient.Builder();
-        builder.connectTimeout(5, TimeUnit.MINUTES)
-                .writeTimeout(5, TimeUnit.MINUTES)
-                .readTimeout(5, TimeUnit.MINUTES);
-        OkHttpClient client = builder.build();
+    public String download(String urlProtocol) throws UnknownHostException {
+        UnknownHostException e = new UnknownHostException();
 
-        Request request;
+        if (!haveProtocol(urlProtocol)) {
+            urlProtocol = "http://" + urlProtocol;
+        }
         try {
+
+            OkHttpClient.Builder builder = new OkHttpClient.Builder();
+            builder.connectTimeout(5, TimeUnit.MINUTES)
+                    .writeTimeout(5, TimeUnit.MINUTES)
+                    .readTimeout(5, TimeUnit.MINUTES);
+            OkHttpClient client = builder.build();
+
+            Request request;
+
             request = new Request.Builder()
                     .url(urlProtocol)
                     .build();
-        } catch (IllegalArgumentException e) {
-            return UNEXPECTED_URL;
+
+
+            //TODO Дописать загрузку и распаковку GZip как в методе ранее.
+            try (Response response = client.newCall(request).execute()) { //UnknownHostException
+                String result = response.body().string();
+                response.close();
+                System.gc();
+                return result.replaceFirst("windows-1251", "utf-8");
+            } catch (UnknownHostException e1) {
+                e = e1;
+                if (isReachable())
+                    throw e; // while site not found
+                else
+                    return null; // while Internet connection lost null
+            }
+        } catch (Exception e2) {
+            if (e2.getClass().toString().equals("class java.net.UnknownHostException")) {
+                throw e;
+            } else {
+                return null;
+            }
         }
-
-
-        //TODO Дописать загрузку и распаковку GZip как в методе ранее.
-        try (Response response = client.newCall(request).execute()) { //UnknownHostException
-            String result = response.body().string();
-            response.close();
-            System.gc();
-            // System.out.println(result.indexOf("windows-1251"));
-
-            //return result;
-            return result.replaceFirst("windows-1251", "utf-8");
-        } catch (UnknownHostException e) {
-            e.printStackTrace();
-            return isReachable() ? PAGE_NOT_FOUND : INTERNET_CONNECTION_LOST;
-        }
-
-
 //        String result = null;
 //        if (isItGzArchiveLink(urlProtocol)) {
 //            result = downloadGzipFile(urlProtocol);
@@ -111,30 +106,40 @@ public class Downloader {
 //        return result;
     }
 
-
     private boolean isItGzArchiveLink(String url) {
         return url.matches(".*[.]gz");
     }
 
     private static boolean isReachable() {
-        try {
-            new BufferedReader(new InputStreamReader(new URL("https://www.google.ru").openConnection().getInputStream()));
-            return true;
-        } catch (IOException ignored) {
-        }
-        try {
-            new BufferedReader(new InputStreamReader(new URL("https://www.yandex.ru/").openConnection().getInputStream()));
-            return true;
-        } catch (IOException ignored) {
-        }
-        try {
-            new BufferedReader(new InputStreamReader(new URL("https://mail.ru/").openConnection().getInputStream()));
-            return true;
-        } catch (IOException ignored) {
+        for (int i = 0; i < 2; i++) {
+            try {
+                new BufferedReader(new InputStreamReader(new URL("https://www.google.ru").openConnection().getInputStream()));
+                return true;
+            } catch (IOException ignored) {
+            }
+
+            try {
+                new BufferedReader(new InputStreamReader(new URL("https://www.yandex.ru/").openConnection().getInputStream()));
+                return true;
+            } catch (IOException ignored) {
+            }
+
+            try {
+                new BufferedReader(new InputStreamReader(new URL("https://mail.ru/").openConnection().getInputStream()));
+                return true;
+            } catch (IOException ignored) {
+            }
+
+            try {
+                if (i == 0) {
+                    Thread.sleep(6 * 5);
+                }
+            } catch (InterruptedException e) {
+                return false;
+            }
         }
         return false;
     }
-
 
     public String downloadRobot(String site) throws IOException {
         String urlProtocol = null;
@@ -190,8 +195,8 @@ public class Downloader {
     }
 
     private boolean haveProtocol(String url) {
-        boolean res = false;
-        res = (url.matches("^http://[.]*")) || (url.matches("^https://[.]*"));
-        return res;
+        //boolean res = false;
+        //res = (url.matches("^http://[.]*")) || (url.matches("^https://[.]*"));
+        return url.matches("^(https?)://.+");
     }
 }
