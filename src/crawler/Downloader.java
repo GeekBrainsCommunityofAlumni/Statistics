@@ -11,18 +11,9 @@ import java.util.concurrent.TimeUnit;
 import java.util.zip.GZIPInputStream;
 
 public class Downloader {
-    public static void main(String[] args) { //Метод для тестирования класса
-//        try {
-//            Downloader downloader = new Downloader();
-//            String url = "https://news.mail.ru/";
-//            String s = downloader.downloadRobot(url);
-//            System.out.println(s);
-//            FileOutputStream fis = new FileOutputStream("1.xml");
-//            fis.write(s.getBytes());
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-    }
+//    public static void main(String[] args) { //Метод для тестирования класса
+//
+//    }
 
     public String download(String urlProtocol) throws UnknownHostException {
         UnknownHostException e = new UnknownHostException();
@@ -71,45 +62,6 @@ public class Downloader {
                 return null;
             }
         }
-//        String result = null;
-//        if (isItGzArchiveLink(urlProtocol)) {
-//            result = downloadGzipFile(urlProtocol);
-//        } else {
-//
-//            URL urlAddress = null;
-//            StringBuilder stringBuilder = new StringBuilder();
-//
-//            try {
-//                urlAddress = new URL(urlProtocol);
-//            } catch (MalformedURLException malformedURLException) {
-//        }
-//
-//            try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlAddress.openConnection().getInputStream()))) {
-//                int i;
-//                while ((i = bufferedReader.read()) != -1) {
-//                    stringBuilder.append((char) i);
-//                }
-//                bufferedReader.close();
-//            } catch (FileNotFoundException fileException) {
-//
-//                //throw new IOException(PAGE_NOT_FOUND);
-//            } catch (UnknownHostException hostException) {
-//                if (isReachable()) {
-//                    System.out.println("throw new IOException(SITE_NOT_FOUND);");
-//                    throw new IOException(SITE_NOT_FOUND);
-//                } else {
-//                    System.out.println("throw new IOException(INTERNET_CONNECTION_LOST);");
-//                    throw new IOException(INTERNET_CONNECTION_LOST);
-//                }
-//            } catch (IOException ioException) {
-//                System.out.println("throw new IOException(UNIDENTIFIED_ERROR);");
-//                throw new IOException(UNIDENTIFIED_ERROR);
-//            }
-//            result = stringBuilder.toString();
-//            System.out.println(result);
-//        }
-//
-//        return result;
     }
 
     private boolean isItGzArchiveLink(String url) {
@@ -148,30 +100,11 @@ public class Downloader {
     }
 
     public String downloadRobot(String site) throws UnknownHostException {
-        if (site.endsWith("/")){
-            site = site.substring(0,site.length()-1);
+        if (site.endsWith("/")) {
+            site = site.substring(0, site.length() - 1);
         }
         return download(site + "/robots.txt");
     }
-
-//    public String downloadRobot(String site) throws IOException {
-//        String urlProtocol = null;
-//        //Выполняем проверку на наличие протокола в URL и если нет добавляем.
-//
-//        if (!haveProtocol(site)) {
-//            urlProtocol = "http://" + site;
-//        } else {
-//            urlProtocol = site;
-//        }
-//        String robotTxt;
-//        System.out.println("Адрес сайта robots.txt: " + urlProtocol + "/robots.txt");
-//        robotTxt = download(urlProtocol + "/robots.txt");
-//        if (robotTxt.contains("301 Moved Permanently")) {
-//            String httpsURLSite = "https://" + site;
-//            robotTxt = download(httpsURLSite + "/robots.txt");
-//        }
-//        return robotTxt;
-//    }
 
     public String downloadSiteMap(String urlProtocol) throws UnknownHostException {
         return download(urlProtocol);
@@ -194,33 +127,7 @@ public class Downloader {
         }
     }
 
-//    private static String downloadGzipFile(String url) throws IOException {
-//        URL urlAddress = new URL(url);
-//        InputStream is = urlAddress.openConnection().getInputStream();
-//        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-//        int bytes;
-//        while ((bytes = is.read()) != -1) {
-//            baos.write(bytes);
-//        }
-//        baos.flush();
-//        InputStream isToGzip = new ByteArrayInputStream(baos.toByteArray());
-//
-//        GZIPInputStream gzis = new GZIPInputStream(isToGzip);
-//
-//
-//        StringBuilder stringBuilder = new StringBuilder();
-//        InputStreamReader reader = new InputStreamReader(gzis);
-//        BufferedReader in = new BufferedReader(reader);
-//        String readed;
-//        while ((readed = in.readLine()) != null) {
-//            stringBuilder.append(readed);
-//        }
-//        return stringBuilder.toString();
-//    }
-
     private boolean haveProtocol(String url) {
-        //boolean res = false;
-        //res = (url.matches("^http://[.]*")) || (url.matches("^https://[.]*"));
         return url.matches("^(https?)://.+");
     }
 }
