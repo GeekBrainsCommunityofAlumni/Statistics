@@ -82,4 +82,11 @@ public class Parser {
         }
         return urlPages;
     }
+    //TODO получаем все ссылки из html. реализовать ввиде отдельного метода.
+    //        Document html = Jsoup.parse(new HtmlSourceRepository().getSource());
+    //        for (Element element : html.select("a")) {
+    //        if (element.attr("abs:href") != "") {
+    //            System.out.println(element.attr("abs:href"));
+    //        }
+    //    }
 }
