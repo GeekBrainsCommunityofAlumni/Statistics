@@ -54,10 +54,11 @@ public class Downloader {
                 return result;
             } catch (UnknownHostException e1) {
                 e = e1;
-                if (isReachable())
+                if (isReachable()) {
                     throw e; // while site not found
-                else
+                } else {
                     return null; // while Internet connection lost null
+                }
             }
         } catch (Exception e2) {
             if (e2.getClass().toString().equals("class java.net.UnknownHostException")) {
