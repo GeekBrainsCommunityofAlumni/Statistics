@@ -150,24 +150,33 @@ public class Downloader {
         return false;
     }
 
-    public String downloadRobot(String site) throws IOException {
-        String urlProtocol = null;
-        //Выполняем проверку на наличие протокола в URL и если нет добавляем.
 
-        if (!haveProtocol(site)) {
-            urlProtocol = "http://" + site;
-        } else {
-            urlProtocol = site;
+    public String downloadRobot(String site) throws IOException {
+        if (site.endsWith("/")){
+            site = site.substring(0,site.length()-1);
         }
-        String robotTxt;
-        System.out.println("Адрес сайта robots.txt: " + urlProtocol + "/robots.txt");
-        robotTxt = download(urlProtocol + "/robots.txt");
-        if (robotTxt.contains("301 Moved Permanently")) {
-            String httpsURLSite = "https://" + site;
-            robotTxt = download(httpsURLSite + "/robots.txt");
-        }
-        return robotTxt;
+        return download(site + "/robots.txt");
     }
+
+
+//    public String downloadRobot(String site) throws IOException {
+//        String urlProtocol = null;
+//        //Выполняем проверку на наличие протокола в URL и если нет добавляем.
+//
+//        if (!haveProtocol(site)) {
+//            urlProtocol = "http://" + site;
+//        } else {
+//            urlProtocol = site;
+//        }
+//        String robotTxt;
+//        System.out.println("Адрес сайта robots.txt: " + urlProtocol + "/robots.txt");
+//        robotTxt = download(urlProtocol + "/robots.txt");
+//        if (robotTxt.contains("301 Moved Permanently")) {
+//            String httpsURLSite = "https://" + site;
+//            robotTxt = download(httpsURLSite + "/robots.txt");
+//        }
+//        return robotTxt;
+//    }
 
     public String downloadSiteMap(String urlProtocol) throws UnknownHostException {
         return download(urlProtocol);
@@ -175,12 +184,6 @@ public class Downloader {
 
     private static String downloadGzipFile1(byte[] bytes) {
         try {
-
-//            InputStream isToGzip = new ByteArrayInputStream(baos.toByteArray());
-//
-//            GZIPInputStream gzis = new GZIPInputStream(isToGzip);
-
-
             InputStream isToGzip = new ByteArrayInputStream(bytes);
             GZIPInputStream gzis = new GZIPInputStream(isToGzip);
             BufferedReader in = new BufferedReader(new InputStreamReader(gzis));
@@ -195,7 +198,6 @@ public class Downloader {
             return null;
         }
     }
-
 
 //    private static String downloadGzipFile(String url) throws IOException {
 //        URL urlAddress = new URL(url);
