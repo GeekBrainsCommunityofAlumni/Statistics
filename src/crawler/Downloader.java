@@ -11,20 +11,17 @@ import java.util.concurrent.TimeUnit;
 import java.util.zip.GZIPInputStream;
 
 public class Downloader {
-    public static final String PAGE_NOT_FOUND = "Page not found";
-    public static final String SITE_MAP_NOT_FOUND = "Site map not found";
-
     public static void main(String[] args) { //Метод для тестирования класса
-        try {
-            Downloader downloader = new Downloader();
-            String url = "https://news.mail.ru/sitemap_1493704618.xml.gz";
-            String s = downloader.download(url);
-            System.out.println(s);
-            FileOutputStream fis = new FileOutputStream("1.xml");
-            fis.write(s.getBytes());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+//        try {
+//            Downloader downloader = new Downloader();
+//            String url = "https://news.mail.ru/";
+//            String s = downloader.downloadRobot(url);
+//            System.out.println(s);
+//            FileOutputStream fis = new FileOutputStream("1.xml");
+//            fis.write(s.getBytes());
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
     }
 
     public String download(String urlProtocol) throws UnknownHostException {
@@ -150,14 +147,12 @@ public class Downloader {
         return false;
     }
 
-
-    public String downloadRobot(String site) throws IOException {
+    public String downloadRobot(String site) throws UnknownHostException {
         if (site.endsWith("/")){
             site = site.substring(0,site.length()-1);
         }
         return download(site + "/robots.txt");
     }
-
 
 //    public String downloadRobot(String site) throws IOException {
 //        String urlProtocol = null;
