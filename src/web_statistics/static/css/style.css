@@ -104,3 +104,8 @@
 #user {
     margin-left: 15px;
 }
+
+#social-large:hover a {
+	color: white;
+	transition: all .3s ease;
+}
