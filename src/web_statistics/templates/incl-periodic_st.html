@@ -108,7 +108,7 @@
         <th>Упоминания</th>
       </tr>
     </thead>
-    <tbody>
+     <tbody>
     {% if persons %}
         {% for person in persons %}
     {% for site in sites %}
@@ -123,7 +123,11 @@
                 {% endfor %}
             </td>
             <td>
-                select sum(rank) blabla join
+                {% for rank in person_ranks %}
+                    {% if rank.person_id_id == person.id and rank.page_id_id == site.id %}
+                        {{ rank.rank }}
+                    {% endif %}
+                {% endfor %}
             </td>
           </tr>
     {% endfor %}
