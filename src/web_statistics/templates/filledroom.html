@@ -9,7 +9,13 @@
                 <h4>Добро пожаловать, {{user.first_name}}!
                     <small>Ваш последний визит был {{user.last_login}}</small>
                 </h4>
-                <p><a class="btn btn-success btn-sm" href="/myadmin/">Настройки</a></p>
+                <p>
+                    <a href="/myadmin/">
+                        <button class="btn btn-success btn-sm" type="submit">
+                             Настройки <i class="fa fa-cogs" aria-hidden="true"></i>
+                        </button>
+                    </a>
+                </p>
                 <br>
 
                 <table class="table table-condensed">

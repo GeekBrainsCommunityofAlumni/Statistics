@@ -41,7 +41,9 @@
 
     <form method="post" class="logout" action="/user/logout/">
         {% csrf_token %}
-        <input class="btn btn-primary btn-sm" type="submit" value="Выйти"> </input>
+        <button class="btn btn-primary btn-sm" type="submit" value="Выйти">
+            <i class="fa fa-sign-out" aria-hidden="true"></i> Выйти
+        </button>
     </form>
 
     {% block content %}

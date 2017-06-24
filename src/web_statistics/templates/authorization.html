@@ -41,7 +41,9 @@
 
     <form method="post" class="logout" action="/user/logout/">
         {% csrf_token %}
-        <input class="btn btn-primary btn-sm" type="submit" value="Выйти">
+        <button class="btn btn-primary btn-sm" type="submit" value="Выйти">
+            <i class="fa fa-sign-out" aria-hidden="true"></i> Выйти
+        </button>
     </form>
     <div class="thumbnail" id="user">
         <img src="{% static '/img/unknown.png' %}" alt="You">
@@ -75,8 +77,12 @@
                         <input type="checkbox" value="remember-me"> Запомнить меня
                     </label>
                 </div>
-                <button class="btn btn-success btn-block" type="submit">Войти</button>
-                <a class="btn btn-danger btn-block" role="button" href="/registration/">Зарегистрироваться</a>
+                <button class="btn btn-success btn-block" type="submit">
+                    <i class="fa fa-sign-in" aria-hidden="true"></i> Войти
+                </button>
+                <a class="btn btn-danger btn-block" role="button" href="/registration/">
+                    <i class="fa fa-plus-square" aria-hidden="true"></i> Зарегистрироваться
+                </a>
             </form>
         </div>
     </div>
