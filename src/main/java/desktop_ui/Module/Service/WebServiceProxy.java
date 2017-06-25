@@ -4,6 +4,7 @@
 
 package desktop_ui.Module.Service;
 
+import desktop_ui.Model.Dto.RestResponse.CommonStatisticResultDto;
 import desktop_ui.Model.Dto.RestResponse.PersonDto;
 import desktop_ui.Model.Dto.RestResponse.SiteDto;
 import desktop_ui.Module.Entity.RestApiMethod;
@@ -104,6 +105,28 @@ public class WebServiceProxy
         HttpEntity<String> entity = new HttpEntity<>("parameters", headers);
 
         ResponseEntity<PersonDto> response = restTemplate.exchange(uri, HttpMethod.GET, entity, PersonDto.class, params);
+        return response.getBody();
+    }
+
+    /**
+     * Возвращает общую статистику по сайту
+     *
+     * @param siteId
+     *
+     * @return CommonStatisticResultDto[]
+     */
+    public CommonStatisticResultDto[] getCommonStatistic(int siteId)
+    {
+        String uri = BASE_URI + RestApiMethod.COMMON_SITE_STAT_PATH;
+
+        Map<String, Integer> params = new HashMap<>();
+        params.put("siteId", siteId);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
+        HttpEntity<String> entity = new HttpEntity<>("parameters", headers);
+
+        ResponseEntity<CommonStatisticResultDto[]> response = restTemplate.exchange(uri, HttpMethod.GET, entity, CommonStatisticResultDto[].class, params);
         return response.getBody();
     }
 }
