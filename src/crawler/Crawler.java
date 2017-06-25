@@ -52,6 +52,7 @@ public class Crawler {
             System.out.println("Заданий в crawlerTaskRepository - " + crawlerTaskRepository.size());
 
             ArrayList<CrawlerThread> crawlerThreadArrayList = new ArrayList<>();
+            crawlerThreadArrayList.clear();
 
             for (int i = 0; i < NUMBEROFTHREAD; i++) {
                 crawlerThreadArrayList.add(new CrawlerThread(crawlerTaskRepository, "thread__" + i));
@@ -103,6 +104,7 @@ public class Crawler {
                 }
             }
             System.out.println("Поток завершен");
+            this.interrupt();
         }
     }
 
