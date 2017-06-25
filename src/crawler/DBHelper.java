@@ -294,23 +294,37 @@ public class DBHelper {
         return resultingArrayList;
     }
 
-    public String getNewSite() { //Для многопоточности. Возвращает URL одного сайта для которого нет НИ ОДНОЙ строки в таблице Pages
-        String result = "";
+    public synchronized String getNewSite() { //Для многопоточности. Возвращает URL одного сайта для которого нет НИ ОДНОЙ строки в таблице Pages и он не заблокирован для выдачи
+        String nameOfSite = "";
         try {
             statement = connectionToDB.createStatement();
-            resultSet = statement.executeQuery("SELECT name FROM sites WHERE id NOT IN (SELECT siteid FROM pages) ORDER BY RAND() LIMIT 1;");
-            if(resultSet.next()) {
-                result = resultSet.getString(1);
-            }
-            sleep(1000);
-        } catch (SQLException | InterruptedException e) {
+            resultSet = statement.executeQuery("SELECT name FROM sites WHERE (   (id NOT IN (SELECT siteid FROM pages)) AND (isblocked = 0)   ) LIMIT 1;");
+            if (resultSet.next()) {
+                nameOfSite = resultSet.getString(1);
+                blockSite(nameOfSite);
+                return nameOfSite;
+            } else return null;
+        } catch (SQLException e) {
             e.printStackTrace();
         }
+        return null;
+    }
 
-        if (result.length() > 0) {
-            return result;
-        } else {
-            return null;
+    public void blockSite(String nameOfSite) {
+        try {
+            statement = connectionToDB.createStatement();
+            statement.executeUpdate("UPDATE sites SET isblocked = 1 WHERE name = '" + nameOfSite + "';");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void unBlockSite(String nameOfSite) {
+        try {
+            statement = connectionToDB.createStatement();
+            statement.executeUpdate("UPDATE sites SET isblocked = 0 WHERE name = '" + nameOfSite + "';");
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 
