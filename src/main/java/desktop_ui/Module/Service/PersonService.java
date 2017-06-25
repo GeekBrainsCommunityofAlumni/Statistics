@@ -13,7 +13,7 @@ import javafx.collections.ObservableList;
  */
 public class PersonService
 {
-    private RestWebService restWebService = new RestWebService();
+    private WebServiceProxy webServiceProxy = new WebServiceProxy();
 
     /**
      * Возвращает список с названиями доступных сайтов
@@ -24,7 +24,7 @@ public class PersonService
     {
         ObservableList<String> persons = FXCollections.observableArrayList();
 
-        for (PersonDto person: this.restWebService.getPersons()) {
+        for (PersonDto person: this.webServiceProxy.getPersons()) {
             //TODO добавить индексы
             persons.add(person.getName());
         }

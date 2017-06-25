@@ -18,7 +18,7 @@ import java.util.Map;
  *
  * TODO сделать обработку ошибок и ответов от сервиса с кодами 4хх и 5хх
  */
-public class RestWebService
+public class WebServiceProxy
 {
     // TODO вынести в конфиг
     final String BASE_URI = "http://94.130.27.143:8080/api";
