@@ -6,7 +6,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="430.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <TextField fx:id="personNameField" layoutX="132.0" layoutY="26.0" prefHeight="25.0" prefWidth="305.0" AnchorPane.leftAnchor="115.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="20.0" />
+      <TextField fx:id="nameField" layoutX="132.0" layoutY="26.0" prefHeight="25.0" prefWidth="305.0" AnchorPane.leftAnchor="115.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="20.0" />
       <Label layoutX="30.0" layoutY="30.0" text="Наименование" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="20.0" />
       <Label fx:id="errorLabel" layoutX="115.0" layoutY="53.0" text="Поле не может быть пустым" textFill="RED" visible="false" AnchorPane.leftAnchor="115.0" AnchorPane.topAnchor="50.0">
          <font>

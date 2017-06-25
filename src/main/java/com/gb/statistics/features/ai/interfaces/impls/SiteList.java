@@ -1,6 +1,7 @@
 package com.gb.statistics.features.ai.interfaces.impls;
 
-import com.gb.statistics.features.ai.interfaces.SiteListInterface;
+import com.gb.statistics.features.ai.interfaces.ListInterface;
+import com.gb.statistics.features.ai.model.ModelListData;
 import com.gb.statistics.features.ai.model.Person;
 import com.gb.statistics.features.ai.model.Site;
 import javafx.beans.Observable;
@@ -13,52 +14,52 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
-
 import java.util.List;
 
-public class SiteList implements SiteListInterface {
+public class SiteList implements ListInterface {
 
-    private String URL = "http://94.130.27.143:8080/api";
-
-    private ObservableList<Site> siteList;
+    private ObservableList<ModelListData> siteList;
     private RestTemplate template = new RestTemplate();
     private HttpHeaders headers;
+    private String URL;
 
-    public SiteList() {
-        Callback<Site, Observable[]> extractor = s -> new Observable[] {s.getNameProperty()};
+    public SiteList(String url) {
+        this.URL = url;
+        Callback<ModelListData, Observable[]> extractor = s -> new Observable[] {s.getNameProperty()};
         siteList = FXCollections.observableArrayList(extractor);
         template.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
         headers = new HttpHeaders();
         headers.set("Content-Type", "application/json;charset=UTF-8");
     }
 
-    public void refreshSiteList() {
+    public void refreshList() {
         ResponseEntity<List<Site>> rateResponse = template.exchange(URL + "/site", HttpMethod.GET, null, new ParameterizedTypeReference<List<Site>>() {
         });
         siteList.clear();
         siteList.setAll(rateResponse.getBody());
     }
 
-    public boolean addSite(Site site) {
+    public boolean add(ModelListData site) {
         template.postForObject(URL + "/site", new HttpEntity<>(site, headers), Person.class);
-        refreshSiteList();
+        refreshList();
         return true;
     }
 
-    public boolean updateSite(Site site) {
+    public boolean update(ModelListData site) {
         template.put(URL + "/site", new HttpEntity<>(site, headers), Person.class);
-        refreshSiteList();
+        refreshList();
         return false;
     }
 
-    public boolean deleteSite(Site site) {
+    public boolean delete(ModelListData site) {
         template.delete(URL + "/site/" + site.getId());
-        refreshSiteList();
+        refreshList();
         return true;
     }
 
-    public ObservableList<Site> getSiteList() {
+    public ObservableList<ModelListData> getList() {
         return siteList;
     }
 }

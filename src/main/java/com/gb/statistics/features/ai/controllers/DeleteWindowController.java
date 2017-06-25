@@ -1,9 +1,7 @@
 package com.gb.statistics.features.ai.controllers;
 
-import com.gb.statistics.features.ai.interfaces.KeyWordsInterface;
 import com.gb.statistics.features.ai.interfaces.ModalControllerInterface;
-import com.gb.statistics.features.ai.interfaces.PersonListInterface;
-import com.gb.statistics.features.ai.interfaces.SiteListInterface;
+import com.gb.statistics.features.ai.interfaces.ListInterface;
 import com.gb.statistics.features.ai.model.KeyWord;
 import com.gb.statistics.features.ai.model.Person;
 import com.gb.statistics.features.ai.model.Site;
@@ -15,53 +13,52 @@ import javafx.stage.Stage;
 
 public class DeleteWindowController implements ModalControllerInterface {
 
-    private PersonListInterface personList;
+    private ListInterface personList;
     private Person person;
-    private KeyWordsInterface keyWordList;
+    private ListInterface keyWordList;
     private KeyWord keyWord;
-    private SiteListInterface siteList;
+    private ListInterface siteList;
     private Site site;
     private ListController currentController;
 
     @FXML
-    private Label personNameLabel;
+    private Label nameLabel;
 
     public void setPerson(Person person, ListController controller) {
         this.person = person;
         this.currentController = controller;
-        personNameLabel.setText(person.getName());
+        nameLabel.setText(person.getName());
     }
 
     public void setKeyWord(KeyWord keyWord, ListController controller) {
         this.keyWord = keyWord;
         this.currentController = controller;
-        personNameLabel.setText(keyWord.getName());
+        nameLabel.setText(keyWord.getName());
     }
 
     public void setSite(Site site, ListController controller) {
         this.site = site;
         this.currentController = controller;
-        personNameLabel.setText(site.getName());
+        nameLabel.setText(site.getName());
     }
 
-    public void setPersonList(PersonListInterface personList) {
+    public void setPersonList(ListInterface personList) {
         this.personList = personList;
     }
 
-    public void setSiteList(SiteListInterface siteList) {
+    public void setSiteList(ListInterface siteList) {
         this.siteList = siteList;
     }
 
-    public void setKeyWordList(KeyWordsInterface keyWordList) {
+    public void setKeyWordList(ListInterface keyWordList) {
         this.keyWordList = keyWordList;
     }
 
     @FXML
     private void actionDelete(ActionEvent actionEvent) {
-        System.out.println(currentController instanceof PersonListController);
-        if (currentController instanceof PersonListController) personList.deletePerson(person);
-        else if (currentController instanceof KeyWordsListController) keyWordList.deleteKeyWord(keyWord);
-        else if (currentController instanceof SiteListController) siteList.deleteSite(site);
+        if (currentController instanceof PersonListController) personList.delete(person);
+        else if (currentController instanceof KeyWordsListController) keyWordList.delete(keyWord);
+        else if (currentController instanceof SiteListController) siteList.delete(site);
         actionClose(actionEvent);
     }
 

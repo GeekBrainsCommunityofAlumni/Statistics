@@ -15,16 +15,16 @@ public class StartApplication extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("/fxml/rootTabPane.fxml"));
-        Parent main = loader.load();
-        RootFrameController rootFrameController = loader.getController();
-        rootFrameController.setMainStage(primaryStage);
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/fxml/rootTabPane.fxml"));
+            Parent main = loader.load();
+            RootFrameController rootFrameController = loader.getController();
+            rootFrameController.setMainStage(primaryStage);
 
-        primaryStage.setTitle("Панель администрирования");
-        primaryStage.setMinWidth(600);
-        primaryStage.setMinHeight(600);
-        primaryStage.setScene(new Scene(main, 300, 300));
-        primaryStage.show();
+            primaryStage.setTitle("Панель администрирования");
+            primaryStage.setMinWidth(600);
+            primaryStage.setMinHeight(600);
+            primaryStage.setScene(new Scene(main, 300, 300));
+            primaryStage.show();
     }
 }
