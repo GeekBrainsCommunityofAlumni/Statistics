@@ -40,30 +40,33 @@ public class Crawler {
         }
 
         //TODO завернуть в while до тех пор пока не кончаться page в базе для сканирования.
-        pagesIDForScan = dbHelper.getPagesIDWithoutScanDate(); //TODO Использовать метод который возвращает определенное количество Page для многоэкземплярного режима.
-        for (int pageID : pagesIDForScan) {
-            CrawlerTask crawlerTask = new CrawlerTask();
-            crawlerTask.addPageForScanning(new PageForScanning(pageID, dbHelper.getUrlPageViaID(pageID)));
-            crawlerTask.addPersonList(personArrayList);
-            crawlerTaskRepository.addTask(crawlerTask);
-        }
+        while ((pagesIDForScan = dbHelper.getSeveralIdOfPages(100)) != null) {
+            //pagesIDForScan = dbHelper.getPagesIDWithoutScanDate(); //TODO Использовать метод который возвращает определенное количество Page для многоэкземплярного режима.
+            for (int pageID : pagesIDForScan) {
+                CrawlerTask crawlerTask = new CrawlerTask();
+                crawlerTask.addPageForScanning(new PageForScanning(pageID, dbHelper.getUrlPageViaID(pageID)));
+                crawlerTask.addPersonList(personArrayList);
+                crawlerTaskRepository.addTask(crawlerTask);
+            }
 
-        System.out.println("Заданий в crawlerTaskRepository - " + crawlerTaskRepository.size());
+            System.out.println("Заданий в crawlerTaskRepository - " + crawlerTaskRepository.size());
 
-        ArrayList<CrawlerThread> crawlerThreadArrayList = new ArrayList<>();
+            ArrayList<CrawlerThread> crawlerThreadArrayList = new ArrayList<>();
 
-        for (int i = 0; i < NUMBEROFTHREAD; i++) {
-            crawlerThreadArrayList.add(new CrawlerThread(crawlerTaskRepository, "thread__" + i));
-        }
+            for (int i = 0; i < NUMBEROFTHREAD; i++) {
+                crawlerThreadArrayList.add(new CrawlerThread(crawlerTaskRepository, "thread__" + i));
+            }
 
-        for (CrawlerThread crawlerThread : crawlerThreadArrayList) {
-            crawlerThread.start();
-        }
+            for (CrawlerThread crawlerThread : crawlerThreadArrayList) {
+                crawlerThread.start();
+            }
 
-        for (CrawlerThread crawlerThread : crawlerThreadArrayList) {
-            crawlerThread.join();
+            for (CrawlerThread crawlerThread : crawlerThreadArrayList) {
+                crawlerThread.join();
+            }
         }
     }
+
 
     static class CrawlerThread extends Thread {
         CrawlerTaskRepository crawlerTaskRepository;
