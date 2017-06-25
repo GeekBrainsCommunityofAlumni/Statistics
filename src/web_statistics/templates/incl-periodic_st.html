@@ -24,7 +24,7 @@
                     <option value="unknown">Не выбрано</option>
                     {% if sites %}
                         {% for site in sites %}
-                            <option value="#">
+                            <option value="{{ site.id }}">
                                 {{ site.name }}
                             </option>
                         {% endfor %}
@@ -45,7 +45,7 @@
                     <option value="unknown">Не выбрано</option>
                     {% if persons %}
                         {% for person in persons %}
-                            <option value="#">
+                            <option value="{{ person.id }}">
                                 {{ person.name }}
                             </option>
                         {% endfor %}
