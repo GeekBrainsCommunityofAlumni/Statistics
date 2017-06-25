@@ -314,7 +314,7 @@ public class DBHelper {
         }
     }
 
-    public ArrayList<Integer> getSeveralIdOfPages(int quantity) {
+    public synchronized ArrayList<Integer> getSeveralIdOfPages(int quantity) {
         //Для многоэкземплярности. Возвращает требуемое количество id страниц, которые не просканированы или просканированы больше 24 ч назад, из таблицы pages
         try {
             if (quantity > 0) {
