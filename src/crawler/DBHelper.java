@@ -314,33 +314,32 @@ public class DBHelper {
         }
     }
 
-    public ArrayList<String> getSeveralUrlOfPages(int siteID, int quantity) {
-        //Для многоэкземплярности. Возвращает требуемое количество URL страниц, которые не просканированы или просканированы больше 24 ч назад, из таблицы pages
+    public ArrayList<Integer> getSeveralIdOfPages(int quantity) {
+        //Для многоэкземплярности. Возвращает требуемое количество id страниц, которые не просканированы или просканированы больше 24 ч назад, из таблицы pages
         try {
-            if (existSiteID(siteID)) {
-                ArrayList<String> resultingArrayList = new ArrayList<>();
+            if (quantity > 0) {
                 ArrayList<Integer> pagesIDArrayList = new ArrayList<>();
 
-                    String sqlDateTimeMinus24Hours = "DATE_ADD(NOW(), INTERVAL -24 HOUR)";
-                    statement = connectionToDB.createStatement();
-                    resultSet = statement.executeQuery("SELECT url, id FROM pages WHERE (  (siteid = " + siteID + ") AND ((lastscandate IS NULL) OR (lastscandate < " + sqlDateTimeMinus24Hours + "))  ) LIMIT " + quantity + ";");
-                    while (resultSet.next()) {
-                        resultingArrayList.add(resultSet.getString(1));
-                        pagesIDArrayList.add(resultSet.getInt(2));
-                    }
+                String sqlDateTimeMinus24Hours = "DATE_ADD(NOW(), INTERVAL -24 HOUR)";
+                statement = connectionToDB.createStatement();
+                resultSet = statement.executeQuery("SELECT id FROM pages WHERE ((lastscandate IS NULL) OR (lastscandate < " + sqlDateTimeMinus24Hours + ")) LIMIT " + quantity + ";");
+                while (resultSet.next()) {
+                    pagesIDArrayList.add(resultSet.getInt(1));
+                }
 
-                if (resultingArrayList.size() > 0) {
+                if (pagesIDArrayList.size() > 0) {
                     setLastScanDate23HoursAgo(pagesIDArrayList);
-                    return resultingArrayList;
+                    return pagesIDArrayList;
                 } else {
                     return null;
                 }
             } else {
-                throw new SQLException("Ошибка: неправильный siteID передан через метод dbHelper.getSeveralUrlOfPages(), вызываемый в краулере.");
+                throw new SQLException ("Неправильное quantity передано в метод dbHelper.getSeveralIdOfPages, вызываемый в краулере.");
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
         return null;
     }
 
