@@ -1,6 +1,7 @@
 package com.gb.statistics.features.ai.interfaces.impls;
 
-import com.gb.statistics.features.ai.interfaces.PersonListInterface;
+import com.gb.statistics.features.ai.interfaces.ListInterface;
+import com.gb.statistics.features.ai.model.ModelListData;
 import com.gb.statistics.features.ai.model.Person;
 import javafx.beans.Observable;
 import javafx.collections.FXCollections;
@@ -12,48 +13,49 @@ import org.springframework.http.converter.json.MappingJackson2HttpMessageConvert
 import org.springframework.web.client.RestTemplate;
 import java.util.List;
 
-public class PersonList implements PersonListInterface {
+public class PersonList implements ListInterface {
 
-    private String URL = "http://94.130.27.143:8080/api";
-
-    private ObservableList<Person> personList;
+    private ObservableList<ModelListData> personList;
     private RestTemplate template = new RestTemplate();
     private HttpHeaders headers;
+    private String URL;
 
-    public PersonList() {
-        Callback<Person, Observable[]> extractor = s -> new Observable[] {s.getNameProperty()};
+    public PersonList(String url) {
+        this.URL = url;
+        Callback<ModelListData, Observable[]> extractor = s -> new Observable[] {s.getNameProperty()};
         personList = FXCollections.observableArrayList(extractor);
         template.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
         headers = new HttpHeaders();
         headers.set("Content-Type", "application/json;charset=UTF-8");
     }
 
-    public void refreshPersonList() {
+    public void refreshList() {
         ResponseEntity<List<Person>> rateResponse = template.exchange(URL + "/person", HttpMethod.GET, null, new ParameterizedTypeReference<List<Person>>() {
         });
         personList.clear();
         personList.setAll(rateResponse.getBody());
     }
 
-    public boolean addPerson(Person person) {
+    public boolean add(ModelListData person) {
         template.postForObject(URL + "/person", new HttpEntity<>(person, headers), Person.class);
-        refreshPersonList();
+        refreshList();
         return true;
     }
 
-    public boolean updatePerson(Person person) {
+    public boolean update(ModelListData person) {
+        System.out.println("Update " + person.getName());
         template.put(URL + "/person", new HttpEntity<>(person, headers), Person.class);
-        refreshPersonList();
+        refreshList();
         return false;
     }
 
-    public boolean deletePerson(Person person) {
+    public boolean delete(ModelListData person) {
         template.delete(URL + "/person/" + person.getId());
-        refreshPersonList();
+        refreshList();
         return true;
     }
 
-    public ObservableList<Person> getPersonList() {
+    public ObservableList<ModelListData> getList() {
         return personList;
     }
 }

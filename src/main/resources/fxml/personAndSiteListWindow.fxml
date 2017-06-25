@@ -4,12 +4,11 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
-<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="585.0" prefWidth="402.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <TableView fx:id="personTableView" layoutX="23.0" layoutY="61.0" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="125.0">
+      <TableView fx:id="dataTableView" layoutX="23.0" layoutY="61.0" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="125.0">
         <columns>
-          <TableColumn fx:id="columnPersonName" prefWidth="158.0" text="Наименование" />
+          <TableColumn fx:id="columnName" prefWidth="158.0" text="Наименование" />
         </columns>
          <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -22,15 +21,17 @@
          </font>
       </Label>
       <Label layoutX="14.0" layoutY="47.0" text="Всего записей: " AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="50.0" />
-      <Label fx:id="personListCount" layoutX="98.0" layoutY="47.0" text="0" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="50.0" />
+      <Label fx:id="listCount" layoutX="98.0" layoutY="47.0" text="0" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="50.0" />
       <Label layoutX="261.0" layoutY="47.0" text="Показывать по" AnchorPane.rightAnchor="75.0" AnchorPane.topAnchor="50.0" />
-      <HBox layoutX="45.0" layoutY="9.0" prefHeight="30.0" prefWidth="239.0" spacing="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="90.0">
+      <HBox layoutX="45.0" layoutY="9.0" prefHeight="30.0" prefWidth="360.0" spacing="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="90.0">
          <children>
             <Button mnemonicParsing="false" onAction="#actionButtonAdd" prefWidth="70.0" text="Добавить" />
             <Button fx:id="editButton" mnemonicParsing="false" onAction="#actionButtonEdit" prefWidth="70.0" text="Изменить" />
             <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#actionButtonDelete" prefWidth="70.0" text="Удалить" />
+            <Button fx:id="refreshButton" mnemonicParsing="false" onAction="#actionButtonRefresh" text="Обновить список" />
          </children>
       </HBox>
       <Pagination layoutX="10.0" layoutY="551.0" pageCount="20" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+      <Label fx:id="errorMessage" layoutX="353.0" layoutY="14.0" textFill="RED" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
    </children>
 </AnchorPane>

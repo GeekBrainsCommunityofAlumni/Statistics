@@ -15,53 +15,56 @@ import javafx.stage.Stage;
 public class EditWindowController implements ModalControllerInterface {
 
     private Person person;
-    private ModelListData keyWord = new KeyWord();
+    private ModelListData keyWord;
     private Site site;
     private ListController currentController;
 
     @FXML
-    private TextField personNameField;
+    private TextField nameField;
 
     @FXML
     private Label errorLabel;
 
     @FXML
     private void initialize() {
-        personNameField.requestFocus();
+        nameField.requestFocus();
     }
 
     public void setPerson(Person person, ListController controller) {
         this.person = person;
         this.currentController = controller;
-        personNameField.setText(person.getName());
+        nameField.setText(person.getName());
     }
 
-    public void setKeyWord(KeyWord keyWord, Person person, ListController controller) {
+    public void setKeyWord(ModelListData keyWord, Person person, ListController controller) {
         this.keyWord = keyWord;
         this.person = person;
         this.currentController = controller;
-        personNameField.setText(keyWord.getName());
+        nameField.setText(keyWord.getName());
     }
 
     public void setSite(Site site, ListController controller) {
         this.site = site;
         this.currentController = controller;
-        personNameField.setText(site.getName());
+        nameField.setText(site.getName());
     }
 
     @FXML
     private void actionSave(ActionEvent actionEvent) {
-        if (nameFieldIsEmpty(personNameField.getText())) {
+        if (nameFieldIsEmpty(nameField.getText())) {
             setVisibleErrorLabel(true);
             return;
         }
         if (currentController instanceof PersonListController) {
-            person.setName(personNameField.getText());
+            System.out.println(nameField.getText());
+            person.setName(nameField.getText());
         } else if (currentController instanceof KeyWordsListController) {
-            keyWord.setName(personNameField.getText());
+            System.out.println(2);
+            keyWord.setName(nameField.getText());
             ((KeyWord)keyWord).setPersonId(person.getId());
         } else if (currentController instanceof SiteListController) {
-            site.setName(personNameField.getText());
+            System.out.println(3);
+            site.setName(nameField.getText());
         }
         actionClose(actionEvent);
     }

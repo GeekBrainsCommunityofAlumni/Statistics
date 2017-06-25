@@ -1,50 +1,36 @@
 package com.gb.statistics.features.ai.controllers;
 
-import com.gb.statistics.features.ai.interfaces.PersonListInterface;
+import com.gb.statistics.features.ai.interfaces.ListInterface;
 import com.gb.statistics.features.ai.interfaces.impls.PersonList;
+import com.gb.statistics.features.ai.model.ModelListData;
 import com.gb.statistics.features.ai.model.Person;
 import com.gb.statistics.features.ai.window.ModalWindow;
 import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.stage.Stage;
+import org.springframework.web.client.HttpClientErrorException;
 
 public class PersonListController extends ListController {
 
-    private PersonListInterface personList;
-
-    @FXML
-    private TableView<Person> dataTableView;
-
-    @FXML
-    private TableColumn<Person, String> columnPersonName;
-
-    @FXML
-    private Label personListCount;
+    private ListInterface personList = new PersonList(URL);
 
     @FXML
     protected void initialize() {
         super.initialize(PERSON_TITLE);
-        personList = new PersonList();
-        columnPersonName.setCellValueFactory(cellData -> cellData.getValue().getNameProperty());
-        dataTableView.setPlaceholder(new Label(EMPTY_LIST_MESSAGE));
-        dataTableView.setItems(personList.getPersonList());
+        dataTableView.setItems(personList.getList());
         initListeners();
         deleteController.setPersonList(personList);
-        setActivityButtons();
+        setActivityButtons(personList);
     }
 
     private void initListeners() {
-        personList.getPersonList().addListener((ListChangeListener<Person>) c -> {
-            updatePersonListCount();
-            setActivityButtons();
+        personList.getList().addListener((ListChangeListener<ModelListData>) c -> {
+            updateListCount(personList);
+            setActivityButtons(personList);
             setFocus();
         });
 
         dataTableView.setOnMouseClicked(event -> {
-            if (event.getClickCount() == CLICK_COUNT && !personList.getPersonList().isEmpty()) {
+            if (event.getClickCount() == CLICK_COUNT && !personList.getList().isEmpty()) {
                 actionButtonEdit();
             }
         });
@@ -52,52 +38,56 @@ public class PersonListController extends ListController {
 
     @FXML
     protected void actionButtonAdd() {
-        addController.setPerson(new Person(), this);
-        if (addWindow == null) addWindow = new ModalWindow(ADD_TITLE, mainStage, parentAdd, MODAL_WIDTH, MODAL_HEIGHT);
-        addWindow.getStage().showAndWait();
-        if (!addController.nameFieldIsEmpty(addController.getPerson().getName())) {
-            personList.addPerson(addController.getPerson());
+        try {
+            addController.setPerson(new Person(), this);
+            if (addWindow == null) addWindow = new ModalWindow(ADD_TITLE, mainStage, parentAdd, MODAL_WIDTH, MODAL_HEIGHT);
+            addWindow.getStage().showAndWait();
+            if (!addController.nameFieldIsEmpty(addController.getPerson().getName())) {
+                personList.add(addController.getPerson());
+            }
+            visibleErrorMessage(false);
+        } catch (HttpClientErrorException e) {
+            setErrorMessage(e.getMessage());
         }
     }
 
     @FXML
     protected void actionButtonEdit() {
-        editController.setPerson(dataTableView.getSelectionModel().getSelectedItem(), this);
-        if (editWindow == null) editWindow = new ModalWindow(EDIT_TITLE, mainStage, parentEdit, MODAL_WIDTH, MODAL_HEIGHT);
-        editWindow.getStage().showAndWait();
-        personList.updatePerson(dataTableView.getSelectionModel().getSelectedItem());
+        try {
+            editController.setPerson((Person) dataTableView.getSelectionModel().getSelectedItem(), this);
+            if (editWindow == null) editWindow = new ModalWindow(EDIT_TITLE, mainStage, parentEdit, MODAL_WIDTH, MODAL_HEIGHT);
+            editWindow.getStage().showAndWait();
+            ModelListData person = editController.getPerson();
+            personList.update(person);
+            visibleErrorMessage(false);
+        } catch (HttpClientErrorException e) {
+            setErrorMessage(e.getMessage());
+        }
     }
 
     @FXML
     protected void actionButtonDelete() {
-        deleteController.setPerson(dataTableView.getSelectionModel().getSelectedItem(), this);
-        if (deleteWindow == null) deleteWindow = new ModalWindow(DELETE_TITLE, mainStage, parentDelete, MODAL_WIDTH, MODAL_HEIGHT);
-        deleteWindow.getStage().showAndWait();
+        try {
+            deleteController.setPerson((Person) dataTableView.getSelectionModel().getSelectedItem(), this);
+            if (deleteWindow == null) deleteWindow = new ModalWindow(DELETE_TITLE, mainStage, parentDelete, MODAL_WIDTH, MODAL_HEIGHT);
+            deleteWindow.getStage().showAndWait();
+            visibleErrorMessage(false);
+        } catch (HttpClientErrorException e) {
+            setErrorMessage(e.getMessage());
+        }
     }
 
-    private void updatePersonListCount() {
-        personListCount.setText(String.valueOf(personList.getPersonList().size()));
+    @FXML
+    protected void actionButtonRefresh() {
+        try {
+            personList.refreshList();
+            visibleErrorMessage(false);
+        } catch (HttpClientErrorException e) {
+            setErrorMessage(e.getMessage());
+        }
     }
 
-    private void setActivityButtons() {
-        if (personList.getPersonList().size() == 0) disableButtons(true);
-        else disableButtons(false);
-    }
-
-    private void disableButtons(boolean value) {
-        editButton.setDisable(value);
-        deleteButton.setDisable(value);
-    }
-
-    private void setFocus() {
-        dataTableView.getSelectionModel().select(0);
-    }
-
-    public void setMainStage(Stage mainStage) {
-        this.mainStage = mainStage;
-    }
-
-    public PersonListInterface getPersonList() {
+    public ListInterface getPersonList() {
         return personList;
     }
 }

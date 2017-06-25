@@ -1,8 +1,7 @@
 package com.gb.statistics.features.ai.controllers;
 
-import com.gb.statistics.features.ai.interfaces.KeyWordsInterface;
 import com.gb.statistics.features.ai.model.ModelListData;
-import com.gb.statistics.features.ai.interfaces.PersonListInterface;
+import com.gb.statistics.features.ai.interfaces.ListInterface;
 import com.gb.statistics.features.ai.interfaces.impls.KeyWordsList;
 import com.gb.statistics.features.ai.model.KeyWord;
 import com.gb.statistics.features.ai.model.Person;
@@ -10,21 +9,15 @@ import com.gb.statistics.features.ai.window.ModalWindow;
 import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.stage.Stage;
+import org.springframework.web.client.HttpClientErrorException;
 
 public class KeyWordsListController extends ListController {
 
-    private PersonListInterface personList;
-    private KeyWordsInterface keyWordsList = new KeyWordsList();
+    private ListInterface personList;
+    private ListInterface keyWordsList = new KeyWordsList(URL);
 
     @FXML
     private ComboBox<Person> comboBoxPerson;
-
-    @FXML
-    private TableColumn<ModelListData, String> columnKeyWordName;
-
-    @FXML
-    private Label keyWordsListCount;
 
     @FXML
     private Button addButton;
@@ -32,9 +25,7 @@ public class KeyWordsListController extends ListController {
     @FXML
     protected void initialize() {
         super.initialize(KEYWORD_TITLE);
-        columnKeyWordName.setCellValueFactory(cellData -> cellData.getValue().getNameProperty());
-
-        dataTableView.setItems(keyWordsList.getKeyWordList());
+        dataTableView.setItems(keyWordsList.getList());
         disableButtons(true);
         addButton.setDisable(true);
         deleteController.setKeyWordList(keyWordsList);
@@ -43,16 +34,16 @@ public class KeyWordsListController extends ListController {
     private void initListeners() {
         comboBoxPerson.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
-                keyWordsList.setPerson(newValue);
-                keyWordsList.refreshKeyWordList();
+                ((KeyWordsList)keyWordsList).setPerson(newValue);
+                keyWordsList.refreshList();
             } else {
                 comboBoxPerson.getSelectionModel().selectFirst();
-                keyWordsList.getKeyWordList().clear();
+                keyWordsList.getList().clear();
             }
         });
 
-        personList.getPersonList().addListener((ListChangeListener<Person>) c -> {
-            if (personList.getPersonList().size() == 0) {
+        personList.getList().addListener((ListChangeListener<Person>) c -> {
+            if (personList.getList().size() == 0) {
                 addButton.setDisable(true);
             } else {
                 addButton.setDisable(false);
@@ -61,78 +52,76 @@ public class KeyWordsListController extends ListController {
         });
     }
 
-    public void setPersonList(PersonListInterface personList) {
+    public void setPersonList(ListInterface personList) {
         this.personList = personList;
         initListeners();
         initComboBox();
 
-        keyWordsList.getKeyWordList().addListener((ListChangeListener<ModelListData>) c -> {
-            updateKeyWordsListCount();
-            setActivityButtons();
+        keyWordsList.getList().addListener((ListChangeListener<ModelListData>) c -> {
+            updateListCount(keyWordsList);
+            setActivityButtons(keyWordsList);
             setFocus();
         });
 
         dataTableView.setOnMouseClicked(event -> {
-            if (event.getClickCount() == CLICK_COUNT && !keyWordsList.getKeyWordList().isEmpty()) {
+            if (event.getClickCount() == CLICK_COUNT && !keyWordsList.getList().isEmpty()) {
                 actionButtonEdit();
             }
         });
     }
 
     private void initComboBox() {
-        comboBoxPerson.setItems(personList.getPersonList());
+        comboBoxPerson.setItems(personList.getList());
         comboBoxPerson.getSelectionModel().selectFirst();
     }
 
     @FXML
     protected void actionButtonAdd() {
-        addController.setKeyWord(new KeyWord(), comboBoxPerson.getValue(), this);
-        if (addWindow == null) addWindow = new ModalWindow(ADD_TITLE, mainStage, parentAdd, MODAL_WIDTH, MODAL_HEIGHT);
-        addWindow.getStage().showAndWait();
-        if (!addController.nameFieldIsEmpty(addController.getKeyWord().getName())) {
-            keyWordsList.addKeyWord(addController.getKeyWord());
+        try {
+            addController.setKeyWord(new KeyWord(), comboBoxPerson.getValue(), this);
+            if (addWindow == null) addWindow = new ModalWindow(ADD_TITLE, mainStage, parentAdd, MODAL_WIDTH, MODAL_HEIGHT);
+            addWindow.getStage().showAndWait();
+            if (!addController.nameFieldIsEmpty(addController.getKeyWord().getName())) {
+                keyWordsList.add(addController.getKeyWord());
+            }
+            visibleErrorMessage(false);
+        } catch (HttpClientErrorException e) {
+            setErrorMessage(e.getMessage());
         }
     }
 
     @FXML
     protected void actionButtonEdit() {
-        editController.setKeyWord((KeyWord) dataTableView.getSelectionModel().getSelectedItem(), comboBoxPerson.getValue(), this);
-        if (editWindow == null) editWindow = new ModalWindow(EDIT_TITLE, mainStage, parentEdit, MODAL_WIDTH, MODAL_HEIGHT);
-        editWindow.getStage().showAndWait();
-        keyWordsList.updateKeyWord(editController.getKeyWord());
+        try {
+            editController.setKeyWord(dataTableView.getSelectionModel().getSelectedItem(), comboBoxPerson.getValue(), this);
+            if (editWindow == null) editWindow = new ModalWindow(EDIT_TITLE, mainStage, parentEdit, MODAL_WIDTH, MODAL_HEIGHT);
+            editWindow.getStage().showAndWait();
+            keyWordsList.update(editController.getKeyWord());
+            visibleErrorMessage(false);
+        } catch (HttpClientErrorException e) {
+            setErrorMessage(e.getMessage());
+        }
     }
 
     @FXML
     protected void actionButtonDelete() {
-        deleteController.setKeyWord((KeyWord) dataTableView.getSelectionModel().getSelectedItem(), this);
-        if (deleteWindow == null) deleteWindow = new ModalWindow(DELETE_TITLE, mainStage, parentDelete, MODAL_WIDTH, MODAL_HEIGHT);
-        deleteWindow.getStage().showAndWait();
+        try {
+            deleteController.setKeyWord((KeyWord) dataTableView.getSelectionModel().getSelectedItem(), this);
+            if (deleteWindow == null) deleteWindow = new ModalWindow(DELETE_TITLE, mainStage, parentDelete, MODAL_WIDTH, MODAL_HEIGHT);
+            deleteWindow.getStage().showAndWait();
+            visibleErrorMessage(false);
+        } catch (HttpClientErrorException e) {
+            setErrorMessage(e.getMessage());
+        }
     }
 
-    @Override
-    public PersonListInterface getPersonList() {
-        return null;
-    }
-
-    private void updateKeyWordsListCount() {
-        keyWordsListCount.setText(String.valueOf(keyWordsList.getKeyWordList().size()));
-    }
-
-    private void setActivityButtons() {
-        if (keyWordsList.getKeyWordList().isEmpty()) disableButtons(true);
-        else disableButtons(false);
-    }
-
-    private void disableButtons(boolean value) {
-        editButton.setDisable(value);
-        deleteButton.setDisable(value);
-    }
-
-    private void setFocus() {
-        dataTableView.getSelectionModel().select(0);
-    }
-
-    public void setMainStage(Stage mainStage) {
-        this.mainStage = mainStage;
+    @FXML
+    protected void actionButtonRefresh() {
+        try {
+            personList.refreshList();
+            visibleErrorMessage(false);
+        } catch (HttpClientErrorException e) {
+            setErrorMessage(e.getMessage());
+        }
     }
 }

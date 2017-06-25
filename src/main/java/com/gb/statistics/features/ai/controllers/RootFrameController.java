@@ -6,14 +6,17 @@ import javafx.scene.Parent;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.stage.Stage;
+import org.springframework.web.client.HttpClientErrorException;
+
 import java.io.IOException;
+import java.net.SocketException;
 
 public class RootFrameController {
 
     private FXMLLoader loaderPersonList = new FXMLLoader();
     private FXMLLoader loaderKeyWordsList = new FXMLLoader();
     private FXMLLoader loaderSiteList = new FXMLLoader();
-    private ListController personListController;
+    private PersonListController personListController;
     private KeyWordsListController keyWordsListController;
     private SiteListController siteListController;
     private Parent parentPersonList;
@@ -42,8 +45,19 @@ public class RootFrameController {
         siteListTab.setContent(parentSiteList);
         rootTabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
 
-        personListController.getPersonList().refreshPersonList();
-        siteListController.getSiteList().refreshSiteList();
+        try {
+            personListController.getPersonList().refreshList();
+            personListController.visibleErrorMessage(false);
+        } catch (HttpClientErrorException e) {
+            personListController.setErrorMessage(e.getMessage());
+        }
+
+        try {
+            siteListController.getSiteList().refreshList();
+            siteListController.visibleErrorMessage(false);
+        } catch (HttpClientErrorException e) {
+            siteListController.setErrorMessage(e.getMessage());
+        }
     }
 
     private void initPersonList() {

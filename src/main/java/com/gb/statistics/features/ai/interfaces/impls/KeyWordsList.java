@@ -1,6 +1,6 @@
 package com.gb.statistics.features.ai.interfaces.impls;
 
-import com.gb.statistics.features.ai.interfaces.KeyWordsInterface;
+import com.gb.statistics.features.ai.interfaces.ListInterface;
 import com.gb.statistics.features.ai.model.KeyWord;
 import com.gb.statistics.features.ai.model.ModelListData;
 import com.gb.statistics.features.ai.model.Person;
@@ -11,21 +11,20 @@ import javafx.util.Callback;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
-import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 import java.util.List;
 
-public class KeyWordsList implements KeyWordsInterface {
-
-    private String URL = "http://94.130.27.143:8080/api";
+public class KeyWordsList implements ListInterface {
 
     private ObservableList<ModelListData> keyWordList;
     private RestTemplate template = new RestTemplate();
     private Person person;
     private HttpHeaders headers;
+    String URL;
 
-    public KeyWordsList() {
+    public KeyWordsList(String url) {
         Callback<ModelListData, Observable[]> extractor = s -> new Observable[] {s.getNameProperty()};
+        this.URL = url;
         keyWordList = FXCollections.observableArrayList(extractor);
         template.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
         headers = new HttpHeaders();
@@ -33,44 +32,39 @@ public class KeyWordsList implements KeyWordsInterface {
     }
 
     @Override
-    public void refreshKeyWordList() {
-        try {
-            ResponseEntity<List<KeyWord>> rateResponse = template.exchange(URL + "/keyword/" + person.getId(), HttpMethod.GET, null, new ParameterizedTypeReference<List<KeyWord>>() {
-            });
-            keyWordList.clear();
-            keyWordList.setAll(rateResponse.getBody());
-        } catch (HttpClientErrorException e) {
-            keyWordList.clear();
-        }
+    public void refreshList() {
+        ResponseEntity<List<KeyWord>> rateResponse = template.exchange(URL + "/keyword/" + person.getId(), HttpMethod.GET, null, new ParameterizedTypeReference<List<KeyWord>>() {
+        });
+        keyWordList.clear();
+        keyWordList.setAll(rateResponse.getBody());
     }
 
     @Override
-    public ObservableList<ModelListData> getKeyWordList() {
+    public ObservableList<ModelListData> getList() {
         return keyWordList;
     }
 
     @Override
-    public boolean addKeyWord(KeyWord keyWord) {
+    public boolean add(ModelListData keyWord) {
         template.postForObject(URL + "/keyword/" + person.getId(), new HttpEntity<>(keyWord, headers), KeyWord.class);
-        refreshKeyWordList();
+        refreshList();
         return false;
     }
 
     @Override
-    public boolean updateKeyWord(KeyWord keyWord) {
+    public boolean update(ModelListData keyWord) {
         template.put(URL + "/keyword",  new HttpEntity<>(keyWord, headers), KeyWord.class);
-        refreshKeyWordList();
+        refreshList();
         return false;
     }
 
     @Override
-    public boolean deleteKeyWord(KeyWord keyWord) {
+    public boolean delete(ModelListData keyWord) {
         template.delete(URL + "/keyword/" + keyWord.getId());
-        refreshKeyWordList();
+        refreshList();
         return false;
     }
 
-    @Override
     public void setPerson(Person person) {
         this.person = person;
     }
