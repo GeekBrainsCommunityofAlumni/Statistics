@@ -1,5 +1,6 @@
 package crawler;
 
+import crawler.MultiThreadSpider.MultiThreadSpider;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -38,6 +39,7 @@ public class Crawler {
             personArrayList.add(new Person(personID, dbHelper.getPersonKeywords(personID)));
         }
 
+        //TODO завернуть в while до тех пор пока не кончаться page в базе для сканирования.
         pagesIDForScan = dbHelper.getPagesIDWithoutScanDate(); //TODO Использовать метод который возвращает определенное количество Page для многоэкземплярного режима.
         for (int pageID : pagesIDForScan) {
             CrawlerTask crawlerTask = new CrawlerTask();
@@ -165,7 +167,10 @@ public class Crawler {
             //если sitemap не найден или ответ не сумели распарсить, то запускаем паука.
             if (!sitemapFound) {
                 System.out.println("Crawler:addNewSitesToPage: Sitemap для сайта " + newSite + " загрузить не удалось.");
-
+                System.out.println("Тут дергаем паука");
+                MultiThreadSpider multiThreadSpider = new MultiThreadSpider(newSite, 1000);
+                MultiThreadSpider.run();
+                dbHelper.addPagesToSite(multiThreadSpider.getScanedURLs(), newSite);
                 //TODO здесь запускаем паука по newSite.
 
             }
