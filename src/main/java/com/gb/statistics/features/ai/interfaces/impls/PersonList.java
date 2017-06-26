@@ -43,7 +43,6 @@ public class PersonList implements ListInterface {
     }
 
     public boolean update(ModelListData person) {
-        System.out.println("Update " + person.getName());
         template.put(URL + "/person", new HttpEntity<>(person, headers), Person.class);
         refreshList();
         return false;

@@ -139,7 +139,7 @@ public abstract class ListController {
     public void setErrorMessage(String message) {
         visibleErrorMessage(true);
         if (message.equals(ERROR_404_NULL)) {
-            errorMessage.setText("Ошибка подключения");
+            errorMessage.setText("Данные не найдены");
         } else errorMessage.setText("Ошибка: " + message);
     }
 

@@ -8,8 +8,10 @@ import com.gb.statistics.features.ai.model.Site;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
+import org.springframework.web.client.HttpClientErrorException;
 
 public class DeleteWindowController implements ModalControllerInterface {
 
@@ -23,6 +25,12 @@ public class DeleteWindowController implements ModalControllerInterface {
 
     @FXML
     private Label nameLabel;
+
+    @FXML
+    private Button deleteButton;
+
+    @FXML
+    private Button cancelButton;
 
     public void setPerson(Person person, ListController controller) {
         this.person = person;
@@ -56,10 +64,30 @@ public class DeleteWindowController implements ModalControllerInterface {
 
     @FXML
     private void actionDelete(ActionEvent actionEvent) {
-        if (currentController instanceof PersonListController) personList.delete(person);
-        else if (currentController instanceof KeyWordsListController) keyWordList.delete(keyWord);
-        else if (currentController instanceof SiteListController) siteList.delete(site);
+        setDisableButtons(true);
+        if (currentController instanceof PersonListController) {
+            try {
+                personList.delete(person);
+            } catch (HttpClientErrorException e) {
+                personList.getList().clear();
+            }
+        }
+        else if (currentController instanceof KeyWordsListController) {
+            try {
+                keyWordList.delete(keyWord);
+            } catch (HttpClientErrorException e) {
+                keyWordList.getList().clear();
+            }
+        }
+        else if (currentController instanceof SiteListController) {
+            try {
+                siteList.delete(site);
+            } catch (HttpClientErrorException e) {
+                siteList.getList().clear();
+            }
+        }
         actionClose(actionEvent);
+        setDisableButtons(false);
     }
 
     @FXML
@@ -67,5 +95,10 @@ public class DeleteWindowController implements ModalControllerInterface {
         Node source = (Node) actionEvent.getSource();
         Stage stage = (Stage) source.getScene().getWindow();
         stage.hide();
+    }
+
+    private void setDisableButtons(boolean value) {
+        deleteButton.setDisable(value);
+        cancelButton.setDisable(value);
     }
 }

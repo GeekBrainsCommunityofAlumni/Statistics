@@ -8,6 +8,7 @@ import com.gb.statistics.features.ai.model.Site;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -26,14 +27,16 @@ public class EditWindowController implements ModalControllerInterface {
     private Label errorLabel;
 
     @FXML
-    private void initialize() {
-        nameField.requestFocus();
-    }
+    private Button saveButton;
+
+    @FXML
+    private Button cancelButton;
 
     public void setPerson(Person person, ListController controller) {
         this.person = person;
         this.currentController = controller;
         nameField.setText(person.getName());
+        nameField.requestFocus();
     }
 
     public void setKeyWord(ModelListData keyWord, Person person, ListController controller) {
@@ -41,12 +44,14 @@ public class EditWindowController implements ModalControllerInterface {
         this.person = person;
         this.currentController = controller;
         nameField.setText(keyWord.getName());
+        nameField.requestFocus();
     }
 
     public void setSite(Site site, ListController controller) {
         this.site = site;
         this.currentController = controller;
         nameField.setText(site.getName());
+        nameField.requestFocus();
     }
 
     @FXML
@@ -55,18 +60,17 @@ public class EditWindowController implements ModalControllerInterface {
             setVisibleErrorLabel(true);
             return;
         }
+        setDisableButtons(true);
         if (currentController instanceof PersonListController) {
-            System.out.println(nameField.getText());
             person.setName(nameField.getText());
         } else if (currentController instanceof KeyWordsListController) {
-            System.out.println(2);
             keyWord.setName(nameField.getText());
             ((KeyWord)keyWord).setPersonId(person.getId());
         } else if (currentController instanceof SiteListController) {
-            System.out.println(3);
             site.setName(nameField.getText());
         }
         actionClose(actionEvent);
+        setDisableButtons(false);
     }
 
     @FXML
@@ -95,5 +99,10 @@ public class EditWindowController implements ModalControllerInterface {
 
     public Site getSite() {
         return site;
+    }
+
+    private void setDisableButtons(boolean value) {
+        saveButton.setDisable(value);
+        cancelButton.setDisable(value);
     }
 }

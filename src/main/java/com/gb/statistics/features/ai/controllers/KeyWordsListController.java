@@ -35,7 +35,11 @@ public class KeyWordsListController extends ListController {
         comboBoxPerson.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 ((KeyWordsList)keyWordsList).setPerson(newValue);
-                keyWordsList.refreshList();
+                try {
+                    keyWordsList.refreshList();
+                } catch (HttpClientErrorException e) {
+                    keyWordsList.getList().clear();
+                }
             } else {
                 comboBoxPerson.getSelectionModel().selectFirst();
                 keyWordsList.getList().clear();

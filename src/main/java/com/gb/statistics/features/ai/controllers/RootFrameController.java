@@ -7,9 +7,7 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.stage.Stage;
 import org.springframework.web.client.HttpClientErrorException;
-
 import java.io.IOException;
-import java.net.SocketException;
 
 public class RootFrameController {
 

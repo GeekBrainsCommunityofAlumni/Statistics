@@ -13,7 +13,7 @@
             <Font size="10.0" />
          </font>
       </Label>
-      <Button layoutX="136.0" layoutY="159.0" mnemonicParsing="false" onAction="#actionSave" prefWidth="80.0" text="Сохранить" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="120.0" />
-      <Button layoutX="229.0" layoutY="159.0" mnemonicParsing="false" onAction="#actionClose" prefWidth="80.0" text="Отмена" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="230.0" />
+      <Button fx:id="saveButton" defaultButton="true" layoutX="136.0" layoutY="159.0" mnemonicParsing="false" onAction="#actionSave" prefWidth="80.0" text="Сохранить" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="120.0" />
+      <Button fx:id="cancelButton" cancelButton="true" layoutX="229.0" layoutY="159.0" mnemonicParsing="false" onAction="#actionClose" prefWidth="80.0" text="Отмена" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="230.0" />
    </children>
 </AnchorPane>
