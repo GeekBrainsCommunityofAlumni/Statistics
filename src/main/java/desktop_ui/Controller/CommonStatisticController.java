@@ -45,7 +45,7 @@ public class CommonStatisticController
         this.siteService = new SiteService();
 
         sites.setItems(this.siteService.getAvailableSiteList());
-        sites.setValue(sites.getItems().get(0));
+        sites.getSelectionModel().select(0);
 
         countColumn.setCellValueFactory(cellData -> cellData.getValue().count.asObject());
         nameColumn.setCellValueFactory(cellData -> cellData.getValue().name);

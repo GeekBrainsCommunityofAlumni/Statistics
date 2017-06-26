@@ -66,10 +66,10 @@ public class DailyStatisticController
         this.personService = new PersonService();
 
         sites.setItems(this.siteService.getAvailableSiteList());
-        sites.setValue(sites.getItems().get(0));
+        sites.getSelectionModel().select(0);
 
         persons.setItems(this.personService.getAvailablePersonList());
-        persons.setValue(persons.getItems().get(0));
+        persons.getSelectionModel().select(0);
 
         newPageCountColumn.setCellValueFactory(cellData -> cellData.getValue().newPageCount.asObject());
         dateColumn.setCellValueFactory(cellData -> cellData.getValue().date);

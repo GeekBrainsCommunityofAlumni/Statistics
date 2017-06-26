@@ -5,6 +5,7 @@
 package desktop_ui.Module.Service;
 
 import desktop_ui.Model.Dto.RestResponse.PersonDto;
+import desktop_ui.Model.Entity.Choice;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -20,13 +21,12 @@ public class PersonService
      *
      * @return ObservableList
      */
-    public ObservableList<String> getAvailablePersonList()
+    public ObservableList<Choice> getAvailablePersonList()
     {
-        ObservableList<String> persons = FXCollections.observableArrayList();
+        ObservableList<Choice> persons = FXCollections.observableArrayList();
 
         for (PersonDto person: this.webServiceProxy.getPersons()) {
-            //TODO добавить индексы
-            persons.add(person.getName());
+            persons.add(new Choice(person.getId(), person.getName()));
         }
 
         return persons;

@@ -5,6 +5,7 @@
 package desktop_ui.Module.Service;
 
 import desktop_ui.Model.Dto.RestResponse.SiteDto;
+import desktop_ui.Model.Entity.Choice;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -20,13 +21,12 @@ public class SiteService
      *
      * @return ObservableList
      */
-    public ObservableList<String> getAvailableSiteList()
+    public ObservableList<Choice> getAvailableSiteList()
     {
-        ObservableList<String> sites = FXCollections.observableArrayList();
+        ObservableList<Choice> sites = FXCollections.observableArrayList();
 
         for (SiteDto site: this.webServiceProxy.getSites()) {
-            //TODO добавить индексы
-            sites.add(site.getName());
+            sites.add(new Choice(site.getId(), site.getName()));
         }
 
         return sites;
