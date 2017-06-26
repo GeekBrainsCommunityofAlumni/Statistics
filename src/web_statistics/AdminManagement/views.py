@@ -1,8 +1,8 @@
 from django import forms
 from django.shortcuts import render, HttpResponseRedirect, get_object_or_404
 from django.contrib.auth.models import User
-from user_management.models import Person
-from user_management.forms import MyRegistrationForm, UserChangeForm
+from UserManagement.models import Person
+from UserManagement.forms import MyRegistrationForm, UserChangeForm
 from django.http import Http404, JsonResponse
 from django.template import loader
 from django.template.context_processors import csrf

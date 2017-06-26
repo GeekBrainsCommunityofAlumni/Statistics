@@ -18,8 +18,8 @@ from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
 from main_app.views import *
-from user_management.views import *
-from admin_management.views import *
+from UserManagement.views import *
+from AdminManagement.views import *
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),

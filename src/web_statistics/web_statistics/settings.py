@@ -42,8 +42,8 @@ INSTALLED_APPS = [
     'tag_manager',
     'timerange_stat',
     'daily_stat',
-    'user_management',
-    'admin_management',
+    'UserManagement',
+    'AdminManagement',
     'phonenumber_field',
 ]
 

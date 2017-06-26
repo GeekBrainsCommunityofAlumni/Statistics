@@ -14,7 +14,7 @@ def handle_uploaded_file(f):
     destination.close()
 
 class Person(models.Model):
-    # user = models.ForeignKey(User, on_delete=models.CASCADE)
+    # person = models.ForeignKey(User, on_delete=models.CASCADE)
     username = models.CharField(verbose_name="Username:", max_length=32, blank=True)
     last_name = models.CharField(verbose_name="Фамилия:", max_length=32)
     first_name = models.CharField(verbose_name="Имя:", max_length=32)
@@ -23,7 +23,7 @@ class Person(models.Model):
     confirmpassword = models.CharField(verbose_name="Подтвердите пароль:", max_length=32)
     email = models.EmailField(verbose_name="E-mail:", max_length=64)
     phone_number = PhoneNumberField(verbose_name="Контактный номер:", blank=True)
-    # birthdate = models.DateField(verbose_name="Дата рождения:", blank=True)
+    birthdate = models.DateField(verbose_name="Дата рождения:", blank=True, default=None)
     user_administrator = 'Администратор'
     user_user = 'Пользователь'
     types_of_users = (
@@ -32,7 +32,7 @@ class Person(models.Model):
     )
     status = models.CharField(max_length=32, verbose_name="Выберите Ваш статус пользователя:", choices=types_of_users,
                               default=user_user)
-    photo = models.ImageField(verbose_name="Загрузите Ваше главное фото:", upload_to="static/img/avatars/", name="photo", blank=True)
+    photo = models.ImageField(verbose_name="Загрузите Ваше главное фото:", upload_to="../media/img/avatars/", name="photo", blank=True)
     rules = models.BooleanField(max_length=32)
 
     def __str__(self):
