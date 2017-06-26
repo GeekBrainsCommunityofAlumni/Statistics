@@ -23,6 +23,7 @@
     <!-- Custom CSS -->
     <link href="{% static 'css/sb-admin.css' %}" rel="stylesheet">
     <link href="{% static 'css/style.css' %}" rel="stylesheet">
+	<link href="{% static 'lightbox/css/lightbox.min.css' %}" rel="stylesheet">
 
     <!-- Morris Charts CSS -->
     <link href="{% static 'css/plugins/morris.css' %}" rel="stylesheet">
@@ -51,17 +52,25 @@
                     <span class="icon-bar"></span>
                 </button>
                 <a class="navbar-brand" href="/about/" id="about">
-                    <p class="about">
-                        GB Community of Alumni <i class="fa fa-hand-o-left" aria-hidden="true"></i>
-                    </p>
-
-                    <div class="logo">
-                        <a href="{% static 'img/GBCA_logo.png' %}" title="GBCA logo" target="_blank">
-                            <img src="{% static 'img/GBCA_logo.png' %}" height="100%"></a>
-                        <a href="{% static 'img/Statistics_logo.png' %}" title="Statistics logo" target="_blank">
-                            <img src="{% static 'img/Statistics_logo.png' %}" height="100%"></a>
-                        <a href="http://qrcoder.ru/code/?https%3A%2F%2Fgithub.com%2FGeekBrainsCommunityofAlumni%2FStatistics&4&0" target="_blank">
-                            <img src="{% static 'img/qr.jpg' %}" width="58" height="58" border="0" title="QR код"></a>
+                    <div class="about">
+                        <p> GB Community of Alumni <i class="fa fa-hand-o-left" aria-hidden="true"></i></p>
+                    <div class="logo_slider">
+                        <div class="logo">
+                            <a href="{% static 'img/GBCA_logo.png' %}" title="GBCA logo" data-lightbox="GBCA">
+                                <img src="{% static 'img/GBCA_logo.png' %}" data-lightbox="GBCA">
+                            </a>
+                        </div>
+                        <div class="logo">
+                            <a href="{% static 'img/Statistics_logo.png' %}" title="Statistics logo" data-lightbox="GBCAStatistic">
+                                <img src="{% static 'img/Statistics_logo.png' %}">
+                            </a>
+                        </div>
+                        <div class="logo">
+                            <a href="{% static 'img/qr.jpg' %}" data-lightbox="QR">
+                                <img src="{% static 'img/qr.jpg' %}" border="0" title="QR код">
+                            </a>
+                        </div>
+                    </div>
                     </div>
                 </a>
             </div>
@@ -196,10 +205,12 @@
     <!-- Bootstrap Core JavaScript -->
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
 
+    <!-- Morris Viewbox JavaScript -->
+    <script src="{% static 'lightbox/js/lightbox-plus-jquery.min.js' %}"></script>
+
     <!-- Morris Charts JavaScript -->
     <script src="{% static 'js/plugins/morris/raphael.min.js' %}"></script>
     <script src="{% static 'js/plugins/morris/morris.min.js' %}"></script>
     <script src="{% static 'js/plugins/morris/morris-data.js' %}"></script>
-
 </body>
 </html>

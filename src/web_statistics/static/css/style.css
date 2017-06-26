@@ -1,7 +1,7 @@
-.logo {
+/*.logo {
     height: 60px;
     margin-left: -15px;
-}
+}*/
 
 .logout {
     padding-left: 20px;
@@ -113,7 +113,15 @@
     margin-top: 10px;
 }
 
-.about:hover {
+.about {
+    margin-left: -45px;
+}
+
+.about p {
+    margin-left: -32px;
+}
+
+.about p:hover {
     color: red;
 }
 
@@ -121,3 +129,16 @@
     margin-top: 10px;
 }
 
+.logo_slider {
+	display: inline-flex;
+	justify-content: space-between;
+	height: 58px;
+	width: 270px;
+	margin-left: -12px;
+}
+
+.logo img {
+	justify-content: space-between;
+	height: 58px;
+	overflow: hidden;
+}
