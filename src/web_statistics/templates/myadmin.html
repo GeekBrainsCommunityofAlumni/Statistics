@@ -1,10 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "base_admin.html" %}
 
-</body>
-</html>
+{% block js %}
+    {{ block.super }}
+    <script src="/static/js/create_user.js"></script>
+{% endblock %}
+
+{% block unique %}
+    <div class="row">
+        <div class="col-md-6">
+            Пользователи:
+            <ul id="users_list">
+                {% include 'inc-users_list.html' %}
+            </ul>
+        </div>
+    </div>
+    <form id="user_form">
+        {% include 'inc-registration_form_as_table.html' %}
+    </form>
+    <input type="submit" value="Edit account" onclick="send_data()">
+{% endblock %}

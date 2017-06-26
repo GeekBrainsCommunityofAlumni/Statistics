@@ -3,10 +3,10 @@ from django.shortcuts import render, render_to_response
 from django.http import Http404, HttpResponseRedirect
 # from django.template.context_processors import csrf
 from django.contrib.auth.models import User
-from user_management.models import Person
+from user_management.models import handle_uploaded_file, Person
 from django.core.exceptions import ValidationError
 from .forms import UploadFileForm
-from .models import handle_uploaded_file
+# from .forms import MyRegistrationForm
 
 # Create your views here.
 
@@ -53,11 +53,7 @@ def registration(request):
         confirmpassword = request.POST.get("confirmpassword")
         email = request.POST.get("email")
         phone_number = request.POST.get("phone_number")
-        # gender = request.POST.get("gender")
         # birthdate = request.POST.get("birthdate")
-        # country = request.POST.get("country")
-        # city = request.POST.get("city")
-        # photo = request.FILES.get("photo")
         photo = request.POST.get("photo")
         status = request.POST.get("status")
         print(request.POST)
@@ -68,9 +64,9 @@ def registration(request):
         if password != confirmpassword:
             errors['password'] = 'Извините, пароли не совпадают... Попробуйте снова!'
         user = User(username=login, password=password, email=email, first_name=first_name, last_name=last_name)
-        p = Person(username=username, email=email, first_name=first_name, last_name=last_name, login=login, phone_number=phone_number, photo=photo, status=status)
         # Пароли хранятся в виде хэшей, поэтому их нельзя передавать напрямую
         user.set_password(password)
+        # user = Person(User, username=username, email=email, first_name=first_name, last_name=last_name, login=login, phone_number=phone_number, photo=photo, status=status)
         # Проверяем, существует ли пользователь с таким именем
         try:
             user.validate_unique()
@@ -84,6 +80,18 @@ def registration(request):
         return HttpResponseRedirect("/privateroom/")
     return render(request, "registration.html")
 
-
-
-
+# def registration1(request):
+#     if request.method == 'POST':
+#         form = MyRegistrationForm(request.POST, request.FILES)
+#         if form.is_valid():
+#             cd = form.cleaned_data
+#             photo = cd['photo']      #'value_from_datadict'
+#             form.save()
+#             print("===FORM SAVED!!!!!===")
+#             return HttpResponseRedirect('/privateroom/')
+#         else:
+#             print("===FORM INVALID!!!!!===")
+#         context = {'form': form}
+#         return render(request, 'registration.html', context)
+#     context = {'form': MyRegistrationForm()}
+#     return render(request, 'registration.html', context)

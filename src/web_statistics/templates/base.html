@@ -50,8 +50,8 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">
-                    GB Community of Alumni
+                <a class="navbar-brand" href="/about/" id="about">
+                    <p class="about"> GB Community of Alumni</p>
                     <div class="logo">
                         <a href="{% static 'img/GBCA_logo.png' %}" title="GBCA logo" target="_blank">
                             <img src="{% static 'img/GBCA_logo.png' %}" height="100%"></a>
@@ -143,7 +143,7 @@
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav side-nav">
                     <li class="{% if request.path == '/' %}active{% endif %}">
-                        <a href="/"><i class="fa fa-home" aria-hidden="true"></i> О компании </a></li>
+                        <a href="/"><i class="fa fa-home" aria-hidden="true"></i> Главная </a></li>
                     <li class="{% if request.path == '/privateroom/' %}active{% endif %}">
                         <a href="/privateroom/"><i class="fa fa-user-circle"></i> Личный кабинет </a></li>
                     <li class="{% if request.path == '/daily_statistic/' or request.path == '/periodic_statistic/' %}active{% endif %}">

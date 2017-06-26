@@ -7,6 +7,10 @@ from pprint import pprint
 
 
 def main(request):
+    return render(request, 'headpage.html')
+
+
+def about(request):
     return render(request, 'index.html')
 
 
@@ -36,6 +40,17 @@ def periodic_statistics(request):
 
 def registration(request):
     return render(request, 'registration.html')
+
+# def registration(request):
+#     username = Person.objects.order_by('name')
+#     last_name = Person.objects.order_by('name')
+#     first_name = Person.objects.order_by('name')
+#     login = Person.objects.order_by('name')
+#     email = Person.objects.order_by('name')
+#     phone_number = Person.objects.order_by('name')
+#     status = Person.objects.order_by('name')
+#     return render(request, 'registration.html', {'username': username, 'last_name': last_name, 'first_name': first_name, 'login': login, 'email': email, 'phone_number': phone_number, 'status': status})
+
 
 
 def privateroom(request):
