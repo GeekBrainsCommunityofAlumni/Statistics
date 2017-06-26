@@ -306,22 +306,27 @@ class NetworkProcess {
             print("compileDataError. totalRank is nil")
             return
         }
-        var compiledRank: [SiteData] = []
-        for site in self.sites{
-            let siteArray = ranks.filter({ (rank) -> Bool in rank.siteID == site.id })
-            let siteData = SiteData()
-            siteData.site = site.name
-            for person in self.persons{
-                let personRank = siteArray.filter({ (p) -> Bool in p.personID == person.id })
-                if personRank.isEmpty {
-                    siteData.stats[person.name] = 0
-                } else {
-                    siteData.stats[person.name] = personRank[0].rank
+        let queue = DispatchQueue.global(qos: .userInitiated)
+        queue.async {
+            var compiledRank: [SiteData] = []
+            for site in self.sites{
+                let siteArray = self.ranks.filter({ (rank) -> Bool in rank.siteID == site.id })
+                let siteData = SiteData()
+                siteData.site = site.name
+                for person in self.persons{
+                    let personRank = siteArray.filter({ (p) -> Bool in p.personID == person.id })
+                    if personRank.isEmpty {
+                        siteData.stats[person.name] = 0
+                    } else {
+                        siteData.stats[person.name] = personRank[0].rank
+                    }
                 }
+                compiledRank.append(siteData)
             }
-            compiledRank.append(siteData)
+            DispatchQueue.main.async {
+                self.delegat.didCompliteTotalRankProcess(siteData: compiledRank)
+            }
         }
-        delegat.didCompliteTotalRankProcess(siteData: compiledRank)
     }
     
     private func compileOnRangRankInfo(){
@@ -329,31 +334,35 @@ class NetworkProcess {
             print("compileDataError. totalRank is nil")
             return
         }
-        var compiledRank: [SiteData] = []
-        for site in self.sites{
-            let siteArray = ranks.filter({ (rank) -> Bool in rank.siteID == site.id })
-            var dateArray: [Date] = []
-            for item in siteArray {
-                dateArray.append(item.date!)
-            }
-            dateArray = Array(Set(dateArray))
-            for onDate in dateArray {
-                let siteData = SiteData()
-                siteData.site = site.name
-                siteData.date = onDate
-                for person in self.persons{
-                    let personRank = siteArray.filter({ (p) -> Bool in p.personID == person.id && p.date == onDate })
-                    if personRank.count > 0 {
-                        siteData.stats[person.name] = (personRank.first)?.rank
+        let queue = DispatchQueue.global(qos: .userInitiated)
+        queue.async {
+            var compiledRank: [SiteData] = []
+            for site in self.sites{
+                let siteArray = self.ranks.filter({ (rank) -> Bool in rank.siteID == site.id })
+                var dateArray: [Date] = []
+                for item in siteArray {
+                    dateArray.append(item.date!)
+                }
+                dateArray = Array(Set(dateArray))
+                for onDate in dateArray {
+                    let siteData = SiteData()
+                    siteData.site = site.name
+                    siteData.date = onDate
+                    for person in self.persons{
+                        let personRank = siteArray.filter({ (p) -> Bool in p.personID == person.id && p.date == onDate })
+                        if personRank.count > 0 {
+                            siteData.stats[person.name] = (personRank.first)?.rank
+                        }
+                    }
+                    if siteData.stats.count > 0 {
+                        compiledRank.append(siteData)
                     }
                 }
-                if siteData.stats.count > 0 {
-                    compiledRank.append(siteData)
-                }
             }
-            
+            DispatchQueue.main.async {
+                self.delegat.didCompliteOnRangRankProcess(siteData: compiledRank, dateBegin: self.dateBegin!, dateEnd: self.dateEnd!)
+            }
         }
-        delegat.didCompliteOnRangRankProcess(siteData: compiledRank, dateBegin: dateBegin!, dateEnd: dateEnd!)
     }
 }
 
