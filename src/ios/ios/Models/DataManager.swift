@@ -8,7 +8,7 @@
 import UIKit
 
 protocol DataManagerProtocol {
-    func didCompliteRequestOnData(data: SiteDataArray, date1: Date, date2: Date) // возвращает статистику за период
+    func didCompliteRequestOnRange(data: SiteDataArray, dateBegin: Date, dateEnd: Date) // возвращает статистику за период
     func didCompliteRequestTotal(data: SiteDataArray) // возвращает общую статистику
 }
 
@@ -20,11 +20,11 @@ class DataManager: DataProviderProtocol{
     var delegat: DataManagerProtocol?
     
     // запрос общей статистики
-    func getSumaryData(){
+    func getTotalData(){
         if let dbmanager = self.dbManager { // если используется кеш
-            dbmanager.getSumaryData() // ищем данные в кеше
+            dbmanager.getTotalData() // ищем данные в кеше
         } else if let networkmanager = self.networkManager { // если есть сетевой менеджер
-            networkmanager.getSumaryData() // делаем запрос к сети
+            networkmanager.getTotalData() // делаем запрос к сети
         } else {
             // источника не существует. ошибка
             print("not have source")
@@ -33,15 +33,15 @@ class DataManager: DataProviderProtocol{
         
     }
     // запрос статистики на дату
-    func getDataOnDate(date1: Date, date2: Date){
+    func getOnRangeData(dateBegin: Date, dateEnd: Date){
         if let dbmanager = self.dbManager {
-            dbmanager.getDataOnDate(date1: date1,date2: date2)
+            dbmanager.getOnRangeData(dateBegin: dateBegin, dateEnd: dateEnd)
         } else if let networkmanager = self.networkManager {
-            networkmanager.getDataOnDate(date1: date1, date2: date2)
+            networkmanager.getOnRangeData(dateBegin: dateBegin, dateEnd: dateEnd)
         } else {
             // источника не существует. ошибка
             print("not have source")
-            delegat?.didCompliteRequestOnData(data: SiteDataArray(), date1: date1, date2: date2)
+            delegat?.didCompliteRequestOnRange(data: SiteDataArray(), dateBegin: dateBegin, dateEnd: dateEnd)
         }
     }
     
@@ -51,30 +51,27 @@ class DataManager: DataProviderProtocol{
         self.networkManager = networkManager
         self.networkManager?.delegat = self
     }
-    
-    func didCompliteRequestOnData(data: SiteDataArray, date1: Date, date2: Date, dataProvider: DataProvider){
+    func didCompliteRequestOnRange(data: SiteDataArray, dateBegin: Date, dateEnd: Date, dataProvider: DataProvider){
         if data.isEmpty == true{ // если поиск вернул пустую таблицу
             if dataProvider.type == .db { //и это было обращение в кеш
-                self.networkManager?.getDataOnDate(date1: date1, date2: date2) //тянем данные из сети
+                self.networkManager?.getOnRangeData(dateBegin: dateBegin, dateEnd: dateEnd) //тянем данные из сети
             } else {
                 // нет данных, возвращаем пустую таблицу
-                delegat?.didCompliteRequestOnData(data: SiteDataArray(), date1: date1, date2: date2)
+                delegat?.didCompliteRequestOnRange(data: SiteDataArray(), dateBegin: dateBegin, dateEnd: dateEnd)
             }
         } else {//данные получили
             if dataProvider.type == .source { // если источником является сеть или что то подобное
                 self.dbManager?.putData(data: data) // сохраняем данные в локальный кеш
-                delegat?.didCompliteRequestOnData(data: data, date1: date1, date2: date2) // отдаем их на уровень выше
+                delegat?.didCompliteRequestOnRange(data: data, dateBegin: dateBegin, dateEnd: dateEnd) // отдаем их на уровень выше
             } else { // если данные вытянули из кеша сразу отдаем их на уровень выше
-                delegat?.didCompliteRequestOnData(data: data, date1: date1, date2: date2)
+                delegat?.didCompliteRequestOnRange(data: data, dateBegin: dateBegin, dateEnd: dateEnd)
             }
         }
     }
-    
-    
     func didCompliteRequestTotal(data: SiteDataArray, dataProvider: DataProvider){
         if data.isEmpty == true{
             if dataProvider.type == .db {
-                self.networkManager?.getSumaryData()
+                self.networkManager?.getTotalData()
             } else {
                 // нет данных
                 delegat?.didCompliteRequestTotal(data: SiteDataArray())
@@ -94,7 +91,7 @@ class DataManager: DataProviderProtocol{
         let dm = DataManager(dbManager: nil, networkManager: nm)
         return dm
     }
-        // статический метод возвращающий DataManager c FakeManager
+    // статический метод возвращающий DataManager c FakeManager
     static func initWithFakeManager() -> DataManager{
         let fm = FakeManager()
         let dm = DataManager(dbManager: nil, networkManager: fm)

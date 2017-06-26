@@ -6,12 +6,12 @@
 //  Copyright © 2017 GB. All rights reserved.
 //
 import UIKit
-
+// поставщик фейковых данных для тестирования пока не появятся данные на сервере
 class FakeManager:DataProvider{
     let sitesName: [String] = ["Facebook", "VK", "News", "NYT"]
     let personsName: [String] = ["Красная шапочка", "Серый волк", "Бабуля", "Лесоруб"]
     
-    override func getSumaryData(){
+    override func getTotalData(){
         var result: [SiteData] = []
         let count = sitesName.count
         for num in 0..<count{
@@ -30,13 +30,12 @@ class FakeManager:DataProvider{
         super.init()
         self.type = .source
     }
-    override func getDataOnDate(date1: Date, date2: Date){
+    override func getOnRangeData(dateBegin: Date, dateEnd: Date){
         var result: [SiteData] = []
         let count = sitesName.count
         for num in 0..<count{
             let item: SiteData = SiteData()
-            item.date = date1
-            //item.site = sitesName[Int(arc4random()) % count]
+            item.date = dateBegin
             item.site = sitesName[num]
             for person in 0..<personsName.count{
                 item.stats[personsName[person]] = Int(arc4random()) % 100
@@ -44,7 +43,7 @@ class FakeManager:DataProvider{
             item.total = true
             result.append(item)
         }
-        delegat.didCompliteRequestOnData(data: SiteDataArray(data: result), date1: date1, date2: date2, dataProvider: self)
+        delegat.didCompliteRequestOnRange(data: SiteDataArray(data: result), dateBegin: dateBegin, dateEnd: dateEnd, dataProvider: self)
         
     }
     
