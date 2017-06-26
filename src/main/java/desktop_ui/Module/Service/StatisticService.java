@@ -4,7 +4,7 @@
 
 package desktop_ui.Module.Service;
 
-import desktop_ui.Model.Dto.RestResponse.CommonStatisticResultDto;
+import desktop_ui.Model.Dto.RestResponse.StatisticResultDto;
 import desktop_ui.Model.Entity.Choice;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -22,11 +22,11 @@ public class StatisticService
      *
      * @param site
      *
-     * @return CommonStatisticResultDto[]
+     * @return StatisticResultDto[]
      */
-    public ObservableList<CommonStatisticResultDto> getCommonStatisticBySite(Choice site)
+    public ObservableList<StatisticResultDto> getCommonStatisticBySite(Choice site)
     {
-        CommonStatisticResultDto[] commonStatisticResult = this.webServiceProxy.getCommonStatistic(site.getId());
+        StatisticResultDto[] commonStatisticResult = this.webServiceProxy.getCommonStatistic(site.getId());
         return FXCollections.observableArrayList(commonStatisticResult);
     }
 }

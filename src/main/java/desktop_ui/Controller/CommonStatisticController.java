@@ -5,7 +5,7 @@
 package desktop_ui.Controller;
 
 import desktop_ui.MainApp;
-import desktop_ui.Model.Dto.RestResponse.CommonStatisticResultDto;
+import desktop_ui.Model.Dto.RestResponse.StatisticResultDto;
 import desktop_ui.Model.Entity.Choice;
 import desktop_ui.Module.Service.SiteService;
 import desktop_ui.Module.Service.StatisticService;
@@ -28,10 +28,10 @@ public class CommonStatisticController
     private TableView statisticTable;
 
     @FXML
-    private TableColumn<CommonStatisticResultDto, Integer> rankColumn;
+    private TableColumn<StatisticResultDto, Integer> rankColumn;
 
     @FXML
-    private TableColumn<CommonStatisticResultDto, String> nameColumn;
+    private TableColumn<StatisticResultDto, String> nameColumn;
 
     /**
      * Сервис для работы с сайтами

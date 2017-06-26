@@ -4,12 +4,13 @@
 
 package desktop_ui.Module.Service;
 
-import desktop_ui.Model.Dto.RestResponse.CommonStatisticResultDto;
+import desktop_ui.Model.Dto.RestResponse.StatisticResultDto;
 import desktop_ui.Model.Dto.RestResponse.PersonDto;
 import desktop_ui.Model.Dto.RestResponse.SiteDto;
 import desktop_ui.Module.Entity.RestApiMethod;
 import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
+
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -113,9 +114,9 @@ public class WebServiceProxy
      *
      * @param siteId
      *
-     * @return CommonStatisticResultDto[]
+     * @return StatisticResultDto[]
      */
-    public CommonStatisticResultDto[] getCommonStatistic(int siteId)
+    public StatisticResultDto[] getCommonStatistic(int siteId)
     {
         String uri = BASE_URI + RestApiMethod.COMMON_SITE_STAT_PATH;
 
@@ -126,7 +127,7 @@ public class WebServiceProxy
         headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
         HttpEntity<String> entity = new HttpEntity<>("parameters", headers);
 
-        ResponseEntity<CommonStatisticResultDto[]> response = restTemplate.exchange(uri, HttpMethod.GET, entity, CommonStatisticResultDto[].class, params);
+        ResponseEntity<StatisticResultDto[]> response = restTemplate.exchange(uri, HttpMethod.GET, entity, StatisticResultDto[].class, params);
         return response.getBody();
     }
 }

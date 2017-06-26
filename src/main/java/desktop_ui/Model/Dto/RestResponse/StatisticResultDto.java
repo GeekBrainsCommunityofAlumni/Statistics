@@ -7,11 +7,11 @@ package desktop_ui.Model.Dto.RestResponse;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
- * DTO ответа для общей статистики
+ * DTO ответа для статистики
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class CommonStatisticResultDto
+public class StatisticResultDto
 {
     private Integer rank;
 
