@@ -1,7 +1,8 @@
-package desktop_ui.Module.Entity;
 /**
  * Created by Cappoocha on 22.06.2017.
  */
+
+package desktop_ui.Model.Entity;
 
 /**
  * Класс, хранящий названия методов REST API

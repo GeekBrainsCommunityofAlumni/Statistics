@@ -2,7 +2,7 @@
  * Created by Cappoocha on 26.06.2017.
  */
 
-package desktop_ui.Module.Service;
+package desktop_ui.Model.Service;
 
 import desktop_ui.Model.Dto.RestResponse.StatisticResultDto;
 import desktop_ui.Model.Entity.Choice;
