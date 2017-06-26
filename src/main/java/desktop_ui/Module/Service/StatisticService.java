@@ -5,6 +5,9 @@
 package desktop_ui.Module.Service;
 
 import desktop_ui.Model.Dto.RestResponse.CommonStatisticResultDto;
+import desktop_ui.Model.Entity.Choice;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 /**
  * Сервис для работы со статистикой
@@ -17,12 +20,13 @@ public class StatisticService
      * Возвращает общую статистику для сайта
      * TODO: добавить обработку ошибок от прокси, возаразть пустой массив
      *
-     * @param siteId
+     * @param site
      *
      * @return CommonStatisticResultDto[]
      */
-    public CommonStatisticResultDto[] getCommonStatisticBySite(int siteId)
+    public ObservableList<CommonStatisticResultDto> getCommonStatisticBySite(Choice site)
     {
-        return this.webServiceProxy.getCommonStatistic(siteId);
+        CommonStatisticResultDto[] commonStatisticResult = this.webServiceProxy.getCommonStatistic(site.getId());
+        return FXCollections.observableArrayList(commonStatisticResult);
     }
 }

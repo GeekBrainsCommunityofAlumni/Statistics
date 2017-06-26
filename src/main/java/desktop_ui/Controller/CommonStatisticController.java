@@ -5,9 +5,12 @@
 package desktop_ui.Controller;
 
 import desktop_ui.MainApp;
-import desktop_ui.Module.DTO.CommonStatisticResultItem;
-import desktop_ui.Module.Proxy;
+import desktop_ui.Model.Dto.RestResponse.CommonStatisticResultDto;
+import desktop_ui.Model.Entity.Choice;
 import desktop_ui.Module.Service.SiteService;
+import desktop_ui.Module.Service.StatisticService;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TableColumn;
@@ -25,15 +28,20 @@ public class CommonStatisticController
     private TableView statisticTable;
 
     @FXML
-    private TableColumn<CommonStatisticResultItem, Integer> countColumn;
+    private TableColumn<CommonStatisticResultDto, Integer> rankColumn;
 
     @FXML
-    private TableColumn<CommonStatisticResultItem, String> nameColumn;
+    private TableColumn<CommonStatisticResultDto, String> nameColumn;
 
     /**
      * Сервис для работы с сайтами
      */
     private SiteService siteService;
+
+    /**
+     * Сервис для получения статистики
+     */
+    private StatisticService statisticService;
 
     public CommonStatisticController()
     {
@@ -43,12 +51,13 @@ public class CommonStatisticController
     private void initialize()
     {
         this.siteService = new SiteService();
+        this.statisticService = new StatisticService();
 
         sites.setItems(this.siteService.getAvailableSiteList());
         sites.getSelectionModel().select(0);
 
-        countColumn.setCellValueFactory(cellData -> cellData.getValue().count.asObject());
-        nameColumn.setCellValueFactory(cellData -> cellData.getValue().name);
+        rankColumn.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getRank()).asObject());
+        nameColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getPerson().getName()));
     }
 
     @FXML
@@ -61,7 +70,11 @@ public class CommonStatisticController
     private void getCommonStatistic()
     {
         if (siteIsValid()) {
-            statisticTable.setItems(Proxy.getCommonStatistic(this.sites.getSelectionModel().getSelectedIndex()));
+            Object selectedSite = this.sites.getSelectionModel().getSelectedItem();
+
+            if (selectedSite instanceof Choice) {
+                statisticTable.setItems(this.statisticService.getCommonStatisticBySite((Choice) selectedSite));
+            }
         }
     }
 

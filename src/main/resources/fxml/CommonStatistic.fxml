@@ -43,7 +43,7 @@
                         </Button>
                         <TableView fx:id="statisticTable" layoutX="37.0" layoutY="116.0" prefHeight="217.0" prefWidth="343.0" AnchorPane.rightAnchor="53.0">
                             <columns>
-                                <TableColumn fx:id="countColumn" prefWidth="75.0" text="Количество упоминаний" />
+                                <TableColumn fx:id="rankColumn" prefWidth="75.0" text="Количество упоминаний" />
                                 <TableColumn fx:id="nameColumn" prefWidth="75.0" text="Имя" />
                             </columns>
                             <columnResizePolicy>
