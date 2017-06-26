@@ -17,6 +17,8 @@ public class StatisticResultDto
 
     private PersonDto person;
 
+    private PageDto page;
+
     public Integer getRank()
     {
         return rank;
@@ -35,5 +37,15 @@ public class StatisticResultDto
     public void setPerson(PersonDto person)
     {
         this.person = person;
+    }
+
+    public PageDto getPage()
+    {
+        return page;
+    }
+
+    public void setPage(PageDto page)
+    {
+        this.page = page;
     }
 }

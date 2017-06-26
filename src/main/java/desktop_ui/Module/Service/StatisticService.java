@@ -9,6 +9,9 @@ import desktop_ui.Model.Entity.Choice;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 /**
  * Сервис для работы со статистикой
  */
@@ -28,5 +31,28 @@ public class StatisticService
     {
         StatisticResultDto[] commonStatisticResult = this.webServiceProxy.getCommonStatistic(site.getId());
         return FXCollections.observableArrayList(commonStatisticResult);
+    }
+
+    /**
+     * Возвращает ежедневную статистику для выбранного сайта и личности
+     *
+     * @param site
+     * @param person
+     * @param dateFrom
+     * @param dateTo
+     *
+     * @return StatisticResultDto[]
+     */
+    public ObservableList<StatisticResultDto> getDailyStatisticInPeriod(Choice site, Choice person, LocalDate dateFrom, LocalDate dateTo)
+    {
+        DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE;
+
+        StatisticResultDto[] dailyStatisticResult = this.webServiceProxy.getDailyStatistic(
+                site.getId(),
+                person.getId(),
+                dateFrom.format(formatter),
+                dateTo.format(formatter)
+        );
+        return FXCollections.observableArrayList(dailyStatisticResult);
     }
 }

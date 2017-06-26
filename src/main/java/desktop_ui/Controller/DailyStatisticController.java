@@ -5,10 +5,13 @@
 package desktop_ui.Controller;
 
 import desktop_ui.MainApp;
-import desktop_ui.Module.DTO.DailyStatisticResultItem;
-import desktop_ui.Module.Proxy;
+import desktop_ui.Model.Dto.RestResponse.StatisticResultDto;
+import desktop_ui.Model.Entity.Choice;
 import desktop_ui.Module.Service.PersonService;
 import desktop_ui.Module.Service.SiteService;
+import desktop_ui.Module.Service.StatisticService;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
@@ -34,10 +37,10 @@ public class DailyStatisticController
     private TableView statisticTable;
 
     @FXML
-    private TableColumn<DailyStatisticResultItem, Integer> newPageCountColumn;
+    private TableColumn<StatisticResultDto, Integer> newPageCountColumn;
 
     @FXML
-    private TableColumn<DailyStatisticResultItem, String> dateColumn;
+    private TableColumn<StatisticResultDto, String> dateColumn;
 
     @FXML
     private DatePicker startDate;
@@ -55,6 +58,11 @@ public class DailyStatisticController
      */
     private PersonService personService;
 
+    /**
+     * Сервис для получения статистики
+     */
+    private StatisticService statisticService;
+
     public DailyStatisticController()
     {
     }
@@ -64,6 +72,7 @@ public class DailyStatisticController
     {
         this.siteService = new SiteService();
         this.personService = new PersonService();
+        this.statisticService = new StatisticService();
 
         sites.setItems(this.siteService.getAvailableSiteList());
         sites.getSelectionModel().select(0);
@@ -71,35 +80,10 @@ public class DailyStatisticController
         persons.setItems(this.personService.getAvailablePersonList());
         persons.getSelectionModel().select(0);
 
-        newPageCountColumn.setCellValueFactory(cellData -> cellData.getValue().newPageCount.asObject());
-        dateColumn.setCellValueFactory(cellData -> cellData.getValue().date);
+        newPageCountColumn.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getRank()).asObject());
+        dateColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getPage().getFoundDateTime()));
 
-        String pattern = "dd.MM.yyyy";
-        startDate.setValue(LocalDate.now());
-
-        startDate.setConverter(new StringConverter<LocalDate>() {
-            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(pattern);
-
-            @Override
-            public String toString(LocalDate date) {
-                if (date != null) {
-                    return dateFormatter.format(date);
-                } else {
-                    return "";
-                }
-            }
-
-            @Override
-            public LocalDate fromString(String string) {
-                if (string != null && !string.isEmpty()) {
-                    return LocalDate.parse(string, dateFormatter);
-                } else {
-                    return null;
-                }
-            }
-        });
-
-        endDate.setValue(LocalDate.now());
+        this.setDates();
     }
 
     @FXML
@@ -113,12 +97,17 @@ public class DailyStatisticController
     {
         // TODO добавить отображение ошибок
         if (datePeriodIsValid() && siteIsValid() && personIsValid()) {
-            statisticTable.setItems(Proxy.getDailyStatistic(
-                    this.sites.getSelectionModel().getSelectedIndex(),
-                    this.persons.getSelectionModel().getSelectedIndex(),
-                    this.startDate.getValue(),
-                    this.endDate.getValue()
-            ));
+            Object selectedSite = this.sites.getSelectionModel().getSelectedItem();
+            Object selectedPerson = this.persons.getSelectionModel().getSelectedItem();
+
+            if (selectedSite instanceof Choice && selectedPerson instanceof Choice) {
+                statisticTable.setItems(this.statisticService.getDailyStatisticInPeriod(
+                        (Choice) selectedSite,
+                        (Choice) selectedPerson,
+                        this.startDate.getValue(),
+                        this.endDate.getValue()
+                ));
+            }
         }
     }
 
@@ -153,5 +142,38 @@ public class DailyStatisticController
     private boolean personIsValid()
     {
         return this.persons.getSelectionModel() != null;
+    }
+
+    /**
+     * Установка дат
+     */
+    private void setDates()
+    {
+        String pattern = "dd.MM.yyyy";
+        startDate.setValue(LocalDate.now());
+
+        startDate.setConverter(new StringConverter<LocalDate>() {
+            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(pattern);
+
+            @Override
+            public String toString(LocalDate date) {
+                if (date != null) {
+                    return dateFormatter.format(date);
+                } else {
+                    return "";
+                }
+            }
+
+            @Override
+            public LocalDate fromString(String string) {
+                if (string != null && !string.isEmpty()) {
+                    return LocalDate.parse(string, dateFormatter);
+                } else {
+                    return null;
+                }
+            }
+        });
+
+        endDate.setValue(LocalDate.now());
     }
 }

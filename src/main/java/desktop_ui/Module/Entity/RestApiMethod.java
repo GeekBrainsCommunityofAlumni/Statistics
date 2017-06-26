@@ -13,4 +13,5 @@ public class RestApiMethod
     public static final String PERSONS_PATH = "/person";
     public static final String PERSON_ID_PATH = "/person/{id}";
     public static final String COMMON_SITE_STAT_PATH = "/stat/{siteId}";
+    public static final String DAILY_SITE_STAT_PATH = "/stat/{siteId}/{personId}/{dateFrom}/{dateTo}";
 }

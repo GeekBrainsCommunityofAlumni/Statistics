@@ -130,4 +130,39 @@ public class WebServiceProxy
         ResponseEntity<StatisticResultDto[]> response = restTemplate.exchange(uri, HttpMethod.GET, entity, StatisticResultDto[].class, params);
         return response.getBody();
     }
+
+    /**
+     * Возвращает статистику по указанным датам
+     *
+     * @param siteId    Идентификатор сайта
+     * @param personId  Идентификатор личности
+     * @param dateFrom  Дата, с которой требуется получить статистику
+     * @param dateTo    Дата, по которую требуется получить статистику
+     *
+     * @return StatisticResultDto[]
+     */
+    public StatisticResultDto[] getDailyStatistic(Integer siteId, Integer personId, String dateFrom, String dateTo)
+    {
+        String uri = BASE_URI + RestApiMethod.DAILY_SITE_STAT_PATH;
+
+        Map<String, String> params = new HashMap<>();
+        params.put("siteId", siteId.toString());
+        params.put("personId", personId.toString());
+        params.put("dateFrom", dateFrom);
+        params.put("dateTo", dateTo);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
+        HttpEntity<String> entity = new HttpEntity<>("parameters", headers);
+
+        ResponseEntity<StatisticResultDto[]> response = restTemplate.exchange(
+            uri,
+            HttpMethod.GET,
+            entity,
+            StatisticResultDto[].class,
+            params
+        );
+
+        return response.getBody();
+    }
 }
