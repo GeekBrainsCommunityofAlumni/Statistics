@@ -116,3 +116,8 @@
 .about:hover {
     color: red;
 }
+
+.fa fa-download fa-2x {
+    margin-top: 10px;
+}
+

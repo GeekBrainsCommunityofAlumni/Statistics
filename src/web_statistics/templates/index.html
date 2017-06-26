@@ -704,15 +704,13 @@
     </div>
 
     <div id="menu2" class="tab-pane fade">
-        <h2>Download</h2>
         <section class="col-lg-12 text-center" id="download">
             <h2 class="section-heading">Download</h2>
             <p>Мобильную версия приложения для iOS и Android, а также десктопное приложение можно скачать по ссылкам ниже: </p>
             <div class="badges">
-                <a class="badge-link" href="#"><img src="{% static 'img/google-play-badge.svg' %}" alt="" width="15%"></a>
-                <a class="badge-link" href="#"><img src="{% static 'img/app-store-badge.svg' %}" alt="" width="15%"></a>
-                <a class="badge-link" href="#"><i class="fa fa-download fa-4x"></i></a>
-                <a class="badge-link" href="#"><i class="fa fa-desktop fa-4x"></i></a>
+                <a class="badge-link" href="#"><img src="{% static 'img/google-play-badge.svg' %}" alt="" width="10%"></a>
+                <a class="badge-link" href="#"><img src="{% static 'img/app-store-badge.svg' %}" alt="" width="10%"></a>
+                <a class="badge-link" href="#"><i class="fa fa-download fa-2x"></i></a>
             </div>
             <hr>
         </section>
@@ -720,14 +718,15 @@
         <section class='text-center'>
             <div id="pricing" class="container-fluid">
                 <div class="text-center">
-                    <h2>Pricing</h2>
-                    <h4>Choose a payment plan that works for you</h4>
+                    <h3>Pricing<br>
+                        <small>Choose a payment plan that works for you</small>
+                    </h3>
                 </div>
                 <div class="row">
                     <div class="col-sm-6 col-xs-12">
                         <div class="panel panel-default text-center">
                             <div class="panel-heading">
-                                <h1>Free</h1>
+                                <h4>Free version</h4>
                             </div>
                             <div class="panel-body">
                                 <p><strong>20</strong> web-source</p>
@@ -736,9 +735,9 @@
                                 <p><strong>Endless</strong> access to statistic</p>
                             </div>
                             <div class="panel-footer">
-                                <h3>0%</h3>
-                                <h4>per month</h4>
-                                <button class="btn btn-lg">Sign Up</button>
+                                <h3>$0
+                                <small>per month</small></h3>
+                                <button class="btn btn-success btn-sm">Sign Up</button>
                             </div>
                         </div>
                     </div>
@@ -746,7 +745,7 @@
                     <div class="col-sm-6 col-xs-12">
                         <div class="panel panel-default text-center">
                             <div class="panel-heading">
-                                <h1>Pro</h1>
+                                <h4>Professional commercial version</h4>
                             </div>
                             <div class="panel-body">
                                 <p><strong>100</strong> web-sources</p>
@@ -755,9 +754,9 @@
                                 <p><strong>Endless</strong> access to statistic</p>
                             </div>
                             <div class="panel-footer">
-                                <h3>$15</h3>
-                                <h4>per month</h4>
-                                <button class="btn btn-lg">Sign Up</button>
+                                <h3>$15
+                                <small>per month</small></h3>
+                                <button class="btn btn-success btn-sm">Sign Up</button>
                             </div>
                         </div>
                     </div>
@@ -767,10 +766,13 @@
     </div>
     <div id="menu0" class="tab-pane fade">
 
-        <p class="text-left">
-            <h2 class='text-center'>Программный продукт 'Statistics'</h2>
+        <div class="text-left">
+            <h2 class='text-center'>
+                <i class="fa fa-bar-chart" aria-hidden="true"></i>
+                Программный продукт 'Statistics'
+            </h2>
             <img src="{% static 'img/Statistics_logo.png' %}" alt="Statistics">
-        </p>
+        </div>
 
         <p>
             Уважаемые Господа! Представляем Вашему вниманию «Statistics» - пилотный программный продукт,
