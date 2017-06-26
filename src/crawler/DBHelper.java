@@ -316,10 +316,11 @@ public class DBHelper {
     }
 
     public synchronized String getNewSite() { //Для многопоточности. Возвращает URL одного сайта для которого нет НИ ОДНОЙ строки в таблице Pages и он не заблокирован для выдачи
+        checkIfAllSitesIdAreInSitelock();
         String nameOfSite = "";
         try {
             statement = connectionToDB.createStatement();
-            resultSet = statement.executeQuery("SELECT name FROM sites WHERE (   (id NOT IN (SELECT siteid FROM pages)) AND (isblocked = 0)   ) LIMIT 1;");
+            resultSet = statement.executeQuery("SELECT name FROM (SELECT id, name, siteblock.isblocked FROM sites INNER JOIN siteblock ON sites.id = siteblock.siteid) as t WHERE (   (t.id NOT IN (SELECT siteid FROM pages)) AND (isblocked = 0)   ) LIMIT 1;");
             if (resultSet.next()) {
                 nameOfSite = resultSet.getString(1);
                 blockSite(nameOfSite);
@@ -331,19 +332,30 @@ public class DBHelper {
         return null;
     }
 
-    public void blockSite(String nameOfSite) {
+    public void checkIfAllSitesIdAreInSitelock() {
         try {
             statement = connectionToDB.createStatement();
-            statement.executeUpdate("UPDATE sites SET isblocked = 1 WHERE name = '" + nameOfSite + "';");
+            statement.executeUpdate("INSERT INTO siteblock (siteid) (SELECT id FROM sites WHERE id NOT IN (SELECT siteid FROM siteblock));");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void blockSite(String nameOfSite) {
+        int siteID = getSiteID(nameOfSite);
+        try {
+            statement = connectionToDB.createStatement();
+            statement.executeUpdate("UPDATE siteblock SET isblocked = 1 WHERE siteid = '" + siteID + "';");
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
     public void unBlockSite(String nameOfSite) {
+        int siteID = getSiteID(nameOfSite);
         try {
             statement = connectionToDB.createStatement();
-            statement.executeUpdate("UPDATE sites SET isblocked = 0 WHERE name = '" + nameOfSite + "';");
+            statement.executeUpdate("UPDATE siteblock SET isblocked = 0 WHERE siteid = '" + siteID + "';");
         } catch (SQLException e) {
             e.printStackTrace();
         }
