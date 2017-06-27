@@ -21,7 +21,7 @@
             </label>
             <div class="control-label col-sm-6">
                 <select id="source" class="form-control" name="source" required="">
-                    <option value="unknown">Не выбрано</option>
+                    <option value="unknown">Все</option>
                     {% if sites %}
                         {% for site in sites %}
                             <option value="{{ site.id }}">
@@ -29,7 +29,7 @@
                             </option>
                         {% endfor %}
                     {% else %}
-                    <option value="#">Have no sites</option>
+                    <option value="#">Еще не добавлено</option>
                     {% endif %}
                 </select>
             </div>
@@ -50,7 +50,7 @@
                             </option>
                         {% endfor %}
                     {% else %}
-                    <option value="#">Have no source</option>
+                    <option value="#">Еще не добавлено</option>
                     {% endif %}
                 </select>
             </div>
@@ -63,10 +63,9 @@
             </label>
             <div class="control-label col-sm-6">
                 <select id="visualization" class="form-control" name="visualization" required="">
-                    <option value="unknown">Не выбрано</option>
-                    <option value="#">График</option>
-                    <option value="#">Диаграмма</option>
-                    <option value="#">Таблица</option>
+                    <option value="unknown">Таблица</option>
+                    <option value="#" disabled>График</option>
+                    <option value="#" disabled>Диаграмма</option>
                 </select>
             </div>
         </div>
