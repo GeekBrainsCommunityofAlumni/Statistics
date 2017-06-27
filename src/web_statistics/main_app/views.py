@@ -43,8 +43,21 @@ def admin_statistics(request):
     persons = Persons.objects.order_by('name')
     keywords = Keywords.objects.order_by('name')
     person_ranks = PersonPageRank.objects.values('person_id_id', 'page_id_id').annotate(rank=Sum('rank'))
+    pages = Pages.objects.all()
     return render(request, 'admin_statistics.html', {'persons': persons, 'keywords': keywords,
-                                                     'sites': sites, 'person_ranks': person_ranks})
+                                                     'sites': sites, 'person_ranks': person_ranks, 'pages': pages})
+
+
+def parameters_search(request):
+    if request.method == 'GET':
+        site = request.GET.get('source')
+        person = request.GET.get('profile')
+
+
+def api_stat(request):
+    # todo: request http://94.130.27.143:8080/api/ with parameters, and send json into the template
+    return render()
+
 
 def registration(request):
     return render(request, 'registration.html')

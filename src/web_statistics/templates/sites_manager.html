@@ -12,10 +12,28 @@
         {% csrf_token %}
         <h4>
             Текущий список сайтов:<br>
-            [ВСТАВИТЬ ТАБЛИЦУ]
         </h4>
-        <hr>
-        <button type="submit" value="Download .csv" formmethod="get" class="btn btn-primary btn-xs">
+        <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Сайт</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% if sites %}
+                {% for site in sites %}
+                <tr>
+                    <td>{{ site.id }}</td>
+                    <td>{{ site.name }}</td>
+                </tr>
+                {% endfor %}
+                {% else %}
+                    В базу данных еще не было добавлено ни одного сайта
+                {% endif %}
+            </table>
+
+        <button type="submit" value="Download .csv" formmethod="get" class="btn btn-primary btn-sm">
             <i class="fa fa-download" aria-hidden="true"></i> Download .csv
         </button>
         <img src="{% static 'img/loading.gif' %}">
@@ -55,7 +73,7 @@
                 Введите название сайта:
             </label>
             <div class="control-label col-sm-6">
-                <input type="text" size="29" placeholder="new source">
+                <input type="text" size="29" placeholder="Имя сайт">
                 <br>
                 <br>
                 <button type="submit" value="Поиск" formmethod="get" class="btn btn-success btn-sm">
@@ -65,7 +83,7 @@
         </div>
     <hr>
 
-        <button type="reset" value="Очистить" class="btn btn-danger btn-xs">
+        <button type="reset" value="Очистить" class="btn btn-danger btn-sm">
             <i class="fa fa-refresh" aria-hidden="true"></i> Очистить
         </button>
     </form>
@@ -76,10 +94,27 @@
         {% csrf_token %}
         <h4>
             Текущий список URL страниц:<br>
-            [ВСТАВИТЬ ТАБЛИЦУ]
         </h4>
-        <hr>
-        <button type="submit" value="Download .csv" formmethod="get" class="btn btn-primary btn-xs">
+        <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Адрес страницы</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% if pages %}
+                {% for page in pages %}
+                <tr>
+                    <td>{{ page.id }}</td>
+                    <td>{{ page.url }}</td>
+                </tr>
+                {% endfor %}
+                {% else %}
+                    В базу данных еще не было добавлено ни одной страницы
+                {% endif %}
+            </table>
+        <button type="submit" value="Download .csv" formmethod="get" class="btn btn-primary btn-sm">
             <i class="fa fa-download" aria-hidden="true"></i> Download .csv
         </button>
         <img src="{% static 'img/loading.gif' %}">
@@ -119,7 +154,7 @@
                 Введите новый URL сайта:
             </label>
             <div class="control-label col-sm-6">
-                <input type="text" size="29" placeholder="new source">
+                <input type="text" size="29" placeholder="URL страницы">
                 <br>
                 <br>
                 <button type="submit" value="Поиск" formmethod="get" class="btn btn-success btn-sm">
@@ -129,7 +164,7 @@
         </div>
 
         <hr>
-        <button type="reset" value="Очистить" class="btn btn-danger btn-xs">
+        <button type="reset" value="Очистить" class="btn btn-danger btn-sm">
             <i class="fa fa-refresh" aria-hidden="true"></i> Очистить
         </button>
     </form>

@@ -7,21 +7,19 @@
         <i class="fa fa-bar-chart" aria-hidden="true"></i> Вы просматриваете статистику за период
     </h3>
 <hr>
-<div class="side-left">
+<div class="col-sm-4">
     <form class="control-label col-sm-12">
         {% csrf_token %}
-        <h4>
-            Настройки поиска:
-        </h4>
+        <h4>Настройки поиска:</h4>
         <hr>
         <div class="row">
-            <label class="control-label col-sm-6">
+            <label class="control-label col-sm-5">
                 <i class="fa fa-laptop" aria-hidden="true"></i>
                 Выберите ресурс:
             </label>
             <div class="control-label col-sm-6">
                 <select id="source" class="form-control" name="source" required="">
-                    <option value="unknown">Не выбрано</option>
+                    <option value="all">Все</option>
                     {% if sites %}
                         {% for site in sites %}
                             <option value="{{ site.id }}">
@@ -29,20 +27,20 @@
                             </option>
                         {% endfor %}
                     {% else %}
-                    <option value="#">Have no sites</option>
+                    <option value="#">Еще не добавлено</option>
                     {% endif %}
                 </select>
             </div>
         </div>
     <br>
         <div class="row">
-            <label class="control-label col-sm-6">
+            <label class="control-label col-sm-5">
                 <i class="fa fa-address-card-o" aria-hidden="true"></i>
                 Выберите объект:
             </label>
             <div class="control-label col-sm-6">
                 <select id="profile" class="form-control" name="profile" required="">
-                    <option value="unknown">Не выбрано</option>
+                    <option value="all">Все</option>
                     {% if persons %}
                         {% for person in persons %}
                             <option value="{{ person.id }}">
@@ -50,53 +48,46 @@
                             </option>
                         {% endfor %}
                     {% else %}
-                    <option value="#">Have no source</option>
+                    <option value="#">Еще не добавлено</option>
                     {% endif %}
                 </select>
             </div>
         </div>
     <br>
         <div class="row">
-            <label class="control-label col-sm-6">
+            <label class="control-label col-sm-5">
                 <i class="fa fa-bar-chart" aria-hidden="true"></i>
                 Визуализация:
             </label>
             <div class="control-label col-sm-6">
                 <select id="visualization" class="form-control" name="visualization" required="">
-                    <option value="unknown">Не выбрано</option>
-                    <option value="#">График</option>
-                    <option value="#">Диаграмма</option>
-                    <option value="#">Таблица</option>
+                    <option value="1">Таблица</option>
+                    <option value="2" disabled>График</option>
+                    <option value="3" disabled>Диаграмма</option>
                 </select>
             </div>
         </div>
     <br>
         <div class="row">
-            <label class="control-label col-sm-6">
+            <label class="control-label col-sm-5">
                 <i class="fa fa-calendar" aria-hidden="true"></i>
-                Начало периода:
+                За период:
             </label>
+            <div class="control-label col-sm-6">
                 <input type="date" name="calendar" value="гггг-мм-дд" max="2050-06-04" min="2017-06-20">
-        </div>
-    <br>
-        <div class="row">
-            <label class="control-label col-sm-6">
-                <i class="fa fa-calendar" aria-hidden="true"></i>
-                Конец периода:
-            </label>
-                <input type="date" name="calendar" value="гггг-мм-дд" max="2050-06-04" min="2017-06-20">
+            </div>
         </div>
     <hr>
         <button type="submit" value="Поиск" formmethod="get" class="btn btn-success btn-sm">
             <i class="fa fa-search" aria-hidden="true"></i> Поиск
         </button>
-        <button type="reset" value="Очистить" class="btn btn-danger btn-xs">
+        <button type="reset" value="Очистить" class="btn btn-danger btn-sm">
             <i class="fa fa-refresh" aria-hidden="true"></i> Очистить
         </button>
     </form>
 </div>
 
-<div class="side-right">
+<div class="col-sm-8">
     <h4>
         Результат:
     </h4>
@@ -111,7 +102,7 @@
         <th>Упоминания</th>
       </tr>
     </thead>
-     <tbody>
+    <tbody>
     {% if persons %}
         {% for person in persons %}
     {% for site in sites %}
@@ -135,15 +126,14 @@
           </tr>
     {% endfor %}
     {% endfor %}
-
     {% endif %}
     </tbody>
   </table>
         <hr>
-        <button type="submit" value="Download .csv" formmethod="get" class="btn btn-primary btn-xs">
-            <i class="fa fa-download" aria-hidden="true"></i> Download .csv
+        <button type="submit" value="Download .csv" formmethod="get" class="btn btn-primary btn-sm">
+            <i class="fa fa-download" aria-hidden="true"></i> Download .csv <img src="{% static 'img/loading.gif' %}">
         </button>
-        <img src="{% static 'img/loading.gif' %}">
+
     </div>
 </div>
 
