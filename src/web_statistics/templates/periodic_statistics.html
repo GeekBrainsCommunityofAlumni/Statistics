@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+
+{% extends 'base.html' %}
+{% load static from staticfiles %}
+
+{% block title %}
+    Статистика за период - user| {{block.super}}
+{% endblock %}
+
+{% block content %}
+
+    <div class="col-lg-12">
+        <h2 class="page-header">User-Statistics<br>
+        <small>Вы аутентифицировались в статусе пользователя</small></h2>
+    </div>
+
+    {% include 'st_periodic_auth.html' %}
+
+{% endblock %}

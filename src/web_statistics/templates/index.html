@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+
+{% extends 'base.html' %}
+{% load static from staticfiles %}
+
+{% block title %}
+    О компании | {{block.super}}
+{% endblock %}
+
+{% block content %}
+<!-- Page Heading -->
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">О компании</h1>
+    </div>
+</div>
+
+<ul class="nav nav-tabs">
+    <li class="active"><a data-toggle="tab" href="#home">О компании</a></li>
+    <li><a data-toggle="tab" href="#menu0">Наш продукт</a></li>
+    <li><a data-toggle="tab" href="#menu1">Наша команда</a></li>
+    <li><a data-toggle="tab" href="#menu2">Download</a></li>
+</ul>
+
+<div class="tab-content">
+    <div id="home" class="tab-pane fade in active">
+        <br>
+        <div class="text-left about_logo">
+            <img src="{% static 'img/GBCA_logo.png' %}" alt="GB Community of Alumni">
+        </div>
+        <div class="description">
+            <p>
+                Компания GBCA [GeekBrains Community of Alumni] на этапе создания является некоммерчесским партнёрством, сформированным на
+                базе основного состава из 25 членов группы стажировки #11 выпускников школы программирования GeekBrains.
+            </p>
+            <p>
+                Дата основания сообщества - 07 июня 2017 года.
+            </p>
+
+            <p>
+                GBCA Statistics - пилотный проект сообщества. Следите за информацией о развитии компании в социальных сетях!
+            </p>
+        </div>
+    </div>
+
+    <div id="menu1" class="tab-pane fade">
+        <section class="col-lg-12 text-center">
+            <div class="col-lg-12">
+                <h2 class="page-header">[Our Team]</h2>
+            </div>
+
+            <div class="col-sm-6 col-md-3">
+                <div class="thumbnail">
+                    <img class="img-responsive img-center" src="{% static 'img/photos/Evgeny_Kartavec.jpg' %}" alt="Evgeny Kartavec">
+                    <h4>
+                        Evgeny Kartavetz<br>
+                        <small>Senior .Net Developer, руководитель отдела обучения GeekBrains. </small>
+                    </h4>
+                    <b>Команда:</b> GeekBrains.<br>
+                    <b>Статус:</b> Куратор стажировки.<br>
+                    <div class="sprites">
+                        <ul>
+                            <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-vk" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-youtube" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-pinterest-p" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-github" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-trello" aria-hidden="true"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6 col-md-3">
+                <div class="thumbnail">
+                    <img class="img-responsive img-center" src="{% static 'img/photos/Yury_Zhayvoronok.jpg' %}" alt="Yury Zhayvoronok">
+                    <h4>
+                        Yury Zhayvoronok<br>
+                        <small>Senior Web Developer<br>Mail.Ru Group</small>
+                    </h4>
+                    <b>Команда:</b> GeekBrains.<br>
+                    <b>Статус:</b> Куратор стажировки.<br>
+                    <div class="sprites">
+                        <ul>
+                            <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-vk" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-youtube" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-pinterest-p" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-github" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-trello" aria-hidden="true"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6 col-md-3">
+                <div class="thumbnail">
+                    <img class="img-responsive img-center" src="{% static 'img/photos/Pavel_Lisitsyn.jpg' %}" alt="Pavel Lisitsyn">
+                    <h4>
+                        Pavel Lisitsyn<br>
+                        <small>Team Leader, Python Developer</small>
+                    </h4>
+                    <b>Команда:</b> Website.<br>
+                    <b>Компетенции:</b> Web development, design.<br>
+                    <div class="sprites">
+                        <ul>
+                            <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-vk" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-youtube" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-pinterest-p" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-github" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-trello" aria-hidden="true"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6 col-md-3">
+                <div class="thumbnail">
+                    <img class="img-responsive img-center" src="{% static 'img/photos/Anastasia_Chernyshova.jpg' %}" alt="Anastasia Chernyshova">
+                    <h4>
+                        Anastasia Chernyshova<br>
+                        <small>Python Developer</small>
+                    </h4>
+                    <b>Команда:</b> Website.<br>
+                    <b>Компетенции:</b> Web development, design.<br>
+                    <div class="sprites">
+                        <ul>
+                            <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-vk" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-youtube" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-pinterest-p" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-github" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-trello" aria-hidden="true"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6 col-md-3">
+                <div class="thumbnail">
+                    <img class="img-responsive img-center" src="{% static 'img/photos/Michail_Ageev.jpg' %}" alt="Michail Ageev">
+                    <h4>
+                        Michail Ageev<br>
+                        <small>iOS Developer (Objective-C, Swift)</small>
+                    </h4>
+                    <b>Команда:</b> Mobile App.<br>
+                    <b>Компетенции:</b> User interface development.<br>
+                    <div class="sprites">
+                        <ul>
+                            <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-vk" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-youtube" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-pinterest-p" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-github" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-trello" aria-hidden="true"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6 col-md-3">
+                <div class="thumbnail">
+                    <img class="img-responsive img-center" src="{% static 'img/photos/Dmitry_Sherbachenko.jpg' %}" alt="Dmitry Sherbachenko">
+                    <h4>
+                        Dmitry Sherbachenko<br>
+                        <small>iOS Developer (Objective-C, Swift)</small>
+                    </h4>
+                    <b>Команда:</b> Mobile App.<br>
+                    <b>Компетенции:</b> User interface development.<br>
+                    <div class="sprites">
+                        <ul>
+                            <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-vk" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-youtube" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-pinterest-p" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-github" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-trello" aria-hidden="true"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-sm-6 col-md-3">
+                <div class="thumbnail">
+                    <img class="img-responsive img-center" src="{% static 'img/photos/question.jpg' %}" alt="Yury Alyokhin">
+                    <h4>
+                        Yury Alyokhin<br>
+                        <small>iOS Developer (Objective-C, Swift)</small>
+                    </h4>
+                    <b>Команда:</b> Mobile App.<br>
+                    <b>Компетенции:</b> User interface development.<br>
+                    <div class="sprites">
+                        <ul>
+                            <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-vk" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-youtube" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-pinterest-p" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-github" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-trello" aria-hidden="true"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6 col-md-3">
+                <div class="thumbnail">
+                    <img class="img-responsive img-center" src="{% static 'img/photos/Ilya_Kislov.jpg' %}" alt="Ilya Kislov">
+                    <h4>
+                        Ilya Kislov<br>
+                        <small>Java Developer</small>
+                    </h4>
+                    <b>Команда:</b> Web Service REST.<br>
+                    <b>Компетенции:</b> Development<br>Development.<br>
+                    <div class="sprites">
+                        <ul>
+                            <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-vk" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-youtube" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-pinterest-p" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-github" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-trello" aria-hidden="true"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6 col-md-3">
+                <div class="thumbnail">
+                    <img class="img-responsive img-center" src="{% static 'img/photos/Denis_Evseev.jpg' %}" alt="Denis Evseev">
+                    <h4>
+                        Denis Evseev<br>
+                        <small>Java Developer</small>
+                    </h4>
+                    <b>Команда:</b> Web-service REST.<br>
+                    <b>Компетенции:</b> Development<br>Development.<br>
+                    <div class="sprites">
+                        <ul>
+                            <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-vk" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-youtube" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-pinterest-p" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-github" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-trello" aria-hidden="true"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6 col-md-3">
+                <div class="thumbnail">
+                    <img class="img-responsive img-center" src="{% static 'img/photos/Anastasiya_Kolmakova.jpg' %}" alt="Anastasiya Kolmakova">
+                    <h4>
+                        Anastasiya Kolmakova<br>
+                        <small>Java Developer</small>
+                    </h4>
+                    <b>Команда:</b> Web-service REST.<br>
+                    <b>Компетенции:</b> Development<br>Development.<br>
+                    <div class="sprites">
+                        <ul>
+                            <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-vk" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-youtube" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-pinterest-p" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-github" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-trello" aria-hidden="true"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6 col-md-3">
+                <div class="thumbnail">
+                    <img class="img-responsive img-center" src="{% static 'img/photos/question.jpg' %}" alt="Alexey Volynshikov">
+                    <h4>
+                        Alexey Volynshikov<br>
+                        <small>Java Developer</small>
+                    </h4>
+                    <b>Команда:</b> Web-service REST.<br>
+                    <b>Компетенции:</b> Development<br>Development.<br>
+                    <div class="sprites">
+                        <ul>
+                            <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-vk" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-youtube" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-pinterest-p" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-github" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-trello" aria-hidden="true"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6 col-md-3">
+                <div class="thumbnail">
+                    <img class="img-responsive img-center" src="{% static 'img/photos/question.jpg' %}" alt="Sergey Kogut">
+                    <h4>
+                        Sergey Kogut<br>
+                        <small>Java Developer</small>
+                    </h4>
+                    <b>Команда:</b> Web-service REST.<br>
+                    <b>Компетенции:</b> Development<br>Development.<br>
+                    <div class="sprites">
+                        <ul>
+                            <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-vk" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-youtube" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-pinterest-p" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-github" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-trello" aria-hidden="true"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6 col-md-3">
+                <div class="thumbnail">
+                    <img class="img-responsive img-center" src="{% static 'img/photos/Ilya_Usachev.jpg' %}" alt="Ilya Usachev">
+                    <h4>
+                        Ilya Usachev<br>
+                        <small>Ruby Developer</small>
+                    </h4>
+                    <b>Команда:</b> Web AI.<br>
+                    <b>Компетенции:</b> Administrator interface development.<br>
+                    <div class="sprites">
+                        <ul>
+                            <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-vk" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-youtube" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-pinterest-p" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-github" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-trello" aria-hidden="true"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6 col-md-3">
+                <div class="thumbnail">
+                    <img class="img-responsive img-center" src="{% static 'img/photos/Ekaterina_Berdova.jpg' %}" alt="Ekaterina Berdova">
+                    <h4>
+                        Ekaterina Berdova<br>
+                        <small>Java Developer</small>
+                    </h4>
+                    <b>Команда:</b> Desktop App.<br>
+                    <b>Компетенции:</b> User interface development.<br>
+                    <div class="sprites">
+                        <ul>
+                            <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-vk" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-youtube" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-pinterest-p" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-github" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-trello" aria-hidden="true"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6 col-md-3">
+                <div class="thumbnail">
+                    <img class="img-responsive img-center" src="{% static 'img/photos/Alexey_Isaev.jpg' %}" alt="Alexey Isaev">
+                    <h4>
+                        Alexey Isaev<br>
+                        <small>Java Developer</small>
+                    </h4>
+                    <b>Команда:</b> Desktop App.<br>
+                    <b>Компетенции:</b> User interface development.<br>
+                    <div class="sprites">
+                        <ul>
+                            <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-vk" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-youtube" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-pinterest-p" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-github" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-trello" aria-hidden="true"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-sm-6 col-md-3">
+                <div class="thumbnail">
+                    <img class="img-responsive img-center" src="{% static 'img/photos/question.jpg' %}" alt="Alexey Somov">
+                    <h4>
+                        Alexey Somov<br>
+                        <small>Java Developer</small>
+                    </h4>
+                    <b>Команда:</b> Desktop App.<br>
+                    <b>Компетенции:</b> Administrator interface development.<br>
+                    <div class="sprites">
+                        <ul>
+                            <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-vk" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-youtube" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-pinterest-p" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-github" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-trello" aria-hidden="true"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6 col-md-3">
+                <div class="thumbnail">
+                    <img class="img-responsive img-center" src="{% static 'img/photos/question.jpg' %}" alt="Andrey Brazhnikov">
+                    <h4>
+                        Andrey Brazhnikov<br>
+                        <small>Java Developer</small>
+                    </h4>
+                    <b>Команда:</b> Desktop App.<br>
+                    <b>Компетенции:</b> User interface development.<br>
+                    <div class="sprites">
+                        <ul>
+                            <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-vk" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-youtube" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-pinterest-p" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-github" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-trello" aria-hidden="true"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6 col-md-3">
+                <div class="thumbnail">
+                    <img class="img-responsive img-center" src="{% static 'img/photos/question.jpg' %}" alt="Vladimir Baykin">
+                    <h4>
+                        Vladimir Baykin<br>
+                        <small>C# Developer</small>
+                    </h4>
+                    <b>Команда:</b> Desktop App.<br>
+                    <b>Компетенции:</b> User interface development.<br>
+                    <div class="sprites">
+                        <ul>
+                            <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-vk" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-youtube" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-pinterest-p" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-github" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-trello" aria-hidden="true"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6 col-md-3">
+                <div class="thumbnail">
+                    <img class="img-responsive img-center" src="{% static 'img/photos/question.jpg' %}" alt="Michail Gusev">
+                    <h4>
+                        Michail Gusev<br>
+                        <small>Java Developer</small>
+                    </h4>
+                    <b>Команда:</b> Desktop App.<br>
+                    <b>Компетенции:</b> Administrator interface development.<br>
+                    <div class="sprites">
+                        <ul>
+                            <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-vk" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-youtube" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-pinterest-p" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-github" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-trello" aria-hidden="true"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6 col-md-3">
+                <div class="thumbnail">
+                    <img class="img-responsive img-center" src="{% static 'img/photos/Anatoly_Ekert.jpg' %}" alt="Anatoly Ekert">
+                    <h4>
+                        Anatoly Ekert<br>
+                        <small>Java Developer</small>
+                    </h4>
+                    <b>Команда:</b> Crawler.<br>
+                    <b>Компетенции:</b> Classes developer in "Crawler".<br>
+                    <div class="sprites">
+                        <ul>
+                            <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-vk" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-youtube" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-pinterest-p" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-github" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-trello" aria-hidden="true"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6 col-md-3">
+                <div class="thumbnail">
+                    <img class="img-responsive img-center" src="{% static 'img/photos/Yury_Tilman.jpg' %}" alt="Yury Tilman">
+                    <h4>
+                        Yury Tilman<br>
+                        <small>Java Developer</small>
+                    </h4>
+                    <b>Команда:</b> Crawler.<br>
+                    <b>Компетенции:</b> Classes developer in "Crawler".<br>
+                    <div class="sprites">
+                        <ul>
+                            <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-vk" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-youtube" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-pinterest-p" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-github" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-trello" aria-hidden="true"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6 col-md-3">
+                <div class="thumbnail">
+                    <img class="img-responsive img-center" src="{% static 'img/photos/Anton_Malyshev.jpg' %}" alt="Anton Malyshev">
+                    <h4>
+                        Anton Malyshev<br>
+                        <small>Java Developer</small>
+                    </h4>
+                    <b>Команда:</b> Crawler.<br>
+                    <b>Компетенции:</b> Development<br>Development.<br>
+                    <div class="sprites">
+                        <ul>
+                            <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-vk" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-youtube" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-pinterest-p" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-github" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-trello" aria-hidden="true"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6 col-md-3">
+                <div class="thumbnail">
+                    <img class="img-responsive img-center" src="{% static 'img/photos/Sergey_Kavtaskin.jpg' %}" alt="Sergey Kavtaskin">
+                    <h4>
+                        Sergey Kavtaskin<br>
+                        <small>Java Developer</small>
+                    </h4>
+                    <b>Команда:</b> Crawler.<br>
+                    <b>Компетенции:</b> Development<br>Development.<br>
+                    <div class="sprites">
+                        <ul>
+                            <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-vk" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-youtube" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-pinterest-p" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-github" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-trello" aria-hidden="true"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6 col-md-3">
+                <div class="thumbnail">
+                    <img class="img-responsive img-center" src="{% static 'img/photos/question.jpg' %}" alt="Alexandr Demin">
+                    <h4>
+                        Alexandr Demin<br>
+                        <small>Java Developer</small>
+                    </h4>
+                    <b>Команда:</b> Crawler.<br>
+                    <b>Компетенции:</b> Development<br>Development.<br>
+                    <div class="sprites">
+                        <ul>
+                            <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-vk" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-youtube" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-pinterest-p" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-github" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-trello" aria-hidden="true"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6 col-md-3">
+                <div class="thumbnail">
+                    <img class="img-responsive img-center" src="{% static 'img/photos/question.jpg' %}" alt="Anton Tintul">
+                    <h4>
+                        Anton Tintul<br>
+                        <small>Java Developer</small>
+                    </h4>
+                    <b>Команда:</b> Crawler.<br>
+                    <b>Компетенции:</b> Development<br>Development.<br>
+                    <div class="sprites">
+                        <ul>
+                            <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-vk" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-youtube" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-pinterest-p" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-github" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-trello" aria-hidden="true"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6 col-md-3">
+                <div class="thumbnail">
+                    <img class="img-responsive img-center" src="{% static 'img/photos/question.jpg' %}" alt="Sergey Sergey">
+                    <h4>
+                        Sergey Sergey<br>
+                        <small>Developer</small>
+                    </h4>
+                    <b>Команда:</b> Crawler.<br>
+                    <b>Компетенции:</b> Development<br>Development.<br>
+                    <div class="sprites">
+                        <ul>
+                            <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-vk" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-youtube" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-pinterest-p" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-github" aria-hidden="true"></i></a></li>
+                            <li><a href="#"><i class="fa fa-trello" aria-hidden="true"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div id="menu2" class="tab-pane fade">
+        <section class="col-lg-12 text-center" id="download">
+            <h2 class="section-heading">Download</h2>
+            <p>Мобильную версия приложения для iOS и Android, а также десктопное приложение можно скачать по ссылкам ниже: </p>
+            <div class="badges">
+                <a class="badge-link" href="#"><img src="{% static 'img/google-play-badge.svg' %}" alt="" width="10%"></a>
+                <a class="badge-link" href="#"><img src="{% static 'img/app-store-badge.svg' %}" alt="" width="10%"></a>
+                <a class="badge-link" href="#"><i class="fa fa-download fa-2x"></i></a>
+            </div>
+            <hr>
+        </section>
+
+        <section class='text-center'>
+            <div id="pricing" class="container-fluid">
+                <div class="text-center">
+                    <h3>Pricing<br>
+                        <small>Choose a payment plan that works for you</small>
+                    </h3>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6 col-xs-12">
+                        <div class="panel panel-default text-center">
+                            <div class="panel-heading">
+                                <h4>Free version</h4>
+                            </div>
+                            <div class="panel-body">
+                                <p><strong>20</strong> web-source</p>
+                                <p><strong>15</strong> target-names</p>
+                                <p><strong>5</strong> smth else</p>
+                                <p><strong>Endless</strong> access to statistic</p>
+                            </div>
+                            <div class="panel-footer">
+                                <h3>$0
+                                <small>per month</small></h3>
+                                <button class="btn btn-success btn-sm">Sign Up</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6 col-xs-12">
+                        <div class="panel panel-default text-center">
+                            <div class="panel-heading">
+                                <h4>Professional commercial version</h4>
+                            </div>
+                            <div class="panel-body">
+                                <p><strong>100</strong> web-sources</p>
+                                <p><strong>50</strong> target-names</p>
+                                <p><strong>10</strong> smth else</p>
+                                <p><strong>Endless</strong> access to statistic</p>
+                            </div>
+                            <div class="panel-footer">
+                                <h3>$15
+                                <small>per month</small></h3>
+                                <button class="btn btn-success btn-sm">Sign Up</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <div id="menu0" class="tab-pane fade">
+
+        <div class="text-left">
+            <h2 class='text-center'>
+                <i class="fa fa-bar-chart" aria-hidden="true"></i>
+                Программный продукт 'Statistics'
+            </h2>
+            <br>
+            <img src="{% static 'img/Statistics_logo.png' %}" alt="Statistics">
+        </div>
+        <br>
+        <p>
+            Уважаемые Господа! Представляем Вашему вниманию «Statistics» - пилотный программный продукт,
+            полностью разработанный компанией GBCA – Сообществом выпускников школы программирования «GeekBrains»
+            (Mail.Ru Group).
+        </p>
+
+        <h3 class="w3-center">Information system 'Statistics' sсheme</h3>
+        <div class='row'>
+            <div class='text-center'>
+
+                <div class="w3-content w3-section" style="max-width:500px">
+                    <img class="mySlides" src="{% static 'img/slider/about.png' %}" >
+                    <img class="mySlides" src="{% static 'img/slider/private.png' %}" >
+                    <img class="mySlides" src="{% static 'img/slider/user1.png' %}" >
+                    <img class="mySlides" src="{% static 'img/slider/user2.png' %}" >
+                    <img class="mySlides" src="{% static 'img/slider/admin0.png' %}" >
+                    <img class="mySlides" src="{% static 'img/slider/admin1.png' %}" >
+                    <img class="mySlides" src="{% static 'img/slider/admin2.png' %}" >
+                    <img class="mySlides" src="{% static 'img/slider/admin3.png' %}" >
+                    <img class="mySlides" src="{% static 'img/slider/admin4.png' %}" >
+                    <img class="mySlides" src="{% static 'img/slider/partnership.png' %}" >
+                    <img class="mySlides" src="{% static 'img/slider/contacts.png' %}" >
+                </div>
+
+                 <script>
+                 var myIndex = 0;
+                 carousel();
+
+                 function carousel() {
+                     var i;
+                     var x = document.getElementsByClassName("mySlides");
+                     for (i = 0; i < x.length; i++) {
+                     x[i].style.display = "none";
+                     }
+                     myIndex++;
+                     if (myIndex > x.length) {myIndex = 1}
+                     x[myIndex-1].style.display = "block";
+                     setTimeout(carousel, 2000); // Change image every 2 seconds
+                 }
+                 </script>
+            </div>
+        </div>
+
+        <section class="text-left">
+
+            <h3>Описание продукта</h3>
+            <p>
+                «Statistics» позволяет пользователю собирать сведения по интересующему его политическому или общественному деятелю в контексте частоты упоминания фамилии последнего как на интернет-страницах официальных СМИ, так и в глобальном информационном пространстве.<br>
+
+                Потенциальные пользователи «Statistics» - новостные сайты и информационные агенства, социологические службы и службы статистики (как государственные, так и коммерческие), высшие гуманитарные учебные заведения, рейтинговые агенства, PR-службы политических партий и отдельных политических деятелей, а также многие другие.
+            </p>
+            <h3>Как это работает</h3>
+            <p>
+                Пользователю, прошедшему процедуру регистрации/авторизации предоставляется возможность просмотреть «Общую» и «Ежедневную (за выбранный период)» статистику упоминаний интересующей его личности на указанном пользователем сайте. Сбор статистики осуществляется по списку ключевых слов, относящихся к выбранной персоне.<br>
+
+                Пополнение списка сайтов, списка страниц сайтов, списка фамилий, а также списка ключевых слов осуществляет пользователь, обладающий правами администратора. Администратор также имеет доступ к «Общей» и «Ежедневной статистике», имеет возможность обрабатывать запросы на создание учётной записи пользователя и администратора.<br>
+
+                Визуальное представление информации по запросу пользователя реализовано в трёх вариантах: таблица, график, диаграмма.
+            </p>
+            <h3>Technology stack</h3>
+            <p>
+                Продукт разработан на стеке наиболее современных технологий –<br> Python/Django/HTML5/CSS3/Bootstrap/JavaScript/Jquery/Ajax/JSON/Java/Swift/Objective-C/REST/MySQL и др.
+            </p>
+                <h3>Interfaces</h3>
+            <p>
+                Пользователю предоставляется возможность выбора наиболее удобного для него интерфейса:
+            </p>
+            <ul>
+                <li>web-сайт</li>
+                <li>desktop app.</li>
+                <li>mobile app.</li>
+            </ul>
+
+            <h3>Функционал</h3>
+            <p>
+                Пользователю предлагается бесплатный и платный доступ к продукту на выбор.
+                Преимуществами платного доступа являются:
+            </p>
+
+            <ul>
+                <li>возможность для администратора добавить более 3-х базовых сайтов в список поиска;</li>
+                <li>возможность для администратора добавить более 5 личностей в список поиска;</li>
+                <li>возможность для администратора добавлять новые сайты в список поиска.</li>
+            </ul>
+
+            <p>
+                Вы можете ознакомиться с описанием полного функционала сервиса, посетив Web-сайт продукта «Statistics».
+            </p>
+            <p>
+                Скачать продукт в интересующем Вас формате реализации можно по ссылкам:
+            </p>
+            <ul>
+                <li>Mobile App (Android Market)</li>
+                <li>Desktop App</li>
+            </ul>
+
+            <p>
+                Технические требования для корректной работы продукта:
+            </p>
+
+            <ul>
+                <li>mobile: iOS ...</li>
+                <li>desktop: OS ...</li>
+            </ul>
+
+            <hr>
+        </section>
+    </div>
+</div>
+{% endblock %}

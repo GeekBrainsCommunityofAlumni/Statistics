@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>
+        {% block title %}
+            Базовый шаблон для админки | {{block.super}}
+        {% endblock %}
+    </title>
+    {% block css %}
+        <link rel="stylesheet" href="/static/css/base.css"/>
+        <link rel="stylesheet" href="/static/css/bootstrap.css"/>
+    {% endblock %}
+    <meta charset="utf-8">
+</head>
+<body>
+<div class="container">
+    {% block js %}
+        <script src="/static/js/jquery-3.1.1.min.js"></script>
+        <script src="/static/js/bootstrap.min.js"></script>
+    {% endblock %}
+    {#<div id="csrfmiddlewaretoken" style="display: none;">{% csrf_token %}</div>#}
+
+    <div class="page-header">
+        <div class="row">
+            {% block header %}
+                <div class="col-md-12">
+                    <h1>Админка</h1>
+                </div>
+            {% endblock %}
+        </div>
+    </div>
+
+    <div class="row">
+        {% block menu %}
+            / <a href="users/">пользователи </a>/
+        {% endblock %}
+    </div>
+
+    <div class="row">
+        {% block content %}
+            base % context % template
+        {% endblock %}
+    </div>
+</div>
+</body>
+</html>

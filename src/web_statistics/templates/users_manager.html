@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+
+{% load static from staticfiles %}
+
+{% block content %}
+    <h3 >
+        <i class="fa fa-user-plus" aria-hidden="true"></i> Менеджер пользователей
+    </h3>
+<hr>
+<div class="side-left">
+    <form class="control-label col-sm-12">
+        {% csrf_token %}
+        <h4>Текущий список пользователей:</h4>
+        {% if users %}
+        <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Пользователь</th>
+                        <th>Логин</th>
+                        <th>Статус</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for user in users %}
+                {% if user.status == 'Пользователь' %}
+                <tr>
+                    <td>{{ user.id }}</td>
+                    <td>{{ user.username }}</td>
+                    <td>{{ user.login }}</td>
+                    <td>{{ user.status }}</td>
+                </tr>
+                {% endif %}
+                {% endfor %}
+            {% else %}
+            В базу данных еще не было добавлено ни одного пользователя
+        {% endif %}
+            </table>
+        <button type="submit" value="Download .csv" formmethod="get" class="btn btn-primary btn-sm">
+            <i class="fa fa-download" aria-hidden="true"></i> Download .csv
+        </button>
+        <img src="{% static 'img/loading.gif' %}">
+        <hr>
+        <h4>
+            Редактирование:
+        </h4>
+        <hr>
+        <div class="row">
+            <label class="control-label col-sm-6">
+                <i class="fa fa-user-times" aria-hidden="true"></i>
+                Удалить пользователя:
+            </label>
+            <div class="control-label col-sm-6">
+                <select id="source" class="form-control" name="source" required="">
+                    <option value="unknown">Не выбрано</option>
+                    {% if users %}
+                        {% for user in users %}
+                            {% if user.status == 'Пользователь' %}
+                            <option value="{{ user.id }}">
+                                {{ user.login }}
+                            </option>
+                            {% endif %}
+                        {% endfor %}
+                    {% else %}
+                    <option value="#">Нет данных для отображения</option>
+                    {% endif %}
+                </select>
+                <br>
+                <button type="submit" value="Поиск" formmethod="get" class="btn btn-success btn-sm">
+                    <i class="fa fa-minus-square" aria-hidden="true"></i> Удалить пользователя
+                </button>
+            </div>
+        </div>
+    <hr>
+        <div class="row">
+            <label class="control-label col-sm-6">
+                <i class="fa fa-user-plus" aria-hidden="true"></i>
+                Создайте нового пользователя:
+            </label>
+            <div class="control-label col-sm-6">
+                <input type="text" size="29" placeholder="Имя пользователя">
+                <br>
+                <br>
+                <button type="submit" value="Поиск" formmethod="get" class="btn btn-success btn-sm">
+                    <i class="fa fa-plus-square" aria-hidden="true"></i> Добавить пользователя
+                </button>
+            </div>
+        </div>
+    <hr>
+        <button type="reset" value="Очистить" class="btn btn-danger btn-sm">
+            <i class="fa fa-refresh" aria-hidden="true"></i> Очистить
+        </button>
+    </form>
+</div>
+
+<div class="side-right">
+    <form class="control-label col-sm-12">
+        {% csrf_token %}
+        <h4>Текущий список администраторов:</h4>
+        <table class="table table-bordered">
+                {% if users %}
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Пользователь</th>
+                        <th>Логин</th>
+                        <th>Статус</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for user in users %}
+                {% if user.status == 'Администратор' %}
+                <tr>
+                    <td>{{ user.id }}</td>
+                    <td>{{ user.username }}</td>
+                    <td>{{ user.login }}</td>
+                    <td>{{ user.status }}</td>
+                </tr>
+                {% endif %}
+                {% endfor %}
+                {% else %}
+                    В базу данных еще не было добавлено ни одного пользователя
+                {% endif %}
+            </table>
+        <button type="submit" value="Download .csv" formmethod="get" class="btn btn-primary btn-sm">
+            <i class="fa fa-download" aria-hidden="true"></i> Download .csv
+        </button>
+        <img src="{% static 'img/loading.gif' %}">
+        <hr>
+        <h4>
+            Редактирование:
+        </h4>
+        <hr>
+            <div class="row">
+            <label class="control-label col-sm-6">
+                <i class="fa fa-user-times" aria-hidden="true"></i>
+                Удалить администратора:
+            </label>
+            <div class="control-label col-sm-6">
+                <select id="source" class="form-control" name="source" required="">
+                    <option value="unknown">Не выбрано</option>
+                    {% if users %}
+                        {% for user in users %}
+                            {% if user.status == 'Администратор' %}
+                            <option value="{{ user.id }}">
+                                {{ user.login }}
+                            </option>
+                            {% endif %}
+                        {% endfor %}
+                    {% else %}
+                    <option value="#">Have no sites</option>
+                    {% endif %}
+                </select>
+                <br>
+                <button type="submit" value="Поиск" formmethod="get" class="btn btn-success btn-sm">
+                    <i class="fa fa-minus-square" aria-hidden="true"></i> Удалить администратора
+                </button>
+            </div>
+        </div>
+    <hr>
+        <div class="row">
+            <label class="control-label col-sm-6">
+                <i class="fa fa-user-plus" aria-hidden="true"></i>
+                Создайте нового администратора:
+            </label>
+            <div class="control-label col-sm-6">
+                <input type="text" size="29" placeholder="Имя администратора">
+                <br>
+                <br>
+                <button type="submit" value="Поиск" formmethod="get" class="btn btn-success btn-sm">
+                    <i class="fa fa-plus-square" aria-hidden="true"></i> Добавить администратора
+                </button>
+            </div>
+        </div>
+
+        <hr>
+        <button type="reset" value="Очистить" class="btn btn-danger btn-sm">
+            <i class="fa fa-refresh" aria-hidden="true"></i> Очистить
+        </button>
+    </form>
+</div>
+
+{% endblock %}

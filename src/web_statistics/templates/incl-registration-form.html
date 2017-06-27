@@ -1,0 +1,117 @@
+{% load static from staticfiles %}
+
+
+<div class="form-group">
+    <label for="lastName" class="col-sm-3 control-label">Фамилия:</label>
+    <div class="col-sm-3">
+        <input type="text" name="last_name" id="lastName" placeholder="Фамилия" class="form-control" required="" autofocus>
+    </div>
+</div> <!-- /.form-group -->
+
+<div class="form-group">
+    <label for="firstName" class="col-sm-3 control-label">Имя:</label>
+    <div class="col-sm-3">
+        <input type="text" name="first_name" id="firstName" placeholder="Имя" class="form-control" required="" autofocus>
+    </div>
+</div> <!-- /.form-group -->
+
+<div class="form-group">
+    <label for="inputEmail" class="col-sm-3 control-label">
+        <i class="fa fa-user" aria-hidden="true"></i>
+        Ваш login:
+    </label>
+    <div class="col-sm-3">
+        <input type="text" name="login" id="inputEmail" class="form-control" placeholder="логин" required="" autofocus>
+    </div>
+    <span class="help-block">&#9998; Вы можете использовать Ваш e-mail </span>
+</div> <!-- /.form-group -->
+
+<div class="form-group">
+    <label for="password" class="col-sm-3 control-label">
+        <i class="fa fa-key" aria-hidden="true"></i>
+        Ваш пароль:
+    </label>
+    <div class="col-sm-3">
+        <input type="password" name="password" id="password" placeholder="пароль" class="form-control" required="" autofocus>
+    </div>
+</div> <!-- /.form-group -->
+
+<div class="form-group">
+    <label for="confirmpassword" class="col-sm-3 control-label">
+        <i class="fa fa-check-square-o" aria-hidden="true"></i>
+        Подтверждение пароля:
+    </label>
+    <div class="col-sm-3">
+        <input type="password" name="confirmpassword" id="confirmpassword" placeholder="Пожалуйста, подтвердите..." class="form-control" required="">
+    </div>
+</div> <!-- /.form-group -->
+
+<div class="form-group">
+    <label for="email" class="col-sm-3 control-label">
+        <i class="fa fa-envelope-o" aria-hidden="true"></i>
+        Ваш e-mail:
+    </label>
+    <div class="col-sm-3">
+        <input type="email" name="email" id="email" class="form-control" placeholder="e-mail"  required="" autofocus>
+    </div>
+</div> <!-- /.form-group -->
+
+<div class="form-group">
+    <label class="control-label col-sm-3">
+        <i class="fa fa-address-card-o" aria-hidden="true"></i>
+        Ваш статус пользователя:
+    </label>
+    <div class="col-sm-3">
+        <select id="is_stuf" class="form-control" name="status" required="">
+            <option value="unknown">Выберите из списка:</option>
+            <option value="Администратор">Администратор</option>
+            <option value="Пользователь">Пользователь</option>
+        </select>
+    </div>
+</div> <!-- /.form-group -->
+
+<div class="form-group">
+    <label for="mobile" class="col-sm-3 control-label required">
+        <i class="fa fa-mobile" aria-hidden="true"></i>
+        Контактный тел. (mobile):
+    </label>
+    <div class="col-sm-3">
+        <input name="phone_number" id="mobile" class="form-control" placeholder="phone number"/>
+    </div>
+    <span class="help-block">&#9998; по желанию</span>
+</div> <!-- /.form-group -->
+
+<div class="form-group">
+    <label for="birthDate" class="col-sm-3 control-label">
+        <i class="fa fa-birthday-cake" aria-hidden="true"></i>
+        Дата рождения:
+    </label>
+    <div class="col-sm-3">
+        <input type="date" name="birthdate" id="birthDate" class="form-control">
+    </div>
+    <span class="help-block">&#9998; по желанию</span>
+</div> <!-- /.form-group -->
+
+<div class="form-group">
+    <label for="image" class="col-sm-3 control-label">
+        <i class="fa fa-camera-retro" aria-hidden="true"></i>
+        Загрузите Ваше фото:
+    </label>
+    <div class="col-sm-3">
+        <!--<form enctype="multipart/form-data" method="post">-->
+            <!--<input type="submit" name="image" id="image" class="btn btn-success btn-sm" value="Загрузить фото">-->
+            <input type="file" name="photo" id="image">
+        <!--</form>-->
+    </div>
+    <span class="help-block">&#9998; По желанию</span>
+</div> <!-- /.form-group -->
+
+<div class="form-group">
+    <div class="col-sm-9 col-sm-offset-3">
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" name="rules">Я принимаю <a href="#">Правила пользования сайтом</a>
+            </label>
+        </div>
+    </div>
+</div> <!-- /.form-group -->

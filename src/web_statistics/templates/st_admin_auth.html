@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+{% load static from staticfiles %}
+
+<html>
+<head>
+    <title>
+        Авторизация | {{block.super}}
+    </title>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+<!--     <meta name="description" content="">
+    <meta name="author" content=""> -->
+
+    <link rel="shortcut icon" href="{% static 'img/favicon.png' %}" type="image/x-icon"/>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="{% static 'css/sb-admin.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}"/>
+
+    <!-- Morris Charts CSS -->
+    <link href="{% static 'css/plugins/morris.css' %}" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="{% static 'font-awesome/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+
+{% if user.is_authenticated %}
+
+    {% block content %}
+        {% include 'incl-admin.html' %}
+    {% endblock %}
+
+{% else %}
+    {% if errors %}
+        <p id="attention">Неверный логин или пароль</p>
+    {% endif %}
+
+    <div class="container-fluid">
+        <div class="login">
+            <form class="form-signin" method="post" action="/user/login/">
+                {% csrf_token %}
+                <h3 class="form-signin-heading">Sign in</h3>
+                <i class="fa fa-user" aria-hidden="true"></i>
+                <label class="control-label" for="inputEmail">E-mail/Логин:</label>
+                <!--<label for="inputEmail" class="sr-only">E-mail/Логин</label>-->
+                <input type="text" id="inputEmail" class="form-control" name="login" placeholder="E-mail/Логин" required autofocus>
+                <i class="fa fa-key" aria-hidden="true"></i>
+                <label class="control-label" for="inputPassword">Пароль:</label>
+                <!--<label for="inputPassword" class="sr-only">Пароль:</label>-->
+                <input type="password" id="inputPassword" class="form-control" name="password" placeholder="Password" required>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" value="remember-me"> Запомнить меня
+                    </label>
+                </div>
+                <button class="btn btn-success btn-block" type="submit">Войти</button>
+                <a class="btn btn-danger btn-block" role="button" href="/registration/">Зарегистрироваться</a>
+            </form>
+        </div>
+    </div>
+
+{% endif %}

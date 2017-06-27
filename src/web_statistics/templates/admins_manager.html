@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+
+{% load static from staticfiles %}
+
+{% block content %}
+    <h3>
+        <i class="fa fa-user-plus" aria-hidden="true"></i> Менеджер администраторов
+    </h3>
+<hr>
+<div class="side-left">
+    <form class="control-label col-sm-12">
+        {% csrf_token %}
+        <h4>
+            Настройки поиска:
+        </h4>
+        <hr>
+        <div class="row">
+            <label class="control-label col-sm-6">
+                <i class="fa fa-laptop" aria-hidden="true"></i>
+                Выберите ресурс:
+            </label>
+            <div class="control-label col-sm-6">
+                <select id="source" class="form-control" name="source" required="">
+                    <option value="unknown">Все</option>
+                    {% if sites %}
+                        {% for site in sites %}
+                            <option value="{{ site.id }}">
+                                {{ site.name }}
+                            </option>
+                        {% endfor %}
+                    {% else %}
+                    <option value="#">Еще не добавлено</option>
+                    {% endif %}
+                </select>
+            </div>
+        </div>
+    <br>
+        <div class="row">
+            <label class="control-label col-sm-6">
+                <i class="fa fa-address-card-o" aria-hidden="true"></i>
+                Выберите объект:
+            </label>
+            <div class="control-label col-sm-6">
+                <select id="profile" class="form-control" name="profile" required="">
+                    <option value="unknown">Не выбрано</option>
+                    {% if persons %}
+                        {% for person in persons %}
+                            <option value="{{ person.id }}">
+                                {{ person.name }}
+                            </option>
+                        {% endfor %}
+                    {% else %}
+                    <option value="#">Еще не добавлено</option>
+                    {% endif %}
+                </select>
+            </div>
+        </div>
+    <br>
+        <div class="row">
+            <label class="control-label col-sm-6">
+                <i class="fa fa-bar-chart" aria-hidden="true"></i>
+                Визуализация:
+            </label>
+            <div class="control-label col-sm-6">
+                <select id="visualization" class="form-control" name="visualization" required="">
+                    <option value="unknown">Таблица</option>
+                    <option value="#" disabled>График</option>
+                    <option value="#" disabled>Диаграмма</option>
+                </select>
+            </div>
+        </div>
+    <br>
+        <div class="row">
+            <label class="control-label col-sm-6">
+                <i class="fa fa-calendar" aria-hidden="true"></i>
+                Начало периода:
+            </label>
+                <input type="date" name="calendar" value="гггг-мм-дд" max="2050-06-04" min="2017-06-20">
+        </div>
+    <br>
+        <div class="row">
+            <label class="control-label col-sm-6">
+                <i class="fa fa-calendar" aria-hidden="true"></i>
+                Конец периода:
+            </label>
+                <input type="date" name="calendar" value="гггг-мм-дд" max="2050-06-04" min="2017-06-20">
+        </div>
+    <hr>
+        <button type="submit" value="Поиск" formmethod="get" class="btn btn-success btn-sm">
+            <i class="fa fa-search" aria-hidden="true"></i> Поиск
+        </button>
+        <button type="reset" value="Очистить" class="btn btn-danger btn-xs">
+            <i class="fa fa-refresh" aria-hidden="true"></i> Очистить
+        </button>
+    </form>
+</div>
+
+<div class="side-right">
+    <h4>
+        Текущий список администраторов:
+    </h4>
+    <hr>
+    <div class="row">
+        <hr>
+        <button type="submit" value="Download .csv" formmethod="get" class="btn btn-primary btn-xs">
+            <i class="fa fa-download" aria-hidden="true"></i> Download .csv
+        </button>
+        <img src="{% static 'img/loading.gif' %}">
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,148 @@
+/*.logo {
+    height: 60px;
+    margin-left: -15px;
+}*/
+
+.logout {
+    padding-left: 20px;
+    padding-bottom: 20px;
+    width: 100px;
+}
+
+.login {
+    padding-left: 40%;
+    position: relative;
+    width: 60%;
+    padding-bottom: 50px;
+}
+
+.sprites {
+    padding-top: 10px;
+	justify-content: space-around;
+	width: 200px;
+	height: 10px;
+}
+
+.sprites ul li {
+	display: inline-flex;
+	list-style-type: none;
+}
+
+.sprites a {
+	color: black;
+}
+
+.sprites ul li:hover a {
+	color: red;
+	transition: all .3s ease;
+}
+
+.side-left, .side-right {
+    width: 45%;
+    display: block;
+    justify-content: space-around;
+    margin-right: 20px;
+}
+
+.side-left {
+    float: left;
+}
+
+.side-right {
+    float: right;
+}
+
+.btn-danger {
+    background-color: red;
+}
+
+.btn-success {
+    background-color: #222222;
+}
+
+#social-gb {
+    opacity: 0.8;
+}
+
+#social-gb:hover {
+        opacity: 1;
+}
+
+#user {
+    height: 200px;
+    display: inline-flex;
+}
+
+
+.navbar-header {
+    height: 110px;
+}
+
+.navbar-brand {
+    height: 70px;
+    margin-bottom: -30px;
+}
+
+.side-nav {
+    margin-top: 60px;
+}
+
+#main {
+    margin-top: 70px;
+    margin-bottom: 20px;
+}
+
+#page-wrapper {
+    border: 1px solid red;
+}
+
+#usercart {
+    margin-top: 0px;
+}
+
+#user {
+    margin-left: 15px;
+}
+
+#social-large:hover a {
+	color: white;
+	transition: all .3s ease;
+}
+
+.description {
+    margin-top: 10px;
+}
+
+.about {
+    margin-left: -45px;
+}
+
+.about p {
+    margin-left: -32px;
+}
+
+.about p:hover {
+    color: red;
+}
+
+.fa fa-download fa-2x {
+    margin-top: 10px;
+}
+
+.logo_slider {
+	display: inline-flex;
+	justify-content: space-between;
+	height: 58px;
+	width: 270px;
+	margin-left: -12px;
+}
+
+.logo img {
+	justify-content: space-between;
+	height: 58px;
+	overflow: hidden;
+}
+
+#settings {
+    list-style-type: none;
+}

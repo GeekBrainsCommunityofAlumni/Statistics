@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+
+{% extends 'base.html' %}
+{% load static from staticfiles %}
+
+{% block title %}
+    ТехПоддержка | {{block.super}}
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-12">
+        <h4 class="page-header text-center">Команда поддержки окажет Вам любую необходимую помощь при работе с нашим ресурсом! <br>
+            <small> ...используйте форму для обратной связи:</small>
+        </h4>
+    </div>
+</div>
+
+<section class="contact" id="contact">
+    <div id="contact" class="bg-grey">
+         <div class="row">
+             <div class="col-sm-4 text-right">
+                <br>
+                <p>Обратная связь в течении 24 часов - задайте нам любой интересующий Вас вопрос!</p>
+                <p><span class="glyphicon glyphicon-map-marker"></span> Russia</p>
+                <p><span class="glyphicon glyphicon-phone"></span> 8 800 405 </p>
+                <p><span class="glyphicon glyphicon-envelope"></span> gb-community@mail.ru</p>
+             </div>
+             <div class="col-sm-8">
+                <br>
+                 <form class="control-label col-sm-12">
+                     <div class="row">
+                         <div class="col-sm-6 form-group">
+                             <input class="form-control" id="name" name="name" placeholder="Name" type="text" required>
+                         </div>
+                         <div class="col-sm-6 form-group">
+                             <input class="form-control" id="email" name="email" placeholder="Email" type="email" required>
+                         </div>
+                     </div>
+                     <textarea class="form-control" id="comments" name="comments" placeholder="Comment" rows="5"></textarea><br>
+                     <div class="row">
+                         <div class="col-sm-12 form-group">
+                             <button class="btn btn-success btn-sm pull-right" type="submit">
+                                 <i class="fa fa-paper-plane" aria-hidden="true"></i> Отправить
+                             </button>
+                         </div>
+                     </div>
+                 </form>
+             </div>
+         </div>
+    </div>
+</section>
+{% endblock %}

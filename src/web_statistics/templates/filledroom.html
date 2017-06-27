@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+
+{% load static from staticfiles %}
+
+    <div class="container-fluid" id="usercart">
+
+        <div class="information">
+            <div class="hero-unit">
+                <h4>Добро пожаловать, {{user.first_name}}!
+                    <br><small>Ваш последний визит был {{user.last_login}}</small>
+                </h4>
+                <p>
+                    <a href="/myadmin/">
+                        <button class="btn btn-success btn-sm" type="submit">
+                             Настройки <i class="fa fa-cogs" aria-hidden="true"></i>
+                        </button>
+                    </a>
+                </p>
+                <br>
+                <div class='col-sm-5'>
+                    <table class="table table-condensed">
+                    <tbody>
+                        <tr>
+                            <td><i class="fa fa-user" aria-hidden="true"></i> Ваш login:</td>
+                            <td>{{user.username}}</td>
+                        </tr>
+                        <tr>
+                            <td><i class="fa fa-envelope-o" aria-hidden="true"></i> Ваш e-mail:</td>
+                            <td>{{user.email}}</td>
+                        </tr>
+                        <tr>
+                            <td><i class="fa fa-mobile" aria-hidden="true"></i> Контактный тел. (mobile):</td>
+                            <td>{{user.phone_number}}</td>
+                        </tr>
+                        <tr>
+                            <td><i class="fa fa-address-card-o" aria-hidden="true"></i> Ваш статус пользователя:</td>
+                            <td>{{user.status}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                </div>
+            </div>
+        </div>
+    </div>

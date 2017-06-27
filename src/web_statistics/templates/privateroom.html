@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+
+{% extends 'base.html' %}
+{% load static from staticfiles %}
+
+{% block title %}
+    Личный кабинет | {{block.super}}
+{% endblock %}
+
+{% block content %}
+    {% include 'authorization.html' %}
+{% endblock %}

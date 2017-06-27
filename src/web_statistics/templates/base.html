@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+
+{% load static from staticfiles %}
+
+<html lang="ru-en">
+<head>
+    <title>
+        {% block title %}
+        {% endblock %}
+    </title>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+<!--<meta name="description" content="">
+    <meta name="author" content=""> -->
+
+    <link rel="shortcut icon" href="{% static 'img/favicon.png' %}" type="image/x-icon"/>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="{% static 'css/sb-admin.css' %}" rel="stylesheet">
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+	<link href="{% static 'lightbox/css/lightbox.min.css' %}" rel="stylesheet">
+
+    <!-- Morris Charts CSS -->
+    <link href="{% static 'css/plugins/morris.css' %}" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="{% static 'font-awesome/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+    <div id="wrapper">
+
+        <!-- Navigation -->
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" id="navigation">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/about/" id="about">
+                    <div class="about">
+                        <p> GB Community of Alumni <i class="fa fa-hand-o-left" aria-hidden="true"></i></p>
+                    <div class="logo_slider">
+                        <div class="logo">
+                            <a href="{% static 'img/GBCA_logo.png' %}" title="GBCA logo" data-lightbox="GBCA">
+                                <img src="{% static 'img/GBCA_logo.png' %}" data-lightbox="GBCA">
+                            </a>
+                        </div>
+                        <div class="logo">
+                            <a href="{% static 'img/Statistics_logo.png' %}" title="Statistics logo" data-lightbox="GBCAStatistic">
+                                <img src="{% static 'img/Statistics_logo.png' %}">
+                            </a>
+                        </div>
+                        <div class="logo">
+                            <a href="{% static 'img/qr.jpg' %}" data-lightbox="QR">
+                                <img src="{% static 'img/qr.jpg' %}" border="0" title="QR код">
+                            </a>
+                        </div>
+                    </div>
+                    </div>
+                </a>
+            </div>
+            <!-- Top Menu Items -->
+            {% if user.is_authenticated %}
+            <ul class="nav navbar-right top-nav">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-envelope"></i> <b class="caret"></b></a>
+                    <ul class="dropdown-menu message-dropdown">
+                        <li class="message-preview">
+                            <a href="#">
+                                <div class="media">
+                                    <span class="pull-left">
+                                        <img class="media-object" src="http://placehold.it/50x50" alt="">
+                                    </span>
+                                    <div class="media-body">
+                                        <h5 class="media-heading"><strong>Администратор</strong></h5>
+                                        <p class="small text-muted"><i class="fa fa-clock-o"></i> Вчера в 16:32</p>
+                                        <p>Добавлен новый сайт для вывода статистики</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="message-preview">
+                            <a href="#">
+                                <div class="media">
+                                    <span class="pull-left">
+                                        <img class="media-object" src="http://placehold.it/50x50" alt="">
+                                    </span>
+                                    <div class="media-body">
+                                        <h5 class="media-heading"><strong>Тех.поддержка</strong>
+                                        </h5>
+                                        <p class="small text-muted"><i class="fa fa-clock-o"></i> Вчера в 16:32</p>
+                                        <p>Доброй пожаловать на наш сайт!</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="message-footer">
+                            <a href="#">Перейти к сообщениям</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell"></i> <b class="caret"></b></a>
+                    <ul class="dropdown-menu alert-dropdown">
+                        <li><a href="#">Alert Name <span class="label label-default">Alert Badge</span></a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">View All</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> {{user.username}} <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/privateroom/"><i class="fa fa-fw fa-user"></i> Личный кабинет </a></li>
+                        <li><a href="/myadmin/"><i class="fa fa-fw fa-gear"></i> Настройки </a></li>
+                        <li class="divider"></li>
+                        <li>
+                            <form method="post" class="logout" action="/user/logout/">
+                                <!--<i class="fa fa-fw fa-power-off"></i>-->
+                                {% csrf_token %}
+                                <input class="btn btn-primary btn-sm" type="submit" value="Log Out">
+                            </form>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            {% endif %}
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
+                <ul class="nav navbar-nav side-nav">
+                    <li class="{% if request.path == '/' %}active{% endif %}">
+                        <a href="/"><i class="fa fa-home" aria-hidden="true"></i> Главная </a></li>
+                    <li class="{% if request.path == '/privateroom/' %}active{% endif %}">
+                        <a href="/privateroom/"><i class="fa fa-user-circle"></i> Личный кабинет </a></li>
+                    <li class="{% if request.path == '/daily_statistic/' or request.path == '/periodic_statistic/' %}active{% endif %}">
+                        <a href="javascript:;" data-toggle="collapse" data-target="#demo">
+                            <i class="fa fa-fw fa-arrows-v"></i> Статистика <i class="fa fa-fw fa-caret-down"></i>
+                        </a>
+                        <ul id="demo" class="collapse">
+                            <li><a href="/daily_statistics/"> Ежедневная статистика <i class="fa fa-fw fa-bar-chart-o"></i></a></li>
+                            <li ><a href="/periodic_statistics/"> Статистика за период <br> <i class="fa fa-fw fa-table"></i></a></li>
+                            <li ><a href="/admin_statistics/"> Статистика - Admin <br> <i class="fa fa-cogs"></i></a></li>
+                        </ul>
+                    </li>
+                    <li class="{% if request.path == '/partnership/' %}active{% endif %}">
+                    <a href="/partnership/"><i class="fa fa-fw fa-handshake-o"></i> Партнерство </a></li>
+                    <li class="{% if request.path == '/contacts/' %}active{% endif %}">
+                        <a href="/contacts/"><i class="fa fa-address-book-o"></i> Контакты </a></li>
+                    <li class="{% if request.path == '/review/' %}active{% endif %}">
+                        <a href="/review/"><i class="fa fa-commenting"></i> Отзывы </a></li>
+                    <li class="{% if request.path == '/support/' %}active{% endif %}">
+                        <a href="/support/"><i class="fa fa-fw fa-wrench"></i> ТехПоддержка </a></li>
+                    <li>
+                         <a href="/privateroom/">
+                             {% if not user.is_authenticated %}
+                             <i class="fa fa-sign-in"></i>  Войти
+                             {% endif %}
+                         </a>
+                    </li>
+                    <li>
+                        <a href="/registration/">
+                            {% if not user.is_authenticated %}
+                            <button class="btn btn-danger btn-sm" type="submit">
+                                <i class="fa fa-plus-square" aria-hidden="true"></i> Зарегистрироваться
+                            </button>
+                            {% endif %}
+                        </a>
+                    </li>
+                    <li>
+                        {% if user.is_authenticated %}
+                        <form method="post" class="logout" action="/user/logout/">
+                            {% csrf_token %}
+                            <button class="btn btn-primary btn-sm" type="submit" value="Выйти">
+                                <i class="fa fa-sign-out" aria-hidden="true"></i> Выйти
+                            </button>
+                        </form>
+                        {% endif %}
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <div id="page-wrapper">
+            <div class="container-fluid" id="main">
+				{% block content %}
+                {% endblock %}
+            </div>
+            <!-- /.container-fluid -->
+        </div>
+        <!-- /#page-wrapper -->
+    <h4 class='text-center'>&copy {% now "Y" %} GeekBrains Community af Alumni. All Rights Reserved.</h4>
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- jQuery -->
+    <script src="{% static 'js/jquery.js' %}"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+
+    <!-- Morris Viewbox JavaScript -->
+    <script src="{% static 'lightbox/js/lightbox-plus-jquery.min.js' %}"></script>
+
+    <!-- Morris Charts JavaScript -->
+    <script src="{% static 'js/plugins/morris/raphael.min.js' %}"></script>
+    <script src="{% static 'js/plugins/morris/morris.min.js' %}"></script>
+    <script src="{% static 'js/plugins/morris/morris-data.js' %}"></script>
+</body>
+</html>
