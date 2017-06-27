@@ -163,10 +163,22 @@
                         <a href="/support/"><i class="fa fa-fw fa-wrench"></i> ТехПоддержка </a></li>
                     <li>
                         <a href="/registration/">
+                            {% if not user.is_authenticated %}
                             <button class="btn btn-danger btn-sm" type="submit">
                                 <i class="fa fa-plus-square" aria-hidden="true"></i> Зарегистрироваться
                             </button>
+                            {% endif %}
                         </a>
+                    </li>
+                    <li>
+                        {% if user.is_authenticated %}
+                        <form method="post" class="logout" action="/user/logout/">
+                            {% csrf_token %}
+                            <button class="btn btn-primary btn-sm" type="submit" value="Выйти">
+                                <i class="fa fa-sign-out" aria-hidden="true"></i> Выйти
+                            </button>
+                        </form>
+                        {% endif %}
                     </li>
                 </ul>
             </div>
