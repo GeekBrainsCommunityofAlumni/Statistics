@@ -36,15 +36,7 @@
     <![endif]-->
 </head>
 
-
 {% if user.is_authenticated %}
-
-    <form method="post" class="logout" action="/user/logout/">
-        {% csrf_token %}
-        <button class="btn btn-primary btn-sm" type="submit" value="Выйти">
-            <i class="fa fa-sign-out" aria-hidden="true"></i> Выйти
-        </button>
-    </form>
 
     {% block content %}
         {% include 'incl-daily_st.html' %}

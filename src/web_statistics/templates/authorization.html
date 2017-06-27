@@ -36,15 +36,8 @@
     <![endif]-->
 </head>
 
-
 {% if user.is_authenticated %}
 
-    <form method="post" class="logout" action="/user/logout/">
-        {% csrf_token %}
-        <button class="btn btn-primary btn-sm" type="submit" value="Выйти">
-            <i class="fa fa-sign-out" aria-hidden="true"></i> Выйти
-        </button>
-    </form>
     <div class="thumbnail" id="user">
         <img src="{% static '/img/unknown.png' %}" alt="You">
         <h4>{{user.first_name}} {{user.last_name}}</h4>
