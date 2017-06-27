@@ -74,6 +74,7 @@
                     </div>
                 </a>
             </div>
+
             <!-- Top Menu Items -->
             {% if user.is_authenticated %}
             <ul class="nav navbar-right top-nav">
@@ -137,6 +138,49 @@
                         </li>
                     </ul>
                 </li>
+                <li>
+                    <div id="radiobells_container">
+                        <a href="https://www.radiobells.com/" rel="nofollow" id="RP_link">www.radiobells.com</a>
+                        #radiobells_script_hash
+                    </div>
+                    <script type="text/javascript">
+                    var rad_backcolor="#222222";
+                    var rad_backcolor2="#212121";
+                    var rad_textcolor="#ababab";
+                    var rad_bordercolor="#000000";
+                    var rad_volumecolor="#ababab";
+                    var rad_logo = "white";
+                    var rad_width=250;
+                    var rad_type = "horizontal";
+                    var rad_autoplay = false;
+                    var rad_stations =[
+                        ['http://icecast.vgtrk.cdnvideo.ru/vestifm_mp3_192kbps','Вести ФМ'],
+                        ['http://stream05.media.rambler.ru/echo.mp3','Эхо Москвы'],
+                        ['http://bfm.hostingradio.ru:8004/fm','Бизнес ФМ'],
+                        ['http://kommersant77.hostingradio.ru:8016/kommersant128.mp3','Коммерсант ФМ'],
+                        ['http://icecast.vgtrk.cdnvideo.ru/mayakfm_mp3_192kbps','Радио Маяк'],
+                        ['http://audio.life.ru/life.mp3','Русская служба новостей'],
+                        ['http://radiosilver.corbina.net:8000/silver128b.mp3','Серебряный дождь'],
+                        ['http://server03.hostingradio.ru:8040/radio7128.mp3','Радио 7'],
+                        ['http://bcs2.hi-sound.ru:8000/fontan256.mp3','Фонтанка ФМ'],
+                        ['http://icecast.vgtrk.cdnvideo.ru/moscowfm128','Москва ФМ'],
+                        ['http://live.shtorm.fm:8000/mp3_forex','Forex Expo'],
+                        ['http://icecast.vgtrk.cdnvideo.ru/moscowfmen128','Moscow FM'],
+                        ['http://europarussia.ru:8000/live','EuropaRussia'],
+                        ['http://audio.life.ru/life.mp3','Life Звук'],
+                        ['http://ic2.101.ru:8000/v13_1?setst=-1','Relax FM'],
+                        ['http://77.91.65.146/jazz-128.mp3','Радио Джаз'],
+                        ['http://cfm.jazzandclassic.ru:14534/rcstream.mp3','Radio Classic FM'],
+                        ['http://icecast.vgtrk.cdnvideo.ru/kulturafm_mp3_192kbps','Радио Культура'],
+                        ['http://air2.radiorecord.ru:805/chil_320','Record Chill-out'],
+                        ['http://icecast.radiomontecarlo.cdnvideo.ru/mc.mp3','Радио Монте Карло'],
+                        ['http://cast.loungefm.com.ua/loungefm?1372840624045.mp3','Lounge FM'],
+                        ['http://stream04.media.rambler.ru/megapolis128.mp3',' Мегаполис FM'],
+                        ['http://icecast.radiodfm.cdnvideo.ru/st24.mp3','DFM Deep']
+                        ];
+                        </script>
+                        <script type="text/javascript" src="https://www.radiobells.com/script/v1_5.js" charset="UTF-8"></script>                </li>
+
             </ul>
             {% endif %}
             <div class="collapse navbar-collapse navbar-ex1-collapse">
