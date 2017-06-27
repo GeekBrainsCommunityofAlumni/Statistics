@@ -3,7 +3,7 @@ from tag_manager.models import Persons, Keywords, PersonPageRank
 from source_manager.models import Sites, Pages
 from django.contrib.auth.decorators import login_required
 from django.db.models import Sum
-from pprint import pprint
+from UserManagement.models import Person as User
 
 
 def main(request):
@@ -44,8 +44,10 @@ def admin_statistics(request):
     keywords = Keywords.objects.order_by('name')
     person_ranks = PersonPageRank.objects.values('person_id_id', 'page_id_id').annotate(rank=Sum('rank'))
     pages = Pages.objects.all()
+    users = User.objects.all()
     return render(request, 'admin_statistics.html', {'persons': persons, 'keywords': keywords,
-                                                     'sites': sites, 'person_ranks': person_ranks, 'pages': pages})
+                                                     'sites': sites, 'person_ranks': person_ranks, 'pages': pages,
+                                                     'users': users})
 
 
 def parameters_search(request):

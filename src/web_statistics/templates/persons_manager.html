@@ -106,7 +106,7 @@
                 {% for keyword in keywords %}
                 <tr>
                     <td>{{ keyword.id }}</td>
-                    <td>{{ keyword.name }}</td>
+                    <td>{{ keyword.name|upper }}</td>
                 </tr>
                 {% endfor %}
                 {% else %}
@@ -133,7 +133,7 @@
                     {% if keywords %}
                         {% for keyword in keywords %}
                             <option value="{{ keyword.id }}">
-                                {{ keyword.name }}
+                                {{ keyword.name|upper }}
                             </option>
                         {% endfor %}
                     {% else %}
