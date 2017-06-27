@@ -1,10 +1,13 @@
 package crawler;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.text.*;
-import static java.lang.Thread.sleep;
+import java.util.Properties;
 
 /**
  * Created by Serg on 09.06.2017.
@@ -15,18 +18,36 @@ public class DBHelper {
     private Statement statement;
     private ResultSet resultSet;
     private PreparedStatement preparedStatement;
-    //*******Настройки базы данных*********
-    private final String HOSTDB = "localhost";
-    private final int PORTDB = 3306;
-    private final String DBSCHEMANAME = "statistics";
-    private final String DBLOGIN = "statistic_user";
-    private final String DBPASSWORD = "123456";
-    //*******Конец настройки базы данных*********
+    String dbhost = "";
+    int dbport = 0;
+    String dbSchemaname = "";
+    String dbLogin = "";
+    String dbPassword = "";
+    String dbClassForName = "";
+    String dbdriver = "";
+
+    public DBHelper() {
+        Properties properties = new Properties();
+        File dbConfigFile = new File("dbset.cfg");
+        try {
+            FileInputStream input = new FileInputStream(dbConfigFile);
+            properties.load(input);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        dbhost = properties.getProperty("DBHOST");
+        dbport = Integer.parseInt(properties.getProperty("DBPORT"));
+        dbSchemaname = properties.getProperty("DBSCHEMANAME");
+        dbLogin = properties.getProperty("DBLOGIN");
+        dbPassword = properties.getProperty("DBPASSWORD");
+        dbClassForName = properties.getProperty("DBCLASSFORNAME");
+        dbdriver = properties.getProperty("DBDRIVER");
+    }
 
     public void connectToDB() {
         try {
-            Class.forName("com.mysql.jdbc.Driver");
-            connectionToDB = DriverManager.getConnection("jdbc:mysql://" + HOSTDB + ":" + PORTDB + "/" + DBSCHEMANAME + "?useSSL=false", DBLOGIN , DBPASSWORD);
+            Class.forName(dbClassForName);
+            connectionToDB = DriverManager.getConnection("jdbc:" + dbdriver + "://" + dbhost + ":" + dbport + "/" + dbSchemaname + "?useSSL=false", dbLogin , dbPassword);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -295,10 +316,11 @@ public class DBHelper {
     }
 
     public synchronized String getNewSite() { //Для многопоточности. Возвращает URL одного сайта для которого нет НИ ОДНОЙ строки в таблице Pages и он не заблокирован для выдачи
+        checkIfAllSitesIdAreInSitelock();
         String nameOfSite = "";
         try {
             statement = connectionToDB.createStatement();
-            resultSet = statement.executeQuery("SELECT name FROM sites WHERE (   (id NOT IN (SELECT siteid FROM pages)) AND (isblocked = 0)   ) LIMIT 1;");
+            resultSet = statement.executeQuery("SELECT name FROM (SELECT id, name, siteblock.isblocked FROM sites INNER JOIN siteblock ON sites.id = siteblock.siteid) as t WHERE (   (t.id NOT IN (SELECT siteid FROM pages)) AND (isblocked = 0)   ) LIMIT 1;");
             if (resultSet.next()) {
                 nameOfSite = resultSet.getString(1);
                 blockSite(nameOfSite);
@@ -310,19 +332,30 @@ public class DBHelper {
         return null;
     }
 
-    public void blockSite(String nameOfSite) {
+    public void checkIfAllSitesIdAreInSitelock() {
         try {
             statement = connectionToDB.createStatement();
-            statement.executeUpdate("UPDATE sites SET isblocked = 1 WHERE name = '" + nameOfSite + "';");
+            statement.executeUpdate("INSERT INTO siteblock (siteid) (SELECT id FROM sites WHERE id NOT IN (SELECT siteid FROM siteblock));");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void blockSite(String nameOfSite) {
+        int siteID = getSiteID(nameOfSite);
+        try {
+            statement = connectionToDB.createStatement();
+            statement.executeUpdate("UPDATE siteblock SET isblocked = 1 WHERE siteid = '" + siteID + "';");
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
     public void unBlockSite(String nameOfSite) {
+        int siteID = getSiteID(nameOfSite);
         try {
             statement = connectionToDB.createStatement();
-            statement.executeUpdate("UPDATE sites SET isblocked = 0 WHERE name = '" + nameOfSite + "';");
+            statement.executeUpdate("UPDATE siteblock SET isblocked = 0 WHERE siteid = '" + siteID + "';");
         } catch (SQLException e) {
             e.printStackTrace();
         }

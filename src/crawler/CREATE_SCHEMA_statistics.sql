@@ -2,7 +2,6 @@ CREATE SCHEMA IF NOT EXISTS `statistics` CHARACTER SET utf8 COLLATE utf8_general
 
 USE statistics;
 
-
 DROP TABLE IF EXISTS `persons`;
 CREATE TABLE `persons` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -51,3 +50,11 @@ CREATE TABLE `personpagerank` (
   CONSTRAINT `fk_personid` FOREIGN KEY (`personid`) REFERENCES `persons` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+DROP TABLE IF EXISTS `siteblock`;
+CREATE TABLE `siteblock` (
+  `siteid` int(11) NOT NULL,
+  `isblocked` tinyint(4) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`siteid`),
+  KEY `fk_siteidsiteblock_idx` (`siteid`),
+  CONSTRAINT `fk_siteidsiteblock` FOREIGN KEY (`siteid`) REFERENCES `sites` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
