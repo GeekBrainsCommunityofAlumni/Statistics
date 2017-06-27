@@ -28,6 +28,7 @@ urlpatterns = [
     url(r'^statistics/$', statistics),
     url(r'^daily_statistics/$', daily_statistics),
     url(r'^periodic_statistics/$', periodic_statistics),
+    url(r'^admin_statistics/$', admin_statistics),
     url(r'^registration/$', registration),
     url(r'^privateroom/$', privateroom),
     url(r'^userinfo/$', privateroom),

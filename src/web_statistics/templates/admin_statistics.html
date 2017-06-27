@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+
+{% extends 'base.html' %}
+{% load static from staticfiles %}
+
+{% block title %}
+    Cтатистика - Admin | {{block.super}}
+{% endblock %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-lg-12">
+            <h2 class="page-header">[Admin-Statistics]<br>
+            <small>Вы аутентифицировались в статусе администратора</small></h2>
+        </div>
+    </div>
+
+    {% include 'st_admin_auth.html' %}
+
+{% endblock %}

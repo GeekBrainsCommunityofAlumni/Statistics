@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+
+{% load static from staticfiles %}
+
+{% block content %}
+    <h3 >
+        <i class="fa fa-bar-chart" aria-hidden="true"></i> Вы просматриваете полную статистику
+    </h3>
+<hr>
+<div class="table">
+    <h4>ПОЛНАЯ ТАБЛИЦА СО ВСЕЙ СТАТИСТИКОЙ</h4>
+    <br>
+    <button type="submit" value="Download .csv" formmethod="get" class="btn btn-primary btn-xs">
+        <i class="fa fa-download" aria-hidden="true"></i> Download .csv
+    </button>
+    <img src="{% static 'img/loading.gif' %}">
+</div>
+<hr>
+<div class="settings">
+    <form class="control-label col-sm-12">
+        {% csrf_token %}
+
+        <h4>Выберите столбцы для отображения:</h4>
+        <ul id="settings">
+            <li><input type="checkbox"/> ID страницы</li>
+            <li><input type="checkbox"/> URL страницы</li>
+            <li><input type="checkbox"/> ID сайта</li>
+            <li><input type="checkbox"/> FoundDateTime</li>
+            <li><input type="checkbox"/> LastScanDate</li>
+        </ul>
+
+        <button type="submit" value="Поиск" formmethod="get" class="btn btn-success btn-sm">
+            <i class="fa fa-search" aria-hidden="true"></i> Показать статистику
+        </button>
+        <button type="reset" value="Очистить" class="btn btn-danger btn-xs">
+            <i class="fa fa-refresh" aria-hidden="true"></i> Очистить
+        </button>
+    </form>
+    <br>
+    <hr>
+</div>
+
+{% endblock %}

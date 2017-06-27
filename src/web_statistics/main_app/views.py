@@ -37,6 +37,14 @@ def periodic_statistics(request):
     return render(request, 'periodic_statistics.html', {'persons': persons, 'keywords': keywords,
                                                         'sites': sites, 'person_ranks': person_ranks})
 
+@login_required(login_url='/privateroom/')
+def admin_statistics(request):
+    sites = Sites.objects.order_by('name')
+    persons = Persons.objects.order_by('name')
+    keywords = Keywords.objects.order_by('name')
+    person_ranks = PersonPageRank.objects.values('person_id_id', 'page_id_id').annotate(rank=Sum('rank'))
+    return render(request, 'admin_statistics.html', {'persons': persons, 'keywords': keywords,
+                                                     'sites': sites, 'person_ranks': person_ranks})
 
 def registration(request):
     return render(request, 'registration.html')

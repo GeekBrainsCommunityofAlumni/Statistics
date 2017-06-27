@@ -4,9 +4,16 @@
 {% load static from staticfiles %}
 
 {% block title %}
-    Ежедневная статистика | {{block.super}}
+    Ежедневная статистика - user| {{block.super}}
 {% endblock %}
 
 {% block content %}
+
+    <div class="col-lg-12">
+        <h2 class="page-header">[User-Statistics]<br>
+        <small>Вы аутентифицировались в статусе пользователя</small></h2>
+    </div>
+
     {% include 'st_daily_auth.html' %}
+
 {% endblock %}

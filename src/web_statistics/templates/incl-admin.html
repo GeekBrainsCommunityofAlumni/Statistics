@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+
+{% load static from staticfiles %}
+
+{% block content %}
+<!-- Page Heading -->
+<ul class="nav nav-tabs">
+    <li class="active"><a data-toggle="tab" href="#home">Справочник сайтов</a></li>
+    <li><a data-toggle="tab" href="#menu0">Справочник личностей</a></li>
+    <li><a data-toggle="tab" href="#menu1">Users & Admins</a></li>
+    <li><a data-toggle="tab" href="#menu2">Ежедневная статистика</a></li>
+    <li><a data-toggle="tab" href="#menu3">Статистика за период</a></li>
+    <li><a data-toggle="tab" href="#menu4">Общая статистика по сайтам</a></li>
+</ul>
+
+<div class="tab-content">
+    <div id="home" class="tab-pane fade in active">
+        {% include 'sites_manager.html' %}
+    </div>
+
+    <div id="menu0" class="tab-pane fade">
+        {% include 'persons_manager.html' %}
+    </div>
+
+    <div id="menu1" class="tab-pane fade">
+        {% include 'users_manager.html' %}
+    </div>
+
+    <div id="menu2" class="tab-pane fade">
+        {% include 'incl-daily_st.html' %}
+    </div>
+
+    <div id="menu3" class="tab-pane fade">
+        {% include 'incl-periodic_st.html' %}
+    </div>
+
+    <div id="menu4" class="tab-pane fade">
+        {% include 'whole_statistics.html' %}
+    </div>
+</div>
+{% endblock %}

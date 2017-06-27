@@ -142,3 +142,7 @@
 	height: 58px;
 	overflow: hidden;
 }
+
+#settings {
+    list-style-type: none;
+}
