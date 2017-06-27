@@ -4,7 +4,6 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -31,17 +30,17 @@
         <!--Общая статистика-->
         <scene sceneID="B8U-LA-ibN">
             <objects>
-                <tableViewController id="7Af-sA-kD4" customClass="TotalStaticRootTVC" customModule="ios" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="7Af-sA-kD4" customClass="TotalStaticRootTVC" customModule="GBCA_Statistics" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="frW-t9-fzn">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="TotalStaticCell" id="C6q-Yp-Pf7" customClass="TotalStaticRootTVCell" customModule="ios" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="TotalStaticCell" id="C6q-Yp-Pf7" customClass="TotalStaticRootTVCell" customModule="GBCA_Statistics" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="C6q-Yp-Pf7" id="fFc-Pp-myp">
-                                    <rect key="frame" x="0.0" y="0.0" width="342" height="44"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="342" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XEJ-Ab-7gf">
@@ -93,17 +92,17 @@
         <!--Название сайта-->
         <scene sceneID="Ywl-uy-1Tq">
             <objects>
-                <tableViewController id="pD1-Wt-djW" customClass="TotalSiteStaticTVC" customModule="ios" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="pD1-Wt-djW" customClass="TotalSiteStaticTVC" customModule="GBCA_Statistics" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="0hp-kd-VCZ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="StatDVCell" id="fV0-NF-1TG" customClass="TotalSiteStaticTVCell" customModule="ios" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="StatDVCell" id="fV0-NF-1TG" customClass="TotalSiteStaticTVCell" customModule="GBCA_Statistics" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="fV0-NF-1TG" id="fLV-3F-i7s">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j41-kT-HPi">
@@ -176,7 +175,7 @@
         <!--Выберите параметры статистики-->
         <scene sceneID="Pw6-OM-ktL">
             <objects>
-                <tableViewController id="nQk-XX-Zy9" customClass="RangeRootTVC" customModule="ios" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="nQk-XX-Zy9" customClass="RangeRootTVC" customModule="GBCA_Statistics" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="static" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="8n2-qs-cXH">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -429,17 +428,17 @@
         <!--Выберите сайт-->
         <scene sceneID="Jod-B7-26r">
             <objects>
-                <tableViewController id="3ti-0h-fJ5" customClass="RangeSelectSiteTVC" customModule="ios" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="3ti-0h-fJ5" customClass="RangeSelectSiteTVC" customModule="GBCA_Statistics" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="OUe-es-dY1">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="siteName" id="n2b-cA-1GJ" customClass="RangeSelectSiteTVCell" customModule="ios" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="siteName" id="n2b-cA-1GJ" customClass="RangeSelectSiteTVCell" customModule="GBCA_Statistics" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="n2b-cA-1GJ" id="HuU-Si-ImZ">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NTx-OG-eZY">
@@ -482,17 +481,17 @@
         <!--Range Site StaticTVC-->
         <scene sceneID="KW0-Nd-x9U">
             <objects>
-                <tableViewController id="tcM-bM-UPf" customClass="RangeSiteStaticTVC" customModule="ios" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="tcM-bM-UPf" customClass="RangeSiteStaticTVC" customModule="GBCA_Statistics" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="aFH-ok-rSv">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="RangeSiteStaticCell" id="LIl-5a-JTc" customClass="RangeSiteStaticTVCell" customModule="ios" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="RangeSiteStaticCell" id="LIl-5a-JTc" customClass="RangeSiteStaticTVCell" customModule="GBCA_Statistics" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="LIl-5a-JTc" id="yLC-XL-pn5">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eC0-Ua-jrj">
@@ -524,6 +523,7 @@
                                 <connections>
                                     <outlet property="countLabel" destination="D6N-nE-J0f" id="W3S-6U-kWl"/>
                                     <outlet property="nameLabel" destination="eC0-Ua-jrj" id="ld3-R7-3lZ"/>
+                                    <segue destination="3DM-gE-0yq" kind="show" identifier="showRangeStaticWithDates" id="TRw-A3-IvV"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -532,10 +532,69 @@
                             <outlet property="delegate" destination="tcM-bM-UPf" id="QgX-M9-IZF"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" id="HrG-EN-YW4"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PGd-iS-I1v" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1309" y="1417"/>
+        </scene>
+        <!--Range Site Static With DatesTVC-->
+        <scene sceneID="H8F-kA-Xz4">
+            <objects>
+                <tableViewController id="3DM-gE-0yq" customClass="RangeSiteStaticWithDatesTVC" customModule="GBCA_Statistics" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="tsT-oD-U3P">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="dateWithCount" id="pW3-mh-TIV" customClass="RangeSiteStaticWithDatesCell" customModule="GBCA_Statistics" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="pW3-mh-TIV" id="58X-fY-kyL">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7FN-xo-zPr">
+                                            <rect key="frame" x="8" y="11" width="297" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iTa-WM-EWP">
+                                            <rect key="frame" x="325" y="11" width="42" height="21"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="42" id="Dfm-UV-Q54"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="iTa-WM-EWP" firstAttribute="trailing" secondItem="58X-fY-kyL" secondAttribute="trailingMargin" id="8oT-KJ-hnG"/>
+                                        <constraint firstItem="iTa-WM-EWP" firstAttribute="leading" secondItem="7FN-xo-zPr" secondAttribute="trailing" constant="20" id="G0I-gw-thv"/>
+                                        <constraint firstItem="7FN-xo-zPr" firstAttribute="top" secondItem="58X-fY-kyL" secondAttribute="topMargin" constant="3" id="Lc1-ux-TOD"/>
+                                        <constraint firstItem="7FN-xo-zPr" firstAttribute="leading" secondItem="58X-fY-kyL" secondAttribute="leadingMargin" id="a8K-al-GQc"/>
+                                        <constraint firstItem="iTa-WM-EWP" firstAttribute="top" secondItem="58X-fY-kyL" secondAttribute="topMargin" constant="3" id="f7Z-f9-7Od"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="iTa-WM-EWP" secondAttribute="bottom" constant="3.5" id="uK0-9u-xiP"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="7FN-xo-zPr" secondAttribute="bottom" constant="3.5" id="wzk-ih-6vf"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="countLabel" destination="iTa-WM-EWP" id="cQM-7f-FqM"/>
+                                    <outlet property="dateLabel" destination="7FN-xo-zPr" id="jwV-tL-0cO"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="3DM-gE-0yq" id="kVD-uh-B8h"/>
+                            <outlet property="delegate" destination="3DM-gE-0yq" id="1zL-QE-Dkq"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7H2-wd-JO8" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2127.1999999999998" y="1413.6431784107947"/>
         </scene>
         <!--Статистика за период-->
         <scene sceneID="2vR-lQ-vbG">

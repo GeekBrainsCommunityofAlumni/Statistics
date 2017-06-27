@@ -18,6 +18,7 @@ class RangeSiteStaticTVC: UITableViewController, DataManagerProtocol {
     override func viewDidLoad() {
         dm.delegat = self
         dm.getOnRangeData(dateBegin: dateBegin, dateEnd: dateEnd)
+        navigationItem.title = siteName + " " + dateBegin.toString()! + "-" + dateEnd.toString()!
     }
     
     func didCompliteRequestOnRange(data: SiteDataArray, dateBegin: Date, dateEnd: Date){
@@ -44,4 +45,14 @@ class RangeSiteStaticTVC: UITableViewController, DataManagerProtocol {
         return cell
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showRangeStaticWithDates" {
+            let destinationTVC = segue.destination as! RangeSiteStaticWithDatesTVC
+            destinationTVC.siteName = siteName
+            if let selectedItem = tableView.indexPathForSelectedRow{
+                destinationTVC.personName = siteDataArray.ranks[selectedItem.row].name
+                destinationTVC.infoWithDate = siteDataArray.filterBySiteAndPerson(siteName: siteName, personName: destinationTVC.personName)
+            }
+        }
+    }
 }

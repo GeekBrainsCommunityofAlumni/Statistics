@@ -15,6 +15,9 @@
 		82711F801EFF8EC30030B1F5 /* SiteDataArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82711F791EFF8EC30030B1F5 /* SiteDataArray.swift */; };
 		82711F961EFF912F0030B1F5 /* SiteData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82711F951EFF912F0030B1F5 /* SiteData.swift */; };
 		82711F981EFFBD280030B1F5 /* TotalStaticRootTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82711F971EFFBD280030B1F5 /* TotalStaticRootTVCell.swift */; };
+		82E0CA731F0139160008D4C0 /* RangeSiteStaticWithDatesTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82E0CA721F0139160008D4C0 /* RangeSiteStaticWithDatesTVC.swift */; };
+		82E0CA751F015A0E0008D4C0 /* RangeSiteStaticWithDatesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82E0CA741F015A0E0008D4C0 /* RangeSiteStaticWithDatesCell.swift */; };
+		82E0CA771F02654E0008D4C0 /* test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82E0CA761F02654D0008D4C0 /* test.swift */; };
 		82F0A4511EFFF6CB006B7F16 /* TotalStaticRootTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82F0A4501EFFF6CB006B7F16 /* TotalStaticRootTVC.swift */; };
 		82F0A4531EFFF794006B7F16 /* TotalSiteStaticTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82F0A4521EFFF794006B7F16 /* TotalSiteStaticTVC.swift */; };
 		82F0A4551EFFF870006B7F16 /* TotalSiteStaticTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82F0A4541EFFF870006B7F16 /* TotalSiteStaticTVCell.swift */; };
@@ -41,6 +44,9 @@
 		82711F791EFF8EC30030B1F5 /* SiteDataArray.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SiteDataArray.swift; sourceTree = "<group>"; };
 		82711F951EFF912F0030B1F5 /* SiteData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SiteData.swift; sourceTree = "<group>"; };
 		82711F971EFFBD280030B1F5 /* TotalStaticRootTVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TotalStaticRootTVCell.swift; sourceTree = "<group>"; };
+		82E0CA721F0139160008D4C0 /* RangeSiteStaticWithDatesTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RangeSiteStaticWithDatesTVC.swift; sourceTree = "<group>"; };
+		82E0CA741F015A0E0008D4C0 /* RangeSiteStaticWithDatesCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RangeSiteStaticWithDatesCell.swift; sourceTree = "<group>"; };
+		82E0CA761F02654D0008D4C0 /* test.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = test.swift; sourceTree = "<group>"; };
 		82F0A4501EFFF6CB006B7F16 /* TotalStaticRootTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TotalStaticRootTVC.swift; sourceTree = "<group>"; };
 		82F0A4521EFFF794006B7F16 /* TotalSiteStaticTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TotalSiteStaticTVC.swift; sourceTree = "<group>"; };
 		82F0A4541EFFF870006B7F16 /* TotalSiteStaticTVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TotalSiteStaticTVCell.swift; sourceTree = "<group>"; };
@@ -89,6 +95,7 @@
 				82711F761EFF8EC30030B1F5 /* DBManager.swift */,
 				82711F771EFF8EC30030B1F5 /* FakeManager.swift */,
 				82711F781EFF8EC30030B1F5 /* NetworkManager.swift */,
+				82E0CA761F02654D0008D4C0 /* test.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -105,6 +112,8 @@
 				82F0A45C1F000A90006B7F16 /* RangeSelectSiteTVCell.swift */,
 				82F0A45A1F000470006B7F16 /* RangeSiteStaticTVC.swift */,
 				82F0A45E1F0058AF006B7F16 /* RangeSiteStaticTVCell.swift */,
+				82E0CA721F0139160008D4C0 /* RangeSiteStaticWithDatesTVC.swift */,
+				82E0CA741F015A0E0008D4C0 /* RangeSiteStaticWithDatesCell.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -277,6 +286,7 @@
 				82711F7F1EFF8EC30030B1F5 /* NetworkManager.swift in Sources */,
 				82F0A4511EFFF6CB006B7F16 /* TotalStaticRootTVC.swift in Sources */,
 				82F0A4551EFFF870006B7F16 /* TotalSiteStaticTVCell.swift in Sources */,
+				82E0CA731F0139160008D4C0 /* RangeSiteStaticWithDatesTVC.swift in Sources */,
 				82711F7B1EFF8EC30030B1F5 /* DataManager.swift in Sources */,
 				BE4FD0641EEEEBB4002F0679 /* AppDelegate.swift in Sources */,
 				82F0A45B1F000470006B7F16 /* RangeSiteStaticTVC.swift in Sources */,
@@ -285,7 +295,9 @@
 				82711F961EFF912F0030B1F5 /* SiteData.swift in Sources */,
 				82711F7C1EFF8EC30030B1F5 /* DataProvider.swift in Sources */,
 				82F0A4531EFFF794006B7F16 /* TotalSiteStaticTVC.swift in Sources */,
+				82E0CA771F02654E0008D4C0 /* test.swift in Sources */,
 				82F0A4571F00041B006B7F16 /* RangeRootTVC.swift in Sources */,
+				82E0CA751F015A0E0008D4C0 /* RangeSiteStaticWithDatesCell.swift in Sources */,
 				82F0A4591F000435006B7F16 /* RangeSelectSiteTVC.swift in Sources */,
 				82711F7E1EFF8EC30030B1F5 /* FakeManager.swift in Sources */,
 				82711F801EFF8EC30030B1F5 /* SiteDataArray.swift in Sources */,

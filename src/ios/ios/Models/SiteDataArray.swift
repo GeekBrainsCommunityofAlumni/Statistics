@@ -13,14 +13,12 @@ func + (left: [Info], right: Info) -> [Info]{
         newP.append(right)
     } else {
         newP = newP.map({ (personInfo) -> Info in
-            var newPersonInfo = personInfo
+            let newPersonInfo = personInfo
             if personInfo.name == right.name {
                 newPersonInfo.count = newPersonInfo.count + right.count
             }
             return newPersonInfo
         })
-        var findElement = findPerson.first
-        findElement?.count = findElement!.count + right.count
     }
     return newP
 }
@@ -66,13 +64,31 @@ class SiteDataArray {
     func filterBySite(siteName: String) -> SiteDataArray{
         let filteredArray = array.filter { (siteData) -> Bool in
             if siteData.site == siteName {
+                siteData.ranks = siteData.updateRanks()
                 return true
             } else {
                 return false
             }
         }
-        let result = SiteDataArray()
-        result.array = filteredArray
+        let result = SiteDataArray(data: filteredArray)
+        return result
+    }
+    
+    func filterBySiteAndPerson(siteName: String, personName: String) -> [InfoWithDate] {
+        var result: [InfoWithDate]
+        let temp = self.filterBySite(siteName: siteName)
+        result = temp.array.map { (siteData) -> InfoWithDate in
+            let personRank = siteData.stats[personName]
+            var infoWithDate: InfoWithDate
+            if let rank = personRank {
+                infoWithDate = InfoWithDate.init(name: personName, count: rank, date: siteData.date)
+            } else {
+                infoWithDate = InfoWithDate.init(name: "nil", count: 0, date: siteData.date)
+            }
+            return infoWithDate
+        }
+        result = result.filter{ (infoWithDate) in infoWithDate.name != "nil"}.sorted(by: { (info1, info2) -> Bool in
+            info1.date < info2.date })
         return result
     }
     
