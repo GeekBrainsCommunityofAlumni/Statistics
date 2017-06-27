@@ -1,5 +1,6 @@
 package com.gb.statistics.features.ai.interfaces;
 
+import com.gb.statistics.features.ai.controllers.ListController;
 import com.gb.statistics.features.ai.model.ModelListData;
 import javafx.collections.ObservableList;
 import org.springframework.web.client.HttpClientErrorException;
@@ -15,4 +16,6 @@ public interface ListInterface {
     boolean delete(ModelListData modelListData) throws HttpClientErrorException;
 
     ObservableList getList();
+
+    void setController(ListController controller);
 }

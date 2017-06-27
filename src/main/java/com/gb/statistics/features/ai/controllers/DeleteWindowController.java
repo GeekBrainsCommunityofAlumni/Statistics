@@ -11,7 +11,6 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
-import org.springframework.web.client.HttpClientErrorException;
 
 public class DeleteWindowController implements ModalControllerInterface {
 
@@ -66,25 +65,13 @@ public class DeleteWindowController implements ModalControllerInterface {
     private void actionDelete(ActionEvent actionEvent) {
         setDisableButtons(true);
         if (currentController instanceof PersonListController) {
-            try {
-                personList.delete(person);
-            } catch (HttpClientErrorException e) {
-                personList.getList().clear();
-            }
+            personList.delete(person);
         }
         else if (currentController instanceof KeyWordsListController) {
-            try {
-                keyWordList.delete(keyWord);
-            } catch (HttpClientErrorException e) {
-                keyWordList.getList().clear();
-            }
+            keyWordList.delete(keyWord);
         }
         else if (currentController instanceof SiteListController) {
-            try {
-                siteList.delete(site);
-            } catch (HttpClientErrorException e) {
-                siteList.getList().clear();
-            }
+            siteList.delete(site);
         }
         actionClose(actionEvent);
         setDisableButtons(false);

@@ -9,7 +9,6 @@ import com.gb.statistics.features.ai.window.ModalWindow;
 import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import org.springframework.web.client.HttpClientErrorException;
 
 public class KeyWordsListController extends ListController {
 
@@ -25,6 +24,7 @@ public class KeyWordsListController extends ListController {
     @FXML
     protected void initialize() {
         super.initialize(KEYWORD_TITLE);
+        keyWordsList.setController(this);
         dataTableView.setItems(keyWordsList.getList());
         disableButtons(true);
         addButton.setDisable(true);
@@ -35,11 +35,7 @@ public class KeyWordsListController extends ListController {
         comboBoxPerson.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 ((KeyWordsList)keyWordsList).setPerson(newValue);
-                try {
-                    keyWordsList.refreshList();
-                } catch (HttpClientErrorException e) {
-                    keyWordsList.getList().clear();
-                }
+                keyWordsList.refreshList();
             } else {
                 comboBoxPerson.getSelectionModel().selectFirst();
                 keyWordsList.getList().clear();
@@ -81,51 +77,39 @@ public class KeyWordsListController extends ListController {
 
     @FXML
     protected void actionButtonAdd() {
-        try {
-            addController.setKeyWord(new KeyWord(), comboBoxPerson.getValue(), this);
-            if (addWindow == null) addWindow = new ModalWindow(ADD_TITLE, mainStage, parentAdd, MODAL_WIDTH, MODAL_HEIGHT);
-            addWindow.getStage().showAndWait();
-            if (!addController.nameFieldIsEmpty(addController.getKeyWord().getName())) {
-                keyWordsList.add(addController.getKeyWord());
-            }
-            visibleErrorMessage(false);
-        } catch (HttpClientErrorException e) {
-            setErrorMessage(e.getMessage());
+        visibleErrorMessage(false);
+        addController.setKeyWord(new KeyWord(), comboBoxPerson.getValue(), this);
+        if (addWindow == null) addWindow = new ModalWindow(ADD_TITLE, mainStage, parentAdd, MODAL_WIDTH, MODAL_HEIGHT);
+        addWindow.getStage().showAndWait();
+        if (!addController.nameFieldIsEmpty(addController.getKeyWord().getName())) {
+            keyWordsList.add(addController.getKeyWord());
         }
     }
 
     @FXML
     protected void actionButtonEdit() {
-        try {
-            editController.setKeyWord(dataTableView.getSelectionModel().getSelectedItem(), comboBoxPerson.getValue(), this);
-            if (editWindow == null) editWindow = new ModalWindow(EDIT_TITLE, mainStage, parentEdit, MODAL_WIDTH, MODAL_HEIGHT);
-            editWindow.getStage().showAndWait();
-            keyWordsList.update(editController.getKeyWord());
-            visibleErrorMessage(false);
-        } catch (HttpClientErrorException e) {
-            setErrorMessage(e.getMessage());
-        }
+        visibleErrorMessage(false);
+        editController.setKeyWord(dataTableView.getSelectionModel().getSelectedItem(), comboBoxPerson.getValue(), this);
+        if (editWindow == null) editWindow = new ModalWindow(EDIT_TITLE, mainStage, parentEdit, MODAL_WIDTH, MODAL_HEIGHT);
+        editWindow.getStage().showAndWait();
+        keyWordsList.update(editController.getKeyWord());
     }
 
     @FXML
     protected void actionButtonDelete() {
-        try {
-            deleteController.setKeyWord((KeyWord) dataTableView.getSelectionModel().getSelectedItem(), this);
-            if (deleteWindow == null) deleteWindow = new ModalWindow(DELETE_TITLE, mainStage, parentDelete, MODAL_WIDTH, MODAL_HEIGHT);
-            deleteWindow.getStage().showAndWait();
-            visibleErrorMessage(false);
-        } catch (HttpClientErrorException e) {
-            setErrorMessage(e.getMessage());
-        }
+        visibleErrorMessage(false);
+        deleteController.setKeyWord((KeyWord) dataTableView.getSelectionModel().getSelectedItem(), this);
+        if (deleteWindow == null) deleteWindow = new ModalWindow(DELETE_TITLE, mainStage, parentDelete, MODAL_WIDTH, MODAL_HEIGHT);
+        deleteWindow.getStage().showAndWait();
     }
 
     @FXML
     protected void actionButtonRefresh() {
-        try {
-            personList.refreshList();
-            visibleErrorMessage(false);
-        } catch (HttpClientErrorException e) {
-            setErrorMessage(e.getMessage());
-        }
+        visibleErrorMessage(false);
+        personList.refreshList();
+    }
+
+    public void refreshPersonList() {
+        personList.refreshList();
     }
 }

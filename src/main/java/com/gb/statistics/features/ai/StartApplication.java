@@ -29,5 +29,7 @@ public class StartApplication extends Application {
         primaryStage.setScene(new Scene(main, 300, 300));
         primaryStage.getIcons().add(ico);
         primaryStage.show();
+
+        rootFrameController.loadData();
     }
 }

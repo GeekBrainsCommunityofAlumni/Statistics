@@ -7,7 +7,6 @@ import com.gb.statistics.features.ai.model.Person;
 import com.gb.statistics.features.ai.window.ModalWindow;
 import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
-import org.springframework.web.client.HttpClientErrorException;
 
 public class PersonListController extends ListController {
 
@@ -16,6 +15,7 @@ public class PersonListController extends ListController {
     @FXML
     protected void initialize() {
         super.initialize(PERSON_TITLE);
+        personList.setController(this);
         dataTableView.setItems(personList.getList());
         initListeners();
         deleteController.setPersonList(personList);
@@ -38,53 +38,33 @@ public class PersonListController extends ListController {
 
     @FXML
     protected void actionButtonAdd() {
-        try {
-            addController.setPerson(new Person(), this);
-            if (addWindow == null) addWindow = new ModalWindow(ADD_TITLE, mainStage, parentAdd, MODAL_WIDTH, MODAL_HEIGHT);
-            addWindow.getStage().showAndWait();
-            if (!addController.nameFieldIsEmpty(addController.getPerson().getName())) {
-                personList.add(addController.getPerson());
-            }
-            visibleErrorMessage(false);
-        } catch (HttpClientErrorException e) {
-            setErrorMessage(e.getMessage());
+        addController.setPerson(new Person(), this);
+        if (addWindow == null) addWindow = new ModalWindow(ADD_TITLE, mainStage, parentAdd, MODAL_WIDTH, MODAL_HEIGHT);
+        addWindow.getStage().showAndWait();
+        if (!addController.nameFieldIsEmpty(addController.getPerson().getName())) {
+            personList.add(addController.getPerson());
         }
     }
 
     @FXML
     protected void actionButtonEdit() {
-        try {
-            editController.setPerson((Person) dataTableView.getSelectionModel().getSelectedItem(), this);
-            if (editWindow == null) editWindow = new ModalWindow(EDIT_TITLE, mainStage, parentEdit, MODAL_WIDTH, MODAL_HEIGHT);
-            editWindow.getStage().showAndWait();
-            ModelListData person = editController.getPerson();
-            personList.update(person);
-            visibleErrorMessage(false);
-        } catch (HttpClientErrorException e) {
-            setErrorMessage(e.getMessage());
-        }
+        editController.setPerson((Person) dataTableView.getSelectionModel().getSelectedItem(), this);
+        if (editWindow == null) editWindow = new ModalWindow(EDIT_TITLE, mainStage, parentEdit, MODAL_WIDTH, MODAL_HEIGHT);
+        editWindow.getStage().showAndWait();
+        ModelListData person = editController.getPerson();
+        personList.update(person);
     }
 
     @FXML
     protected void actionButtonDelete() {
-        try {
-            deleteController.setPerson((Person) dataTableView.getSelectionModel().getSelectedItem(), this);
-            if (deleteWindow == null) deleteWindow = new ModalWindow(DELETE_TITLE, mainStage, parentDelete, MODAL_WIDTH, MODAL_HEIGHT);
-            deleteWindow.getStage().showAndWait();
-            visibleErrorMessage(false);
-        } catch (HttpClientErrorException e) {
-            setErrorMessage(e.getMessage());
-        }
+        deleteController.setPerson((Person) dataTableView.getSelectionModel().getSelectedItem(), this);
+        if (deleteWindow == null) deleteWindow = new ModalWindow(DELETE_TITLE, mainStage, parentDelete, MODAL_WIDTH, MODAL_HEIGHT);
+        deleteWindow.getStage().showAndWait();
     }
 
     @FXML
     protected void actionButtonRefresh() {
-        try {
-            personList.refreshList();
-            visibleErrorMessage(false);
-        } catch (HttpClientErrorException e) {
-            setErrorMessage(e.getMessage());
-        }
+        personList.refreshList();
     }
 
     public ListInterface getPersonList() {

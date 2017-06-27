@@ -1,5 +1,7 @@
 package com.gb.statistics.features.ai.interfaces.impls;
 
+import com.gb.statistics.features.ai.controllers.KeyWordsListController;
+import com.gb.statistics.features.ai.controllers.ListController;
 import com.gb.statistics.features.ai.interfaces.ListInterface;
 import com.gb.statistics.features.ai.model.KeyWord;
 import com.gb.statistics.features.ai.model.ModelListData;
@@ -11,6 +13,7 @@ import javafx.util.Callback;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 import java.util.List;
 
@@ -18,9 +21,11 @@ public class KeyWordsList implements ListInterface {
 
     private ObservableList<ModelListData> keyWordList;
     private RestTemplate template = new RestTemplate();
+    private ResponseEntity<List<KeyWord>> rateResponse;
+    private ListController controller;
     private Person person;
     private HttpHeaders headers;
-    String URL;
+    private String URL;
 
     public KeyWordsList(String url) {
         Callback<ModelListData, Observable[]> extractor = s -> new Observable[] {s.getNameProperty()};
@@ -33,10 +38,15 @@ public class KeyWordsList implements ListInterface {
 
     @Override
     public void refreshList() {
-        ResponseEntity<List<KeyWord>> rateResponse = template.exchange(URL + "/keyword/" + person.getId(), HttpMethod.GET, null, new ParameterizedTypeReference<List<KeyWord>>() {
-        });
+        try {
+            rateResponse = template.exchange(URL + "/keyword/" + person.getId(), HttpMethod.GET, null, new ParameterizedTypeReference<List<KeyWord>>() {
+            });
+        } catch (HttpClientErrorException e) {
+            controller.setErrorMessage(e.getResponseBodyAsString());
+        }
+        controller.visibleErrorMessage(false);
         keyWordList.clear();
-        keyWordList.setAll(rateResponse.getBody());
+        if (rateResponse != null) keyWordList.setAll(rateResponse.getBody());
     }
 
     @Override
@@ -46,26 +56,45 @@ public class KeyWordsList implements ListInterface {
 
     @Override
     public boolean add(ModelListData keyWord) {
-        template.postForObject(URL + "/keyword/" + person.getId(), new HttpEntity<>(keyWord, headers), KeyWord.class);
+        try {
+            template.postForObject(URL + "/keyword/" + person.getId(), new HttpEntity<>(keyWord, headers), KeyWord.class);
+        } catch (HttpClientErrorException e) {
+            controller.setErrorMessage(e.getResponseBodyAsString());
+            ((KeyWordsListController)controller).refreshPersonList();
+        }
         refreshList();
         return false;
     }
 
     @Override
     public boolean update(ModelListData keyWord) {
-        template.put(URL + "/keyword",  new HttpEntity<>(keyWord, headers), KeyWord.class);
+        try {
+            template.put(URL + "/keyword",  new HttpEntity<>(keyWord, headers), KeyWord.class);
+        } catch (HttpClientErrorException e) {
+            controller.setErrorMessage(e.getResponseBodyAsString());
+            ((KeyWordsListController)controller).refreshPersonList();
+        }
         refreshList();
         return false;
     }
 
     @Override
     public boolean delete(ModelListData keyWord) {
-        template.delete(URL + "/keyword/" + keyWord.getId());
+        try {
+            template.delete(URL + "/keyword/" + keyWord.getId());
+        } catch (HttpClientErrorException e) {
+            controller.setErrorMessage(e.getResponseBodyAsString());
+            ((KeyWordsListController)controller).refreshPersonList();
+        }
         refreshList();
         return false;
     }
 
     public void setPerson(Person person) {
         this.person = person;
+    }
+
+    public void setController(ListController controller) {
+        this.controller = controller;
     }
 }

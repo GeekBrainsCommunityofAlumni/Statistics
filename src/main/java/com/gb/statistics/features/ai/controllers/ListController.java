@@ -26,7 +26,7 @@ public abstract class ListController {
     protected final String KEYWORD_TITLE = "Ключевые слова";
     protected final String SITE_TITLE = "Сайты";
     protected final String EMPTY_LIST_MESSAGE = "Список пуст";
-    protected final String ERROR_404_NULL = "404 null";
+    protected final String ERROR_404 = "404 Not Found";
     protected final String EDIT_FXML_URL = "/fxml/editModalWindow.fxml";
     protected final String DELETE_FXML_URL = "/fxml/deleteModalWindow.fxml";
     protected final String URL = "http://94.130.27.143:8080/api";
@@ -138,9 +138,9 @@ public abstract class ListController {
 
     public void setErrorMessage(String message) {
         visibleErrorMessage(true);
-        if (message.equals(ERROR_404_NULL)) {
-            errorMessage.setText("Данные не найдены");
-        } else errorMessage.setText("Ошибка: " + message);
+        if (message.length() > 30) {
+            errorMessage.setText(ERROR_404);
+        } else errorMessage.setText("Ошибка: " + message.substring(message.indexOf(':') + 2, message.indexOf('}') - 1));
     }
 
     public void visibleErrorMessage(boolean value) {

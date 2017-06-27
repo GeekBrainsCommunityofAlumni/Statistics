@@ -6,7 +6,6 @@ import com.gb.statistics.features.ai.model.Site;
 import com.gb.statistics.features.ai.window.ModalWindow;
 import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
-import org.springframework.web.client.HttpClientErrorException;
 
 public class SiteListController extends ListController {
 
@@ -15,6 +14,7 @@ public class SiteListController extends ListController {
     @FXML
     protected void initialize() {
         super.initialize(SITE_TITLE);
+        siteList.setController(this);
         dataTableView.setItems(siteList.getList());
         initListeners();
         deleteController.setSiteList(siteList);
@@ -37,52 +37,32 @@ public class SiteListController extends ListController {
 
     @FXML
     protected void actionButtonAdd() {
-        try {
-            addController.setSite(new Site(), this);
-            if (addWindow == null) addWindow = new ModalWindow(ADD_TITLE, mainStage, parentAdd, MODAL_WIDTH, MODAL_HEIGHT);
-            addWindow.getStage().showAndWait();
-            if (!addController.nameFieldIsEmpty(addController.getSite().getName())) {
-                siteList.add(addController.getSite());
-            }
-            visibleErrorMessage(false);
-        } catch (HttpClientErrorException e) {
-            setErrorMessage(e.getMessage());
+        addController.setSite(new Site(), this);
+        if (addWindow == null) addWindow = new ModalWindow(ADD_TITLE, mainStage, parentAdd, MODAL_WIDTH, MODAL_HEIGHT);
+        addWindow.getStage().showAndWait();
+        if (!addController.nameFieldIsEmpty(addController.getSite().getName())) {
+            siteList.add(addController.getSite());
         }
     }
 
     @FXML
     protected void actionButtonEdit() {
-        try {
-            editController.setSite((Site) dataTableView.getSelectionModel().getSelectedItem(), this);
-            if (editWindow == null) editWindow = new ModalWindow(EDIT_TITLE, mainStage, parentEdit, MODAL_WIDTH, MODAL_HEIGHT);
-            editWindow.getStage().showAndWait();
-            siteList.update(editController.getSite());
-            visibleErrorMessage(false);
-        } catch (HttpClientErrorException e) {
-            setErrorMessage(e.getMessage());
-        }
+        editController.setSite((Site) dataTableView.getSelectionModel().getSelectedItem(), this);
+        if (editWindow == null) editWindow = new ModalWindow(EDIT_TITLE, mainStage, parentEdit, MODAL_WIDTH, MODAL_HEIGHT);
+        editWindow.getStage().showAndWait();
+        siteList.update(editController.getSite());
     }
 
     @FXML
     protected void actionButtonDelete() {
-        try {
-            deleteController.setSite((Site) dataTableView.getSelectionModel().getSelectedItem(), this);
-            if (deleteWindow == null) deleteWindow = new ModalWindow(DELETE_TITLE, mainStage, parentDelete, MODAL_WIDTH, MODAL_HEIGHT);
-            deleteWindow.getStage().showAndWait();
-            visibleErrorMessage(false);
-        } catch (HttpClientErrorException e) {
-            setErrorMessage(e.getMessage());
-        }
+        deleteController.setSite((Site) dataTableView.getSelectionModel().getSelectedItem(), this);
+        if (deleteWindow == null) deleteWindow = new ModalWindow(DELETE_TITLE, mainStage, parentDelete, MODAL_WIDTH, MODAL_HEIGHT);
+        deleteWindow.getStage().showAndWait();
     }
 
     @FXML
     protected void actionButtonRefresh() {
-        try {
-            siteList.refreshList();
-            visibleErrorMessage(false);
-        } catch (HttpClientErrorException e) {
-            setErrorMessage(e.getMessage());
-        }
+        siteList.refreshList();
     }
 
     public ListInterface getSiteList() {
