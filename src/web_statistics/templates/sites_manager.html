@@ -57,7 +57,7 @@
                             </option>
                         {% endfor %}
                     {% else %}
-                    <option value="#">Have no sites</option>
+                    <option value="#">Нет данных для отображения</option>
                     {% endif %}
                 </select>
                 <br>
@@ -131,10 +131,10 @@
             <div class="control-label col-sm-6">
                 <select id="source" class="form-control" name="source" required="">
                     <option value="unknown">Не выбрано</option>
-                    {% if sites %}
-                        {% for site in sites %}
-                            <option value="{{ site.id }}">
-                                {{ site.name }}
+                    {% if pages %}
+                        {% for page in pages %}
+                            <option value="{{ page.id }}">
+                                {{ page.url }}
                             </option>
                         {% endfor %}
                     {% else %}
