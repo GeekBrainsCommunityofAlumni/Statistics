@@ -42,6 +42,7 @@ public class SiteList implements ListInterface {
             rateResponse = template.exchange(URL + "/site", HttpMethod.GET, null, new ParameterizedTypeReference<List<Site>>() {
             });
         } catch (HttpClientErrorException e) {
+            rateResponse = null;
             controller.setErrorMessage(e.getResponseBodyAsString());
         }
         siteList.clear();

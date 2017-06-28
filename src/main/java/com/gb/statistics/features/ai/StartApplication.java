@@ -1,6 +1,6 @@
 package com.gb.statistics.features.ai;
 
-import com.gb.statistics.features.ai.controllers.RootFrameController;
+import com.gb.statistics.features.ai.controllers.ConnectionController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -18,10 +18,10 @@ public class StartApplication extends Application {
     public void start(Stage primaryStage) throws Exception {
         Image ico = new Image("/images/icon.jpg");
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("/fxml/rootTabPane.fxml"));
+        loader.setLocation(getClass().getResource("/fxml/connectionFrame.fxml"));
         Parent main = loader.load();
-        RootFrameController rootFrameController = loader.getController();
-        rootFrameController.setMainStage(primaryStage);
+        ConnectionController connectionController = loader.getController();
+        connectionController.setMainStage(primaryStage);
 
         primaryStage.setTitle("GBCA Statistics - Панель администрирования");
         primaryStage.setMinWidth(600);
@@ -29,7 +29,5 @@ public class StartApplication extends Application {
         primaryStage.setScene(new Scene(main, 300, 300));
         primaryStage.getIcons().add(ico);
         primaryStage.show();
-
-        rootFrameController.loadData();
     }
 }

@@ -38,6 +38,7 @@ public class PersonList implements ListInterface {
             rateResponse = template.exchange(URL + "/person", HttpMethod.GET, null, new ParameterizedTypeReference<List<Person>>() {
             });
         } catch (HttpClientErrorException e) {
+            rateResponse = null;
             controller.setErrorMessage(e.getResponseBodyAsString());
         }
         personList.clear();

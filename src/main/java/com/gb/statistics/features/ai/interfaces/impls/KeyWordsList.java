@@ -42,9 +42,9 @@ public class KeyWordsList implements ListInterface {
             rateResponse = template.exchange(URL + "/keyword/" + person.getId(), HttpMethod.GET, null, new ParameterizedTypeReference<List<KeyWord>>() {
             });
         } catch (HttpClientErrorException e) {
-            controller.setErrorMessage(e.getResponseBodyAsString());
+            rateResponse = null;
+            if (!e.getMessage().equals("404 null")) controller.setErrorMessage(e.getResponseBodyAsString());
         }
-        controller.visibleErrorMessage(false);
         keyWordList.clear();
         if (rateResponse != null) keyWordList.setAll(rateResponse.getBody());
     }

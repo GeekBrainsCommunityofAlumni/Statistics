@@ -64,7 +64,11 @@ public class PersonListController extends ListController {
 
     @FXML
     protected void actionButtonRefresh() {
-        personList.refreshList();
+        try {
+            personList.refreshList();
+        } catch (RuntimeException e) {
+
+        }
     }
 
     public ListInterface getPersonList() {

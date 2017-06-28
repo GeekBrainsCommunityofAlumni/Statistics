@@ -36,26 +36,18 @@ public class KeyWordsListController extends ListController {
             if (newValue != null) {
                 ((KeyWordsList)keyWordsList).setPerson(newValue);
                 keyWordsList.refreshList();
-            } else {
-                comboBoxPerson.getSelectionModel().selectFirst();
-                keyWordsList.getList().clear();
-            }
+            } else keyWordsList.refreshList();
         });
 
-        personList.getList().addListener((ListChangeListener<Person>) c -> {
+        personList.getList().addListener((ListChangeListener<ModelListData>) c -> {
             if (personList.getList().size() == 0) {
                 addButton.setDisable(true);
+                comboBoxPerson.getSelectionModel().clearSelection();
             } else {
                 addButton.setDisable(false);
                 comboBoxPerson.getSelectionModel().selectFirst();
             }
         });
-    }
-
-    public void setPersonList(ListInterface personList) {
-        this.personList = personList;
-        initListeners();
-        initComboBox();
 
         keyWordsList.getList().addListener((ListChangeListener<ModelListData>) c -> {
             updateListCount(keyWordsList);
@@ -68,6 +60,12 @@ public class KeyWordsListController extends ListController {
                 actionButtonEdit();
             }
         });
+    }
+
+    public void setPersonList(ListInterface personList) {
+        this.personList = personList;
+        initComboBox();
+        initListeners();
     }
 
     private void initComboBox() {
