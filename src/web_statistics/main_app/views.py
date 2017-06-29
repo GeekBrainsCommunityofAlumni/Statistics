@@ -14,8 +14,8 @@ def about(request):
     return render(request, 'index.html')
 
 
-def statistics(request):
-    return render(request, 'statistics.html')
+# def statistics(request):
+#     return render(request, 'statistics.html')
 
 
 @login_required(login_url='/privateroom/')
@@ -37,6 +37,7 @@ def periodic_statistics(request):
     return render(request, 'periodic_statistics.html', {'persons': persons, 'keywords': keywords,
                                                         'sites': sites, 'person_ranks': person_ranks})
 
+
 @login_required(login_url='/privateroom/')
 def admin_statistics(request):
     sites = Sites.objects.order_by('name')
@@ -48,6 +49,25 @@ def admin_statistics(request):
     return render(request, 'admin_statistics.html', {'persons': persons, 'keywords': keywords,
                                                      'sites': sites, 'person_ranks': person_ranks, 'pages': pages,
                                                      'users': users})
+
+
+# def news(request):
+#     return render(request, 'news.html')
+
+
+def politics(request):
+    return render(request, 'politics.html')
+
+def economics_and_finances(request):
+    return render(request, 'economics_and_finances.html')
+
+
+def business(request):
+    return render(request, 'business.html')
+
+
+def society(request):
+    return render(request, 'society.htnl')
 
 
 def parameters_search(request):
