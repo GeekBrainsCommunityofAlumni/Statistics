@@ -67,7 +67,7 @@ def business(request):
 
 
 def society(request):
-    return render(request, 'society.htnl')
+    return render(request, 'society.html')
 
 
 def parameters_search(request):
