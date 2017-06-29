@@ -1,5 +1,6 @@
 package com.gb.statistics.features.ai.interfaces.impls;
 
+import com.gb.statistics.features.ai.controllers.ConnectionController;
 import com.gb.statistics.features.ai.controllers.ListController;
 import com.gb.statistics.features.ai.interfaces.ListInterface;
 import com.gb.statistics.features.ai.model.ModelListData;
@@ -12,6 +13,7 @@ import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestTemplate;
 import java.util.List;
 
@@ -40,6 +42,9 @@ public class PersonList implements ListInterface {
         } catch (HttpClientErrorException e) {
             rateResponse = null;
             controller.setErrorMessage(e.getResponseBodyAsString());
+        } catch (ResourceAccessException e) {
+            rateResponse = null;
+            ConnectionController.disconnect();
         }
         personList.clear();
         if (rateResponse != null) personList.setAll(rateResponse.getBody());
@@ -50,6 +55,8 @@ public class PersonList implements ListInterface {
             template.postForObject(URL + "/person", new HttpEntity<>(person, headers), Person.class);
         } catch (HttpClientErrorException e) {
             controller.setErrorMessage(e.getResponseBodyAsString());
+        } catch (ResourceAccessException e) {
+            ConnectionController.disconnect();
         }
         refreshList();
         return true;
@@ -60,6 +67,8 @@ public class PersonList implements ListInterface {
             template.put(URL + "/person", new HttpEntity<>(person, headers), Person.class);
         } catch (HttpClientErrorException e) {
             controller.setErrorMessage(e.getResponseBodyAsString());
+        } catch (ResourceAccessException e) {
+            ConnectionController.disconnect();
         }
         refreshList();
         return false;
@@ -70,6 +79,8 @@ public class PersonList implements ListInterface {
             template.delete(URL + "/person/" + person.getId());
         } catch (HttpClientErrorException e) {
             controller.setErrorMessage(e.getResponseBodyAsString());
+        } catch (ResourceAccessException e) {
+            ConnectionController.disconnect();
         }
         refreshList();
         return true;

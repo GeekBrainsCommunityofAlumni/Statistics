@@ -7,38 +7,53 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
+import org.springframework.web.client.ResourceAccessException;
 
 import java.io.IOException;
 
 public class ConnectionController {
 
-    private Stage stage;
-    private Parent parent;
+    private static Stage stage;
+    private static Scene connectScene;
+    private Scene scene;
     private RootFrameController rootFrameController;
 
     @FXML
     private Button connectButton;
 
     @FXML
-    private Label errorLabel;
+    private static Label errorLabel = new Label();
 
     @FXML
     private void initialize() throws IOException {
-        errorLabel.setVisible(false);
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/fxml/rootTabPane.fxml"));
-        parent = loader.load();
+        Parent parent = loader.load();
         rootFrameController = loader.getController();
         rootFrameController.setMainStage(stage);
+        scene = new Scene(parent);
+        errorLabel.setVisible(false);
+        System.out.println("visible");
     }
 
     public void setMainStage(Stage stage) {
-        this.stage = stage;
+        ConnectionController.stage = stage;
     }
 
     @FXML
     public void initTabFrame() {
+        stage.hide();
+        stage.setScene(scene);
+        stage.show();
         rootFrameController.loadData();
-        stage.setScene(new Scene(parent));
+    }
+
+    public static void disconnect() {
+        stage.setScene(connectScene);
+        //errorLabel.setVisible(true);
+    }
+
+    public static void setConnectScene(Scene connectScene) {
+        ConnectionController.connectScene = connectScene;
     }
 }

@@ -1,5 +1,6 @@
 package com.gb.statistics.features.ai.interfaces.impls;
 
+import com.gb.statistics.features.ai.controllers.ConnectionController;
 import com.gb.statistics.features.ai.controllers.KeyWordsListController;
 import com.gb.statistics.features.ai.controllers.ListController;
 import com.gb.statistics.features.ai.interfaces.ListInterface;
@@ -14,6 +15,7 @@ import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestTemplate;
 import java.util.List;
 
@@ -44,6 +46,9 @@ public class KeyWordsList implements ListInterface {
         } catch (HttpClientErrorException e) {
             rateResponse = null;
             if (!e.getMessage().equals("404 null")) controller.setErrorMessage(e.getResponseBodyAsString());
+        } catch (ResourceAccessException e) {
+            rateResponse = null;
+            ConnectionController.disconnect();
         }
         keyWordList.clear();
         if (rateResponse != null) keyWordList.setAll(rateResponse.getBody());
@@ -61,6 +66,8 @@ public class KeyWordsList implements ListInterface {
         } catch (HttpClientErrorException e) {
             controller.setErrorMessage(e.getResponseBodyAsString());
             ((KeyWordsListController)controller).refreshPersonList();
+        } catch (ResourceAccessException e) {
+            ConnectionController.disconnect();
         }
         refreshList();
         return false;
@@ -73,6 +80,8 @@ public class KeyWordsList implements ListInterface {
         } catch (HttpClientErrorException e) {
             controller.setErrorMessage(e.getResponseBodyAsString());
             ((KeyWordsListController)controller).refreshPersonList();
+        } catch (ResourceAccessException e) {
+            ConnectionController.disconnect();
         }
         refreshList();
         return false;
@@ -85,6 +94,8 @@ public class KeyWordsList implements ListInterface {
         } catch (HttpClientErrorException e) {
             controller.setErrorMessage(e.getResponseBodyAsString());
             ((KeyWordsListController)controller).refreshPersonList();
+        } catch (ResourceAccessException e) {
+            ConnectionController.disconnect();
         }
         refreshList();
         return false;

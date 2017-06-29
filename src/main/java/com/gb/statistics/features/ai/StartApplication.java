@@ -26,7 +26,9 @@ public class StartApplication extends Application {
         primaryStage.setTitle("GBCA Statistics - Панель администрирования");
         primaryStage.setMinWidth(600);
         primaryStage.setMinHeight(600);
-        primaryStage.setScene(new Scene(main, 300, 300));
+        Scene scene = new Scene(main, 300, 300);
+        ConnectionController.setConnectScene(scene);
+        primaryStage.setScene(scene);
         primaryStage.getIcons().add(ico);
         primaryStage.show();
     }
