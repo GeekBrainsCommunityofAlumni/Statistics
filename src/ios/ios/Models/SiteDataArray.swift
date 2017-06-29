@@ -5,32 +5,9 @@
 //  Created by Dmytro Shcherbachenko on 22.06.17.
 //  Copyright © 2017 GB. All rights reserved.
 //
-// функции для операций с массивами рангов
-func + (left: [Info], right: Info) -> [Info]{
-    var newP: [Info] = left
-    let findPerson = newP.filter { (person) -> Bool in person.name == right.name}
-    if findPerson.isEmpty {
-        newP.append(right)
-    } else {
-        newP = newP.map({ (personInfo) -> Info in
-            let newPersonInfo = personInfo
-            if personInfo.name == right.name {
-                newPersonInfo.count = newPersonInfo.count + right.count
-            }
-            return newPersonInfo
-        })
-    }
-    return newP
-}
 
-func + (left: [Info], right: [Info]) -> [Info]{
-    var newP: [Info] = left
-    for item in right {
-        newP = newP + item
-    }
-    return newP
-}
 
+//  Superstucture for SiteData. Alow work with SiteData array
 class SiteDataArray {
     private var array: [SiteData] = []{
         didSet {
@@ -48,7 +25,7 @@ class SiteDataArray {
     convenience init(){
         self.init(data: [])
     }
-    
+    //  Subscript when alow access to all SiteData info
     subscript (index: Int) -> SiteData{
         get {
                 return array[index]
@@ -57,10 +34,11 @@ class SiteDataArray {
             array[index] = newValue
         }
     }
-    
+    //  Array site-rank info for all data
     var sites: [Info] = []
+    //  Array person-rank info for all data
     var ranks: [Info] = []
-    
+    //  Return SiteDateArray with info only one site
     func filterBySite(siteName: String) -> SiteDataArray{
         let filteredArray = array.filter { (siteData) -> Bool in
             if siteData.site == siteName {
@@ -73,7 +51,7 @@ class SiteDataArray {
         let result = SiteDataArray(data: filteredArray)
         return result
     }
-    
+    //  Create array for present site info in aspect date - rank
     func filterBySiteAndPerson(siteName: String, personName: String) -> [InfoWithDate] {
         var result: [InfoWithDate]
         let temp = self.filterBySite(siteName: siteName)

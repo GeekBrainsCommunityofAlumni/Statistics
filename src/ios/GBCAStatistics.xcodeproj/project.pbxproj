@@ -18,6 +18,8 @@
 		82E0CA731F0139160008D4C0 /* RangeSiteStaticWithDatesTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82E0CA721F0139160008D4C0 /* RangeSiteStaticWithDatesTVC.swift */; };
 		82E0CA751F015A0E0008D4C0 /* RangeSiteStaticWithDatesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82E0CA741F015A0E0008D4C0 /* RangeSiteStaticWithDatesCell.swift */; };
 		82E0CA771F02654E0008D4C0 /* test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82E0CA761F02654D0008D4C0 /* test.swift */; };
+		82E0CAF11F0452710008D4C0 /* GBCA_StatisticsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82E0CAF01F0452710008D4C0 /* GBCA_StatisticsTests.swift */; };
+		82E0CAF91F0452C40008D4C0 /* SiteDataTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82E0CAF81F0452C40008D4C0 /* SiteDataTest.swift */; };
 		82F0A4511EFFF6CB006B7F16 /* TotalStaticRootTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82F0A4501EFFF6CB006B7F16 /* TotalStaticRootTVC.swift */; };
 		82F0A4531EFFF794006B7F16 /* TotalSiteStaticTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82F0A4521EFFF794006B7F16 /* TotalSiteStaticTVC.swift */; };
 		82F0A4551EFFF870006B7F16 /* TotalSiteStaticTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82F0A4541EFFF870006B7F16 /* TotalSiteStaticTVCell.swift */; };
@@ -33,6 +35,16 @@
 		E0C386C923FE1E57DE128335 /* Pods_ios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BA6E09608D9FF04B14FA287 /* Pods_ios.framework */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		82E0CAF31F0452710008D4C0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BE4FD0581EEEEBB4002F0679 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = BE4FD05F1EEEEBB4002F0679;
+			remoteInfo = "GBCA Statistics";
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		396B727C054DE7F9EA546DBF /* Pods-ios.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ios.release.xcconfig"; path = "Pods/Target Support Files/Pods-ios/Pods-ios.release.xcconfig"; sourceTree = "<group>"; };
 		3BA6E09608D9FF04B14FA287 /* Pods_ios.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ios.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -47,6 +59,10 @@
 		82E0CA721F0139160008D4C0 /* RangeSiteStaticWithDatesTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RangeSiteStaticWithDatesTVC.swift; sourceTree = "<group>"; };
 		82E0CA741F015A0E0008D4C0 /* RangeSiteStaticWithDatesCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RangeSiteStaticWithDatesCell.swift; sourceTree = "<group>"; };
 		82E0CA761F02654D0008D4C0 /* test.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = test.swift; sourceTree = "<group>"; };
+		82E0CAEE1F0452710008D4C0 /* GBCAStatisticsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GBCAStatisticsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		82E0CAF01F0452710008D4C0 /* GBCA_StatisticsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GBCA_StatisticsTests.swift; sourceTree = "<group>"; };
+		82E0CAF21F0452710008D4C0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		82E0CAF81F0452C40008D4C0 /* SiteDataTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SiteDataTest.swift; sourceTree = "<group>"; };
 		82F0A4501EFFF6CB006B7F16 /* TotalStaticRootTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TotalStaticRootTVC.swift; sourceTree = "<group>"; };
 		82F0A4521EFFF794006B7F16 /* TotalSiteStaticTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TotalSiteStaticTVC.swift; sourceTree = "<group>"; };
 		82F0A4541EFFF870006B7F16 /* TotalSiteStaticTVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TotalSiteStaticTVCell.swift; sourceTree = "<group>"; };
@@ -55,7 +71,7 @@
 		82F0A45A1F000470006B7F16 /* RangeSiteStaticTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RangeSiteStaticTVC.swift; sourceTree = "<group>"; };
 		82F0A45C1F000A90006B7F16 /* RangeSelectSiteTVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RangeSelectSiteTVCell.swift; sourceTree = "<group>"; };
 		82F0A45E1F0058AF006B7F16 /* RangeSiteStaticTVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RangeSiteStaticTVCell.swift; sourceTree = "<group>"; };
-		BE4FD0601EEEEBB4002F0679 /* GBCA Statistics.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "GBCA Statistics.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		BE4FD0601EEEEBB4002F0679 /* GBCAStatistics.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GBCAStatistics.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE4FD0631EEEEBB4002F0679 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BE4FD0681EEEEBB4002F0679 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		BE4FD06A1EEEEBB4002F0679 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -65,6 +81,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		82E0CAEB1F0452710008D4C0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		BE4FD05D1EEEEBB4002F0679 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -118,10 +141,21 @@
 			path = Controllers;
 			sourceTree = "<group>";
 		};
+		82E0CAEF1F0452710008D4C0 /* GBCA StatisticsTests */ = {
+			isa = PBXGroup;
+			children = (
+				82E0CAF81F0452C40008D4C0 /* SiteDataTest.swift */,
+				82E0CAF01F0452710008D4C0 /* GBCA_StatisticsTests.swift */,
+				82E0CAF21F0452710008D4C0 /* Info.plist */,
+			);
+			path = "GBCA StatisticsTests";
+			sourceTree = "<group>";
+		};
 		BE4FD0571EEEEBB4002F0679 = {
 			isa = PBXGroup;
 			children = (
 				BE4FD0621EEEEBB4002F0679 /* ios */,
+				82E0CAEF1F0452710008D4C0 /* GBCA StatisticsTests */,
 				BE4FD0611EEEEBB4002F0679 /* Products */,
 				66284B42BD6C29E862F8FA02 /* Pods */,
 				D837BC8D7B1A6F3A6541E82D /* Frameworks */,
@@ -131,7 +165,8 @@
 		BE4FD0611EEEEBB4002F0679 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				BE4FD0601EEEEBB4002F0679 /* GBCA Statistics.app */,
+				BE4FD0601EEEEBB4002F0679 /* GBCAStatistics.app */,
+				82E0CAEE1F0452710008D4C0 /* GBCAStatisticsTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -161,9 +196,27 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		BE4FD05F1EEEEBB4002F0679 /* GBCA Statistics */ = {
+		82E0CAED1F0452710008D4C0 /* GBCAStatisticsTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = BE4FD0721EEEEBB4002F0679 /* Build configuration list for PBXNativeTarget "GBCA Statistics" */;
+			buildConfigurationList = 82E0CAF51F0452710008D4C0 /* Build configuration list for PBXNativeTarget "GBCAStatisticsTests" */;
+			buildPhases = (
+				82E0CAEA1F0452710008D4C0 /* Sources */,
+				82E0CAEB1F0452710008D4C0 /* Frameworks */,
+				82E0CAEC1F0452710008D4C0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				82E0CAF41F0452710008D4C0 /* PBXTargetDependency */,
+			);
+			name = GBCAStatisticsTests;
+			productName = "GBCA StatisticsTests";
+			productReference = 82E0CAEE1F0452710008D4C0 /* GBCAStatisticsTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		BE4FD05F1EEEEBB4002F0679 /* GBCAStatistics */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BE4FD0721EEEEBB4002F0679 /* Build configuration list for PBXNativeTarget "GBCAStatistics" */;
 			buildPhases = (
 				3CD5917CC7E9E71E4BF7B647 /* [CP] Check Pods Manifest.lock */,
 				BE4FD05C1EEEEBB4002F0679 /* Sources */,
@@ -176,9 +229,9 @@
 			);
 			dependencies = (
 			);
-			name = "GBCA Statistics";
+			name = GBCAStatistics;
 			productName = ios;
-			productReference = BE4FD0601EEEEBB4002F0679 /* GBCA Statistics.app */;
+			productReference = BE4FD0601EEEEBB4002F0679 /* GBCAStatistics.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -191,6 +244,11 @@
 				LastUpgradeCheck = 0830;
 				ORGANIZATIONNAME = GB;
 				TargetAttributes = {
+					82E0CAED1F0452710008D4C0 = {
+						CreatedOnToolsVersion = 8.3.3;
+						ProvisioningStyle = Automatic;
+						TestTargetID = BE4FD05F1EEEEBB4002F0679;
+					};
 					BE4FD05F1EEEEBB4002F0679 = {
 						CreatedOnToolsVersion = 8.3.3;
 						DevelopmentTeam = 8Q4XC98JJR;
@@ -198,7 +256,7 @@
 					};
 				};
 			};
-			buildConfigurationList = BE4FD05B1EEEEBB4002F0679 /* Build configuration list for PBXProject "GBCA Statistics" */;
+			buildConfigurationList = BE4FD05B1EEEEBB4002F0679 /* Build configuration list for PBXProject "GBCAStatistics" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -211,12 +269,20 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				BE4FD05F1EEEEBB4002F0679 /* GBCA Statistics */,
+				BE4FD05F1EEEEBB4002F0679 /* GBCAStatistics */,
+				82E0CAED1F0452710008D4C0 /* GBCAStatisticsTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		82E0CAEC1F0452710008D4C0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		BE4FD05E1EEEEBB4002F0679 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -278,6 +344,15 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		82E0CAEA1F0452710008D4C0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				82E0CAF91F0452C40008D4C0 /* SiteDataTest.swift in Sources */,
+				82E0CAF11F0452710008D4C0 /* GBCA_StatisticsTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		BE4FD05C1EEEEBB4002F0679 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -307,6 +382,14 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		82E0CAF41F0452710008D4C0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = BE4FD05F1EEEEBB4002F0679 /* GBCAStatistics */;
+			targetProxy = 82E0CAF31F0452710008D4C0 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
 		BE4FD0671EEEEBB4002F0679 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
@@ -327,6 +410,32 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		82E0CAF61F0452710008D4C0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = "GBCA StatisticsTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.sds.GBCA-StatisticsTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GBCAStatistics.app/GBCAStatistics";
+			};
+			name = Debug;
+		};
+		82E0CAF71F0452710008D4C0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = "GBCA StatisticsTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.sds.GBCA-StatisticsTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GBCAStatistics.app/GBCAStatistics";
+			};
+			name = Release;
+		};
 		BE4FD0701EEEEBB4002F0679 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -455,7 +564,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		BE4FD05B1EEEEBB4002F0679 /* Build configuration list for PBXProject "GBCA Statistics" */ = {
+		82E0CAF51F0452710008D4C0 /* Build configuration list for PBXNativeTarget "GBCAStatisticsTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				82E0CAF61F0452710008D4C0 /* Debug */,
+				82E0CAF71F0452710008D4C0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		BE4FD05B1EEEEBB4002F0679 /* Build configuration list for PBXProject "GBCAStatistics" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				BE4FD0701EEEEBB4002F0679 /* Debug */,
@@ -464,7 +581,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		BE4FD0721EEEEBB4002F0679 /* Build configuration list for PBXNativeTarget "GBCA Statistics" */ = {
+		BE4FD0721EEEEBB4002F0679 /* Build configuration list for PBXNativeTarget "GBCAStatistics" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				BE4FD0731EEEEBB4002F0679 /* Debug */,

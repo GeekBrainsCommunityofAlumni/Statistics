@@ -8,28 +8,27 @@
 
 import UIKit
 
-// тип дата провайдера
+//  Type of data provider
 enum DataProviderType {
-    case db         // кеш (получени/запись данных)
-    case source     //  сеть (только получение данных)
+    case db         // database. alow read and write
+    case source     // network or etc. only read alow
 }
 
-// протокол для возврата из источника данных. dataProvider - дает нам возможность в вызывающем методе получить информацию о типе провайдера (кеш/сеть) и т.д.
 protocol DataProviderProtocol {
     func didCompliteRequestOnRange(data: SiteDataArray, dateBegin: Date, dateEnd: Date, dataProvider: DataProvider)
     func didCompliteRequestTotal(data: SiteDataArray, dataProvider: DataProvider)
 }
-
+//  Abstract class for random data source and database. DataManager work only with subclass of DataProvider
 class DataProvider{
     var type: DataProviderType!
     var delegat: DataProviderProtocol!
-    
+    //  Get total information
     func getTotalData(){
     }
-    
+    //  Get information on date range
     func getOnRangeData(dateBegin: Date, dateEnd: Date){
     }
-    
+    //  Put information in database. In source DataProvider this funciton not work
     func putData(data: SiteDataArray){
     }
 }

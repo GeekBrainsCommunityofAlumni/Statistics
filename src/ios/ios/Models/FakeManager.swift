@@ -6,7 +6,7 @@
 //  Copyright © 2017 GB. All rights reserved.
 //
 import UIKit
-// поставщик фейковых данных для тестирования пока не появятся данные на сервере
+// Class for test
 class FakeManager:DataProvider{
     let sitesName: [String] = ["Facebook", "VK", "News", "NYT"]
     let personsName: [String] = ["Красная шапочка", "Серый волк", "Бабуля", "Лесоруб"]

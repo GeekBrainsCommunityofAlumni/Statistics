@@ -32,21 +32,16 @@ fileprivate struct Rank {
     var date: Date?
 }
 
-// протокол для взаимодействия NetworkProcess с NetworkManager
-// выполняется передача результата запроса от NetworkProcess к NetworkManager
 protocol NetworkProcessProtocol{
     func didCompliteTotalRankProcess(siteData: [SiteData])
     func didCompliteOnRangRankProcess(siteData: [SiteData], dateBegin: Date, dateEnd: Date)
 }
 
-// выполняет запросы к серверу, объеденяет результаты запроса в таблицу
+// Working with REST. NetworkProcess get information in REST and return structure how useed in programm
 class NetworkProcess {
     var baseURL: String
-    // очередь для сохранения результатов сетевых запросов с разных потоков
     private var queue = DispatchQueue(label: "Network.manager")
-    //-------------------------------------------------------------------------
-    // флаги процессов. стартуют следующий за ними процесс
-    // первый процесс тартует после выполнения функции start, остальные по флагам
+    //  Flags for different process
     private var sitesDownloaded = false{
         didSet {
             if self.sitesDownloaded == true{
@@ -67,9 +62,7 @@ class NetworkProcess {
         }
     }
     
-    // ранги за дату и общий получаются с помощью большого числа запросов. после
-    // старта сетевого запроса эта переменная увеличивается на 1. после окончания работы уменьшается на 1
-    // в тот момент когда будет значение 0 - все процессы закончили работать
+    //  Counter for network operation. When have value 0 - all network operation is comlited
     private var rankCounter: Int? {
         didSet{
             if self.rankCounter == 0 {
@@ -82,7 +75,6 @@ class NetworkProcess {
         }
     }
     
-    // инкримент счетчика с другого потока (из сетевых запросов)
     private func rankCounterIncrement(){
         queue.sync {
             if rankCounter == nil {
@@ -93,21 +85,17 @@ class NetworkProcess {
         }
     }
     
-    // декремент счетчика с другого потока (из сетевых запросов)
     private func rankCounterDecrement(){
         queue.sync {
             rankCounter = rankCounter! - 1
         }
     }
     
-    //-------------------------------------------------------------------------
-    // временные переменные
     private var sites: [Site] = []
     private var persons: [Person] = []
     private var ranks: [Rank] = []
     
-    // сохраняет ранг с другого потока (из сетевых запросов)
-    private func rankAppend(rank: Rank){
+     private func rankAppend(rank: Rank){
         queue.sync {
             ranks.append(rank)
         }
@@ -118,8 +106,7 @@ class NetworkProcess {
     private var dateEnd: Date?
     var delegat: NetworkProcessProtocol
     
-    //     стартует работу процесса
-    public func start(){
+     public func start(){
         getAllSites()
     }
     
@@ -133,17 +120,14 @@ class NetworkProcess {
         }
     }
     
-    // инит для общей статистики
     convenience init(delegat: NetworkProcessProtocol, baseURL: String) {
         self.init(queryType: .total, delegat: delegat, baseURL: baseURL, date1: nil, date2: nil)
     }
     
-    // инит для статистики по дням
     convenience init(delegat: NetworkProcessProtocol, baseURL: String, date1: Date?, date2: Date?) {
         self.init(queryType: .onDate, delegat: delegat, baseURL: baseURL, date1: date1, date2: date2)
     }
     
-    // загрузка сайтов
     private func getAllSites(){
         let url = baseURL + "/site"
         Alamofire.request(url).responseJSON { (response) in
@@ -179,7 +163,6 @@ class NetworkProcess {
         }
     }
     
-    // загрузка персон
     private func getAllPerson(){
         let url = baseURL + "/person"
         Alamofire.request(url).responseJSON { (response) in
@@ -216,7 +199,6 @@ class NetworkProcess {
         }
     }
     
-    // получаем общий ранг
     private func getTotalRank(){
         for site in self.sites{
             self.rankCounterIncrement()
@@ -252,7 +234,6 @@ class NetworkProcess {
         }
     }
     
-    // получаем ранг за период
     private func getOnRangRank(){
         guard let dBegin = self.dateBegin?.toStringBack() else {
             print("getOnDateRank. dateBegin is nil")
@@ -366,18 +347,15 @@ class NetworkProcess {
     }
 }
 
-// Получает запросы от DataManager, ставит в очередь. запускает в порядке FIFO
+//  Get information from network over REST. Work with query as FIFO
 class NetworkManager:DataProvider, NetworkProcessProtocol {
     var baseURL: String = "http://94.130.27.143:8080/api"
-    // очередь процессов
+
     private var processes: [NetworkProcess] = [] {
         didSet (value){
             if value.count == 0 && processes.count == 1 {
-                // добавлено первый процесс. стартуем его
                 processes.first?.start()
-                
             } else if value.count < processes.count && processes.count > 0{
-                // было удалено задание. начинаем новый процесс
                 processes.first?.start()
             }
         }
@@ -388,38 +366,32 @@ class NetworkManager:DataProvider, NetworkProcessProtocol {
         self.type = .source
     }
     
-    // ставим в очередь задание получения суммарных данных
     public override func getTotalData() {
         let process = NetworkProcess(delegat: self, baseURL: baseURL)
         processes.append(process)
     }
     
-    // ставим в очередь задание получения данных за период
     public override func getOnRangeData(dateBegin: Date, dateEnd: Date) {
         let process = NetworkProcess(delegat: self, baseURL: baseURL, date1: dateBegin, date2: dateEnd)
         processes.append(process)
     }
     
-    // удаляем первый в очереди процесс (когда он закончил работу), зачищаем временные переменные
     private func removeNetworkProcess(){
         processes.removeFirst()
     }
     
-    // получаем от процесса данные, передаем их на уровень выше и удаляем процесс.
     internal func didCompliteTotalRankProcess(siteData: [SiteData]){
         self.removeNetworkProcess()
         delegat.didCompliteRequestTotal(data: SiteDataArray(data: siteData), dataProvider: self)
     }
     
-    // получаем от процесса данные, передаем их на уровень выше и удаляем процесс.
     internal func didCompliteOnRangRankProcess(siteData: [SiteData], dateBegin: Date, dateEnd: Date) {
         self.removeNetworkProcess()
         delegat.didCompliteRequestOnRange(data: SiteDataArray(data: siteData), dateBegin: dateBegin, dateEnd: dateEnd, dataProvider: self)
     }
     
 }
-
-
+//  Convert string to date with format useed in REST
 extension String {
     func toDateBack() -> Date?{
         let formatter = DateFormatter()
