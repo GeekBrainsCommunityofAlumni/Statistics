@@ -7,14 +7,12 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
-import org.springframework.web.client.ResourceAccessException;
-
 import java.io.IOException;
 
 public class ConnectionController {
 
-    private static Stage stage;
-    private static Scene connectScene;
+    private Stage stage;
+    private Scene connectScene;
     private Scene scene;
     private RootFrameController rootFrameController;
 
@@ -22,7 +20,7 @@ public class ConnectionController {
     private Button connectButton;
 
     @FXML
-    private static Label errorLabel = new Label();
+    private Label errorLabel;
 
     @FXML
     private void initialize() throws IOException {
@@ -32,28 +30,28 @@ public class ConnectionController {
         rootFrameController = loader.getController();
         rootFrameController.setMainStage(stage);
         scene = new Scene(parent);
-        errorLabel.setVisible(false);
-        System.out.println("visible");
+        rootFrameController.setConnectiontController(this);
     }
 
     public void setMainStage(Stage stage) {
-        ConnectionController.stage = stage;
+        this.stage = stage;
     }
 
     @FXML
     public void initTabFrame() {
-        stage.hide();
+        //stage.hide();
+        errorLabel.setVisible(false);
         stage.setScene(scene);
-        stage.show();
+        //stage.show();
         rootFrameController.loadData();
     }
 
-    public static void disconnect() {
+    public void disconnect() {
         stage.setScene(connectScene);
-        //errorLabel.setVisible(true);
+        errorLabel.setVisible(true);
     }
 
-    public static void setConnectScene(Scene connectScene) {
-        ConnectionController.connectScene = connectScene;
+    public void setConnectScene(Scene connectScene) {
+        this.connectScene = connectScene;
     }
 }

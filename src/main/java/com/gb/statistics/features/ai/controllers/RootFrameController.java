@@ -75,4 +75,10 @@ public class RootFrameController {
         personListController.getPersonList().refreshList();
         siteListController.getSiteList().refreshList();
     }
+
+    public void setConnectiontController(ConnectionController connectiontController) {
+        personListController.setConnectionController(connectiontController);
+        keyWordsListController.setConnectionController(connectiontController);
+        siteListController.setConnectionController(connectiontController);
+    }
 }

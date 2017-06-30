@@ -40,6 +40,7 @@ public abstract class ListController {
     protected EditWindowController addController;
     protected EditWindowController editController;
     protected DeleteWindowController deleteController;
+    protected ConnectionController connectionController;
     protected ModalWindow addWindow;
     protected ModalWindow editWindow;
     protected ModalWindow deleteWindow;
@@ -145,5 +146,13 @@ public abstract class ListController {
 
     public void visibleErrorMessage(boolean value) {
         errorMessage.setVisible(value);
+    }
+
+    public void setConnectionController(ConnectionController connectionController) {
+        this.connectionController = connectionController;
+    }
+
+    public ConnectionController getConnectionController() {
+        return connectionController;
     }
 }

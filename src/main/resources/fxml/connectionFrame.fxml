@@ -3,10 +3,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gb.statistics.features.ai.controllers.ConnectionController">
    <children>
-      <Button fx:id="connectButton" onAction="#initTabFrame" layoutX="252.0" layoutY="218.0" mnemonicParsing="false" text="Подключиться" />
-      <Label fx:id="errorLabel" layoutX="235.0" layoutY="160.0" text="Ошибка подключения..." textFill="RED" />
+      <Button fx:id="connectButton" layoutX="252.0" layoutY="218.0" mnemonicParsing="false" onAction="#initTabFrame" text="Подключиться" />
+      <Label fx:id="errorLabel" layoutX="235.0" layoutY="160.0" text="Ошибка подключения..." textFill="RED" visible="false" />
    </children>
 </AnchorPane>

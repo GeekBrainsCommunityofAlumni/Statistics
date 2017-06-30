@@ -48,7 +48,7 @@ public class KeyWordsList implements ListInterface {
             if (!e.getMessage().equals("404 null")) controller.setErrorMessage(e.getResponseBodyAsString());
         } catch (ResourceAccessException e) {
             rateResponse = null;
-            ConnectionController.disconnect();
+            controller.getConnectionController().disconnect();
         }
         keyWordList.clear();
         if (rateResponse != null) keyWordList.setAll(rateResponse.getBody());
@@ -67,7 +67,7 @@ public class KeyWordsList implements ListInterface {
             controller.setErrorMessage(e.getResponseBodyAsString());
             ((KeyWordsListController)controller).refreshPersonList();
         } catch (ResourceAccessException e) {
-            ConnectionController.disconnect();
+            controller.getConnectionController().disconnect();
         }
         refreshList();
         return false;
@@ -81,7 +81,7 @@ public class KeyWordsList implements ListInterface {
             controller.setErrorMessage(e.getResponseBodyAsString());
             ((KeyWordsListController)controller).refreshPersonList();
         } catch (ResourceAccessException e) {
-            ConnectionController.disconnect();
+            controller.getConnectionController().disconnect();
         }
         refreshList();
         return false;
@@ -95,7 +95,7 @@ public class KeyWordsList implements ListInterface {
             controller.setErrorMessage(e.getResponseBodyAsString());
             ((KeyWordsListController)controller).refreshPersonList();
         } catch (ResourceAccessException e) {
-            ConnectionController.disconnect();
+            controller.getConnectionController().disconnect();
         }
         refreshList();
         return false;

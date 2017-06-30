@@ -27,7 +27,7 @@ public class StartApplication extends Application {
         primaryStage.setMinWidth(600);
         primaryStage.setMinHeight(600);
         Scene scene = new Scene(main, 300, 300);
-        ConnectionController.setConnectScene(scene);
+        connectionController.setConnectScene(scene);
         primaryStage.setScene(scene);
         primaryStage.getIcons().add(ico);
         primaryStage.show();

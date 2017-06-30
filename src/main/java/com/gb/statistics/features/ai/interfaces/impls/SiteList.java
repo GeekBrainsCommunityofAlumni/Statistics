@@ -48,7 +48,7 @@ public class SiteList implements ListInterface {
             controller.setErrorMessage(e.getResponseBodyAsString());
         } catch (ResourceAccessException e) {
             rateResponse = null;
-            ConnectionController.disconnect();
+            controller.getConnectionController().disconnect();
         }
         siteList.clear();
         if (rateResponse != null) siteList.setAll(rateResponse.getBody());
@@ -60,7 +60,7 @@ public class SiteList implements ListInterface {
         } catch (HttpClientErrorException e) {
             controller.setErrorMessage(e.getResponseBodyAsString());
         } catch (ResourceAccessException e) {
-            ConnectionController.disconnect();
+            controller.getConnectionController().disconnect();
         }
         refreshList();
         return true;
@@ -72,7 +72,7 @@ public class SiteList implements ListInterface {
         } catch (HttpClientErrorException e) {
             controller.setErrorMessage(e.getResponseBodyAsString());
         } catch (ResourceAccessException e) {
-            ConnectionController.disconnect();
+            controller.getConnectionController().disconnect();
         }
         refreshList();
         return false;
@@ -84,7 +84,7 @@ public class SiteList implements ListInterface {
         } catch (HttpClientErrorException e) {
             controller.setErrorMessage(e.getResponseBodyAsString());
         } catch (ResourceAccessException e) {
-            ConnectionController.disconnect();
+            controller.getConnectionController().disconnect();
         }
         refreshList();
         return true;

@@ -44,7 +44,7 @@ public class PersonList implements ListInterface {
             controller.setErrorMessage(e.getResponseBodyAsString());
         } catch (ResourceAccessException e) {
             rateResponse = null;
-            ConnectionController.disconnect();
+            controller.getConnectionController().disconnect();
         }
         personList.clear();
         if (rateResponse != null) personList.setAll(rateResponse.getBody());
@@ -56,7 +56,7 @@ public class PersonList implements ListInterface {
         } catch (HttpClientErrorException e) {
             controller.setErrorMessage(e.getResponseBodyAsString());
         } catch (ResourceAccessException e) {
-            ConnectionController.disconnect();
+            controller.getConnectionController().disconnect();
         }
         refreshList();
         return true;
@@ -68,7 +68,7 @@ public class PersonList implements ListInterface {
         } catch (HttpClientErrorException e) {
             controller.setErrorMessage(e.getResponseBodyAsString());
         } catch (ResourceAccessException e) {
-            ConnectionController.disconnect();
+            controller.getConnectionController().disconnect();
         }
         refreshList();
         return false;
@@ -80,7 +80,7 @@ public class PersonList implements ListInterface {
         } catch (HttpClientErrorException e) {
             controller.setErrorMessage(e.getResponseBodyAsString());
         } catch (ResourceAccessException e) {
-            ConnectionController.disconnect();
+            controller.getConnectionController().disconnect();
         }
         refreshList();
         return true;
