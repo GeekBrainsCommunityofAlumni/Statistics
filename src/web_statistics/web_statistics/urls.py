@@ -31,6 +31,7 @@ urlpatterns = [
     url(r'^admin_statistics/$', admin_statistics),
     url(r'^registration/$', registration),
     url(r'^privateroom/$', privateroom),
+    url(r'^sitemap/$', sitemap),
     # url(r'^news/$', news),
     url(r'^politics/$', politics),
     url(r'^business/$', business),

@@ -188,6 +188,8 @@
                     <li class="{% if request.path == '/' %}active{% endif %}">
                         <a href="/"><i class="fa fa-home" aria-hidden="true"></i> Главная </a></li>
                     <li class="{% if request.path == '/privateroom/' %}active{% endif %}">
+                        <a href="/sitemap/"><i class="fa fa-sitemap"></i> Карта сайта </a></li>
+                    <li class="{% if request.path == '/privateroom/' %}active{% endif %}">
                         <a href="/privateroom/"><i class="fa fa-user-circle"></i> Личный кабинет </a></li>
                     <li class="{% if request.path == '/daily_statistic/' or request.path == '/periodic_statistic/' or request.path == '/admin_statistics/' %}active{% endif %}">
                         <a href="javascript:;" data-toggle="collapse" data-target="#demo">
@@ -205,7 +207,7 @@
                         </a>
                         <ul id="demo1" class="collapse">
                             <li><a href="/politics/"> Политика <i class="fa fa-flag-o"></i></a></li>
-                            <li><a href="/politics/"> Экономика и финансы <i class="fa fa-credit-card"></i></a></li>
+                            <li><a href="/economics_and_finances/"> Экономика и финансы <i class="fa fa-credit-card"></i></a></li>
                             <li ><a href="/business/"> Бизнес <i class="fa fa-briefcase"></i></a></li>
                             <li ><a href="/society/"> Общество <i class="fa fa-male"></i><i class="fa fa-female"></i></a></li>
                         </ul>
@@ -217,7 +219,7 @@
                     <li class="{% if request.path == '/review/' %}active{% endif %}">
                         <a href="/review/"><i class="fa fa-commenting"></i> Отзывы </a></li>
                     <li class="{% if request.path == '/support/' %}active{% endif %}">
-                        <a href="/support/"><i class="fa fa-fw fa-wrench"></i> ТехПоддержка </a></li>
+                        <a href="/support/"><i class="fa fa-fw fa-wrench"></i>ТехПоддержка </a></li>
                     <li>
                          <a href="/privateroom/">
                              {% if not user.is_authenticated %}
@@ -238,7 +240,7 @@
                         {% if user.is_authenticated %}
                         <form method="post" class="logout" action="/user/logout/">
                             {% csrf_token %}
-                            <button class="btn btn-primary btn-sm" type="submit" value="Выйти">
+                            <button class="btn btn-success btn-sm" type="submit" value="Выйти">
                                 <i class="fa fa-sign-out" aria-hidden="true"></i> Выйти
                             </button>
                         </form>

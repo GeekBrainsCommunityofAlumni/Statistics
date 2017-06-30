@@ -14,6 +14,10 @@ def about(request):
     return render(request, 'index.html')
 
 
+def sitemap(request):
+    return render(request, 'sitemap.html')
+
+
 # def statistics(request):
 #     return render(request, 'statistics.html')
 
