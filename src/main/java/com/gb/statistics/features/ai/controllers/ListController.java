@@ -11,6 +11,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import java.io.IOException;
 
@@ -27,6 +29,7 @@ public abstract class ListController {
     protected final String SITE_TITLE = "Сайты";
     protected final String EMPTY_LIST_MESSAGE = "Список пуст";
     protected final String ERROR_404 = "404 Not Found";
+    protected final String COUNT_LABEL = "Всего записей:  ";
     protected final String EDIT_FXML_URL = "/fxml/editModalWindow.fxml";
     protected final String DELETE_FXML_URL = "/fxml/deleteModalWindow.fxml";
     protected final String URL = "http://94.130.27.143:8080/api";
@@ -71,10 +74,16 @@ public abstract class ListController {
     protected Button refreshButton;
 
     @FXML
+    protected ImageView imageLogo;
+
+    @FXML
     protected void initialize(String title) {
         listTitle.setText(title);
+        imageLogo.setImage(new Image("/images/product_logo.jpg"));
         columnName.setCellValueFactory(cellData -> cellData.getValue().getNameProperty());
         dataTableView.setPlaceholder(new Label(EMPTY_LIST_MESSAGE));
+        //imageLogo = new ImageView(new Image("/images/product_logo.jpg"));
+
         initModalWindow(DELETE_TITLE, loaderDelete, DELETE_FXML_URL, new DeleteWindowController());
         initModalWindow(EDIT_TITLE, loaderEdit, EDIT_FXML_URL, new EditWindowController());
         initModalWindow(ADD_TITLE, loaderAdd, EDIT_FXML_URL, new EditWindowController());
@@ -129,7 +138,7 @@ public abstract class ListController {
     }
 
     protected void updateListCount(ListInterface list) {
-        listCount.setText(String.valueOf(list.getList().size()));
+        listCount.setText(COUNT_LABEL + String.valueOf(list.getList().size()));
     }
 
     protected void setActivityButtons(ListInterface list) {

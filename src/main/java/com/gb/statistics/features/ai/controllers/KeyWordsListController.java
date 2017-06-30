@@ -87,10 +87,13 @@ public class KeyWordsListController extends ListController {
     @FXML
     protected void actionButtonEdit() {
         visibleErrorMessage(false);
+        KeyWord currentKeyWord = (KeyWord) dataTableView.getSelectionModel().getSelectedItem();
+        String currentKeyWordName = currentKeyWord.getName();
         editController.setKeyWord(dataTableView.getSelectionModel().getSelectedItem(), comboBoxPerson.getValue(), this);
         if (editWindow == null) editWindow = new ModalWindow(EDIT_TITLE, mainStage, parentEdit, MODAL_WIDTH, MODAL_HEIGHT);
         editWindow.getStage().showAndWait();
-        keyWordsList.update(editController.getKeyWord());
+        ModelListData updatedKeyWord = editController.getKeyWord();
+        if (!currentKeyWordName.equals(updatedKeyWord.getName())) keyWordsList.update(updatedKeyWord);
     }
 
     @FXML

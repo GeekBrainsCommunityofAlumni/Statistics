@@ -1,6 +1,5 @@
 package com.gb.statistics.features.ai.interfaces.impls;
 
-import com.gb.statistics.features.ai.controllers.ConnectionController;
 import com.gb.statistics.features.ai.controllers.ListController;
 import com.gb.statistics.features.ai.interfaces.ListInterface;
 import com.gb.statistics.features.ai.model.ModelListData;
@@ -25,7 +24,6 @@ public class SiteList implements ListInterface {
 
     private ObservableList<ModelListData> siteList;
     private RestTemplate template = new RestTemplate();
-    private ResponseEntity<List<Site>> rateResponse;
     private ListController controller;
     private HttpHeaders headers;
     private String URL;
@@ -40,6 +38,7 @@ public class SiteList implements ListInterface {
     }
 
     public void refreshList() {
+        ResponseEntity<List<Site>> rateResponse;
         try {
             rateResponse = template.exchange(URL + "/site", HttpMethod.GET, null, new ParameterizedTypeReference<List<Site>>() {
             });

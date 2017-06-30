@@ -1,6 +1,5 @@
 package com.gb.statistics.features.ai.interfaces.impls;
-
-import com.gb.statistics.features.ai.controllers.ConnectionController;
+;
 import com.gb.statistics.features.ai.controllers.KeyWordsListController;
 import com.gb.statistics.features.ai.controllers.ListController;
 import com.gb.statistics.features.ai.interfaces.ListInterface;
@@ -23,7 +22,6 @@ public class KeyWordsList implements ListInterface {
 
     private ObservableList<ModelListData> keyWordList;
     private RestTemplate template = new RestTemplate();
-    private ResponseEntity<List<KeyWord>> rateResponse;
     private ListController controller;
     private Person person;
     private HttpHeaders headers;
@@ -40,6 +38,7 @@ public class KeyWordsList implements ListInterface {
 
     @Override
     public void refreshList() {
+        ResponseEntity<List<KeyWord>> rateResponse;
         try {
             rateResponse = template.exchange(URL + "/keyword/" + person.getId(), HttpMethod.GET, null, new ParameterizedTypeReference<List<KeyWord>>() {
             });

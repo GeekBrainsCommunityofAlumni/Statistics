@@ -76,9 +76,9 @@ public class RootFrameController {
         siteListController.getSiteList().refreshList();
     }
 
-    public void setConnectiontController(ConnectionController connectiontController) {
-        personListController.setConnectionController(connectiontController);
-        keyWordsListController.setConnectionController(connectiontController);
-        siteListController.setConnectionController(connectiontController);
+    public void setConnectionController(ConnectionController connectionController) {
+        personListController.setConnectionController(connectionController);
+        keyWordsListController.setConnectionController(connectionController);
+        siteListController.setConnectionController(connectionController);
     }
 }

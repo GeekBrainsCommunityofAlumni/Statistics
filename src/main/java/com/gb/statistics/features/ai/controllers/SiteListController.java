@@ -2,6 +2,7 @@ package com.gb.statistics.features.ai.controllers;
 
 import com.gb.statistics.features.ai.interfaces.ListInterface;
 import com.gb.statistics.features.ai.interfaces.impls.SiteList;
+import com.gb.statistics.features.ai.model.ModelListData;
 import com.gb.statistics.features.ai.model.Site;
 import com.gb.statistics.features.ai.window.ModalWindow;
 import javafx.collections.ListChangeListener;
@@ -47,10 +48,13 @@ public class SiteListController extends ListController {
 
     @FXML
     protected void actionButtonEdit() {
+        Site currentSite = (Site)dataTableView.getSelectionModel().getSelectedItem();
+        String currentSiteName = currentSite.getName();
         editController.setSite((Site) dataTableView.getSelectionModel().getSelectedItem(), this);
         if (editWindow == null) editWindow = new ModalWindow(EDIT_TITLE, mainStage, parentEdit, MODAL_WIDTH, MODAL_HEIGHT);
         editWindow.getStage().showAndWait();
-        siteList.update(editController.getSite());
+        ModelListData updatedSite = editController.getSite();
+        if (!currentSiteName.equals(updatedSite.getName())) siteList.update(updatedSite);
     }
 
     @FXML

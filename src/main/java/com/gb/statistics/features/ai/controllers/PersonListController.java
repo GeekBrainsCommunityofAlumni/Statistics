@@ -48,16 +48,18 @@ public class PersonListController extends ListController {
 
     @FXML
     protected void actionButtonEdit() {
-        editController.setPerson((Person) dataTableView.getSelectionModel().getSelectedItem(), this);
+        Person currentPerson = (Person)dataTableView.getSelectionModel().getSelectedItem();
+        String currentPersonName = currentPerson.getName();
+        editController.setPerson(currentPerson, this);
         if (editWindow == null) editWindow = new ModalWindow(EDIT_TITLE, mainStage, parentEdit, MODAL_WIDTH, MODAL_HEIGHT);
         editWindow.getStage().showAndWait();
-        ModelListData person = editController.getPerson();
-        personList.update(person);
+        ModelListData updatedPerson = editController.getPerson();
+        if (!currentPersonName.equals(updatedPerson.getName())) personList.update(updatedPerson);
     }
 
     @FXML
     protected void actionButtonDelete() {
-        deleteController.setPerson((Person) dataTableView.getSelectionModel().getSelectedItem(), this);
+        deleteController.setPerson((Person)dataTableView.getSelectionModel().getSelectedItem(), this);
         if (deleteWindow == null) deleteWindow = new ModalWindow(DELETE_TITLE, mainStage, parentDelete, MODAL_WIDTH, MODAL_HEIGHT);
         deleteWindow.getStage().showAndWait();
     }

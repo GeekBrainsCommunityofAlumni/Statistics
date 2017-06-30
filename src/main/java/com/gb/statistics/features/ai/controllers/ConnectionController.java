@@ -15,6 +15,7 @@ public class ConnectionController {
     private Scene connectScene;
     private Scene scene;
     private RootFrameController rootFrameController;
+    private boolean connect = false;
 
     @FXML
     private Button connectButton;
@@ -28,27 +29,31 @@ public class ConnectionController {
         loader.setLocation(getClass().getResource("/fxml/rootTabPane.fxml"));
         Parent parent = loader.load();
         rootFrameController = loader.getController();
-        rootFrameController.setMainStage(stage);
         scene = new Scene(parent);
-        rootFrameController.setConnectiontController(this);
+        rootFrameController.setConnectionController(this);
     }
 
     public void setMainStage(Stage stage) {
         this.stage = stage;
+        rootFrameController.setMainStage(stage);
     }
 
     @FXML
     public void initTabFrame() {
-        //stage.hide();
-        errorLabel.setVisible(false);
-        stage.setScene(scene);
-        //stage.show();
+        connectButton.setDisable(true);
+        connect = true;
         rootFrameController.loadData();
+        if (connect) {
+            errorLabel.setVisible(false);
+            stage.setScene(scene);
+        }
     }
 
     public void disconnect() {
         stage.setScene(connectScene);
         errorLabel.setVisible(true);
+        connect = false;
+        connectButton.setDisable(false);
     }
 
     public void setConnectScene(Scene connectScene) {
