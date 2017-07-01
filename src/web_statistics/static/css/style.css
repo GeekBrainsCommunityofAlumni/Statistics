@@ -160,3 +160,55 @@
 #round_diagram, #column_diagram {
     border: 1px solid #DDDDDD;
 }
+
+.buy {
+    text-decoration: none;
+    color: #222222;
+}
+
+.buy:hover {
+    text-decoration: none;
+    color: red;
+}
+
+#pay:hover {
+    color: red;
+}
+
+.payment {
+    list-style-type: none;
+}
+
+/* скрываем чекбоксы и блоки с содержанием */
+.hide {
+    display: none;
+}
+
+.hide + label ~ div{
+    display: none;
+}
+
+/* оформляем текст label */
+.hide + label {
+    padding: 0;
+    color: #222222;
+    cursor: pointer;
+    display: inline-block;
+}
+
+/* вид текста label при активном переключателе */
+.hide:checked + label {
+    color: red;
+    border-bottom: 0;
+}
+
+/* когда чекбокс активен показываем блоки с содержанием  */
+.hide:checked + label + div {
+    display: block;
+    padding: 10px;
+}
+
+/* demo контейнер */
+.demo {
+    margin: 5% 10%;
+}
