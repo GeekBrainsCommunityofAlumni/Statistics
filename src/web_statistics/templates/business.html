@@ -8,6 +8,7 @@
 {% endblock %}
 
 {% block content %}
+
 <div class="row">
     <div class="col-lg-12">
         <h3 class="page-header text-center"> <i class="fa fa-briefcase"></i> [Business] <br>
@@ -15,6 +16,9 @@
         </h3>
     </div>
 </div>
+    {% include 'incl_widget.html' %}
+<br>
+<hr>
 
 <div class="container-fluid">
     <div class="row">
@@ -26,7 +30,7 @@
                         Искать!
                     </button>
                 </span>
-                <input type="text" class="form-control" placeholder="поиск по #-тегу">
+                <input type="text" class="form-control" placeholder="поиск новостей по #-тегу">
             </div><!-- /input-group -->
             <h4><i class="fa fa-tags"></i>Tags:</h4>
         </div><!-- /.col-lg-6 -->
@@ -34,8 +38,9 @@
     </div>
 </div>
 
+<h3 class="page-header"> События <br>
+</h3>
 <hr>
-<div class="col-lg-12">
     <div class="col-lg-4">
         <div class="raw text-center">
             <div class="thumbnail">
@@ -103,5 +108,4 @@
     </div>
 </div>
 <!--<div class="col-lg-12">-->
-
 {% endblock %}
