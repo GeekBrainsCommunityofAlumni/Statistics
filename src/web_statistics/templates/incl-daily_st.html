@@ -96,7 +96,7 @@
     <ul class="nav nav-tabs">
         <li class="active"><a data-toggle="tab" href="#table_daily">Таблица</a></li>
         <li><a data-toggle="tab" href="#chart_daily">Chart-график</a></li>
-        <!--<li><a data-toggle="tab" href="#menu1">Диаграмма</a></li>-->
+        <!--<li><a data-toggle="tab" href="#daigram-daily">Диаграмма</a></li>-->
     </ul>
 
     <div class="tab-content">
@@ -166,6 +166,8 @@
                             ]);
 
                             var options = {
+                                width:700,
+                                height:300,
                                 title : 'Статистика упоминания личности {} на ресурсе: {}',
                                 vAxis: {title: 'Рейтинг'},
                                 hAxis: {title: 'Исследуемый интернет-ресурс'},
