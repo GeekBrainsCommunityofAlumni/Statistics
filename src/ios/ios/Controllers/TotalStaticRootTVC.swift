@@ -9,7 +9,8 @@
 import UIKit
 
 class TotalStaticRootTVC: UITableViewController, DataManagerProtocol {
-    var dm = DataManager.initWithNetworkManager()
+//    var dm = DataManager.initWithNetworkManager()
+    var dm = DataManager.initWithFakeManager()
     var data = SiteDataArray()
     func didCompliteRequestOnRange(data: SiteDataArray, dateBegin: Date, dateEnd: Date) {
     }

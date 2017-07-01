@@ -9,7 +9,8 @@
 import UIKit
 
 class RangeRootTVC: UITableViewController, DataManagerProtocol, UITextFieldDelegate {
-    var dm = DataManager.initWithNetworkManager()
+//    var dm = DataManager.initWithNetworkManager()
+    var dm = DataManager.initWithFakeManager()
     var siteDataArray = SiteDataArray()
     
     @IBOutlet weak var dateEndSelectCell: UITableViewCell!

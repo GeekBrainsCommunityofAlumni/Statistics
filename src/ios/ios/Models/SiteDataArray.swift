@@ -9,7 +9,7 @@
 
 //  Superstucture for SiteData. Alow work with SiteData array
 class SiteDataArray {
-    private var array: [SiteData] = []{
+    var array: [SiteData] = []{
         didSet {
             ranks = updateRanks()
             sites = updateSites()
