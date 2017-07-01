@@ -43,6 +43,7 @@ urlpatterns = [
     url(r'^contacts/$', contacts),
     url(r'^review/$', review),
     url(r'^support/$', support),
+    url(r'^common_stat', common_stat)
 ]
 
 urlpatterns += [
