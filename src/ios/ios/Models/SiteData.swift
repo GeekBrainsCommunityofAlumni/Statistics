@@ -7,9 +7,10 @@
 //
 import UIKit
 //  Additional class for present info about persons total rank and total site rank
-class Info {
+struct Info {
     var name: String
     var count: Int
+    
     init(name:String, count:Int) {
         self.name = name
         self.count = count
@@ -23,7 +24,7 @@ func + (left: [Info], right: Info) -> [Info]{
         newP.append(right)
     } else {
         newP = newP.map({ (personInfo) -> Info in
-            let newPersonInfo = personInfo
+            var newPersonInfo = personInfo
             if personInfo.name == right.name {
                 newPersonInfo.count = newPersonInfo.count + right.count
             }
@@ -41,10 +42,14 @@ func + (left: [Info], right: [Info]) -> [Info]{
     return newP
 }
 //  Additional class for present info about rank persons with date
-class InfoWithDate: Info {
+struct InfoWithDate {
+    var name: String
+    var count: Int
     var date: Date!
+    
     init(name: String, count: Int, date: Date) {
-        super.init(name: name, count: count)
+        self.name = name
+        self.count = count
         self.date = date
     }
 }

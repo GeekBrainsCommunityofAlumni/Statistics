@@ -6,7 +6,7 @@
 //  Copyright © 2017 GB. All rights reserved.
 //
 import UIKit
-struct DateRange: Sequence{
+struct DateRange: Sequence {
     var beginDate: Date
     var endDate:Date
     
@@ -32,7 +32,7 @@ struct DateRange: Sequence{
             guard let nextDate = calendar.date(byAdding: Calendar.Component.day, value: counter, to: dateRange.beginDate) else {
                 return nil
             }
-            guard dateRange.endDate.compare(nextDate) == .orderedDescending else {
+            guard Calendar.current.compare(dateRange.endDate, to: nextDate, toGranularity: Calendar.Component.day) == .orderedDescending else {
                 return nil
             }
             counter += 1
@@ -40,16 +40,21 @@ struct DateRange: Sequence{
         }
     }
 }
-
-// Class for test
-class FakeManager:DataProvider{
-    let sitesName: [String] = ["Forestbook", "ForestNews", "ForestTymes"]
-    let personsName: [String] = ["Red hat", "Gray woolf", "Grandma", "Logger"]
+//  Generate fake data
+class FakeGenerator {
+    static let sitesName: [String] = ["Forestbook", "ForestNews", "ForestTymes"]
+    static let personsName: [String] = ["Red hat", "Gray woolf", "Grandma", "Logger"]
+    
+    static let shared: FakeGenerator = {
+        let instance = FakeGenerator()
+        instance.siteDataArray = SiteDataArray(data: generateFakeData())
+        return instance
+    }()
     var siteDataArray: SiteDataArray!
     
-    func generateFakeData() -> [SiteData]{
+    static func generateFakeData() -> [SiteData] {
         var dateRange: DateRange {
-            let dateBegin = Calendar.current.date(byAdding: Calendar.Component.month, value: -2, to: Date())!
+            let dateBegin = Calendar.current.date(byAdding: Calendar.Component.month, value: -4, to: Date())!
             let dateEnd = Date()
             let range = DateRange(beginDate: dateBegin, endDate: dateEnd)
             return range
@@ -73,11 +78,15 @@ class FakeManager:DataProvider{
         }
         return sitesData
     }
+}
+// Class for test
+class FakeManager:DataProvider {
+    var siteDataArray: SiteDataArray!
     
     override init() {
         super.init()
         self.type = .source
-        self.siteDataArray = SiteDataArray.init(data: self.generateFakeData())
+        self.siteDataArray = FakeGenerator.shared.siteDataArray!
     }
     
     override func getTotalData() {
@@ -95,48 +104,19 @@ class FakeManager:DataProvider{
         }
         print("end")
         delegat.didCompliteRequestTotal(data: SiteDataArray(data: siteDataTotal), dataProvider: self)
-
-//        var result: [SiteData] = []
-//        let count = sitesName.count
-//        for num in 0..<count{
-//            let item: SiteData = SiteData()
-//            item.date = Date()
-//            item.site = sitesName[num]
-//            for person in 0..<personsName.count{
-//                item.stats[personsName[person]] = Int(arc4random()) % 100
-//            }
-//            item.total = false
-//            result.append(item)
-//        }
-//        delegat.didCompliteRequestTotal(data: SiteDataArray(data: result), dataProvider: self)
     }
 
     override func getOnRangeData(dateBegin: Date, dateEnd: Date) {
         var siteOnRangeData: [SiteData] = []
-        var range = DateRange(beginDate: dateBegin, endDate: dateEnd)
+        let range = DateRange(beginDate: dateBegin, endDate: dateEnd)
         for currentDate in range {
             for currentData in siteDataArray.array {
                 if Calendar.current.compare(currentData.date, to: currentDate, toGranularity: Calendar.Component.day) == .orderedSame {
-//                if currentData.date.compare(currentDate) == ComparisonResult.orderedSame {
                     siteOnRangeData.append(currentData)
                 }
             }
         }
         delegat.didCompliteRequestOnRange(data: SiteDataArray(data: siteOnRangeData), dateBegin: dateBegin, dateEnd: dateEnd, dataProvider: self)
-//        var result: [SiteData] = []
-//        let count = sitesName.count
-//        for num in 0..<count{
-//            let item: SiteData = SiteData()
-//            item.date = dateBegin
-//            item.site = sitesName[num]
-//            for person in 0..<personsName.count{
-//                item.stats[personsName[person]] = Int(arc4random()) % 100
-//            }
-//            item.total = true
-//            result.append(item)
-//        }
-//        delegat.didCompliteRequestOnRange(data: SiteDataArray(data: result), dateBegin: dateBegin, dateEnd: dateEnd, dataProvider: self)
-        
     }
     
 }
