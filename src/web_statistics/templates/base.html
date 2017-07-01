@@ -37,6 +37,10 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+
+    <!--Load the AJAX API-->
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
 </head>
 <body>
     <div id="wrapper">
@@ -187,7 +191,7 @@
                 <ul class="nav navbar-nav side-nav">
                     <li class="{% if request.path == '/' %}active{% endif %}">
                         <a href="/"><i class="fa fa-home" aria-hidden="true"></i> Главная </a></li>
-                    <li class="{% if request.path == '/privateroom/' %}active{% endif %}">
+                    <li class="{% if request.path == '/sitemap/' %}active{% endif %}">
                         <a href="/sitemap/"><i class="fa fa-sitemap"></i> Карта сайта </a></li>
                     <li class="{% if request.path == '/privateroom/' %}active{% endif %}">
                         <a href="/privateroom/"><i class="fa fa-user-circle"></i> Личный кабинет </a></li>
@@ -221,13 +225,13 @@
                         <a href="/review/"><i class="fa fa-commenting"></i> Отзывы </a></li>
                     <li class="{% if request.path == '/support/' %}active{% endif %}">
                         <a href="/support/"><i class="fa fa-fw fa-wrench"></i>ТехПоддержка </a></li>
-                    <li>
-                         <a href="/privateroom/">
-                             {% if not user.is_authenticated %}
-                             <i class="fa fa-sign-in"></i>  Войти
-                             {% endif %}
-                         </a>
-                    </li>
+                    <!--<li>-->
+                         <!--<a href="/privateroom/">-->
+                             <!--{% if not user.is_authenticated %}-->
+                             <!--<i class="fa fa-sign-in"></i>  Войти-->
+                             <!--{% endif %}-->
+                         <!--</a>-->
+                    <!--</li>-->
                     <li>
                         <a href="/registration/">
                             {% if not user.is_authenticated %}
@@ -241,7 +245,7 @@
                         {% if user.is_authenticated %}
                         <form method="post" class="logout" action="/user/logout/">
                             {% csrf_token %}
-                            <button class="btn btn-success btn-sm" type="submit" value="Выйти">
+                            <button class="btn btn-danger btn-sm" type="submit" value="Выйти">
                                 <i class="fa fa-sign-out" aria-hidden="true"></i> Выйти
                             </button>
                         </form>

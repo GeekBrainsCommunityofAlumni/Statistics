@@ -146,3 +146,17 @@
 #settings {
     list-style-type: none;
 }
+
+.red a {
+    color: #222222;
+    text-decoration: none;
+}
+
+.red a:hover {
+    color: red;
+    text-decoration: none;
+}
+
+#round_diagram, #column_diagram {
+    border: 1px solid #DDDDDD;
+}

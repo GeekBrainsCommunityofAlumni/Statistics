@@ -4,11 +4,15 @@
 {% load static from staticfiles %}
 
 {% block title %}
-    О проекте | {{block.super}}
+    Карта сайта | {{block.super}}
 {% endblock %}
 
 
 
 {% block content %}
-<h4> Карта сайта: </h4>
+<div class="page-header">
+  <h1><i class="fa fa-sitemap" aria-hidden="true"></i>
+      Карта сайта <small> лёгкая навигация по ресурсу </small>
+  </h1>
+</div>
 {% endblock %}

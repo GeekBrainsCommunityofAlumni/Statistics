@@ -67,6 +67,13 @@ def periodic_statistics(request):
                                                             'sites_selected': sites_selected})
 
 
+def faq(request):
+    return render(request, 'faq.html')
+
+
+# def statistics(request):
+#     return render(request, 'statistics.html')
+
 
 @login_required(login_url='/privateroom/')
 def common_stat(request):
