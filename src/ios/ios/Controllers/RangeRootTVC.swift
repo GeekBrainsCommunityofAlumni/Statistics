@@ -36,8 +36,9 @@ class RangeRootTVC: UITableViewController, DataManagerProtocol, UITextFieldDeleg
         dateEndDatePicker.addTarget(self, action: #selector(dateEndChanged(_:)), for: .valueChanged)
         selectSiteButton.addTarget(self, action: #selector(hideDatePicker), for: .touchUpInside)
         hideDatePicker()
+        dateBeginDatePicker.date = Calendar.current.date(byAdding: .month, value: -1, to: Date())!
         dateBeginTextField.text = dateBeginDatePicker.date.toString()
-        dateEndTextField.text = dateBeginDatePicker.date.toString()
+        dateEndTextField.text = dateEndDatePicker.date.toString()
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(hideDatePicker))
         tableView.addGestureRecognizer(tapGesture)
 
