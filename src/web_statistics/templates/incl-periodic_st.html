@@ -92,48 +92,94 @@
         Результат:
     </h4>
     <hr>
-    <div class="row">
-    <table class="table table-bordered">
-    <thead>
-      <tr>
-        <th>Ресурс</th>
-        <th>Объект</th>
-        <th>Ключевые слова</th>
-        <th>Упоминания</th>
-      </tr>
-    </thead>
-    <tbody>
-    {% if persons %}
-        {% for person in persons %}
-    {% for site in sites %}
-        <tr>
 
-            <td>{{ site.name }}</td>
-            <td>{{ person.name }}</td>
-            <td>{% for keyword in keywords %}
-                {% if keyword.person_id_id == person.id %}
-                {{ keyword.name}};
-                {% endif %}
-                {% endfor %}
-            </td>
-            <td>
-                {% for rank in person_ranks %}
-                    {% if rank.person_id_id == person.id and rank.page_id_id == site.id %}
-                        {{ rank.rank }}
+    <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" href="#table_periodic">Таблица</a></li>
+        <li><a data-toggle="tab" href="#chart_periodic">Chart-график</a></li>
+        <!--<li><a data-toggle="tab" href="#menu1">Диаграмма</a></li>-->
+    </ul>
+
+    <div class="tab-content">
+        <br>
+        <div id="table_periodic" class="tab-pane fade in active">
+            <div class="col-sm-12">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Ресурс</th>
+                            <th>Объект</th>
+                            <th>Ключевые слова</th>
+                            <th>Упоминания</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% if persons %}
+                        {% for person in persons %}
+                    {% for site in sites %}
+                        <tr>
+
+                            <td>{{ site.name }}</td>
+                            <td>{{ person.name }}</td>
+                            <td>{% for keyword in keywords %}
+                                {% if keyword.person_id_id == person.id %}
+                                {{ keyword.name}};
+                                {% endif %}
+                                {% endfor %}
+                            </td>
+                            <td>
+                                {% for rank in person_ranks %}
+                                    {% if rank.person_id_id == person.id and rank.page_id_id == site.id %}
+                                        {{ rank.rank }}
+                                    {% endif %}
+                                {% endfor %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    {% endfor %}
                     {% endif %}
-                {% endfor %}
-            </td>
-          </tr>
-    {% endfor %}
-    {% endfor %}
-    {% endif %}
-    </tbody>
-  </table>
-        <hr>
-        <button type="submit" value="Download .csv" formmethod="get" class="btn btn-primary btn-xs">
-            <i class="fa fa-download" aria-hidden="true"></i> Download .csv 
-        </button>
-		<img src="{% static 'img/loading.gif' %}">
+                    </tbody>
+                </table>
+
+                <button type="submit" value="Download .csv" formmethod="get" class="btn btn-primary btn-xs">
+                    <i class="fa fa-download" aria-hidden="true"></i> Download .csv
+                </button>
+		        <img src="{% static 'img/loading.gif' %}">
+            </div>
+        </div>
+
+        <div id="chart_periodic" class="tab-pane fade">
+            <!--Div that will hold the dashboard-->
+            <div class="col-lg-12" id="column_diagram">
+                <div id="chart_div_periodic">
+
+                    <script type="text/javascript">
+                       google.charts.load('current', {'packages':['corechart']});
+                       google.charts.setOnLoadCallback(drawVisualization);
+
+                       function drawVisualization() {
+                       // Some raw data (not necessarily accurate)
+                            var data = google.visualization.arrayToDataTable([
+                                ['Source',    'LastScan',    'WeekAgo',    'MonthAgo',    'AllTime'],
+                                ['РБК',        212,            38,           212,           598],
+                                ['Ведомости',  213,            31,           183,           568],
+                                ['Коммерсант', 215,            37,           187,           507]
+                            ]);
+
+                            var options = {
+                                title : 'Статистика упоминания личности {} на ресурсе: {}',
+                                vAxis: {title: 'Рейтинг'},
+                                hAxis: {title: 'Исследуемый интернет-ресурс'},
+                                seriesType: 'bars',
+                                <!--series: {0: {type: 'line'}}-->
+                            };
+
+                            var chart = new google.visualization.ComboChart(document.getElementById('chart_div_periodic'));
+                            chart.draw(data, options);
+                       }
+                    </script>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 

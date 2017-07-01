@@ -156,3 +156,7 @@
     color: red;
     text-decoration: none;
 }
+
+#round_diagram, #column_diagram {
+    border: 1px solid #DDDDDD;
+}
