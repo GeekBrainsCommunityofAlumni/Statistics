@@ -9,7 +9,6 @@ from django.template.context_processors import csrf
 from django.contrib.auth.decorators import user_passes_test
 
 
-
 # доступ у админке только суперпользователю
 # @user_passes_test(lambda u: u.is_superuser)
 
@@ -20,6 +19,7 @@ def myadmin(request):
 
 # def base_admin(request):
 #     return render(request, 'myadmin.html', {'users': users, 'form': user_form})
+
 
 def delete_user(request, user_id):
     user = get_object_or_404(Person, id=user_id)

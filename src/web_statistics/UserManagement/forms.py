@@ -3,9 +3,11 @@ from UserManagement.models import Person
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 
+
 class UploadFileForm(forms.Form):
     title = forms.CharField(max_length=50)
     file = forms.FileField()
+
 
 class MyRegistrationForm(forms.ModelForm):
     username = forms.CharField(max_length=32, widget=forms.TextInput(attrs={"type": "text", "class": "form-control", "placeholder": "Username"}))
@@ -26,11 +28,13 @@ class MyRegistrationForm(forms.ModelForm):
         fields = ('__all__')
         exclude = ('rules',)
 
+
 class UserForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ('__all__')
         exclude = ('rules',)
+
 
 class UserChangeForm(forms.ModelForm):
     """
