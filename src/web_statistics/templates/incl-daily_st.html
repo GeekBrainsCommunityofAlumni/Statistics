@@ -7,7 +7,7 @@
         <i class="fa fa-bar-chart" aria-hidden="true"></i> Вы просматриваете ежедневную статистику
     </h3>
 <hr>
-<div class="col-sm-4">
+<div class="col-sm-5">
     <form class="control-label col-sm-12">
         {% csrf_token %}
         <h4>Настройки поиска:</h4>
@@ -87,7 +87,7 @@
     </form>
 </div>
 
-<div class="col-sm-8">
+<div class="col-sm-7">
     <h4>
         Результат:
     </h4>
@@ -121,9 +121,9 @@
                             <td>{{ site.name }}</td>
                             <td>{{ person.name }}</td>
                             <td>{% for keyword in keywords %}
-                                {% if keyword.person_id_id == person.id %}
-                                {{ keyword.name}};
-                                {% endif %}
+                                    {% if keyword.person_id_id == person.id %}
+                                        {{ keyword.name}};
+                                    {% endif %}
                                 {% endfor %}
                             </td>
                             <td>
@@ -139,7 +139,7 @@
                     {% endif %}
                     </tbody>
                 </table>
-
+        <hr>
                 <button type="submit" value="Download .csv" formmethod="get" class="btn btn-primary btn-xs">
                     <i class="fa fa-download" aria-hidden="true"></i> Download .csv
                 </button>
@@ -166,7 +166,7 @@
                             ]);
 
                             var options = {
-                                width:700,
+                                width:500,
                                 height:300,
                                 title : 'Статистика упоминания личности {} на ресурсе: {}',
                                 vAxis: {title: 'Рейтинг'},
