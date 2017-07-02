@@ -6,9 +6,42 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="585.0" prefWidth="402.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="585.0" prefWidth="402.0" style="-fx-background-color: #ffffff;" stylesheets="/css/style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <TableView fx:id="dataTableView" layoutX="23.0" layoutY="61.0" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="125.0">
+      <VBox layoutX="10.0" layoutY="10.0" spacing="20.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="125.0" AnchorPane.topAnchor="10.0">
+         <children>
+            <!-- <ChoiceBox layoutX="332.0" layoutY="46.0" prefHeight="25.0" prefWidth="50.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="46.0" />-->
+            <Label fx:id="listTitle" layoutX="21.0" layoutY="14.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="listCount" layoutX="98.0" layoutY="47.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="50.0" />
+            <HBox alignment="CENTER_LEFT" spacing="10.0">
+               <children>
+                  <Label text="Поиск" />
+                  <TextField fx:id="search" maxWidth="1.7976931348623157E308" HBox.hgrow="SOMETIMES" />
+               </children>
+            </HBox>
+            <!-- <Label layoutX="261.0" layoutY="47.0" text="Показывать по" AnchorPane.rightAnchor="75.0" AnchorPane.topAnchor="50.0" />-->
+            <HBox layoutX="45.0" layoutY="9.0" prefHeight="30.0" spacing="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="130.0">
+               <children>
+                  <Button minWidth="70.0" mnemonicParsing="false" onAction="#actionButtonAdd" text="Добавить" />
+                  <Button fx:id="editButton" minWidth="70.0" mnemonicParsing="false" onAction="#actionButtonEdit" text="Изменить" />
+                  <Button fx:id="deleteButton" minWidth="70.0" mnemonicParsing="false" onAction="#actionButtonDelete" text="Удалить" />
+                  <Button fx:id="refreshButton" mnemonicParsing="false" onAction="#actionButtonRefresh" text="Обновить список" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+      <!-- <Pagination layoutX="10.0" layoutY="551.0" pageCount="20" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />-->
+      <Label fx:id="errorMessage" layoutX="353.0" layoutY="14.0" textFill="RED" AnchorPane.rightAnchor="125.0" AnchorPane.topAnchor="50.0" />
+      <ImageView fx:id="imageLogo" fitHeight="105.0" fitWidth="105.0" layoutX="192.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+         <image>
+            <Image backgroundLoading="true" url="/images/product_logo.jpg" />
+         </image>
+      </ImageView>
+      <TableView fx:id="dataTableView" layoutX="23.0" layoutY="61.0" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="190.0">
         <columns>
           <TableColumn fx:id="columnName" prefWidth="158.0" text="Наименование" />
         </columns>
@@ -16,29 +49,6 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <!-- <ChoiceBox layoutX="332.0" layoutY="46.0" prefHeight="25.0" prefWidth="50.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="46.0" />-->
-      <Label fx:id="listTitle" layoutX="21.0" layoutY="14.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0">
-         <font>
-            <Font size="16.0" />
-         </font>
-      </Label>
-      <Label fx:id="listCount" layoutX="98.0" layoutY="47.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="50.0" />
-      <!-- <Label layoutX="261.0" layoutY="47.0" text="Показывать по" AnchorPane.rightAnchor="75.0" AnchorPane.topAnchor="50.0" />-->
-      <HBox layoutX="45.0" layoutY="9.0" prefHeight="30.0" spacing="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="90.0">
-         <children>
-            <Button minWidth="70.0" mnemonicParsing="false" onAction="#actionButtonAdd" text="Добавить" />
-            <Button fx:id="editButton" minWidth="70.0" mnemonicParsing="false" onAction="#actionButtonEdit" text="Изменить" />
-            <Button fx:id="deleteButton" minWidth="70.0" mnemonicParsing="false" onAction="#actionButtonDelete" text="Удалить" />
-            <Button fx:id="refreshButton" mnemonicParsing="false" onAction="#actionButtonRefresh" text="Обновить список" />
-         </children>
-      </HBox>
-      <!-- <Pagination layoutX="10.0" layoutY="551.0" pageCount="20" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />-->
-      <Label fx:id="errorMessage" layoutX="353.0" layoutY="14.0" textFill="RED" AnchorPane.rightAnchor="90.0" AnchorPane.topAnchor="50.0" />
-      <Label layoutX="22.0" layoutY="554.0" text="GB Community of Alumni 2017 (с) All rights reserved." AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="10.0" />
-      <ImageView fx:id="imageLogo" fitHeight="70.0" fitWidth="70.0" layoutX="192.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
-         <image>
-            <Image url="/images/product_logo.jpg" backgroundLoading="true" />
-         </image>
-      </ImageView>
+      <Label layoutX="22.0" layoutY="554.0" text="GB Community of Alumni 2017 (с) All rights reserved." textFill="#222222" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="10.0" />
    </children>
 </AnchorPane>

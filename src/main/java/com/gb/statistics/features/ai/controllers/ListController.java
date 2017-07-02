@@ -11,8 +11,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import java.io.IOException;
 
@@ -74,16 +72,10 @@ public abstract class ListController {
     protected Button refreshButton;
 
     @FXML
-    protected ImageView imageLogo;
-
-    @FXML
     protected void initialize(String title) {
         listTitle.setText(title);
-        imageLogo.setImage(new Image("/images/product_logo.jpg"));
         columnName.setCellValueFactory(cellData -> cellData.getValue().getNameProperty());
         dataTableView.setPlaceholder(new Label(EMPTY_LIST_MESSAGE));
-        //imageLogo = new ImageView(new Image("/images/product_logo.jpg"));
-
         initModalWindow(DELETE_TITLE, loaderDelete, DELETE_FXML_URL, new DeleteWindowController());
         initModalWindow(EDIT_TITLE, loaderEdit, EDIT_FXML_URL, new EditWindowController());
         initModalWindow(ADD_TITLE, loaderAdd, EDIT_FXML_URL, new EditWindowController());

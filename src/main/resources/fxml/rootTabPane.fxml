@@ -5,7 +5,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<TabPane fx:id="rootTabPane" prefHeight="224.0" prefWidth="420.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gb.statistics.features.ai.controllers.RootFrameController">
+<TabPane fx:id="rootTabPane" prefHeight="224.0" prefWidth="420.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" stylesheets="/css/style.css" fx:controller="com.gb.statistics.features.ai.controllers.RootFrameController">
     <tabs>
         <Tab fx:id="personListTab" text="Личности">
             <content>

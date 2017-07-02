@@ -43,14 +43,19 @@ public class ConnectionController {
         connectButton.setDisable(true);
         connect = true;
         rootFrameController.loadData();
+
         if (connect) {
             errorLabel.setVisible(false);
             stage.setScene(scene);
+            stage.setMinWidth(601);
+            stage.setResizable(true);
         }
     }
 
     public void disconnect() {
         stage.setScene(connectScene);
+        stage.setMinWidth(600);
+        stage.setResizable(false);
         errorLabel.setVisible(true);
         connect = false;
         connectButton.setDisable(false);
