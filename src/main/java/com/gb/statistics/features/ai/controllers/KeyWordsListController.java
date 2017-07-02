@@ -24,7 +24,7 @@ public class KeyWordsListController extends ListController {
     private Button addButton;
 
     @FXML
-    protected void initialize() {
+    protected void initialize() throws Exception {
         super.initialize(KEYWORD_TITLE);
         keyWordsList.setController(this);
         dataTableView.setItems(keyWordsList.getList());

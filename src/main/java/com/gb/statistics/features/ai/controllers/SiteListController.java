@@ -16,7 +16,7 @@ public class SiteListController extends ListController {
     private ListInterface siteList = new SiteList(URL);
 
     @FXML
-    protected void initialize() {
+    protected void initialize() throws Exception {
         super.initialize(SITE_TITLE);
         siteList.setController(this);
         dataTableView.setItems(siteList.getList());

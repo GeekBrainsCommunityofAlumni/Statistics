@@ -13,7 +13,7 @@ public class PersonListController extends ListController {
     private ListInterface personList = new PersonList(URL);
 
     @FXML
-    protected void initialize() {
+    protected void initialize() throws Exception {
         super.initialize(PERSON_TITLE);
         personList.setController(this);
         dataTableView.setItems(personList.getList());

@@ -4,6 +4,7 @@ import com.gb.statistics.features.ai.interfaces.ModalControllerInterface;
 import com.gb.statistics.features.ai.interfaces.ListInterface;
 import com.gb.statistics.features.ai.model.ModelListData;
 import com.gb.statistics.features.ai.window.ModalWindow;
+import javafx.beans.property.ObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -11,7 +12,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import org.controlsfx.control.textfield.CustomTextField;
+import org.controlsfx.control.textfield.TextFields;
+
 import java.io.IOException;
+import java.lang.reflect.Method;
 
 public abstract class ListController {
 
@@ -56,7 +61,7 @@ public abstract class ListController {
     protected Label listCount;
 
     @FXML
-    protected TextField search;
+    protected CustomTextField search;
 
     @FXML
     protected TableView<ModelListData> dataTableView;
@@ -74,13 +79,14 @@ public abstract class ListController {
     protected Button refreshButton;
 
     @FXML
-    protected void initialize(String title) {
+    protected void initialize(String title) throws Exception {
         listTitle.setText(title);
         columnName.setCellValueFactory(cellData -> cellData.getValue().getNameProperty());
         dataTableView.setPlaceholder(new Label(EMPTY_LIST_MESSAGE));
         initModalWindow(DELETE_TITLE, loaderDelete, DELETE_FXML_URL, new DeleteWindowController());
         initModalWindow(EDIT_TITLE, loaderEdit, EDIT_FXML_URL, new EditWindowController());
         initModalWindow(ADD_TITLE, loaderAdd, EDIT_FXML_URL, new EditWindowController());
+        setupClearButtonField(search);
     }
 
     protected void initModalWindow(String windowType, FXMLLoader loader, String fxmlUrl, ModalControllerInterface controller) {
@@ -192,5 +198,11 @@ public abstract class ListController {
             dataTableView.setItems(tableItems);
             setFocus();
         });
+    }
+
+    private void setupClearButtonField(CustomTextField customTextField)  throws Exception {
+        Method m = TextFields.class.getDeclaredMethod("setupClearButtonField", TextField.class, ObjectProperty.class);
+        m.setAccessible(true);
+        m.invoke(null, customTextField, customTextField.rightProperty());
     }
 }
