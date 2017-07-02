@@ -8,8 +8,8 @@
 
 
 //  Superstucture for SiteData. Alow work with SiteData array
-class SiteDataArray {
-    var array: [SiteData] = []{
+class SiteDataArray: Sequence {
+    private var array: [SiteData] = []{
         didSet {
             ranks = updateRanks()
             sites = updateSites()
@@ -26,12 +26,16 @@ class SiteDataArray {
         self.init(data: [])
     }
     //  Subscript when alow access to all SiteData info
-    subscript (index: Int) -> SiteData{
+    subscript (index: Int) -> SiteData?{
         get {
-                return array[index]
+            if index < array.count {
+               return array[index]
+            } else {
+                return nil
+            }
         }
         set (newValue) {
-            array[index] = newValue
+            array[index] = newValue!
         }
     }
     //  Array site-rank info for all data
@@ -119,5 +123,26 @@ class SiteDataArray {
             newRanks = newRanks + item.ranks
         }
         return newRanks
+    }
+    //  Sequance protocol 
+    func makeIterator() -> SiteDataArrayIterator {
+        return SiteDataArrayIterator(siteDataArray: self)
+    }
+    
+    struct SiteDataArrayIterator: IteratorProtocol {
+        let siteDataArray: SiteDataArray
+        var counter = 0
+        
+        init(siteDataArray: SiteDataArray ) {
+            self.siteDataArray = siteDataArray
+        }
+        
+        mutating func next() -> SiteData? {
+            guard let nextSiteData = siteDataArray[counter] else {
+                return nil
+            }
+            counter += 1
+            return nextSiteData
+        }
     }
 }

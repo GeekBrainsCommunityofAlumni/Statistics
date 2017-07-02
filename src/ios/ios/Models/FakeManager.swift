@@ -19,7 +19,7 @@ struct DateRange: Sequence {
         return DateRangeIterator(dateRange: self)
     }
     
-    struct DateRangeIterator: IteratorProtocol{
+    struct DateRangeIterator: IteratorProtocol {
         let dateRange: DateRange
         let calendar = Calendar(identifier: .gregorian)
         var counter = 0
@@ -109,7 +109,7 @@ class FakeManager:DataProvider {
         var siteOnRangeData: [SiteData] = []
         let range = DateRange(beginDate: dateBegin, endDate: dateEnd)
         for currentDate in range {
-            for currentData in siteDataArray.array {
+            for currentData in siteDataArray {
                 if Calendar.current.compare(currentData.date, to: currentDate, toGranularity: Calendar.Component.day) == .orderedSame {
                     siteOnRangeData.append(currentData)
                 }
