@@ -102,7 +102,6 @@ class FakeManager:DataProvider {
             }
             siteDataTotal.append(temporarySiteData)
         }
-        print("end")
         delegat.didCompliteRequestTotal(data: SiteDataArray(data: siteDataTotal), dataProvider: self)
     }
 
