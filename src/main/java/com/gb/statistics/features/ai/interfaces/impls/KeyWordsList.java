@@ -51,6 +51,7 @@ public class KeyWordsList implements ListInterface {
         }
         keyWordList.clear();
         if (rateResponse != null) keyWordList.setAll(rateResponse.getBody());
+        refreshFilter();
     }
 
     @Override
@@ -62,6 +63,7 @@ public class KeyWordsList implements ListInterface {
     public boolean add(ModelListData keyWord) {
         try {
             template.postForObject(URL + "/keyword/" + person.getId(), new HttpEntity<>(keyWord, headers), KeyWord.class);
+            controller.setErrorMessage("");
         } catch (HttpClientErrorException e) {
             controller.setErrorMessage(e.getResponseBodyAsString());
             ((KeyWordsListController)controller).refreshPersonList();
@@ -76,6 +78,7 @@ public class KeyWordsList implements ListInterface {
     public boolean update(ModelListData keyWord) {
         try {
             template.put(URL + "/keyword",  new HttpEntity<>(keyWord, headers), KeyWord.class);
+            controller.setErrorMessage("");
         } catch (HttpClientErrorException e) {
             controller.setErrorMessage(e.getResponseBodyAsString());
             ((KeyWordsListController)controller).refreshPersonList();
@@ -90,6 +93,7 @@ public class KeyWordsList implements ListInterface {
     public boolean delete(ModelListData keyWord) {
         try {
             template.delete(URL + "/keyword/" + keyWord.getId());
+            controller.setErrorMessage("");
         } catch (HttpClientErrorException e) {
             controller.setErrorMessage(e.getResponseBodyAsString());
             ((KeyWordsListController)controller).refreshPersonList();
@@ -106,5 +110,11 @@ public class KeyWordsList implements ListInterface {
 
     public void setController(ListController controller) {
         this.controller = controller;
+    }
+
+    private void refreshFilter() {
+        String text = controller.getSearchText();
+        controller.setSearchText("");
+        controller.setSearchText(text);
     }
 }

@@ -4,13 +4,12 @@ import com.gb.statistics.features.ai.interfaces.ModalControllerInterface;
 import com.gb.statistics.features.ai.interfaces.ListInterface;
 import com.gb.statistics.features.ai.model.ModelListData;
 import com.gb.statistics.features.ai.window.ModalWindow;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 import java.io.IOException;
 
@@ -55,6 +54,9 @@ public abstract class ListController {
 
     @FXML
     protected Label listCount;
+
+    @FXML
+    protected TextField search;
 
     @FXML
     protected TableView<ModelListData> dataTableView;
@@ -140,7 +142,9 @@ public abstract class ListController {
 
     public void setErrorMessage(String message) {
         visibleErrorMessage(true);
-        if (message.length() > 30) {
+        if (message.equals("")) {
+            errorMessage.setText(message);
+        } else if (message.length() > 30) {
             errorMessage.setText(ERROR_404);
         } else errorMessage.setText("Ошибка: " + message.substring(message.indexOf(':') + 2, message.indexOf('}') - 1));
     }
@@ -155,5 +159,38 @@ public abstract class ListController {
 
     public ConnectionController getConnectionController() {
         return connectionController;
+    }
+
+    public String getSearchText() {
+        return search.getText();
+    }
+
+    public void setSearchText(String text) {
+        search.setText(text);
+    }
+
+    protected void initFilter(ListInterface list) {
+        search.textProperty().addListener(o -> {
+            if(search.textProperty().get().isEmpty()) {
+                dataTableView.setItems(list.getList());
+                setFocus();
+                return;
+            }
+            ObservableList<ModelListData> tableItems = FXCollections.observableArrayList();
+            ObservableList<TableColumn<ModelListData, ?>> cols = dataTableView.getColumns();
+            for(int i=0; i<list.getList().size(); i++) {
+                for(int j=0; j<cols.size(); j++) {
+                    TableColumn col = cols.get(j);
+                    String cellValue = col.getCellData(list.getList().get(i)).toString();
+                    cellValue = cellValue.toLowerCase();
+                    if(cellValue.contains(search.textProperty().get().toLowerCase())) {
+                        tableItems.add((ModelListData) list.getList().get(i));
+                        break;
+                    }
+                }
+            }
+            dataTableView.setItems(tableItems);
+            setFocus();
+        });
     }
 }

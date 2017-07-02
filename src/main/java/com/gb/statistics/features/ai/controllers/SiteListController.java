@@ -5,8 +5,11 @@ import com.gb.statistics.features.ai.interfaces.impls.SiteList;
 import com.gb.statistics.features.ai.model.ModelListData;
 import com.gb.statistics.features.ai.model.Site;
 import com.gb.statistics.features.ai.window.ModalWindow;
+import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.TableColumn;
 
 public class SiteListController extends ListController {
 
@@ -18,6 +21,7 @@ public class SiteListController extends ListController {
         siteList.setController(this);
         dataTableView.setItems(siteList.getList());
         initListeners();
+        initFilter(siteList);
         deleteController.setSiteList(siteList);
         setActivityButtons(siteList);
     }
@@ -26,7 +30,6 @@ public class SiteListController extends ListController {
         siteList.getList().addListener((ListChangeListener<Site>) c -> {
             updateListCount(siteList);
             setActivityButtons(siteList);
-            setFocus();
         });
 
         dataTableView.setOnMouseClicked(event -> {

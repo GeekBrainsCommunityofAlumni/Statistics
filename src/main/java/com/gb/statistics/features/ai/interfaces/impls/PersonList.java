@@ -1,6 +1,7 @@
 package com.gb.statistics.features.ai.interfaces.impls;
 
 import com.gb.statistics.features.ai.controllers.ListController;
+import com.gb.statistics.features.ai.controllers.PersonListController;
 import com.gb.statistics.features.ai.interfaces.ListInterface;
 import com.gb.statistics.features.ai.model.ModelListData;
 import com.gb.statistics.features.ai.model.Person;
@@ -47,11 +48,13 @@ public class PersonList implements ListInterface {
         }
         personList.clear();
         if (rateResponse != null) personList.setAll(rateResponse.getBody());
+        refreshFilter();
     }
 
     public boolean add(ModelListData person) {
         try {
             template.postForObject(URL + "/person", new HttpEntity<>(person, headers), Person.class);
+            controller.setErrorMessage("");
         } catch (HttpClientErrorException e) {
             controller.setErrorMessage(e.getResponseBodyAsString());
         } catch (ResourceAccessException e) {
@@ -64,6 +67,7 @@ public class PersonList implements ListInterface {
     public boolean update(ModelListData person) {
         try {
             template.put(URL + "/person", new HttpEntity<>(person, headers), Person.class);
+            controller.setErrorMessage("");
         } catch (HttpClientErrorException e) {
             controller.setErrorMessage(e.getResponseBodyAsString());
         } catch (ResourceAccessException e) {
@@ -76,6 +80,7 @@ public class PersonList implements ListInterface {
     public boolean delete(ModelListData person) {
         try {
             template.delete(URL + "/person/" + person.getId());
+            controller.setErrorMessage("");
         } catch (HttpClientErrorException e) {
             controller.setErrorMessage(e.getResponseBodyAsString());
         } catch (ResourceAccessException e) {
@@ -92,5 +97,11 @@ public class PersonList implements ListInterface {
     @Override
     public void setController(ListController controller) {
         this.controller = controller;
+    }
+
+    private void refreshFilter() {
+        String text = controller.getSearchText();
+        controller.setSearchText("");
+        controller.setSearchText(text);
     }
 }

@@ -5,21 +5,12 @@ import com.gb.statistics.features.ai.interfaces.impls.PersonList;
 import com.gb.statistics.features.ai.model.ModelListData;
 import com.gb.statistics.features.ai.model.Person;
 import com.gb.statistics.features.ai.window.ModalWindow;
-import javafx.beans.InvalidationListener;
-import javafx.beans.Observable;
-import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TextField;
 
 public class PersonListController extends ListController {
 
     private ListInterface personList = new PersonList(URL);
-
-    @FXML
-    private TextField search;
 
     @FXML
     protected void initialize() {
@@ -27,7 +18,7 @@ public class PersonListController extends ListController {
         personList.setController(this);
         dataTableView.setItems(personList.getList());
         initListeners();
-        initFilter();
+        initFilter(personList);
         deleteController.setPersonList(personList);
         setActivityButtons(personList);
     }
@@ -36,7 +27,6 @@ public class PersonListController extends ListController {
         personList.getList().addListener((ListChangeListener<ModelListData>) c -> {
             updateListCount(personList);
             setActivityButtons(personList);
-            setFocus();
         });
 
         dataTableView.setOnMouseClicked(event -> {
@@ -85,28 +75,5 @@ public class PersonListController extends ListController {
 
     public ListInterface getPersonList() {
         return personList;
-    }
-
-    private void initFilter() {
-        search.textProperty().addListener(o -> {
-            if(search.textProperty().get().isEmpty()) {
-                dataTableView.setItems(personList.getList());
-                return;
-            }
-            ObservableList<ModelListData> tableItems = FXCollections.observableArrayList();
-            ObservableList<TableColumn<ModelListData, ?>> cols = dataTableView.getColumns();
-            for(int i=0; i<personList.getList().size(); i++) {
-                for(int j=0; j<cols.size(); j++) {
-                    TableColumn col = cols.get(j);
-                    String cellValue = col.getCellData(personList.getList().get(i)).toString();
-                    cellValue = cellValue.toLowerCase();
-                    if(cellValue.contains(search.textProperty().get().toLowerCase())) {
-                        tableItems.add((ModelListData) personList.getList().get(i));
-                        break;
-                    }
-                }
-            }
-            dataTableView.setItems(tableItems);
-        });
     }
 }

@@ -27,7 +27,7 @@
             <HBox alignment="CENTER_LEFT" spacing="10.0">
                <children>
                   <Label text="Поиск" />
-                  <TextField maxWidth="1.7976931348623157E308" HBox.hgrow="SOMETIMES" />
+                  <TextField fx:id="search" maxWidth="1.7976931348623157E308" HBox.hgrow="SOMETIMES" />
                </children>
             </HBox>
             <!-- <Label layoutX="261.0" layoutY="47.0" text="Показывать по" AnchorPane.rightAnchor="75.0" AnchorPane.topAnchor="90.0" />-->

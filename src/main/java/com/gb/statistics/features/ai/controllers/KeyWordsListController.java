@@ -6,7 +6,9 @@ import com.gb.statistics.features.ai.interfaces.impls.KeyWordsList;
 import com.gb.statistics.features.ai.model.KeyWord;
 import com.gb.statistics.features.ai.model.Person;
 import com.gb.statistics.features.ai.window.ModalWindow;
+import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
@@ -52,7 +54,6 @@ public class KeyWordsListController extends ListController {
         keyWordsList.getList().addListener((ListChangeListener<ModelListData>) c -> {
             updateListCount(keyWordsList);
             setActivityButtons(keyWordsList);
-            setFocus();
         });
 
         dataTableView.setOnMouseClicked(event -> {
@@ -66,6 +67,7 @@ public class KeyWordsListController extends ListController {
         this.personList = personList;
         initComboBox();
         initListeners();
+        initFilter(keyWordsList);
     }
 
     private void initComboBox() {

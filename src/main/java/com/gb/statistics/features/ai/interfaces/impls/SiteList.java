@@ -51,11 +51,13 @@ public class SiteList implements ListInterface {
         }
         siteList.clear();
         if (rateResponse != null) siteList.setAll(rateResponse.getBody());
+        refreshFilter();
     }
 
     public boolean add(ModelListData site) {
         try {
             template.postForObject(URL + "/site", new HttpEntity<>(site, headers), Person.class);
+            controller.setErrorMessage("");
         } catch (HttpClientErrorException e) {
             controller.setErrorMessage(e.getResponseBodyAsString());
         } catch (ResourceAccessException e) {
@@ -68,6 +70,7 @@ public class SiteList implements ListInterface {
     public boolean update(ModelListData site) {
         try {
             template.put(URL + "/site", new HttpEntity<>(site, headers), Person.class);
+            controller.setErrorMessage("");
         } catch (HttpClientErrorException e) {
             controller.setErrorMessage(e.getResponseBodyAsString());
         } catch (ResourceAccessException e) {
@@ -80,6 +83,7 @@ public class SiteList implements ListInterface {
     public boolean delete(ModelListData site) {
         try {
             template.delete(URL + "/site/" + site.getId());
+            controller.setErrorMessage("");
         } catch (HttpClientErrorException e) {
             controller.setErrorMessage(e.getResponseBodyAsString());
         } catch (ResourceAccessException e) {
@@ -96,5 +100,11 @@ public class SiteList implements ListInterface {
     @Override
     public void setController(ListController controller) {
         this.controller = controller;
+    }
+
+    private void refreshFilter() {
+        String text = controller.getSearchText();
+        controller.setSearchText("");
+        controller.setSearchText(text);
     }
 }
