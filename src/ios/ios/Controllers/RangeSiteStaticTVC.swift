@@ -13,7 +13,8 @@ class RangeSiteStaticTVC: UITableViewController, DataManagerProtocol {
     var dateBegin: Date!
     var dateEnd: Date!
     var siteDataArray = SiteDataArray()
-    var dm = DataManager.initWithNetworkManager()
+//    var dm = DataManager.initWithNetworkManager()
+    var dm = DataManager.initWithFakeManager()
     
     override func viewDidLoad() {
         dm.delegat = self
