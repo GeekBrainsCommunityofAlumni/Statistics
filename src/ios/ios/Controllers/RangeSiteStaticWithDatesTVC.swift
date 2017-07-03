@@ -33,4 +33,17 @@ class RangeSiteStaticWithDatesTVC: UITableViewController {
         cell.countLabel.text = String(infoWithDate[indexPath.row].count)
         return cell
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "RangeSiteStaticWithDateChartVC" {
+            let destinationTVC = segue.destination as! RangeSiteStaticWithDateChartVC
+            destinationTVC.siteName = siteName
+            destinationTVC.personName = personName
+            destinationTVC.infoWithDate = infoWithDate
+//            if let selectedItem = tableView.indexPathForSelectedRow{
+//                destinationTVC.personName = siteDataArray.ranks[selectedItem.row].name
+//                destinationTVC.infoWithDate = siteDataArray.filterBySiteAndPerson(siteName: siteName, personName: destinationTVC.personName)
+//            }
+        }
+    }
 }
