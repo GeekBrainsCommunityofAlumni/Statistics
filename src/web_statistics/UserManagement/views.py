@@ -1,7 +1,7 @@
 #coding: utf-8
 
 from django.contrib import auth
-from django.shortcuts import render, render_to_response
+from django.shortcuts import render, render_to_response, get_object_or_404
 from django.http import Http404, HttpResponseRedirect
 # from django.template.context_processors import csrf
 from django.contrib.auth.models import User
@@ -80,3 +80,23 @@ def registration(request):
         user.save()
         return HttpResponseRedirect("/privateroom/")
     return render(request, "registration.html")
+
+
+def set_new_password(request, user_id):
+    if request.method == 'POST':
+        errors = {}
+        user = get_object_or_404(Person, id=user_id)
+        password = request.POST.get("new_password")
+        confirmpassword = request.POST.get("confirm_new_password")
+        # Validate data
+        if password != confirmpassword:
+            errors['new_password'] = 'Извините, пароли не совпадают... Попробуйте снова!'
+            user = User(username=login, password=password)
+        user.set_password(password)
+        # Validate user
+        try:
+            user.validate_unique()
+        except ValidationError as er:
+            errors.update(er.message_dict)
+        user.save()
+        return HttpResponseRedirect('/privateroom/')

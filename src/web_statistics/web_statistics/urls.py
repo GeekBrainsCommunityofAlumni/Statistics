@@ -55,6 +55,7 @@ urlpatterns += [
     url(r'^myadmin/delete/user/(\d+)$', delete_user),
     url(r'^myadmin/get_user_form/(\d+)$', get_user_form),
     url(r'^myadmin/create/user/(\d*)$', create_user),
+    url(r'^user/set_new_password/$', set_new_password),
 ]
 
 if settings.DEBUG:

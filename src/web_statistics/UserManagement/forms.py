@@ -48,3 +48,4 @@ class UserChangeForm(forms.ModelForm):
     class Meta:
         model = Person
         fields = ('__all__')
+        exclude = ('rules',)

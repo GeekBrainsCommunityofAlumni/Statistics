@@ -16,7 +16,108 @@
             <li class="active">Персональные настройки</li>
         </ol>
 
+        <div class="col-sm-6">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h4 class="text-left">
+                        Текущая инормация о позователе {{user.first_name}} {{user.last_name}}:
+                    </h4>
+                </div>
+            </div>
+
+            <table class="table table-condensed">
+                <tbody>
+                <tr>
+                    <td><i class="fa fa-user" aria-hidden="true"></i> Ваш login:</td>
+                    <td>{{user.username}}</td>
+                </tr>
+                <tr>
+                    <td><i class="fa fa-envelope-o" aria-hidden="true"></i> Ваш e-mail:</td>
+                    <td>{{user.email}}</td>
+                </tr>
+                <tr>
+                    <td><i class="fa fa-mobile" aria-hidden="true"></i> Контактный тел. (mobile):</td>
+                    <td>{{user.phone_number}}</td>
+                </tr>
+                <tr>
+                    <td><i class="fa fa-address-card-o" aria-hidden="true"></i> Ваш статус пользователя:</td>
+                    <td>{{user.status}}</td>
+                </tr>
+                </tbody>
+            </table>
+
+            <div class="col-sm-12">
+                <form class="form-signin" action="/user/set_new_password/">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="password" class="col-sm-6 control-label">
+                            <i class="fa fa-key" aria-hidden="true"></i>
+                            Введите новый пароль:
+                        </label>
+                        <div class="col-sm-6">
+                            <input type="password" name="new_password" id="password" placeholder="новый пароль" class="form-control" required="" autofocus>
+                        </div>
+                    </div> <!-- /.form-group -->
+
+                    <div class="form-group">
+                        <label for="confirmpassword" class="col-sm-6 control-label">
+                            <i class="fa fa-check-square-o" aria-hidden="true"></i>
+                            Подтвердите новый пароль:
+                        </label>
+                        <div class="col-sm-6">
+                            <input type="password" name="confirmpassword" id="confirmpassword" placeholder="Пожалуйста, подтвердите..." class="form-control" required="">
+                        </div>
+                    </div> <!-- /.form-group -->
+
+                    <div class="col-sm-12">
+                        <button type="submit" value="Поиск" formmethod="post" class="btn btn-success btn-sm">
+                            <i class="fa fa-search" aria-hidden="true"></i> Сменить пароль
+                        </button>
+                        <button type="reset" value="Очистить" class="btn btn-danger btn-xs">
+                            <i class="fa fa-refresh" aria-hidden="true"></i> Очистить
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="col-sm-12">
+                <form class="form-signin" action="/user/set_new_email/">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="email" class="col-sm-6 control-label">
+                            <i class="fa fa-key" aria-hidden="true"></i>
+                            Введите новый e-mail:
+                        </label>
+                        <div class="col-sm-6">
+                            <input type="email" name="email" id="email" placeholder="новый e-mail" class="form-control" required="" autofocus>
+                        </div>
+                    </div> <!-- /.form-group -->
+
+                    <div class="form-group">
+                        <label for="confirm_new_email" class="col-sm-6 control-label">
+                            <i class="fa fa-check-square-o" aria-hidden="true"></i>
+                            Подтвердите новый e-mail:
+                        </label>
+                        <div class="col-sm-6">
+                            <input type="email" name="confirm_new_email" id="confirm_new_email" placeholder="Пожалуйста, подтвердите..." class="form-control" required="">
+                        </div>
+                    </div> <!-- /.form-group -->
+
+                    <div class="col-sm-12">
+                        <button type="submit" value="Поиск" formmethod="post" class="btn btn-success btn-sm">
+                            <i class="fa fa-search" aria-hidden="true"></i> Сменить пароль
+                        </button>
+                        <button type="reset" value="Очистить" class="btn btn-danger btn-xs">
+                            <i class="fa fa-refresh" aria-hidden="true"></i> Очистить
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+
     {% else %}
         <h4>Пожалуйста, авторизуйтесь!</h4>
     {% endif %}
+
 {% endblock %}
