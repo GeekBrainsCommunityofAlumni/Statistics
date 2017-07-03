@@ -16,6 +16,7 @@
 		82711F961EFF912F0030B1F5 /* SiteData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82711F951EFF912F0030B1F5 /* SiteData.swift */; };
 		82711F981EFFBD280030B1F5 /* TotalStaticRootTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82711F971EFFBD280030B1F5 /* TotalStaticRootTVCell.swift */; };
 		82A09BF91F0A476C0091AC9B /* RangeSiteStaticWithDateChartVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82A09BF81F0A476C0091AC9B /* RangeSiteStaticWithDateChartVC.swift */; };
+		82A09BFB1F0A4FC60091AC9B /* TotalSiteStaticCharVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82A09BFA1F0A4FC60091AC9B /* TotalSiteStaticCharVC.swift */; };
 		82E0CA731F0139160008D4C0 /* RangeSiteStaticWithDatesTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82E0CA721F0139160008D4C0 /* RangeSiteStaticWithDatesTVC.swift */; };
 		82E0CA751F015A0E0008D4C0 /* RangeSiteStaticWithDatesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82E0CA741F015A0E0008D4C0 /* RangeSiteStaticWithDatesCell.swift */; };
 		82E0CAF11F0452710008D4C0 /* GBCA_StatisticsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82E0CAF01F0452710008D4C0 /* GBCA_StatisticsTests.swift */; };
@@ -58,6 +59,7 @@
 		82711F951EFF912F0030B1F5 /* SiteData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SiteData.swift; sourceTree = "<group>"; };
 		82711F971EFFBD280030B1F5 /* TotalStaticRootTVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TotalStaticRootTVCell.swift; sourceTree = "<group>"; };
 		82A09BF81F0A476C0091AC9B /* RangeSiteStaticWithDateChartVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RangeSiteStaticWithDateChartVC.swift; sourceTree = "<group>"; };
+		82A09BFA1F0A4FC60091AC9B /* TotalSiteStaticCharVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TotalSiteStaticCharVC.swift; sourceTree = "<group>"; };
 		82E0CA721F0139160008D4C0 /* RangeSiteStaticWithDatesTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RangeSiteStaticWithDatesTVC.swift; sourceTree = "<group>"; };
 		82E0CA741F015A0E0008D4C0 /* RangeSiteStaticWithDatesCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RangeSiteStaticWithDatesCell.swift; sourceTree = "<group>"; };
 		82E0CAEE1F0452710008D4C0 /* GBCAStatisticsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GBCAStatisticsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -134,6 +136,7 @@
 				82711F971EFFBD280030B1F5 /* TotalStaticRootTVCell.swift */,
 				82F0A4521EFFF794006B7F16 /* TotalSiteStaticTVC.swift */,
 				82F0A4541EFFF870006B7F16 /* TotalSiteStaticTVCell.swift */,
+				82A09BFA1F0A4FC60091AC9B /* TotalSiteStaticCharVC.swift */,
 				82F0A4561F00041B006B7F16 /* RangeRootTVC.swift */,
 				82F0A4581F000435006B7F16 /* RangeSelectSiteTVC.swift */,
 				82F0A45C1F000A90006B7F16 /* RangeSelectSiteTVCell.swift */,
@@ -367,6 +370,7 @@
 				82711F7F1EFF8EC30030B1F5 /* NetworkManager.swift in Sources */,
 				82F0A4511EFFF6CB006B7F16 /* TotalStaticRootTVC.swift in Sources */,
 				82F0A4551EFFF870006B7F16 /* TotalSiteStaticTVCell.swift in Sources */,
+				82A09BFB1F0A4FC60091AC9B /* TotalSiteStaticCharVC.swift in Sources */,
 				82E0CA731F0139160008D4C0 /* RangeSiteStaticWithDatesTVC.swift in Sources */,
 				82711F7B1EFF8EC30030B1F5 /* DataManager.swift in Sources */,
 				BE4FD0641EEEEBB4002F0679 /* AppDelegate.swift in Sources */,

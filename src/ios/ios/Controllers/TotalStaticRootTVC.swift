@@ -48,6 +48,10 @@ class TotalStaticRootTVC: UITableViewController, DataManagerProtocol {
                 destenationVC.siteDataArray = data.filterBySite(siteName: data.sites[selectedItem.row].name)
             }
         }
+        if segue.identifier == "TotalSiteStaticCharVC2" {
+            let destenationVC = segue.destination as! TotalSiteStaticCharVC
+            destenationVC.array = data.sites
+        }
     }
 }
 

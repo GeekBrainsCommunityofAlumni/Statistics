@@ -15,7 +15,7 @@ class RangeSiteStaticWithDatesTVC: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.title = siteName + " " + personName
+        navigationItem.title = personName //siteName + " " + personName
         tableView.reloadData()
     }
 

@@ -32,4 +32,14 @@ class TotalSiteStaticTVC: UITableViewController {
         cell.countLabel.text = String(siteDataArray.ranks[indexPath.row].count)
         return cell
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "TotalSiteStaticCharVC1" {
+            let destenationVC = segue.destination as! TotalSiteStaticCharVC
+            destenationVC.array = siteDataArray.ranks
+//            if let selectedItem = tableView.indexPathForSelectedRow{
+//                destenationVC.siteDataArray = data.filterBySite(siteName: data.sites[selectedItem.row].name)
+//            }
+        }
+    }
 }
