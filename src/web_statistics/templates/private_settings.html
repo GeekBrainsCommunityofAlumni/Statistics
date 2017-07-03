@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+
+{% extends 'base.html' %}
+{% load static from staticfiles %}
+
+{% block title %}
+    Персональные настройки | {{block.super}}
+{% endblock %}
+
+
+{% block content %}
+    {% if user.is_authenticated %}
+
+        <ol class="breadcrumb">
+            <li><a href="/privateroom/">Назад в личный кабинет</a></li>
+            <li class="active">Персональные настройки</li>
+        </ol>
+
+    {% else %}
+        <h4>Пожалуйста, авторизуйтесь!</h4>
+    {% endif %}
+{% endblock %}

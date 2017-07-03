@@ -225,6 +225,8 @@ def admin_statistics(request):
 def politics(request):
     return render(request, 'politics.html')
 
+def private_settings(request):
+    return render(request, 'private_settings.html')
 
 def economics_and_finances(request):
     return render(request, 'economics_and_finances.html')
