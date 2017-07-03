@@ -5,8 +5,9 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Sum
 from UserManagement.models import Person as User
 from django.http import HttpResponseRedirect
-from .forms import ParametrizedStatForm
+from .forms import ParametrizedStatForm, DelPerson, AddPerson
 from django.http import Http404
+import requests
 
 
 def main(request):
@@ -71,10 +72,6 @@ def faq(request):
     return render(request, 'faq.html')
 
 
-# def statistics(request):
-#     return render(request, 'statistics.html')
-
-
 @login_required(login_url='/privateroom/')
 def common_statistics(request):
     sites = Sites.objects.order_by('name')
@@ -120,6 +117,24 @@ def common_statistics(request):
                                                             'keywords': keywords,
                                                             'sites': sites, 'person_ranks': person_ranks,
                                                             'sites_selected': sites_selected})
+
+
+def add_person(request):
+    if request.method == 'POST':
+        form = AddPerson(request.POST)
+        person_name = request.POST.get('new_person')
+        print(person_name)
+        r = requests.post('http://94.130.27.143:8080/api/person', json={'name': person_name},
+                         headers={"Content-Type": "application/json"})
+        print('USER CREATION:', r.status_code)
+
+
+def del_person(request, id):
+    if request.method == 'DELETE':
+        form = DelPerson(request.DELETE)
+        person_id = request.DELETE.get('source')
+        r = requests.delete('http://94.130.27.143:8080/api/person/86')
+        print('USER REMOVED:', r.status_code)
 
 
 @login_required(login_url='/privateroom/')
