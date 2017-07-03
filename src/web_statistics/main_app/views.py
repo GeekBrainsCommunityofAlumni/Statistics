@@ -176,6 +176,8 @@ def admin_statistics(request):
     persons_all = Persons.objects.all()
     keywords = Keywords.objects.order_by('name')
     person_ranks = PersonPageRank.objects.values('person_id_id', 'page_id_id').annotate(rank=Sum('rank'))
+    pages = Pages.objects.all()
+    users = User.objects.all()
 
     if request.method == 'POST':
         form = ParametrizedStatForm(request.POST)
@@ -212,7 +214,8 @@ def admin_statistics(request):
         return render(request, 'admin_statistics.html', {'persons': persons, 'persons_all': persons_all,
                                                             'keywords': keywords,
                                                             'sites': sites, 'person_ranks': person_ranks,
-                                                            'sites_selected': sites_selected})
+                                                            'sites_selected': sites_selected,
+                                                         'pages': pages, 'users': users})
 
 
 # def news(request):
@@ -235,10 +238,10 @@ def society(request):
     return render(request, 'society.html')
 
 
-def parameters_search(request):
-    if request.method == 'GET':
-        site = request.GET.get('source')
-        person = request.GET.get('profile')
+# def parameters_search(request):
+#     if request.method == 'GET':
+#         site = request.GET.get('source')
+#         person = request.GET.get('profile')
 
 
 def api_stat(request):
