@@ -1,0 +1,104 @@
+.root {
+    -fx-accent: #222222;
+    -fx-focus-color: #222222;
+}
+
+.root .menu {
+    -fx-accent: white;
+    -fx-focus-color: white;
+}
+
+.root .menu-bar > .container > .menu-button:hover > .label,
+.menu-bar > .container > .menu-button:focused > .label,
+.menu-bar > .container > .menu-button:showing  > .label {
+    -fx-text-fill: #222222;
+    -fx-font-weight: bold;
+}
+
+.button {
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-padding:8px;
+    -fx-background-color: #222222;
+    -fx-border-color: white;
+    -fx-border-width: 1px;
+}
+
+.button:hover {
+    -fx-text-fill: #222222;
+    -fx-border-color: #222222;
+    -fx-background-color: white;
+    -fx-cursor: hand;
+}
+
+.button:armed {
+    -fx-text-fill: #222222;
+    -fx-border-color: #222222;
+    -fx-background-color: red;
+}
+
+
+.tab-pane:top *.tab-header-area {
+    -fx-background-insets: 0, 0 0 1 0;
+    -fx-padding: 0.416667em 0.166667em 0.0em 0.833em; /* 5 2 0 10 */
+}
+
+.tab-pane {
+    -fx-tab-min-width:120px;
+}
+
+.tab-pane .tab {
+    -fx-background-color: #222222;
+    -fx-background-insets: 0 1 0 1,0,0;
+    -fx-padding: 5px;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
+.tab-pane .tab:selected {
+    -fx-background-color: white;
+}
+
+.tab .tab-label {
+    -fx-alignment: CENTER;
+    -fx-text-fill: white;
+}
+
+.tab:selected .tab-label {
+    -fx-alignment: CENTER;
+    -fx-text-fill: #222222;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+}
+
+.menu-bar{
+    -fx-background-color: #222222;
+}
+
+.menu-bar .label {
+    -fx-text-fill: white;
+}
+
+.menu-item {
+    -fx-background-color: white;
+}
+
+.menu-item:hover {
+    -fx-background-color: #222222;
+}
+
+.menu-item:focused {
+    -fx-background-color: #222222;
+}
+
+.menu-item .label{
+    -fx-text-fill: #222222;
+}
+
+.menu-item:hover .label {
+    -fx-text-fill: white;
+}
+
+.menu-item:focused .label {
+    -fx-text-fill: white;
+}
