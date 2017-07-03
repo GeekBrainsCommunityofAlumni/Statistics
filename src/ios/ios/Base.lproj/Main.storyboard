@@ -83,17 +83,22 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Общая статистика" id="4a3-8v-g31">
                         <barButtonItem key="backBarButtonItem" title="Назад" id="Zgi-Xy-rl3"/>
+                        <barButtonItem key="rightBarButtonItem" title="График" id="05a-ye-pzv">
+                            <connections>
+                                <segue destination="i2a-ND-MsU" kind="show" identifier="TotalSiteStaticCharVC2" id="h0S-b1-UCL"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kVX-7X-Ujc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1441" y="-89"/>
+            <point key="canvasLocation" x="1598" y="-845"/>
         </scene>
         <!--Название сайта-->
         <scene sceneID="Ywl-uy-1Tq">
             <objects>
                 <tableViewController id="pD1-Wt-djW" customClass="TotalSiteStaticTVC" customModule="GBCAStatistics" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="0hp-kd-VCZ">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="0hp-kd-VCZ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -144,6 +149,11 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Название сайта" id="jha-fg-XIq">
                         <barButtonItem key="backBarButtonItem" title="Назад" id="ZGi-g9-YYZ"/>
+                        <barButtonItem key="rightBarButtonItem" title="График" id="j37-Nq-VDI">
+                            <connections>
+                                <segue destination="i2a-ND-MsU" kind="show" identifier="TotalSiteStaticCharVC1" id="sdC-Dk-P3W"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="siteNameLabel" destination="jha-fg-XIq" id="3R3-yP-6Qb"/>
@@ -151,7 +161,28 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ElR-xt-ks5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2095" y="-89"/>
+            <point key="canvasLocation" x="1598" y="-89"/>
+        </scene>
+        <!--Total Site Static CharVC-->
+        <scene sceneID="Qoo-dh-8Jg">
+            <objects>
+                <viewController id="i2a-ND-MsU" customClass="TotalSiteStaticCharVC" customModule="GBCAStatistics" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Yjs-6w-Sz9"/>
+                        <viewControllerLayoutGuide type="bottom" id="b95-Yd-wAb"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="CX1-Nf-zVa" customClass="PieChartView" customModule="Charts">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <outlet property="pieChartView" destination="CX1-Nf-zVa" id="3v7-EB-SNL"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ib7-1f-bx5" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3185" y="-89"/>
         </scene>
         <!--Общая статистика-->
         <scene sceneID="cfz-Qs-OD5">
@@ -423,7 +454,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yFe-Jn-wDD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1441" y="626"/>
+            <point key="canvasLocation" x="1598" y="626"/>
         </scene>
         <!--Выберите сайт-->
         <scene sceneID="Jod-B7-26r">
@@ -476,7 +507,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="btc-mI-5Z2" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="ujk-Av-eHT" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2094" y="626"/>
+            <point key="canvasLocation" x="1598" y="1414"/>
         </scene>
         <!--Range Site StaticTVC-->
         <scene sceneID="KW0-Nd-x9U">
@@ -532,17 +563,23 @@
                             <outlet property="delegate" destination="tcM-bM-UPf" id="QgX-M9-IZF"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="HrG-EN-YW4"/>
+                    <navigationItem key="navigationItem" id="HrG-EN-YW4">
+                        <barButtonItem key="rightBarButtonItem" title="График" id="Hgb-u4-eoD">
+                            <connections>
+                                <segue destination="i2a-ND-MsU" kind="show" identifier="TotalSiteStaticCharVC3" id="8KA-Kg-tKm"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PGd-iS-I1v" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1309" y="1417"/>
+            <point key="canvasLocation" x="2561" y="626"/>
         </scene>
         <!--Range Site Static With DatesTVC-->
         <scene sceneID="H8F-kA-Xz4">
             <objects>
                 <tableViewController id="3DM-gE-0yq" customClass="RangeSiteStaticWithDatesTVC" customModule="GBCAStatistics" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="tsT-oD-U3P">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="tsT-oD-U3P">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -551,7 +588,7 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="pW3-mh-TIV" id="58X-fY-kyL">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7FN-xo-zPr">
@@ -591,10 +628,50 @@
                             <outlet property="delegate" destination="3DM-gE-0yq" id="1zL-QE-Dkq"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" id="8qM-a2-d9b">
+                        <barButtonItem key="rightBarButtonItem" title="График" id="eqo-lG-ymD">
+                            <connections>
+                                <segue destination="qyD-O4-jq4" kind="show" identifier="RangeSiteStaticWithDateChartVC" id="Ker-Vl-gMx"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7H2-wd-JO8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2127.1999999999998" y="1413.6431784107947"/>
+            <point key="canvasLocation" x="2561" y="1414"/>
+        </scene>
+        <!--Range Site Static With Date ChartVC-->
+        <scene sceneID="wn5-Zb-OcO">
+            <objects>
+                <viewController id="qyD-O4-jq4" customClass="RangeSiteStaticWithDateChartVC" customModule="GBCAStatistics" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Nvd-Nv-xjb"/>
+                        <viewControllerLayoutGuide type="bottom" id="yhu-ud-Ji1"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="cB3-LY-7nN">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g7Y-eE-Lhd" customClass="LineChartView" customModule="Charts">
+                                <rect key="frame" x="16" y="64" width="343" height="554"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="yhu-ud-Ji1" firstAttribute="top" secondItem="g7Y-eE-Lhd" secondAttribute="bottom" id="6SO-4h-JRi"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="g7Y-eE-Lhd" secondAttribute="trailing" id="83u-nu-Leg"/>
+                            <constraint firstItem="g7Y-eE-Lhd" firstAttribute="leading" secondItem="cB3-LY-7nN" secondAttribute="leadingMargin" id="C4a-dM-Fy2"/>
+                            <constraint firstItem="g7Y-eE-Lhd" firstAttribute="top" secondItem="Nvd-Nv-xjb" secondAttribute="bottom" id="YHE-7k-grb"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="lineChartView" destination="g7Y-eE-Lhd" id="UcW-qZ-nML"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="oCM-Gb-YWt" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3650" y="1414"/>
         </scene>
         <!--Статистика за период-->
         <scene sceneID="2vR-lQ-vbG">
@@ -616,4 +693,7 @@
             <point key="canvasLocation" x="790" y="626"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="8KA-Kg-tKm"/>
+    </inferredMetricsTieBreakers>
 </document>

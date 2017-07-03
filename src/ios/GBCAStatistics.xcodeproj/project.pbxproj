@@ -15,6 +15,8 @@
 		82711F801EFF8EC30030B1F5 /* SiteDataArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82711F791EFF8EC30030B1F5 /* SiteDataArray.swift */; };
 		82711F961EFF912F0030B1F5 /* SiteData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82711F951EFF912F0030B1F5 /* SiteData.swift */; };
 		82711F981EFFBD280030B1F5 /* TotalStaticRootTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82711F971EFFBD280030B1F5 /* TotalStaticRootTVCell.swift */; };
+		82A09BF91F0A476C0091AC9B /* RangeSiteStaticWithDateChartVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82A09BF81F0A476C0091AC9B /* RangeSiteStaticWithDateChartVC.swift */; };
+		82A09BFB1F0A4FC60091AC9B /* TotalSiteStaticCharVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82A09BFA1F0A4FC60091AC9B /* TotalSiteStaticCharVC.swift */; };
 		82E0CA731F0139160008D4C0 /* RangeSiteStaticWithDatesTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82E0CA721F0139160008D4C0 /* RangeSiteStaticWithDatesTVC.swift */; };
 		82E0CA751F015A0E0008D4C0 /* RangeSiteStaticWithDatesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82E0CA741F015A0E0008D4C0 /* RangeSiteStaticWithDatesCell.swift */; };
 		82E0CAF11F0452710008D4C0 /* GBCA_StatisticsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82E0CAF01F0452710008D4C0 /* GBCA_StatisticsTests.swift */; };
@@ -31,7 +33,7 @@
 		BE4FD0691EEEEBB4002F0679 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BE4FD0671EEEEBB4002F0679 /* Main.storyboard */; };
 		BE4FD06B1EEEEBB4002F0679 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BE4FD06A1EEEEBB4002F0679 /* Assets.xcassets */; };
 		BE4FD06E1EEEEBB4002F0679 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BE4FD06C1EEEEBB4002F0679 /* LaunchScreen.storyboard */; };
-		E0C386C923FE1E57DE128335 /* Pods_ios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BA6E09608D9FF04B14FA287 /* Pods_ios.framework */; };
+		EA08B99546B95EE23E611912 /* Pods_GBCAStatistics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E0912AE320F1D2C7FB3B4B7C /* Pods_GBCAStatistics.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +49,7 @@
 /* Begin PBXFileReference section */
 		396B727C054DE7F9EA546DBF /* Pods-ios.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ios.release.xcconfig"; path = "Pods/Target Support Files/Pods-ios/Pods-ios.release.xcconfig"; sourceTree = "<group>"; };
 		3BA6E09608D9FF04B14FA287 /* Pods_ios.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ios.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6EFE580DE59852A13075E324 /* Pods-GBCAStatistics.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GBCAStatistics.release.xcconfig"; path = "Pods/Target Support Files/Pods-GBCAStatistics/Pods-GBCAStatistics.release.xcconfig"; sourceTree = "<group>"; };
 		82711F741EFF8EC30030B1F5 /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		82711F751EFF8EC30030B1F5 /* DataProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataProvider.swift; sourceTree = "<group>"; };
 		82711F761EFF8EC30030B1F5 /* DBManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBManager.swift; sourceTree = "<group>"; };
@@ -55,6 +58,8 @@
 		82711F791EFF8EC30030B1F5 /* SiteDataArray.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SiteDataArray.swift; sourceTree = "<group>"; };
 		82711F951EFF912F0030B1F5 /* SiteData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SiteData.swift; sourceTree = "<group>"; };
 		82711F971EFFBD280030B1F5 /* TotalStaticRootTVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TotalStaticRootTVCell.swift; sourceTree = "<group>"; };
+		82A09BF81F0A476C0091AC9B /* RangeSiteStaticWithDateChartVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RangeSiteStaticWithDateChartVC.swift; sourceTree = "<group>"; };
+		82A09BFA1F0A4FC60091AC9B /* TotalSiteStaticCharVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TotalSiteStaticCharVC.swift; sourceTree = "<group>"; };
 		82E0CA721F0139160008D4C0 /* RangeSiteStaticWithDatesTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RangeSiteStaticWithDatesTVC.swift; sourceTree = "<group>"; };
 		82E0CA741F015A0E0008D4C0 /* RangeSiteStaticWithDatesCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RangeSiteStaticWithDatesCell.swift; sourceTree = "<group>"; };
 		82E0CAEE1F0452710008D4C0 /* GBCAStatisticsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GBCAStatisticsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -69,12 +74,14 @@
 		82F0A45A1F000470006B7F16 /* RangeSiteStaticTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RangeSiteStaticTVC.swift; sourceTree = "<group>"; };
 		82F0A45C1F000A90006B7F16 /* RangeSelectSiteTVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RangeSelectSiteTVCell.swift; sourceTree = "<group>"; };
 		82F0A45E1F0058AF006B7F16 /* RangeSiteStaticTVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RangeSiteStaticTVCell.swift; sourceTree = "<group>"; };
+		A612519EF5E7CC28EF61931F /* Pods-GBCAStatistics.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GBCAStatistics.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GBCAStatistics/Pods-GBCAStatistics.debug.xcconfig"; sourceTree = "<group>"; };
 		BE4FD0601EEEEBB4002F0679 /* GBCAStatistics.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GBCAStatistics.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE4FD0631EEEEBB4002F0679 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BE4FD0681EEEEBB4002F0679 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		BE4FD06A1EEEEBB4002F0679 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BE4FD06D1EEEEBB4002F0679 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BE4FD06F1EEEEBB4002F0679 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E0912AE320F1D2C7FB3B4B7C /* Pods_GBCAStatistics.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GBCAStatistics.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E79EE4CB9A0209B7E15CCD05 /* Pods-ios.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ios.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ios/Pods-ios.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -90,7 +97,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E0C386C923FE1E57DE128335 /* Pods_ios.framework in Frameworks */,
+				EA08B99546B95EE23E611912 /* Pods_GBCAStatistics.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -102,6 +109,8 @@
 			children = (
 				E79EE4CB9A0209B7E15CCD05 /* Pods-ios.debug.xcconfig */,
 				396B727C054DE7F9EA546DBF /* Pods-ios.release.xcconfig */,
+				A612519EF5E7CC28EF61931F /* Pods-GBCAStatistics.debug.xcconfig */,
+				6EFE580DE59852A13075E324 /* Pods-GBCAStatistics.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -127,6 +136,7 @@
 				82711F971EFFBD280030B1F5 /* TotalStaticRootTVCell.swift */,
 				82F0A4521EFFF794006B7F16 /* TotalSiteStaticTVC.swift */,
 				82F0A4541EFFF870006B7F16 /* TotalSiteStaticTVCell.swift */,
+				82A09BFA1F0A4FC60091AC9B /* TotalSiteStaticCharVC.swift */,
 				82F0A4561F00041B006B7F16 /* RangeRootTVC.swift */,
 				82F0A4581F000435006B7F16 /* RangeSelectSiteTVC.swift */,
 				82F0A45C1F000A90006B7F16 /* RangeSelectSiteTVCell.swift */,
@@ -134,6 +144,7 @@
 				82F0A45E1F0058AF006B7F16 /* RangeSiteStaticTVCell.swift */,
 				82E0CA721F0139160008D4C0 /* RangeSiteStaticWithDatesTVC.swift */,
 				82E0CA741F015A0E0008D4C0 /* RangeSiteStaticWithDatesCell.swift */,
+				82A09BF81F0A476C0091AC9B /* RangeSiteStaticWithDateChartVC.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -186,6 +197,7 @@
 			isa = PBXGroup;
 			children = (
 				3BA6E09608D9FF04B14FA287 /* Pods_ios.framework */,
+				E0912AE320F1D2C7FB3B4B7C /* Pods_GBCAStatistics.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -305,7 +317,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ios/Pods-ios-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-GBCAStatistics/Pods-GBCAStatistics-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		3CD5917CC7E9E71E4BF7B647 /* [CP] Check Pods Manifest.lock */ = {
@@ -320,7 +332,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		DFF1B23A498B0C56D645B20A /* [CP] Copy Pods Resources */ = {
@@ -335,7 +347,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ios/Pods-ios-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-GBCAStatistics/Pods-GBCAStatistics-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -358,6 +370,7 @@
 				82711F7F1EFF8EC30030B1F5 /* NetworkManager.swift in Sources */,
 				82F0A4511EFFF6CB006B7F16 /* TotalStaticRootTVC.swift in Sources */,
 				82F0A4551EFFF870006B7F16 /* TotalSiteStaticTVCell.swift in Sources */,
+				82A09BFB1F0A4FC60091AC9B /* TotalSiteStaticCharVC.swift in Sources */,
 				82E0CA731F0139160008D4C0 /* RangeSiteStaticWithDatesTVC.swift in Sources */,
 				82711F7B1EFF8EC30030B1F5 /* DataManager.swift in Sources */,
 				BE4FD0641EEEEBB4002F0679 /* AppDelegate.swift in Sources */,
@@ -365,6 +378,7 @@
 				82711F7D1EFF8EC30030B1F5 /* DBManager.swift in Sources */,
 				82F0A45D1F000A90006B7F16 /* RangeSelectSiteTVCell.swift in Sources */,
 				82711F961EFF912F0030B1F5 /* SiteData.swift in Sources */,
+				82A09BF91F0A476C0091AC9B /* RangeSiteStaticWithDateChartVC.swift in Sources */,
 				82711F7C1EFF8EC30030B1F5 /* DataProvider.swift in Sources */,
 				82F0A4531EFFF794006B7F16 /* TotalSiteStaticTVC.swift in Sources */,
 				82F0A4571F00041B006B7F16 /* RangeRootTVC.swift in Sources */,
@@ -473,7 +487,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -518,7 +532,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -529,7 +543,7 @@
 		};
 		BE4FD0731EEEEBB4002F0679 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E79EE4CB9A0209B7E15CCD05 /* Pods-ios.debug.xcconfig */;
+			baseConfigurationReference = A612519EF5E7CC28EF61931F /* Pods-GBCAStatistics.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 8Q4XC98JJR;
@@ -544,7 +558,7 @@
 		};
 		BE4FD0741EEEEBB4002F0679 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 396B727C054DE7F9EA546DBF /* Pods-ios.release.xcconfig */;
+			baseConfigurationReference = 6EFE580DE59852A13075E324 /* Pods-GBCAStatistics.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 8Q4XC98JJR;

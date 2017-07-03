@@ -19,7 +19,7 @@ class RangeSiteStaticTVC: UITableViewController, DataManagerProtocol {
     override func viewDidLoad() {
         dm.delegat = self
         dm.getOnRangeData(dateBegin: dateBegin, dateEnd: dateEnd)
-        navigationItem.title = siteName + " " + dateBegin.toString()! + "-" + dateEnd.toString()!
+        navigationItem.title = siteName // + " " + dateBegin.toString()! + "-" + dateEnd.toString()!
     }
     
     func didCompliteRequestOnRange(data: SiteDataArray, dateBegin: Date, dateEnd: Date){
@@ -54,6 +54,10 @@ class RangeSiteStaticTVC: UITableViewController, DataManagerProtocol {
                 destinationTVC.personName = siteDataArray.ranks[selectedItem.row].name
                 destinationTVC.infoWithDate = siteDataArray.filterBySiteAndPerson(siteName: siteName, personName: destinationTVC.personName)
             }
+        }
+        if segue.identifier == "TotalSiteStaticCharVC3" {
+            let destenationVC = segue.destination as! TotalSiteStaticCharVC
+            destenationVC.array = siteDataArray.ranks
         }
     }
 }
