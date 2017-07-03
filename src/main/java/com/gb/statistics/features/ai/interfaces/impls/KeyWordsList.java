@@ -1,5 +1,5 @@
 package com.gb.statistics.features.ai.interfaces.impls;
-;
+
 import com.gb.statistics.features.ai.controllers.KeyWordsListController;
 import com.gb.statistics.features.ai.controllers.ListController;
 import com.gb.statistics.features.ai.interfaces.ListInterface;

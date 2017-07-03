@@ -1,7 +1,6 @@
 package com.gb.statistics.features.ai.interfaces.impls;
 
 import com.gb.statistics.features.ai.controllers.ListController;
-import com.gb.statistics.features.ai.controllers.PersonListController;
 import com.gb.statistics.features.ai.interfaces.ListInterface;
 import com.gb.statistics.features.ai.model.ModelListData;
 import com.gb.statistics.features.ai.model.Person;

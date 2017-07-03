@@ -6,9 +6,7 @@ import com.gb.statistics.features.ai.interfaces.impls.KeyWordsList;
 import com.gb.statistics.features.ai.model.KeyWord;
 import com.gb.statistics.features.ai.model.Person;
 import com.gb.statistics.features.ai.window.ModalWindow;
-import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
