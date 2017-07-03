@@ -7,6 +7,7 @@ from UserManagement.models import Person as User
 from django.http import HttpResponseRedirect
 from .forms import ParametrizedStatForm
 from django.http import Http404
+import requests
 
 
 def main(request):
@@ -180,7 +181,7 @@ def admin_statistics(request):
     users = User.objects.all()
 
     if request.method == 'POST':
-        form = AddPerson(request.POST)
+        #form = AddPerson(request.POST)
         person_name = request.POST.get('new_person')
         print(person_name)
         r = requests.post('http://94.130.27.143:8080/api/person', json={'name': person_name},
@@ -189,7 +190,7 @@ def admin_statistics(request):
         print(persons_all)
 
     if request.method == 'DELETE':
-        form = DelPerson(request.DELETE)
+        #form = DelPerson(request.DELETE)
         person_id = request.DELETE.get('source')
         r = requests.delete('http://94.130.27.143:8080/api/person/102')
         print('USER REMOVED:', r.status_code)
