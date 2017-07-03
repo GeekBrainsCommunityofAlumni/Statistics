@@ -1,3 +1,5 @@
+#coding: utf-8
+
 from django import forms
 from UserManagement.models import Person
 from django.contrib.auth.models import User
