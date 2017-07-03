@@ -38,6 +38,12 @@
 
 {% if user.is_authenticated %}
 
+    <ol class="breadcrumb">
+        <li><a href="/daily_statistics/">Ежедневная статистика</a></li>
+        <li><a href="/periodic_statistics/">Статистика за период</a></li>
+        <li class="active">Личный кабинет</li>
+    </ol>
+
     <div class="thumbnail" id="user">
         <img src="{% static '/img/unknown.png' %}" alt="You">
         <h4>{{user.first_name}} {{user.last_name}}</h4>

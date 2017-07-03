@@ -37,6 +37,10 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+
+    <!--Load the AJAX API-->
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
 </head>
 <body>
     <div id="wrapper">
@@ -66,7 +70,7 @@
                             </a>
                         </div>
                         <div class="logo">
-                            <a href="{% static 'img/qr.jpg' %}" data-lightbox="QR">
+                            <a href="{% static 'img/qr.jpg' %}" title="QR-VisitCart" data-lightbox="QR">
                                 <img src="{% static 'img/qr.jpg' %}" border="0" title="QR код">
                             </a>
                         </div>
@@ -187,16 +191,30 @@
                 <ul class="nav navbar-nav side-nav">
                     <li class="{% if request.path == '/' %}active{% endif %}">
                         <a href="/"><i class="fa fa-home" aria-hidden="true"></i> Главная </a></li>
+                    <li class="{% if request.path == '/sitemap/' %}active{% endif %}">
+                        <a href="/sitemap/"><i class="fa fa-sitemap"></i> Карта сайта </a></li>
                     <li class="{% if request.path == '/privateroom/' %}active{% endif %}">
                         <a href="/privateroom/"><i class="fa fa-user-circle"></i> Личный кабинет </a></li>
-                    <li class="{% if request.path == '/daily_statistic/' or request.path == '/periodic_statistic/' %}active{% endif %}">
+                    <li class="{% if request.path == '/daily_statistic/' or request.path == '/periodic_statistic/' or request.path == '/admin_statistics/' %}active{% endif %}">
                         <a href="javascript:;" data-toggle="collapse" data-target="#demo">
-                            <i class="fa fa-fw fa-arrows-v"></i> Статистика <i class="fa fa-fw fa-caret-down"></i>
+                            <i class="fa fa-line-chart" aria-hidden="true"></i> Статистика <i class="fa fa-fw fa-arrows-v"></i>
                         </a>
                         <ul id="demo" class="collapse">
+                            <li><a href="/common_statistics/"> Общая статистика <br><i class="fa fa-line-chart"></i></a></li>
                             <li><a href="/daily_statistics/"> Ежедневная статистика <i class="fa fa-fw fa-bar-chart-o"></i></a></li>
                             <li ><a href="/periodic_statistics/"> Статистика за период <br> <i class="fa fa-fw fa-table"></i></a></li>
                             <li ><a href="/admin_statistics/"> Статистика - Admin <br> <i class="fa fa-cogs"></i></a></li>
+                        </ul>
+                    </li>
+                    <li class="{% if request.path == '/politics/' or request.path == '/business/' %}active{% endif %}">
+                        <a href="javascript:;" data-toggle="collapse" data-target="#demo1">
+                            <i class="fa fa-newspaper-o" aria-hidden="true"></i> Новости <i class="fa fa-fw fa-arrows-v"></i>
+                        </a>
+                        <ul id="demo1" class="collapse">
+                            <li><a href="/politics/"> Политика <i class="fa fa-flag-o"></i></a></li>
+                            <li><a href="/economics_and_finances/"> Экономика и финансы <i class="fa fa-credit-card"></i></a></li>
+                            <li ><a href="/business/"> Бизнес <i class="fa fa-briefcase"></i></a></li>
+                            <li ><a href="/society/"> Общество <i class="fa fa-male"></i><i class="fa fa-female"></i></a></li>
                         </ul>
                     </li>
                     <li class="{% if request.path == '/partnership/' %}active{% endif %}">
@@ -206,14 +224,14 @@
                     <li class="{% if request.path == '/review/' %}active{% endif %}">
                         <a href="/review/"><i class="fa fa-commenting"></i> Отзывы </a></li>
                     <li class="{% if request.path == '/support/' %}active{% endif %}">
-                        <a href="/support/"><i class="fa fa-fw fa-wrench"></i> ТехПоддержка </a></li>
-                    <li>
-                         <a href="/privateroom/">
-                             {% if not user.is_authenticated %}
-                             <i class="fa fa-sign-in"></i>  Войти
-                             {% endif %}
-                         </a>
-                    </li>
+                        <a href="/support/"><i class="fa fa-fw fa-wrench"></i>ТехПоддержка </a></li>
+                    <!--<li>-->
+                         <!--<a href="/privateroom/">-->
+                             <!--{% if not user.is_authenticated %}-->
+                             <!--<i class="fa fa-sign-in"></i>  Войти-->
+                             <!--{% endif %}-->
+                         <!--</a>-->
+                    <!--</li>-->
                     <li>
                         <a href="/registration/">
                             {% if not user.is_authenticated %}
@@ -227,7 +245,7 @@
                         {% if user.is_authenticated %}
                         <form method="post" class="logout" action="/user/logout/">
                             {% csrf_token %}
-                            <button class="btn btn-primary btn-sm" type="submit" value="Выйти">
+                            <button class="btn btn-danger btn-sm" type="submit" value="Выйти">
                                 <i class="fa fa-sign-out" aria-hidden="true"></i> Выйти
                             </button>
                         </form>

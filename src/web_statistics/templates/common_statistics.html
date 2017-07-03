@@ -1,0 +1,179 @@
+{% extends 'base.html' %}
+{% load static from staticfiles %}
+
+{% block title %}
+    Ежедневная статистика - user| {{block.super}}
+{% endblock %}
+
+{% block content %}
+ <h3 >
+        <i class="fa fa-bar-chart" aria-hidden="true"></i> Вы просматриваете общую статистику
+    </h3>
+<hr>
+<div class="col-sm-5">
+    <form action="/common_statistics/" method='post' role="form" class="control-label col-sm-12">
+        {% csrf_token %}
+        <h4>Настройки поиска:</h4>
+        <hr>
+        <div class="row">
+            <label class="control-label col-sm-5">
+                <i class="fa fa-laptop" aria-hidden="true"></i>
+                Выберите ресурс:
+            </label>
+            <div class="control-label col-sm-6">
+                <select id="source" class="form-control" name="source" required="">
+                    <option value="all">Все</option>
+                    {% if sites %}
+                    {% for site in sites %}
+                        <option value="{{ site.id }}">{{ site.name }}</option>
+                            {% endfor %}
+                    {% else %}
+                        <option value="0">Еще не добавлено</option>
+                    {% endif %}
+                </select>
+            </div>
+        </div>
+    <br>
+        <div class="row">
+            <label class="control-label col-sm-5">
+                <i class="fa fa-address-card-o" aria-hidden="true"></i>
+                Выберите объект:
+            </label>
+            <div class="control-label col-sm-6">
+                <select id="profile" class="form-control" name="profile" required="">
+                    <option value="all">Все</option>
+                        {% if persons_all %}
+                            {% for person in persons_all %}
+                                <option value="{{ person.id }}">
+                                    {{ person.name }}
+                                </option>
+                            {% endfor %}
+                        {% else %}
+                        <option value="0">Еще не добавлено</option>
+                        {% endif %}
+                </select>
+            </div>
+        </div>
+    <br>
+        <div class="row">
+            <label class="control-label col-sm-5">
+                <i class="fa fa-bar-chart" aria-hidden="true"></i>
+                Визуализация:
+            </label>
+            <div class="control-label col-sm-6">
+                <select id="visualization" class="form-control" name="visualization" required="">
+                    <option value="1">Таблица</option>
+                    <option value="2" disabled>График</option>
+                    <option value="3" disabled>Диаграмма</option>
+                </select>
+            </div>
+        </div>
+        <br>
+        <button type="submit" value="Поиск" formmethod="post" class="btn btn-success btn-sm">
+            <i class="fa fa-search" aria-hidden="true"></i> Поиск
+        </button>
+        <button type="reset" value="Очистить" class="btn btn-danger btn-xs">
+            <i class="fa fa-refresh" aria-hidden="true"></i> Очистить
+        </button>
+        <hr>
+    </form>
+</div>
+
+<div class="col-sm-7">
+    <h4>
+        Вывод по параметрам:
+    </h4>
+    <hr>
+
+    <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" href="#table_daily">Таблица</a></li>
+        <li><a data-toggle="tab" href="#chart_daily">Chart-график</a></li>
+        <!--<li><a data-toggle="tab" href="#daigram-daily">Диаграмма</a></li>-->
+    </ul>
+
+    <div class="tab-content">
+        <br>
+        <div id="table_daily" class="tab-pane fade in active">
+            <div class="col-sm-12">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Ресурс</th>
+                            <th>Объект</th>
+                            <th>Ключевые слова</th>
+                            <th>Упоминания</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% if persons %}
+                        {% for person in persons %}
+                    {% for site_selected in sites_selected %}
+                        <tr>
+
+                            <td>{{ site_selected.name }}</td>
+                            <td>{{ person.name }}</td>
+                            <td>{% for keyword in keywords %}
+                                    {% if keyword.person_id_id == person.id %}
+                                        {{ keyword.name}};
+                                    {% endif %}
+                                {% endfor %}
+                            </td>
+                            <td>
+                                {% for rank in person_ranks %}
+                                    {% if rank.person_id_id == person.id and rank.page_id_id == site_selected.id %}
+                                        {{ rank.rank }}
+                                    {% endif %}
+                                {% endfor %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    {% endfor %}
+                    {% endif %}
+                    </tbody>
+                </table>
+        <hr>
+                <button type="submit" value="Download .csv" formmethod="get" class="btn btn-primary btn-xs">
+                    <i class="fa fa-download" aria-hidden="true"></i> Download .csv
+                </button>
+		        <img src="{% static 'img/loading.gif' %}">
+            </div>
+        </div>
+
+        <div id="chart_daily" class="tab-pane fade">
+            <!--Div that will hold the dashboard-->
+            <div class="col-lg-12" id="column_diagram">
+                <div id="chart_div_daily">
+
+                    <script type="text/javascript">
+                       google.charts.load('current', {'packages':['corechart']});
+                       google.charts.setOnLoadCallback(drawVisualization);
+
+                       function drawVisualization() {
+                       // Some raw data (not necessarily accurate)
+                            var data = google.visualization.arrayToDataTable([
+                                ['Source',    'LastScan',    'WeekAgo',    'MonthAgo',    'AllTime'],
+                                ['РБК',        212,            38,           212,           598],
+                                ['Ведомости',  213,            31,           183,           568],
+                                ['Коммерсант', 215,            37,           187,           507]
+                            ]);
+
+                            var options = {
+                                width:600,
+                                height:300,
+                                title : 'Статистика упоминания личности {} на ресурсе: {}',
+                                vAxis: {title: 'Рейтинг'},
+                                hAxis: {title: 'Исследуемый интернет-ресурс'},
+                                seriesType: 'bars',
+                                <!--series: {0: {type: 'line'}}-->
+                            };
+
+                            var chart = new google.visualization.ComboChart(document.getElementById('chart_div_daily'));
+                            chart.draw(data, options);
+                       }
+                    </script>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

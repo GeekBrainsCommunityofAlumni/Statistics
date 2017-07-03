@@ -25,18 +25,24 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', main),
     url(r'^about/$', about),
-    url(r'^statistics/$', statistics),
     url(r'^daily_statistics/$', daily_statistics),
     url(r'^periodic_statistics/$', periodic_statistics),
     url(r'^admin_statistics/$', admin_statistics),
     url(r'^registration/$', registration),
     url(r'^privateroom/$', privateroom),
+    url(r'^sitemap/$', sitemap),
+    url(r'^faq/$', faq),
+    url(r'^politics/$', politics),
+    url(r'^business/$', business),
+    url(r'^economics_and_finances/$', economics_and_finances),
+    url(r'^society/$', society),
     url(r'^userinfo/$', privateroom),
     url(r'^authorization/$', authorization),
     url(r'^partnership/$', partnership),
     url(r'^contacts/$', contacts),
     url(r'^review/$', review),
     url(r'^support/$', support),
+    url(r'^common_statistics', common_statistics)
 ]
 
 urlpatterns += [

@@ -8,7 +8,6 @@ from django.core.exceptions import ValidationError
 from .forms import UploadFileForm
 # from .forms import MyRegistrationForm
 
-# Create your views here.
 
 def upload_file(request):
     if request.method == 'POST':
@@ -19,6 +18,7 @@ def upload_file(request):
     else:
         form = UploadFileForm()
     return render_to_response('upload.html', {'form': form})
+
 
 def login(request):
     if request.method == 'POST':

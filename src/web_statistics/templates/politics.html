@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+
+{% extends 'base.html' %}
+{% load static from staticfiles %}
+
+{% block title %}
+    Политика | {{block.super}}
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-12">
+        <h3 class="page-header text-center"> <i class="fa fa-flag-o"></i> [Политика] <br>
+            <small> ежедневный политический обозреватель </small>
+        </h3>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="input-group">
+                <span class="input-group-btn">
+                    <button class="btn btn-success" type="submit">
+                        <i class="fa fa-search"></i>
+                        Искать!
+                    </button>
+                </span>
+                <input type="text" class="form-control" placeholder="поиск по #-тегу">
+            </div><!-- /input-group -->
+            <h4><i class="fa fa-tags"></i>Tags:</h4>
+        </div><!-- /.col-lg-6 -->
+        <br>
+    </div>
+</div>
+
+<hr>
+<div class="col-lg-12">
+    <div class="col-lg-4">
+        <div class="raw text-center">
+            <div class="thumbnail">
+                <span class="label label-danger">Срочно!</span>
+                <h3><i class="fa fa-newspaper-o"></i> [Заголовок]</h3>
+                <i class="fa fa-calendar"></i><small>[Опубликовано:]</small>
+                <hr>
+                <div class="caption">
+                    <img src="{% static '#' %}" alt="NewPhoto">
+                </div>
+                <hr>
+                <div class="description">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam sit amet malesuada massa. Sed tempus leo vitae felis
+                    lobortis convallis.
+                    <hr>
+                </div>
+                <a href="#" class="btn btn-success btn-sm" role="button"><i class="fa fa-globe"></i> Источник</a>
+                <a href="#" class="btn btn-danger btn-xs" role="button"><i class="fa fa-comments"></i>Комментировать</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4">
+        <div class="raw text-center">
+            <div class="thumbnail">
+                <span class="label label-danger">Срочно!</span>
+                <h3><i class="fa fa-newspaper-o"></i> [Заголовок]</h3>
+                <i class="fa fa-calendar"></i><small>[Опубликовано:]</small>
+                <hr>
+                <div class="caption">
+                    <img src="{% static '#' %}" alt="NewPhoto">
+                </div>
+                <hr>
+                <div class="description">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam sit amet malesuada massa. Sed tempus leo vitae felis
+                    lobortis convallis.
+                    <hr>
+                </div>
+                <a href="#" class="btn btn-success btn-sm" role="button"><i class="fa fa-globe"></i> Источник</a>
+                <a href="#" class="btn btn-danger btn-xs" role="button"><i class="fa fa-comments"></i>Комментировать</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4">
+        <div class="raw text-center">
+            <div class="thumbnail">
+                <span class="label label-danger">Срочно!</span>
+                <h3><i class="fa fa-newspaper-o"></i> [Заголовок]</h3>
+                <i class="fa fa-calendar"></i><small>[Опубликовано:]</small>
+                <hr>
+                <div class="caption">
+                    <img src="{% static '#' %}" alt="NewPhoto">
+                </div>
+                <hr>
+                <div class="description">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam sit amet malesuada massa. Sed tempus leo vitae felis
+                    lobortis convallis.
+                    <hr>
+                </div>
+                <a href="#" class="btn btn-success btn-sm" role="button"><i class="fa fa-globe"></i> Источник</a>
+                <a href="#" class="btn btn-danger btn-xs" role="button"><i class="fa fa-comments"></i>Комментировать</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!--<div class="col-lg-12">-->
+
+{% endblock %}

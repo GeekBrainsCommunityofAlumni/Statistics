@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+
+{% extends "base.html" %}
+{% load static from staticfiles %}
+
+{% block title %}
+    Карта сайта | {{block.super}}
+{% endblock %}
+
+
+
+{% block content %}
+
+<div class="page-header">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <h1>
+                <i class="fa fa-sitemap" aria-hidden="true"></i>
+                Карта сайта <small> лёгкая навигация по ресурсу </small>
+            </h1>
+        </div>
+    </div>
+    <div class="raw">
+        <ol class="breadcrumb">
+            <li><a href="/faq/">FAQ</a></li>
+            <li><a href="/about/">О компании и продукте</a></li>
+            <li class="active">Sitemap</li>
+        </ol>
+    </div>
+</div>
+
+
+<div class="raw">
+    <img src="../static/img/sitemap_1.png" alt="sitemap">
+</div>
+{% endblock %}

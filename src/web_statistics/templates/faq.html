@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+
+{% extends 'base.html' %}
+{% load static from staticfiles %}
+
+{% block title %}
+    FAQ | {{block.super}}
+{% endblock %}
+
+{% block content %}
+    <ol class="breadcrumb">
+        <li><a href="/sitemap/">Карта сайта</a></li>
+        <li><a href="/about/">О компании и продукте</a></li>
+        <li class="active">FAQ</li>
+    </ol>
+
+
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="col-lg-12">
+            <h2>
+                <i class="fa fa-question-circle"></i>
+                Часто задаваемые вопросы (FAQ) <br>
+            </h2>
+        </div>
+    </div>
+</div>
+
+
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+    <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="headingOne">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                    Где можно применить данный продукт?
+                </a>
+            </h4>
+        </div>
+        <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+            <div class="panel-body">
+                <p>
+                    <i class="fa fa-reply"></i>
+                    <strong> «Statistics» </strong> позволяет пользователю собирать сведения по интересующему его
+                    политическому или общественному деятелю в контексте частоты упоминания фамилии последнего как на
+                    интернет-страницах официальных СМИ, так и в глобальном информационном пространстве.<br>
+                    Потенциальные пользователи «Statistics» - новостные сайты и информационные агенства, социологические
+                    службы и службы статистики (как государственные, так и коммерческие), высшие гуманитарные учебные
+                    заведения, рейтинговые агенства, PR-службы политических партий и отдельных политических деятелей,
+                    а также многие другие.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="headingTwo">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+                    В чём различия между платной и бесплатной версиями?
+                </a>
+            </h4>
+        </div>
+        <div id="collapseTwo" class="panel-collapse collapse">
+            <div class="panel-body">
+                <p>
+                    <i class="fa fa-reply"></i>
+                    Пользователю предлагается бесплатный и платный доступ к продукту на выбор.
+                    Преимуществами платного доступа являются:
+                </p>
+
+                <ul>
+                    <li>возможность для администратора добавить более 3-х базовых сайтов в список поиска;</li>
+                    <li>возможность для администратора добавить более 5 личностей в список поиска;</li>
+                    <li>возможность для администратора добавлять новые сайты в список поиска.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
+                    Как получить доступ к сайту после оплаты услуги?
+                </a>
+            </h4>
+        </div>
+        <div id="collapseThree" class="panel-collapse collapse">
+            <div class="panel-body">
+                <i class="fa fa-reply"></i>
+                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid.
+                3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod.
+                Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et.
+                Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+                Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic
+                synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour">
+                    В каких форматах предоставляется доступ к статистике?
+                </a>
+            </h4>
+        </div>
+        <div id="collapseFour" class="panel-collapse collapse">
+            <div class="panel-body">
+                <i class="fa fa-reply"></i>
+                Пользователю предоставляется возможность вывода статистики в формате таблицы и chart-диаграммы,
+                также предусмотрена выгрузка результатов в формате .csv.
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapseFive">
+                    Как настроить личный кабинет пользователя?
+                </a>
+            </h4>
+        </div>
+        <div id="collapseFive" class="panel-collapse collapse">
+            <div class="panel-body">
+                <i class="fa fa-reply"></i>
+                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid.
+                3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod.
+                Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et.
+                Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+                Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic
+                synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapseSix">
+                    Сколько администраторов, пользователей, ресурсов и личностей можно дабавить?
+                </a>
+            </h4>
+        </div>
+        <div id="collapseSix" class="panel-collapse collapse">
+            <div class="panel-body">
+                <i class="fa fa-reply"></i>
+                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid.
+                3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod.
+                Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et.
+                Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+                Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic
+                synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapseSeven">
+                    Как осуществлять поиск по тегам в разделе &laquo;Новости&raquo;?
+                </a>
+            </h4>
+        </div>
+        <div id="collapseSeven" class="panel-collapse collapse">
+            <div class="panel-body">
+                <i class="fa fa-reply"></i>
+                Поиск по тегам будет реализован в одном следующих релизов.
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapseEight">
+                    Комментарии новостной ленты.
+                </a>
+            </h4>
+        </div>
+        <div id="collapseEight" class="panel-collapse collapse">
+            <div class="panel-body">
+                <i class="fa fa-reply"></i>
+                Поиск по тегам будет реализован в одном следующих релизов.
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapseNine">
+                    Радистанции и курсы валют.
+                </a>
+            </h4>
+        </div>
+        <div id="collapseNine" class="panel-collapse collapse">
+            <div class="panel-body">
+                <i class="fa fa-reply"></i>
+                Потенциальные пользователи нашего продукта - люди, держащие руку на пульсе событий,
+                на уровне своей компании, страны, в глобальном формате. Передовой доступ к качественной новостной и
+                аналитической информации становится основой конкурентного существования в нашем Мире, обеспечивая
+                возможность непрерывного повышения собственной компетенции. В связи с этим авторизованному пользователю
+                предлагается сервис радиовещания ключевых новостных и бизнес источников. Для бизнес-аудитории нашего сайта,
+                связанного с биржевой торговлей, также предлагается сервис &laquo;Котировки&raquo;.
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapseTen">
+                    Список технических вопросов для группы поддержки
+                </a>
+            </h4>
+        </div>
+        <div id="collapseTen" class="panel-collapse collapse">
+            <div class="panel-body">
+                <i class="fa fa-reply"></i>
+                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid.
+                3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod.
+                Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et.
+                Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+                Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic
+                synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
