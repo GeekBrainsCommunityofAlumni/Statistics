@@ -8,7 +8,7 @@
 
 import UIKit
 
-class RangeRootTVC: UITableViewController, DataManagerProtocol, UITextFieldDelegate {
+class RangeRootTVC: UITableViewController {
 //    var dm = DataManager.initWithNetworkManager()
     var dm = DataManager.initWithFakeManager()
     var siteDataArray = SiteDataArray()
@@ -26,6 +26,7 @@ class RangeRootTVC: UITableViewController, DataManagerProtocol, UITextFieldDeleg
     @IBAction func showButtonPush(_ sender: Any) {
         hideDatePicker()
     }
+    
     override func viewDidLoad() {
         dm.delegat = self
         dm.getTotalData()
@@ -41,7 +42,6 @@ class RangeRootTVC: UITableViewController, DataManagerProtocol, UITextFieldDeleg
         dateEndTextField.text = dateEndDatePicker.date.toString()
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(hideDatePicker))
         tableView.addGestureRecognizer(tapGesture)
-
     }
     
     func dateBeginChanged(_ sender: UIDatePicker) {
@@ -51,17 +51,8 @@ class RangeRootTVC: UITableViewController, DataManagerProtocol, UITextFieldDeleg
     func dateEndChanged(_ sender: UIDatePicker) {
         dateEndTextField.text = dateEndDatePicker.date.toString()
     }
-    func didCompliteRequestOnRange(data: SiteDataArray, dateBegin: Date, dateEnd: Date) {
-    }
     
-    func didCompliteRequestTotal(data: SiteDataArray) {
-        siteDataArray = data
-        if selectedSiteTextField.text == "" && siteDataArray.sites.count > 0{
-            selectedSiteTextField.text = siteDataArray.sites.first?.name
-        }
-    }
-    
-    @IBAction func unwindToRangeRootTVC(segue:UIStoryboardSegue){
+    @IBAction func unwindToRangeRootTVC(segue:UIStoryboardSegue) {
         let sourceTVC = segue.source as! RangeSelectSiteTVC
         selectedSiteTextField.text = sourceTVC.selectedSite
     }
@@ -89,12 +80,16 @@ class RangeRootTVC: UITableViewController, DataManagerProtocol, UITextFieldDeleg
         }
     }
     
-    func hideDatePicker(){
+    func hideDatePicker() {
         dateBeginSelectCell.isHidden = true
         dateEndSelectCell.isHidden = true
         tableView.reloadData()
     }
     
+
+}
+
+extension RangeRootTVC: UITextFieldDelegate {
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         hideDatePicker()
         if textField == selectedSiteTextField {
@@ -113,8 +108,19 @@ class RangeRootTVC: UITableViewController, DataManagerProtocol, UITextFieldDeleg
     }
 }
 
+extension RangeRootTVC: DataManagerDelegat {
+    func didCompliteRequestOnRange(data: SiteDataArray, dateBegin: Date, dateEnd: Date) {
+    }
+    
+    func didCompliteRequestTotal(data: SiteDataArray) {
+        siteDataArray = data
+        if selectedSiteTextField.text == "" && siteDataArray.sites.count > 0 {
+            selectedSiteTextField.text = siteDataArray.sites.first?.name
+        }
+    }
+}
 extension String {
-    func toDate() -> Date?{
+    func toDate() -> Date? {
         let formatter = DateFormatter()
         formatter.dateFormat = "dd.MM.yyyy"
         return formatter.date(from: self)
@@ -122,7 +128,7 @@ extension String {
 }
 
 extension Date{
-    func toString() -> String?{
+    func toString() -> String? {
         let formater = DateFormatter()
         formater.dateFormat = "dd.MM.yyyy"
         return formater.string(from: self)

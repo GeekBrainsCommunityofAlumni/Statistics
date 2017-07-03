@@ -8,7 +8,7 @@
 
 import UIKit
 
-class RangeSiteStaticTVC: UITableViewController, DataManagerProtocol {
+class RangeSiteStaticTVC: UITableViewController {
     var siteName: String!
     var dateBegin: Date!
     var dateEnd: Date!
@@ -20,15 +20,6 @@ class RangeSiteStaticTVC: UITableViewController, DataManagerProtocol {
         dm.delegat = self
         dm.getOnRangeData(dateBegin: dateBegin, dateEnd: dateEnd)
         navigationItem.title = siteName // + " " + dateBegin.toString()! + "-" + dateEnd.toString()!
-    }
-    
-    func didCompliteRequestOnRange(data: SiteDataArray, dateBegin: Date, dateEnd: Date){
-        siteDataArray = data.filterBySite(siteName: siteName)
-        tableView.reloadData()
-    }
-    
-    func didCompliteRequestTotal(data: SiteDataArray){
-        
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -59,5 +50,15 @@ class RangeSiteStaticTVC: UITableViewController, DataManagerProtocol {
             let destenationVC = segue.destination as! TotalSiteStaticCharVC
             destenationVC.array = siteDataArray.ranks
         }
+    }
+}
+
+extension RangeSiteStaticTVC: DataManagerDelegat {
+    func didCompliteRequestOnRange(data: SiteDataArray, dateBegin: Date, dateEnd: Date) {
+        siteDataArray = data.filterBySite(siteName: siteName)
+        tableView.reloadData()
+    }
+    
+    func didCompliteRequestTotal(data: SiteDataArray){
     }
 }

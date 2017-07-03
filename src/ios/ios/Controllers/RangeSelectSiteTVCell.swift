@@ -9,7 +9,5 @@
 import UIKit
 
 class RangeSelectSiteTVCell: UITableViewCell {
-
     @IBOutlet weak var siteNameLabel: UILabel!
-
 }

@@ -6,6 +6,6 @@
 //  Copyright © 2017 GB. All rights reserved.
 //
 
-class DBManager: DataProvider{
+class DBManager: DataProvider {
     
 }

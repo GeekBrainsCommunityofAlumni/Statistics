@@ -9,7 +9,7 @@
 
 //  Superstucture for SiteData. Alow work with SiteData array
 class SiteDataArray: Sequence {
-    private var array: [SiteData] = []{
+    private var array: [SiteData] = [] {
         didSet {
             ranks = updateRanks()
             sites = updateSites()
@@ -22,11 +22,11 @@ class SiteDataArray: Sequence {
         self.sites = self.updateSites()
     }
     
-    convenience init(){
+    convenience init() {
         self.init(data: [])
     }
     //  Subscript when alow access to all SiteData info
-    subscript (index: Int) -> SiteData?{
+    subscript (index: Int) -> SiteData? {
         get {
             if index < array.count {
                return array[index]
@@ -43,10 +43,10 @@ class SiteDataArray: Sequence {
     //  Array person-rank info for all data
     var ranks: [Info] = []
     //  Return SiteDateArray with info only one site
-    func filterBySite(siteName: String) -> SiteDataArray{
+    func filterBySite(siteName: String) -> SiteDataArray {
         let filteredArray = array.filter { (siteData) -> Bool in
             if siteData.site == siteName {
-                siteData.ranks = siteData.updateRanks()
+//                siteData.ranks = siteData.updateRanks()
                 return true
             } else {
                 return false
@@ -80,7 +80,7 @@ class SiteDataArray: Sequence {
         }
     }
     
-    var count: Int{
+    var count: Int {
         get {
             return array.count
         }

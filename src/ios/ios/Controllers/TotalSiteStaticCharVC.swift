@@ -9,17 +9,16 @@
 import UIKit
 import Charts
 
-class TotalSiteStaticCharVC: UIViewController, ChartViewDelegate {
+class TotalSiteStaticCharVC: UIViewController {
     var array: [Info] = []
     @IBOutlet var pieChartView: PieChartView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setChartData()
-        pieChartView.delegate = self
     }
     
-    func setChartData(){
+    func setChartData() {
         var values = [PieChartDataEntry]()
         for item in array {
             values.append(PieChartDataEntry(value: Double(item.count), label: item.name))

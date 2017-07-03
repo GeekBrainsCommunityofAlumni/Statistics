@@ -9,7 +9,7 @@
 import UIKit
 import Charts
 
-class RangeSiteStaticWithDateChartVC: UIViewController, ChartViewDelegate {
+class RangeSiteStaticWithDateChartVC: UIViewController {
     var personName: String!
     var siteName: String!
     var infoWithDate: [InfoWithDate] = []
@@ -20,12 +20,11 @@ class RangeSiteStaticWithDateChartVC: UIViewController, ChartViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setChartData(infoWithDate: infoWithDate)
-        self.lineChartView.delegate = self
         self.navigationItem.title = siteName
         self.lineChartView.chartDescription?.text = ""
     }
     
-    func setChartData(infoWithDate: [InfoWithDate]){
+    func setChartData(infoWithDate: [InfoWithDate]) {
         let datesInString: [String] = []
 //        let range = DateRange(beginDate: ((infoWithDate.first)?.date)!, endDate: ((infoWithDate.last)?.date)!)
 //        for currentDate in range {
@@ -56,7 +55,7 @@ class RangeSiteStaticWithDateChartVC: UIViewController, ChartViewDelegate {
 }
 
 extension Date {
-    func toStringShort() -> String?{
+    func toStringShort() -> String? {
         let formater = DateFormatter()
         formater.dateFormat = "dd.MM"
         return formater.string(from: self)

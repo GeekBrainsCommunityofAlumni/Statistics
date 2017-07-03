@@ -7,18 +7,18 @@
 //
 import UIKit
 
-protocol DataManagerProtocol {
+protocol DataManagerDelegat {
     func didCompliteRequestOnRange(data: SiteDataArray, dateBegin: Date, dateEnd: Date)
     func didCompliteRequestTotal(data: SiteDataArray)
 }
 
 //  DataManager - class for get info in network source or database source(if present), save network info in database (if present). Return on level up resource requirements
-class DataManager: DataProviderProtocol{
-    private var dbManager: DataProvider?
-    private var networkManager: DataProvider?
-    var delegat: DataManagerProtocol?
+class DataManager {
+    fileprivate var dbManager: DataProvider?
+    fileprivate var networkManager: DataProvider?
+    var delegat: DataManagerDelegat?
     
-    func getTotalData(){
+    func getTotalData() {
         if let dbmanager = self.dbManager {
             dbmanager.getTotalData()
         } else if let networkmanager = self.networkManager {
@@ -29,7 +29,7 @@ class DataManager: DataProviderProtocol{
         }
     }
     
-    func getOnRangeData(dateBegin: Date, dateEnd: Date){
+    func getOnRangeData(dateBegin: Date, dateEnd: Date) {
         if let dbmanager = self.dbManager {
             dbmanager.getOnRangeData(dateBegin: dateBegin, dateEnd: dateEnd)
         } else if let networkmanager = self.networkManager {
@@ -47,8 +47,24 @@ class DataManager: DataProviderProtocol{
         self.networkManager?.delegat = self
     }
     
-    func didCompliteRequestOnRange(data: SiteDataArray, dateBegin: Date, dateEnd: Date, dataProvider: DataProvider){
-        if data.isEmpty == true{
+    //  Init class with NetworkManager
+    static func initWithNetworkManager() -> DataManager {
+        let nm = NetworkManager()
+        let dm = DataManager(dbManager: nil, networkManager: nm)
+        return dm
+    }
+    //  Init class with FakeManager
+    static func initWithFakeManager() -> DataManager {
+        let fm = FakeManager()
+        let dm = DataManager(dbManager: nil, networkManager: fm)
+        return dm
+    }
+}
+
+extension DataManager: DataProviderDelegat {
+    
+    func didCompliteRequestOnRange(data: SiteDataArray, dateBegin: Date, dateEnd: Date, dataProvider: DataProvider) {
+        if data.isEmpty == true {
             if dataProvider.type == .db {
                 self.networkManager?.getOnRangeData(dateBegin: dateBegin, dateEnd: dateEnd)
             } else {
@@ -64,8 +80,8 @@ class DataManager: DataProviderProtocol{
         }
     }
     
-    func didCompliteRequestTotal(data: SiteDataArray, dataProvider: DataProvider){
-        if data.isEmpty == true{
+    func didCompliteRequestTotal(data: SiteDataArray, dataProvider: DataProvider) {
+        if data.isEmpty == true {
             if dataProvider.type == .db {
                 self.networkManager?.getTotalData()
             } else {
@@ -80,17 +96,4 @@ class DataManager: DataProviderProtocol{
             }
         }
     }
-    //  Init class with NetworkManager
-    static func initWithNetworkManager() -> DataManager{
-        let nm = NetworkManager()
-        let dm = DataManager(dbManager: nil, networkManager: nm)
-        return dm
-    }
-    //  Init class with FakeManager
-    static func initWithFakeManager() -> DataManager{
-        let fm = FakeManager()
-        let dm = DataManager(dbManager: nil, networkManager: fm)
-        return dm
-    }
 }
-

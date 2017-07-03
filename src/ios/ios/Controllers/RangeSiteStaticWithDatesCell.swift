@@ -9,9 +9,6 @@
 import UIKit
 
 class RangeSiteStaticWithDatesCell: UITableViewCell {
-
     @IBOutlet weak var dateLabel: UILabel!
-   
     @IBOutlet weak var countLabel: UILabel!
- 
-   }
+}

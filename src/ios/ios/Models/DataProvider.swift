@@ -14,21 +14,22 @@ enum DataProviderType {
     case source     // network or etc. only read alow
 }
 
-protocol DataProviderProtocol {
+protocol DataProviderDelegat {
     func didCompliteRequestOnRange(data: SiteDataArray, dateBegin: Date, dateEnd: Date, dataProvider: DataProvider)
     func didCompliteRequestTotal(data: SiteDataArray, dataProvider: DataProvider)
 }
+
 //  Abstract class for random data source and database. DataManager work only with subclass of DataProvider
-class DataProvider{
+class DataProvider {
     var type: DataProviderType!
-    var delegat: DataProviderProtocol!
+    var delegat: DataProviderDelegat!
     //  Get total information
-    func getTotalData(){
+    func getTotalData() {
     }
     //  Get information on date range
-    func getOnRangeData(dateBegin: Date, dateEnd: Date){
+    func getOnRangeData(dateBegin: Date, dateEnd: Date) {
     }
     //  Put information in database. In source DataProvider this funciton not work
-    func putData(data: SiteDataArray){
+    func putData(data: SiteDataArray) {
     }
 }

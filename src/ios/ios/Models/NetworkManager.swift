@@ -32,7 +32,7 @@ fileprivate struct Rank {
     var date: Date?
 }
 
-protocol NetworkProcessProtocol{
+protocol NetworkProcessDelegat {
     func didCompliteTotalRankProcess(siteData: [SiteData])
     func didCompliteOnRangRankProcess(siteData: [SiteData], dateBegin: Date, dateEnd: Date)
 }
@@ -42,15 +42,15 @@ class NetworkProcess {
     var baseURL: String
     private var queue = DispatchQueue(label: "Network.manager")
     //  Flags for different process
-    private var sitesDownloaded = false{
+    private var sitesDownloaded = false {
         didSet {
-            if self.sitesDownloaded == true{
+            if self.sitesDownloaded == true {
                 self.getAllPerson()
             }
         }
     }
     
-    private var personsDownloaded = false{
+    private var personsDownloaded = false {
         didSet {
             if self.personsDownloaded == true {
                 if self.queryType == .total {
@@ -75,7 +75,7 @@ class NetworkProcess {
         }
     }
     
-    private func rankCounterIncrement(){
+    private func rankCounterIncrement() {
         queue.sync {
             if rankCounter == nil {
                 rankCounter = 1
@@ -85,7 +85,7 @@ class NetworkProcess {
         }
     }
     
-    private func rankCounterDecrement(){
+    private func rankCounterDecrement() {
         queue.sync {
             rankCounter = rankCounter! - 1
         }
@@ -95,7 +95,7 @@ class NetworkProcess {
     private var persons: [Person] = []
     private var ranks: [Rank] = []
     
-     private func rankAppend(rank: Rank){
+     private func rankAppend(rank: Rank) {
         queue.sync {
             ranks.append(rank)
         }
@@ -104,13 +104,13 @@ class NetworkProcess {
     private var queryType: QueryType
     private var dateBegin: Date?
     private var dateEnd: Date?
-    var delegat: NetworkProcessProtocol
+    var delegat: NetworkProcessDelegat
     
-     public func start(){
+     public func start() {
         getAllSites()
     }
     
-    init(queryType: QueryType, delegat: NetworkProcessProtocol, baseURL: String, date1: Date?, date2: Date?) {
+    init(queryType: QueryType, delegat: NetworkProcessDelegat, baseURL: String, date1: Date?, date2: Date?) {
         self.baseURL = baseURL
         self.queryType = queryType
         self.delegat = delegat
@@ -120,27 +120,27 @@ class NetworkProcess {
         }
     }
     
-    convenience init(delegat: NetworkProcessProtocol, baseURL: String) {
+    convenience init(delegat: NetworkProcessDelegat, baseURL: String) {
         self.init(queryType: .total, delegat: delegat, baseURL: baseURL, date1: nil, date2: nil)
     }
     
-    convenience init(delegat: NetworkProcessProtocol, baseURL: String, date1: Date?, date2: Date?) {
+    convenience init(delegat: NetworkProcessDelegat, baseURL: String, date1: Date?, date2: Date?) {
         self.init(queryType: .onDate, delegat: delegat, baseURL: baseURL, date1: date1, date2: date2)
     }
     
-    private func getAllSites(){
+    private func getAllSites() {
         let url = baseURL + "/site"
         Alamofire.request(url).responseJSON { (response) in
             if let error = response.error{
                 print("Network error \(error)")
             } else {
-                switch response.response!.statusCode{
+                switch response.response!.statusCode {
                 case 200:
                     if let data = response.data{
                         var sitesUpdate: [Site] = []
                         let json = JSON(data)
-                        if let jsonArray = json.array{
-                            for item in jsonArray{
+                        if let jsonArray = json.array {
+                            for item in jsonArray {
                                 var site = Site()
                                 site.id = item["id"].intValue
                                 site.name = item["name"].stringValue
@@ -163,7 +163,7 @@ class NetworkProcess {
         }
     }
     
-    private func getAllPerson(){
+    private func getAllPerson() {
         let url = baseURL + "/person"
         Alamofire.request(url).responseJSON { (response) in
             if let error = response.error{
@@ -171,11 +171,11 @@ class NetworkProcess {
             } else {
                 switch response.response!.statusCode{
                 case 200:
-                    if let data = response.data{
+                    if let data = response.data {
                         var personUpdate: [Person] = []
                         let json = JSON(data)
-                        if let jsonArray = json.array{
-                            for item in jsonArray{
+                        if let jsonArray = json.array {
+                            for item in jsonArray {
                                 var person = Person()
                                 person.id = item["id"].intValue
                                 person.name = item["name"].stringValue
@@ -199,17 +199,17 @@ class NetworkProcess {
         }
     }
     
-    private func getTotalRank(){
-        for site in self.sites{
+    private func getTotalRank() {
+        for site in self.sites {
             self.rankCounterIncrement()
             let url = baseURL + "/stat/\(site.id!)"
             Alamofire.request(url).responseJSON { (response) in
-                if let error = response.error{
+                if let error = response.error {
                     print("Network error \(error)")
                 } else {
-                    switch response.response!.statusCode{
+                    switch response.response!.statusCode {
                     case 200:
-                        if let data = response.data{
+                        if let data = response.data {
                             let json = JSON(data)
                             for itemJson in json.arrayValue {
                                 var newTotalRank = Rank()
@@ -234,7 +234,7 @@ class NetworkProcess {
         }
     }
     
-    private func getOnRangRank(){
+    private func getOnRangRank() {
         guard let dBegin = self.dateBegin?.toStringBack() else {
             print("getOnDateRank. dateBegin is nil")
             return
@@ -243,19 +243,19 @@ class NetworkProcess {
             print("getOnDateRank. dateEnd is nil")
             return
         }
-        for site in self.sites{
-            for person in self.persons{
+        for site in self.sites {
+            for person in self.persons {
                 rankCounterIncrement()
                 let url = baseURL + "/stat/\(site.id!)/\(person.id!)/\(dBegin)/\(dEnd)"
                 Alamofire.request(url).responseJSON { (response) in
-                    if let error = response.error{
+                    if let error = response.error {
                         print("Network error \(error)")
                     } else {
-                        switch response.response!.statusCode{
+                        switch response.response!.statusCode {
                         case 200:
-                            if let data = response.data{
+                            if let data = response.data {
                                 let json = JSON(data)
-                                for itemJson in json.arrayValue{
+                                for itemJson in json.arrayValue {
                                     var newOnDateRank = Rank()
                                     newOnDateRank.siteID = site.id
                                     newOnDateRank.personID = person.id
@@ -282,7 +282,7 @@ class NetworkProcess {
         }
     }
     
-    private func compileTotalRankInfo(){
+    private func compileTotalRankInfo() {
         guard self.ranks.count > 0 else {
             print("compileDataError. totalRank is nil")
             return
@@ -290,11 +290,11 @@ class NetworkProcess {
         let queue = DispatchQueue.global(qos: .userInitiated)
         queue.async {
             var compiledRank: [SiteData] = []
-            for site in self.sites{
+            for site in self.sites {
                 let siteArray = self.ranks.filter({ (rank) -> Bool in rank.siteID == site.id })
                 let siteData = SiteData()
                 siteData.site = site.name
-                for person in self.persons{
+                for person in self.persons {
                     let personRank = siteArray.filter({ (p) -> Bool in p.personID == person.id })
                     if personRank.isEmpty {
                         siteData.stats[person.name] = 0
@@ -310,7 +310,7 @@ class NetworkProcess {
         }
     }
     
-    private func compileOnRangRankInfo(){
+    private func compileOnRangRankInfo() {
         guard self.ranks.count > 0 else {
             print("compileDataError. totalRank is nil")
             return
@@ -318,7 +318,7 @@ class NetworkProcess {
         let queue = DispatchQueue.global(qos: .userInitiated)
         queue.async {
             var compiledRank: [SiteData] = []
-            for site in self.sites{
+            for site in self.sites {
                 let siteArray = self.ranks.filter({ (rank) -> Bool in rank.siteID == site.id })
                 var dateArray: [Date] = []
                 for item in siteArray {
@@ -329,7 +329,7 @@ class NetworkProcess {
                     let siteData = SiteData()
                     siteData.site = site.name
                     siteData.date = onDate
-                    for person in self.persons{
+                    for person in self.persons {
                         let personRank = siteArray.filter({ (p) -> Bool in p.personID == person.id && p.date == onDate })
                         if personRank.count > 0 {
                             siteData.stats[person.name] = (personRank.first)?.rank
@@ -348,14 +348,14 @@ class NetworkProcess {
 }
 
 //  Get information from network over REST. Work with query as FIFO
-class NetworkManager:DataProvider, NetworkProcessProtocol {
+class NetworkManager:DataProvider {
     var baseURL: String = "http://94.130.27.143:8080/api"
 
     private var processes: [NetworkProcess] = [] {
-        didSet (value){
+        didSet (value) {
             if value.count == 0 && processes.count == 1 {
                 processes.first?.start()
-            } else if value.count < processes.count && processes.count > 0{
+            } else if value.count < processes.count && processes.count > 0 {
                 processes.first?.start()
             }
         }
@@ -376,11 +376,13 @@ class NetworkManager:DataProvider, NetworkProcessProtocol {
         processes.append(process)
     }
     
-    private func removeNetworkProcess(){
+    fileprivate func removeNetworkProcess() {
         processes.removeFirst()
     }
-    
-    internal func didCompliteTotalRankProcess(siteData: [SiteData]){
+}
+
+extension NetworkManager: NetworkProcessDelegat {
+    internal func didCompliteTotalRankProcess(siteData: [SiteData]) {
         self.removeNetworkProcess()
         delegat.didCompliteRequestTotal(data: SiteDataArray(data: siteData), dataProvider: self)
     }
@@ -389,19 +391,19 @@ class NetworkManager:DataProvider, NetworkProcessProtocol {
         self.removeNetworkProcess()
         delegat.didCompliteRequestOnRange(data: SiteDataArray(data: siteData), dateBegin: dateBegin, dateEnd: dateEnd, dataProvider: self)
     }
-    
 }
+
 //  Convert string to date with format useed in REST
 extension String {
-    func toDateBack() -> Date?{
+    func toDateBack() -> Date? {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd"
         return formatter.date(from: self)
     }
 }
 
-extension Date{
-    func toStringBack() -> String?{
+extension Date {
+    func toStringBack() -> String? {
         let formater = DateFormatter()
         formater.dateFormat = "yyyy-MM-dd"
         return formater.string(from: self)

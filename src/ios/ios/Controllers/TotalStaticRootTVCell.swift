@@ -9,8 +9,6 @@
 import UIKit
 
 class TotalStaticRootTVCell: UITableViewCell {
-
     @IBOutlet weak var countLabel: UILabel!
     @IBOutlet weak var nameLabel: UILabel!
-
 }
