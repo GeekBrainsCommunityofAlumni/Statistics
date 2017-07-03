@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane stylesheets="/css/style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gb.statistics.features.ai.controllers.RootFrameController">
+   <children>
+      <MenuBar layoutX="89.0" layoutY="2.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <menus>
+          <Menu mnemonicParsing="false" text="О компании">
+            <items>
+                <MenuItem fx:id="faq" mnemonicParsing="false" text="FAQ" />
+                <MenuItem fx:id="help" mnemonicParsing="false" text="Помощь" />
+                <MenuItem fx:id="contacts" mnemonicParsing="false" text="Контакты" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+      <TabPane fx:id="rootTabPane" prefHeight="224.0" prefWidth="420.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="25.0">
+          <tabs>
+              <Tab fx:id="personListTab" text="Личности">
+                  <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                  </content>
+              </Tab>
+              <Tab fx:id="keyWordsListTab" text="Ключевые слова">
+                  <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                  </content>
+              </Tab>
+              <Tab fx:id="siteListTab" text="Сайты">
+                  <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                  </content>
+              </Tab>
+          </tabs>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </TabPane>
+   </children>
+</AnchorPane>
