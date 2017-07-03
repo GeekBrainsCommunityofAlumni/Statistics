@@ -1,3 +1,5 @@
+#coding: utf-8
+
 from django.contrib import auth
 from django.shortcuts import render, render_to_response
 from django.http import Http404, HttpResponseRedirect
