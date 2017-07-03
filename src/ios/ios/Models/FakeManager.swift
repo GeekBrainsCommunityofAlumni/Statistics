@@ -40,19 +40,21 @@ struct DateRange: Sequence {
         }
     }
 }
+
 //  Generate fake data
 class FakeGenerator {
-    static let sitesName: [String] = ["Forestbook", "ForestNews", "ForestTymes"]
-    static let personsName: [String] = ["Red hat", "Gray woolf", "Grandma", "Logger"]
+    private static let sitesName: [String] = ["Forestbook", "ForestNews", "ForestTymes"]
+    private static let personsName: [String] = ["Red hat", "Gray woolf", "Grandma", "Logger"]
     
     static let shared: FakeGenerator = {
         let instance = FakeGenerator()
         instance.siteDataArray = SiteDataArray(data: generateFakeData())
         return instance
     }()
+    
     var siteDataArray: SiteDataArray!
     
-    static func generateFakeData() -> [SiteData] {
+    private static func generateFakeData() -> [SiteData] {
         var dateRange: DateRange {
             let dateBegin = Calendar.current.date(byAdding: Calendar.Component.month, value: -4, to: Date())!
             let dateEnd = Date()
@@ -79,9 +81,10 @@ class FakeGenerator {
         return sitesData
     }
 }
+
 // Class for test
 class FakeManager:DataProvider {
-    var siteDataArray: SiteDataArray!
+    private var siteDataArray: SiteDataArray!
     
     override init() {
         super.init()

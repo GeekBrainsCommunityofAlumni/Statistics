@@ -8,18 +8,10 @@
 
 import UIKit
 
-class TotalStaticRootTVC: UITableViewController, DataManagerDelegat {
+class TotalStaticRootTVC: UITableViewController {
 //    var dm = DataManager.initWithNetworkManager()
     var dm = DataManager.initWithFakeManager()
     var siteDataArray = SiteDataArray()
-    
-    func didCompliteRequestOnRange(data: SiteDataArray, dateBegin: Date, dateEnd: Date) {
-    }
-    
-    func didCompliteRequestTotal(data: SiteDataArray) {
-        self.siteDataArray = data
-        tableView.reloadData()
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,4 +48,12 @@ class TotalStaticRootTVC: UITableViewController, DataManagerDelegat {
     }
 }
 
-
+extension TotalStaticRootTVC: DataManagerDelegat {
+    func didCompliteRequestOnRange(data: SiteDataArray, dateBegin: Date, dateEnd: Date) {
+    }
+    
+    func didCompliteRequestTotal(data: SiteDataArray) {
+        self.siteDataArray = data
+        tableView.reloadData()
+    }
+}

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class RangeRootTVC: UITableViewController, DataManagerDelegat, UITextFieldDelegate {
+class RangeRootTVC: UITableViewController {
 //    var dm = DataManager.initWithNetworkManager()
     var dm = DataManager.initWithFakeManager()
     var siteDataArray = SiteDataArray()
@@ -26,6 +26,7 @@ class RangeRootTVC: UITableViewController, DataManagerDelegat, UITextFieldDelega
     @IBAction func showButtonPush(_ sender: Any) {
         hideDatePicker()
     }
+    
     override func viewDidLoad() {
         dm.delegat = self
         dm.getTotalData()
@@ -41,7 +42,6 @@ class RangeRootTVC: UITableViewController, DataManagerDelegat, UITextFieldDelega
         dateEndTextField.text = dateEndDatePicker.date.toString()
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(hideDatePicker))
         tableView.addGestureRecognizer(tapGesture)
-
     }
     
     func dateBeginChanged(_ sender: UIDatePicker) {
@@ -50,15 +50,6 @@ class RangeRootTVC: UITableViewController, DataManagerDelegat, UITextFieldDelega
     
     func dateEndChanged(_ sender: UIDatePicker) {
         dateEndTextField.text = dateEndDatePicker.date.toString()
-    }
-    func didCompliteRequestOnRange(data: SiteDataArray, dateBegin: Date, dateEnd: Date) {
-    }
-    
-    func didCompliteRequestTotal(data: SiteDataArray) {
-        siteDataArray = data
-        if selectedSiteTextField.text == "" && siteDataArray.sites.count > 0 {
-            selectedSiteTextField.text = siteDataArray.sites.first?.name
-        }
     }
     
     @IBAction func unwindToRangeRootTVC(segue:UIStoryboardSegue) {
@@ -95,6 +86,10 @@ class RangeRootTVC: UITableViewController, DataManagerDelegat, UITextFieldDelega
         tableView.reloadData()
     }
     
+
+}
+
+extension RangeRootTVC: UITextFieldDelegate {
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         hideDatePicker()
         if textField == selectedSiteTextField {
@@ -113,6 +108,17 @@ class RangeRootTVC: UITableViewController, DataManagerDelegat, UITextFieldDelega
     }
 }
 
+extension RangeRootTVC: DataManagerDelegat {
+    func didCompliteRequestOnRange(data: SiteDataArray, dateBegin: Date, dateEnd: Date) {
+    }
+    
+    func didCompliteRequestTotal(data: SiteDataArray) {
+        siteDataArray = data
+        if selectedSiteTextField.text == "" && siteDataArray.sites.count > 0 {
+            selectedSiteTextField.text = siteDataArray.sites.first?.name
+        }
+    }
+}
 extension String {
     func toDate() -> Date? {
         let formatter = DateFormatter()

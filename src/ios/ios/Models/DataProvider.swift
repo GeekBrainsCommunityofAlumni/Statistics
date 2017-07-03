@@ -18,6 +18,7 @@ protocol DataProviderDelegat {
     func didCompliteRequestOnRange(data: SiteDataArray, dateBegin: Date, dateEnd: Date, dataProvider: DataProvider)
     func didCompliteRequestTotal(data: SiteDataArray, dataProvider: DataProvider)
 }
+
 //  Abstract class for random data source and database. DataManager work only with subclass of DataProvider
 class DataProvider {
     var type: DataProviderType!

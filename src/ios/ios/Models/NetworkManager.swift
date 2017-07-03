@@ -348,7 +348,7 @@ class NetworkProcess {
 }
 
 //  Get information from network over REST. Work with query as FIFO
-class NetworkManager:DataProvider, NetworkProcessDelegat {
+class NetworkManager:DataProvider {
     var baseURL: String = "http://94.130.27.143:8080/api"
 
     private var processes: [NetworkProcess] = [] {
@@ -376,10 +376,12 @@ class NetworkManager:DataProvider, NetworkProcessDelegat {
         processes.append(process)
     }
     
-    private func removeNetworkProcess() {
+    fileprivate func removeNetworkProcess() {
         processes.removeFirst()
     }
-    
+}
+
+extension NetworkManager: NetworkProcessDelegat {
     internal func didCompliteTotalRankProcess(siteData: [SiteData]) {
         self.removeNetworkProcess()
         delegat.didCompliteRequestTotal(data: SiteDataArray(data: siteData), dataProvider: self)
@@ -389,8 +391,8 @@ class NetworkManager:DataProvider, NetworkProcessDelegat {
         self.removeNetworkProcess()
         delegat.didCompliteRequestOnRange(data: SiteDataArray(data: siteData), dateBegin: dateBegin, dateEnd: dateEnd, dataProvider: self)
     }
-    
 }
+
 //  Convert string to date with format useed in REST
 extension String {
     func toDateBack() -> Date? {

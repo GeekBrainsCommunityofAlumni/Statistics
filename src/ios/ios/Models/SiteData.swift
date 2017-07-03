@@ -66,7 +66,7 @@ class SiteData {
     var total: Bool = false
     var ranks: [Info] = []
     
-    func updateRanks() -> [Info] {
+    fileprivate func updateRanks() -> [Info] {
         var newRanks: [Info] = []
         for item in stats {
             let newRank = Info.init(name: item.key, count: item.value)

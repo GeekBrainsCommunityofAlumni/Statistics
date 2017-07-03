@@ -13,9 +13,9 @@ protocol DataManagerDelegat {
 }
 
 //  DataManager - class for get info in network source or database source(if present), save network info in database (if present). Return on level up resource requirements
-class DataManager: DataProviderDelegat {
-    private var dbManager: DataProvider?
-    private var networkManager: DataProvider?
+class DataManager {
+    fileprivate var dbManager: DataProvider?
+    fileprivate var networkManager: DataProvider?
     var delegat: DataManagerDelegat?
     
     func getTotalData() {
@@ -46,6 +46,22 @@ class DataManager: DataProviderDelegat {
         self.networkManager = networkManager
         self.networkManager?.delegat = self
     }
+    
+    //  Init class with NetworkManager
+    static func initWithNetworkManager() -> DataManager {
+        let nm = NetworkManager()
+        let dm = DataManager(dbManager: nil, networkManager: nm)
+        return dm
+    }
+    //  Init class with FakeManager
+    static func initWithFakeManager() -> DataManager {
+        let fm = FakeManager()
+        let dm = DataManager(dbManager: nil, networkManager: fm)
+        return dm
+    }
+}
+
+extension DataManager: DataProviderDelegat {
     
     func didCompliteRequestOnRange(data: SiteDataArray, dateBegin: Date, dateEnd: Date, dataProvider: DataProvider) {
         if data.isEmpty == true {
@@ -80,17 +96,4 @@ class DataManager: DataProviderDelegat {
             }
         }
     }
-    //  Init class with NetworkManager
-    static func initWithNetworkManager() -> DataManager {
-        let nm = NetworkManager()
-        let dm = DataManager(dbManager: nil, networkManager: nm)
-        return dm
-    }
-    //  Init class with FakeManager
-    static func initWithFakeManager() -> DataManager {
-        let fm = FakeManager()
-        let dm = DataManager(dbManager: nil, networkManager: fm)
-        return dm
-    }
 }
-

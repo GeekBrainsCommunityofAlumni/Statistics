@@ -46,7 +46,7 @@ class SiteDataArray: Sequence {
     func filterBySite(siteName: String) -> SiteDataArray {
         let filteredArray = array.filter { (siteData) -> Bool in
             if siteData.site == siteName {
-                siteData.ranks = siteData.updateRanks()
+//                siteData.ranks = siteData.updateRanks()
                 return true
             } else {
                 return false

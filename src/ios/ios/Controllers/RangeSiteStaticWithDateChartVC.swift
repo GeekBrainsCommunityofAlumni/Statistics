@@ -9,7 +9,7 @@
 import UIKit
 import Charts
 
-class RangeSiteStaticWithDateChartVC: UIViewController, ChartViewDelegate {
+class RangeSiteStaticWithDateChartVC: UIViewController {
     var personName: String!
     var siteName: String!
     var infoWithDate: [InfoWithDate] = []
@@ -20,7 +20,6 @@ class RangeSiteStaticWithDateChartVC: UIViewController, ChartViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setChartData(infoWithDate: infoWithDate)
-        self.lineChartView.delegate = self
         self.navigationItem.title = siteName
         self.lineChartView.chartDescription?.text = ""
     }
