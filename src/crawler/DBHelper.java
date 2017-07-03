@@ -394,15 +394,18 @@ public class DBHelper {
         try {
             int siteID = getSiteID(siteName);
             if (existSite(siteName)) {
+                preparedStatement = connectionToDB.prepareStatement("INSERT INTO pages (url, siteid, founddatetime) VALUES (?, ?, ?)");
+                connectionToDB.setAutoCommit(false);
                 for(Map.Entry<Integer, String> entry : pagesList.entrySet()) {
                     if (!existPageUrl(entry.getValue())) {
-                        preparedStatement = connectionToDB.prepareStatement("INSERT INTO pages (url, siteid, founddatetime) VALUES (?, ?, ?)");
                         preparedStatement.setString(1, entry.getValue());
                         preparedStatement.setInt(2, siteID);
                         preparedStatement.setString(3, getCurrentDateTime());
-                        preparedStatement.executeUpdate();
+                        preparedStatement.addBatch();
                     }
                 }
+                preparedStatement.executeBatch();
+                connectionToDB.setAutoCommit(true);
             } else {
                 throw new SQLException("Ошибка: неправильный site передан через метод dbHelper.savePage(), вызываемый в краулере.");
             }
