@@ -28,6 +28,7 @@
     -fx-text-fill: #222222;
     -fx-border-color: #222222;
     -fx-background-color: white;
+    -fx-cursor: hand;
 }
 
 .button:armed {
