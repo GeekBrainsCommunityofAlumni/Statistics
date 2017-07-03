@@ -4,10 +4,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.Date;
+import java.util.*;
 import java.text.*;
-import java.util.Properties;
+import java.util.Date;
 
 /**
  * Created by Serg on 09.06.2017.
@@ -390,7 +389,40 @@ public class DBHelper {
         return null;
     }
 
+    //метод берет каждую ссылку из HashMap и если ее нет в базе, добавляет её в таблицу pages. медленная реализация! чтобы улучшить, надо поставить url как уникальное поле
+    public void savePage(HashMap<Integer, String> pagesList, String siteName) {
+        try {
+            int siteID = getSiteID(siteName);
+            if (existSite(siteName)) {
+                for(Map.Entry<Integer, String> entry : pagesList.entrySet()) {
+                    if (!existPageUrl(entry.getValue())) {
+                        preparedStatement = connectionToDB.prepareStatement("INSERT INTO pages (url, siteid, founddatetime) VALUES (?, ?, ?)");
+                        preparedStatement.setString(1, entry.getValue());
+                        preparedStatement.setInt(2, siteID);
+                        preparedStatement.setString(3, getCurrentDateTime());
+                        preparedStatement.executeUpdate();
+                    }
+                }
+            } else {
+                throw new SQLException("Ошибка: неправильный site передан через метод dbHelper.savePage(), вызываемый в краулере.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
+    public boolean existPageUrl(String url) {
+        try {
+            statement = connectionToDB.createStatement();
+            resultSet = statement.executeQuery("SELECT url FROM pages WHERE url = '"+ url + "';");
+            if (resultSet.next()) {
+                return true;
+            } else return false;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 
     public ArrayList<String> getOldScannedSites() { //возвращает список URL страниц из таблицы pages, сканирование которых было более 24 часов назад
         //похоже, этот метод не нужен больше
