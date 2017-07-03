@@ -3,8 +3,6 @@
 <?import javafx.scene.text.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.image.*?>
-<?import javafx.geometry.*?>
-<?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
@@ -16,7 +14,7 @@
                <children>
                   <VBox alignment="CENTER" layoutX="30.0" layoutY="-44.0" spacing="10.0" StackPane.alignment="CENTER">
                      <children>
-                        <ImageView fitHeight="252.0" fitWidth="252.0" layoutX="47.0" layoutY="-44.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="200.0" fitWidth="200.0" layoutX="47.0" layoutY="-44.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image backgroundLoading="true" url="/images/company_logo.jpg" />
                            </image>
@@ -39,7 +37,7 @@
             <AnchorPane BorderPane.alignment="CENTER">
                <children>
                   <Label nodeOrientation="LEFT_TO_RIGHT" text="GB Community of Alumni 2017 (с) All rights reserved." textFill="#222222" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" />
-                  <Label text="v. 0.9.8.5" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+                  <Label text="v. 0.9.9.5" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0" />
                </children>
             </AnchorPane>
          </bottom>

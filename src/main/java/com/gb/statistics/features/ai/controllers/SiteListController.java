@@ -5,11 +5,8 @@ import com.gb.statistics.features.ai.interfaces.impls.SiteList;
 import com.gb.statistics.features.ai.model.ModelListData;
 import com.gb.statistics.features.ai.model.Site;
 import com.gb.statistics.features.ai.window.ModalWindow;
-import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.TableColumn;
 
 public class SiteListController extends ListController {
 

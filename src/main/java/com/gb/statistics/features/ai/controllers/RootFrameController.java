@@ -1,8 +1,10 @@
 package com.gb.statistics.features.ai.controllers;
 
+import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.stage.Stage;
@@ -33,7 +35,17 @@ public class RootFrameController {
     private Tab siteListTab;
 
     @FXML
+    private MenuItem faq;
+
+    @FXML
+    private MenuItem help;
+
+    @FXML
+    private MenuItem contacts;
+
+    @FXML
     private void initialize() throws IOException {
+        initMenu();
         initPersonList();
         initKeyWordsList();
         initSiteList();
@@ -41,6 +53,35 @@ public class RootFrameController {
         keyWordsListTab.setContent(parentKeyWordsList);
         siteListTab.setContent(parentSiteList);
         rootTabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
+    }
+
+    private void initMenu() {
+        faq.setOnAction(t -> {
+            Application application = new Application() {
+                @Override
+                public void start(Stage primaryStage) throws Exception {
+                }
+            };
+            application.getHostServices().showDocument("https://github.com/GeekBrainsCommunityofAlumni/Statistics");
+        });
+
+        help.setOnAction(t -> {
+            Application application = new Application() {
+                @Override
+                public void start(Stage primaryStage) throws Exception {
+                }
+            };
+            application.getHostServices().showDocument("https://github.com/GeekBrainsCommunityofAlumni/Statistics");
+        });
+
+        contacts.setOnAction(t -> {
+            Application application = new Application() {
+                @Override
+                public void start(Stage primaryStage) throws Exception {
+                }
+            };
+            application.getHostServices().showDocument("https://github.com/GeekBrainsCommunityofAlumni/Statistics");
+        });
     }
 
     private void initPersonList() throws IOException {
