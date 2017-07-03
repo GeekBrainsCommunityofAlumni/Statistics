@@ -26,7 +26,7 @@ class RangeSiteStaticWithDateChartVC: UIViewController, ChartViewDelegate {
     }
     
     func setChartData(infoWithDate: [InfoWithDate]){
-        var datesInString: [String] = []
+        let datesInString: [String] = []
 //        let range = DateRange(beginDate: ((infoWithDate.first)?.date)!, endDate: ((infoWithDate.last)?.date)!)
 //        for currentDate in range {
 //            datesInString.append(currentDate.toStringShort()!)
