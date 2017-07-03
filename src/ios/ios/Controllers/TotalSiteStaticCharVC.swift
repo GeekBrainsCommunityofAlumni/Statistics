@@ -19,7 +19,7 @@ class TotalSiteStaticCharVC: UIViewController, ChartViewDelegate {
         pieChartView.delegate = self
     }
     
-    func setChartData(){
+    func setChartData() {
         var values = [PieChartDataEntry]()
         for item in array {
             values.append(PieChartDataEntry(value: Double(item.count), label: item.name))

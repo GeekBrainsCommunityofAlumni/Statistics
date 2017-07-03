@@ -8,7 +8,7 @@
 
 import UIKit
 
-class RangeRootTVC: UITableViewController, DataManagerProtocol, UITextFieldDelegate {
+class RangeRootTVC: UITableViewController, DataManagerDelegat, UITextFieldDelegate {
 //    var dm = DataManager.initWithNetworkManager()
     var dm = DataManager.initWithFakeManager()
     var siteDataArray = SiteDataArray()
@@ -56,12 +56,12 @@ class RangeRootTVC: UITableViewController, DataManagerProtocol, UITextFieldDeleg
     
     func didCompliteRequestTotal(data: SiteDataArray) {
         siteDataArray = data
-        if selectedSiteTextField.text == "" && siteDataArray.sites.count > 0{
+        if selectedSiteTextField.text == "" && siteDataArray.sites.count > 0 {
             selectedSiteTextField.text = siteDataArray.sites.first?.name
         }
     }
     
-    @IBAction func unwindToRangeRootTVC(segue:UIStoryboardSegue){
+    @IBAction func unwindToRangeRootTVC(segue:UIStoryboardSegue) {
         let sourceTVC = segue.source as! RangeSelectSiteTVC
         selectedSiteTextField.text = sourceTVC.selectedSite
     }
@@ -89,7 +89,7 @@ class RangeRootTVC: UITableViewController, DataManagerProtocol, UITextFieldDeleg
         }
     }
     
-    func hideDatePicker(){
+    func hideDatePicker() {
         dateBeginSelectCell.isHidden = true
         dateEndSelectCell.isHidden = true
         tableView.reloadData()
@@ -114,7 +114,7 @@ class RangeRootTVC: UITableViewController, DataManagerProtocol, UITextFieldDeleg
 }
 
 extension String {
-    func toDate() -> Date?{
+    func toDate() -> Date? {
         let formatter = DateFormatter()
         formatter.dateFormat = "dd.MM.yyyy"
         return formatter.date(from: self)
@@ -122,7 +122,7 @@ extension String {
 }
 
 extension Date{
-    func toString() -> String?{
+    func toString() -> String? {
         let formater = DateFormatter()
         formater.dateFormat = "dd.MM.yyyy"
         return formater.string(from: self)

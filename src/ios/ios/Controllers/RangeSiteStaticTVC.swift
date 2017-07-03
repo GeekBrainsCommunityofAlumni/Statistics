@@ -8,7 +8,7 @@
 
 import UIKit
 
-class RangeSiteStaticTVC: UITableViewController, DataManagerProtocol {
+class RangeSiteStaticTVC: UITableViewController, DataManagerDelegat {
     var siteName: String!
     var dateBegin: Date!
     var dateEnd: Date!
@@ -22,7 +22,7 @@ class RangeSiteStaticTVC: UITableViewController, DataManagerProtocol {
         navigationItem.title = siteName // + " " + dateBegin.toString()! + "-" + dateEnd.toString()!
     }
     
-    func didCompliteRequestOnRange(data: SiteDataArray, dateBegin: Date, dateEnd: Date){
+    func didCompliteRequestOnRange(data: SiteDataArray, dateBegin: Date, dateEnd: Date) {
         siteDataArray = data.filterBySite(siteName: siteName)
         tableView.reloadData()
     }

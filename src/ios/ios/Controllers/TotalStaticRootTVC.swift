@@ -8,15 +8,16 @@
 
 import UIKit
 
-class TotalStaticRootTVC: UITableViewController, DataManagerProtocol {
+class TotalStaticRootTVC: UITableViewController, DataManagerDelegat {
 //    var dm = DataManager.initWithNetworkManager()
     var dm = DataManager.initWithFakeManager()
-    var data = SiteDataArray()
+    var siteDataArray = SiteDataArray()
+    
     func didCompliteRequestOnRange(data: SiteDataArray, dateBegin: Date, dateEnd: Date) {
     }
     
-    func didCompliteRequestTotal(data: SiteDataArray){
-        self.data = data
+    func didCompliteRequestTotal(data: SiteDataArray) {
+        self.siteDataArray = data
         tableView.reloadData()
     }
     
@@ -31,13 +32,13 @@ class TotalStaticRootTVC: UITableViewController, DataManagerProtocol {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return data.sites.count
+        return siteDataArray.sites.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "TotalStaticCell", for: indexPath) as! TotalStaticRootTVCell
-        cell.nameLabel.text = data.sites[indexPath.row].name
-        cell.countLabel.text = String(data.sites[indexPath.row].count)
+        cell.nameLabel.text = siteDataArray.sites[indexPath.row].name
+        cell.countLabel.text = String(siteDataArray.sites[indexPath.row].count)
         return cell
     }
     
@@ -45,12 +46,12 @@ class TotalStaticRootTVC: UITableViewController, DataManagerProtocol {
         if segue.identifier == "statDV" {
             let destenationVC = segue.destination as! TotalSiteStaticTVC
             if let selectedItem = tableView.indexPathForSelectedRow{
-                destenationVC.siteDataArray = data.filterBySite(siteName: data.sites[selectedItem.row].name)
+                destenationVC.siteDataArray = siteDataArray.filterBySite(siteName: siteDataArray.sites[selectedItem.row].name)
             }
         }
         if segue.identifier == "TotalSiteStaticCharVC2" {
             let destenationVC = segue.destination as! TotalSiteStaticCharVC
-            destenationVC.array = data.sites
+            destenationVC.array = siteDataArray.sites
         }
     }
 }

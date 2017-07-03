@@ -25,7 +25,7 @@ class RangeSiteStaticWithDateChartVC: UIViewController, ChartViewDelegate {
         self.lineChartView.chartDescription?.text = ""
     }
     
-    func setChartData(infoWithDate: [InfoWithDate]){
+    func setChartData(infoWithDate: [InfoWithDate]) {
         let datesInString: [String] = []
 //        let range = DateRange(beginDate: ((infoWithDate.first)?.date)!, endDate: ((infoWithDate.last)?.date)!)
 //        for currentDate in range {
@@ -56,7 +56,7 @@ class RangeSiteStaticWithDateChartVC: UIViewController, ChartViewDelegate {
 }
 
 extension Date {
-    func toStringShort() -> String?{
+    func toStringShort() -> String? {
         let formater = DateFormatter()
         formater.dateFormat = "dd.MM"
         return formater.string(from: self)

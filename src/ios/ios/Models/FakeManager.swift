@@ -91,7 +91,7 @@ class FakeManager:DataProvider {
     
     override func getTotalData() {
         var siteDataTotal: [SiteData] = []
-        for currentSite in siteDataArray.sites{
+        for currentSite in siteDataArray.sites {
             let temporaryDataArray = siteDataArray.filterBySite(siteName: currentSite.name)
             let temporarySiteData = SiteData()
             temporarySiteData.site = currentSite.name

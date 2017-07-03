@@ -17,7 +17,7 @@ struct Info {
     }
 }
 //  Functions for work with class Info
-func + (left: [Info], right: Info) -> [Info]{
+func + (left: [Info], right: Info) -> [Info] {
     var newP: [Info] = left
     let findPerson = newP.filter { (person) -> Bool in person.name == right.name}
     if findPerson.isEmpty {
@@ -34,7 +34,7 @@ func + (left: [Info], right: Info) -> [Info]{
     return newP
 }
 
-func + (left: [Info], right: [Info]) -> [Info]{
+func + (left: [Info], right: [Info]) -> [Info] {
     var newP: [Info] = left
     for item in right {
         newP = newP + item
