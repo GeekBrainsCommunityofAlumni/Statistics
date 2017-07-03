@@ -20,7 +20,7 @@ class MyRegistrationForm(forms.ModelForm):
     phone_number = forms.CharField(max_length=32, widget=forms.NumberInput(attrs={"type": "number", "class": "form-control", "placeholder": "phone_number"}))
     birthdate = forms.CharField(widget=forms.DateInput(attrs={"type": "date", "id": "birthdate", "class": "form-control"}))
     status = forms.CharField(widget=forms.Select(attrs={"id": "status", "class": "form-control"}))
-    photo = forms.CharField(widget=forms.ImageField())  # {"value_from_datadict": ""}
+    photo = forms.FileField(widget=forms.ImageField())  # {"value_from_datadict": ""}
     rules = forms.BooleanField(widget=forms.CheckboxInput(attrs={"type": "checkbox"}))
 
     class Meta:

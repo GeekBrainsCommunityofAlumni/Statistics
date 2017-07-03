@@ -27,7 +27,7 @@
                             </option>
                         {% endfor %}
                     {% else %}
-                    <option value="#">Еще не добавлено</option>
+                    <option value="0">Еще не добавлено</option>
                     {% endif %}
                 </select>
             </div>
@@ -48,7 +48,7 @@
                             </option>
                         {% endfor %}
                     {% else %}
-                    <option value="#">Еще не добавлено</option>
+                    <option value="0">Еще не добавлено</option>
                     {% endif %}
                 </select>
             </div>
@@ -78,7 +78,7 @@
             </div>
         </div>
     <hr>
-        <button type="submit" value="Поиск" formmethod="get" class="btn btn-success btn-sm">
+        <button type="submit" value="Поиск" formmethod="post" class="btn btn-success btn-sm">
             <i class="fa fa-search" aria-hidden="true"></i> Поиск
         </button>
         <button type="reset" value="Очистить" class="btn btn-danger btn-xs">
@@ -89,7 +89,7 @@
 
 <div class="col-sm-7">
     <h4>
-        Результат:
+        Вывод по параметрам:
     </h4>
     <hr>
 
@@ -101,7 +101,7 @@
 
     <div class="tab-content">
         <br>
-        <div id="table_daily" class="tab-pane fade in active">
+        <div id="table_periodic" class="tab-pane fade in active">
             <div class="col-sm-12">
                 <table class="table table-bordered">
                     <thead>
@@ -115,20 +115,20 @@
                     <tbody>
                     {% if persons %}
                         {% for person in persons %}
-                    {% for site in sites %}
+                    {% for site_selected in sites_selected %}
                         <tr>
 
-                            <td>{{ site.name }}</td>
+                            <td>{{ site_selected.name }}</td>
                             <td>{{ person.name }}</td>
                             <td>{% for keyword in keywords %}
-                                    {% if keyword.person_id_id == person.id %}
+                                {% if keyword.person_id_id == person.id %}
                                         {{ keyword.name}};
                                     {% endif %}
                                 {% endfor %}
                             </td>
                             <td>
                                 {% for rank in person_ranks %}
-                                    {% if rank.person_id_id == person.id and rank.page_id_id == site.id %}
+                                    {% if rank.person_id_id == person.id and rank.page_id_id == site_selected.id %}
                                         {{ rank.rank }}
                                     {% endif %}
                                 {% endfor %}
@@ -139,7 +139,7 @@
                     {% endif %}
                     </tbody>
                 </table>
-        <hr>
+
                 <button type="submit" value="Download .csv" formmethod="get" class="btn btn-primary btn-xs">
                     <i class="fa fa-download" aria-hidden="true"></i> Download .csv
                 </button>
@@ -147,10 +147,10 @@
             </div>
         </div>
 
-        <div id="chart_daily" class="tab-pane fade">
+        <div id="chart_periodic" class="tab-pane fade">
             <!--Div that will hold the dashboard-->
             <div class="col-lg-12" id="column_diagram">
-                <div id="chart_div_daily">
+                <div id="chart_div_periodic">
 
                     <script type="text/javascript">
                        google.charts.load('current', {'packages':['corechart']});
@@ -175,7 +175,7 @@
                                 <!--series: {0: {type: 'line'}}-->
                             };
 
-                            var chart = new google.visualization.ComboChart(document.getElementById('chart_div_daily'));
+                            var chart = new google.visualization.ComboChart(document.getElementById('chart_div_periodic'));
                             chart.draw(data, options);
                        }
                     </script>

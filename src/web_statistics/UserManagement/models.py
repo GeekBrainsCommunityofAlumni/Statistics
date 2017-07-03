@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 
 
 def handle_uploaded_file(f):
-    destination = open('some/file/avatar.jpg', 'wb+')
+    destination = open('../media/img/avatars/avatar.jpg', 'wb+')
     for chunk in f.chunks():
         destination.write(chunk)
     destination.close()
@@ -37,12 +37,3 @@ class Person(models.Model):
 
     def __str__(self):
         return self.login
-
-    # @receiver(post_save, sender=User)
-    # def create_user_profile(sender, instance, created, **kwargs):
-    #     if created:
-    #         Person.user.create(user=instance)
-    #
-    # @receiver(post_save, sender=User)
-    # def save_user_profile(sender, instance, **kwargs):
-    #     instance.person.save()
