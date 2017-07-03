@@ -40,10 +40,6 @@ class RangeSiteStaticWithDatesTVC: UITableViewController {
             destinationTVC.siteName = siteName
             destinationTVC.personName = personName
             destinationTVC.infoWithDate = infoWithDate
-//            if let selectedItem = tableView.indexPathForSelectedRow{
-//                destinationTVC.personName = siteDataArray.ranks[selectedItem.row].name
-//                destinationTVC.infoWithDate = siteDataArray.filterBySiteAndPerson(siteName: siteName, personName: destinationTVC.personName)
-//            }
         }
     }
 }

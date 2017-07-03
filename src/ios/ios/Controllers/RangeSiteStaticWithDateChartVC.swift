@@ -14,16 +14,25 @@ class RangeSiteStaticWithDateChartVC: UIViewController, ChartViewDelegate {
     var siteName: String!
     var infoWithDate: [InfoWithDate] = []
     
-    @IBOutlet var lineChartView: LineChartView!
+    @IBOutlet weak var lineChartView: LineChartView!
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setChartData(infoWithDate: infoWithDate)
         self.lineChartView.delegate = self
-        
+        self.navigationItem.title = siteName
+        self.lineChartView.chartDescription?.text = ""
     }
     
     func setChartData(infoWithDate: [InfoWithDate]){
+        var datesInString: [String] = []
+//        let range = DateRange(beginDate: ((infoWithDate.first)?.date)!, endDate: ((infoWithDate.last)?.date)!)
+//        for currentDate in range {
+//            datesInString.append(currentDate.toStringShort()!)
+//        }
+        self.lineChartView.xAxis.valueFormatter = IndexAxisValueFormatter(values: datesInString)
+        
         var values = [ChartDataEntry]()
         for i in 0..<infoWithDate.count {
             values.append(ChartDataEntry(x: Double(i), y: Double(infoWithDate[i].count)))
@@ -44,4 +53,12 @@ class RangeSiteStaticWithDateChartVC: UIViewController, ChartViewDelegate {
         data.setValueTextColor(UIColor.black)
         self.lineChartView.data = data
     }
+}
+
+extension Date {
+    func toStringShort() -> String?{
+        let formater = DateFormatter()
+        formater.dateFormat = "dd.MM"
+        return formater.string(from: self)
+}
 }

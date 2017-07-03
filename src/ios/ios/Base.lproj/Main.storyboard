@@ -648,13 +648,25 @@
                         <viewControllerLayoutGuide type="top" id="Nvd-Nv-xjb"/>
                         <viewControllerLayoutGuide type="bottom" id="yhu-ud-Ji1"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="cB3-LY-7nN" customClass="LineChartView" customModule="Charts">
+                    <view key="view" contentMode="scaleToFill" id="cB3-LY-7nN">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g7Y-eE-Lhd" customClass="LineChartView" customModule="Charts">
+                                <rect key="frame" x="16" y="64" width="343" height="554"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="yhu-ud-Ji1" firstAttribute="top" secondItem="g7Y-eE-Lhd" secondAttribute="bottom" id="6SO-4h-JRi"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="g7Y-eE-Lhd" secondAttribute="trailing" id="83u-nu-Leg"/>
+                            <constraint firstItem="g7Y-eE-Lhd" firstAttribute="leading" secondItem="cB3-LY-7nN" secondAttribute="leadingMargin" id="C4a-dM-Fy2"/>
+                            <constraint firstItem="g7Y-eE-Lhd" firstAttribute="top" secondItem="Nvd-Nv-xjb" secondAttribute="bottom" id="YHE-7k-grb"/>
+                        </constraints>
                     </view>
                     <connections>
-                        <outlet property="lineChartView" destination="cB3-LY-7nN" id="8FZ-f1-CGt"/>
+                        <outlet property="lineChartView" destination="g7Y-eE-Lhd" id="UcW-qZ-nML"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oCM-Gb-YWt" userLabel="First Responder" sceneMemberID="firstResponder"/>
