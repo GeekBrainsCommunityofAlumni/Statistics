@@ -47,6 +47,10 @@ INSTALLED_APPS = [
     'phonenumber_field',
 ]
 
+PHONENUMBER_DB_FORMAT = [
+    'NATIONAL',
+]
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
