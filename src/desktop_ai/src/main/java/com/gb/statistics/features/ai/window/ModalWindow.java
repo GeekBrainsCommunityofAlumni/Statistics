@@ -11,7 +11,7 @@ public class ModalWindow {
     private Stage stage;
 
     public ModalWindow(String title, Stage mainStage, Parent parent, int width, int height) {
-        Image ico = new Image("/com.gb.statistics.features.images/icon.jpg");
+        Image ico = new Image("/images/icon.jpg");
         stage = new Stage();
         stage.setMinWidth(width);
         stage.setMinHeight(height);
