@@ -1,15 +1,15 @@
 #coding: utf-8
 
 from django.contrib import auth
-from django.shortcuts import render, render_to_response
+from django.shortcuts import render, render_to_response, get_object_or_404
 from django.http import Http404, HttpResponseRedirect
 # from django.template.context_processors import csrf
 from django.contrib.auth.models import User
 from UserManagement.models import handle_uploaded_file, Person
 from django.core.exceptions import ValidationError
 from .forms import UploadFileForm
+from qsstats import QuerySetStats
 # from .forms import MyRegistrationForm
-
 
 def upload_file(request):
     if request.method == 'POST':
@@ -80,3 +80,23 @@ def registration(request):
         user.save()
         return HttpResponseRedirect("/privateroom/")
     return render(request, "registration.html")
+
+
+def set_new_password(request, password):
+    if request.method == 'POST':
+        errors = {}
+        user = get_object_or_404(Person, password=password)
+        if user:
+            password = request.POST.get("new_password")
+            confirmpassword = request.POST.get("confirmpassword")
+            # Validate data
+            if password != confirmpassword:
+                errors['new_password'] = 'Извините, пароли не совпадают... Попробуйте снова!'
+            user.change_password(password)
+            # Validate user
+            try:
+                user.validate_unique()
+            except ValidationError as er:
+                errors.update(er.message_dict)
+            user.save()
+            return HttpResponseRedirect('/privateroom/')

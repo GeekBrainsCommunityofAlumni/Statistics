@@ -807,43 +807,6 @@
             (Mail.Ru Group) </strong>.
         </p>
 
-        <h3 class="w3-center">Information system &laquo;Statistics&raquo; sсheme</h3>
-        <div class='row'>
-            <div class='text-center'>
-
-                <div class="w3-content w3-section" style="max-width:500px">
-                    <img class="mySlides" src="{% static 'img/slider/about.png' %}" >
-                    <img class="mySlides" src="{% static 'img/slider/private.png' %}" >
-                    <img class="mySlides" src="{% static 'img/slider/user1.png' %}" >
-                    <img class="mySlides" src="{% static 'img/slider/user2.png' %}" >
-                    <img class="mySlides" src="{% static 'img/slider/admin0.png' %}" >
-                    <img class="mySlides" src="{% static 'img/slider/admin1.png' %}" >
-                    <img class="mySlides" src="{% static 'img/slider/admin2.png' %}" >
-                    <img class="mySlides" src="{% static 'img/slider/admin3.png' %}" >
-                    <img class="mySlides" src="{% static 'img/slider/admin4.png' %}" >
-                    <img class="mySlides" src="{% static 'img/slider/partnership.png' %}" >
-                    <img class="mySlides" src="{% static 'img/slider/contacts.png' %}" >
-                </div>
-
-                 <script>
-                 var myIndex = 0;
-                 carousel();
-
-                 function carousel() {
-                     var i;
-                     var x = document.getElementsByClassName("mySlides");
-                     for (i = 0; i < x.length; i++) {
-                     x[i].style.display = "none";
-                     }
-                     myIndex++;
-                     if (myIndex > x.length) {myIndex = 1}
-                     x[myIndex-1].style.display = "block";
-                     setTimeout(carousel, 2000); // Change image every 2 seconds
-                 }
-                 </script>
-            </div>
-        </div>
-
         <section class="text-left">
 
             <h3>Описание продукта</h3>
@@ -869,9 +832,30 @@
                 Пользователю предоставляется возможность выбора наиболее удобного для него интерфейса:
             </p>
             <ul>
-                <li>web-сайт</li>
-                <li>desktop app.</li>
-                <li>mobile app.</li>
+                <li>
+                    <div class="page-header">
+                        <h4><i class="fa fa-globe"></i> Website:
+                        <small>Web site of the "Statistics" project. Preview of beta demonstration.</small></h4>
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/ZnxVK19KMzk" frameborder="0" allowfullscreen>
+                        </iframe>
+                    </div>
+                </li>
+                <li>
+                    <div class="page-header">
+                        <h4><i class="fa fa-desktop"></i> Desktop application:
+                        <small>Desktop product "Statistics". Preview of beta demonstration.</small></h4>
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/AnekNWuO6sk" frameborder="0" allowfullscreen>
+                        </iframe>
+                    </div>
+                </li>
+                <li>
+                    <div class="page-header">
+                        <h4><i class="fa fa-mobile"></i> Mobile application:
+                        <small>Mobile iOS product "Statistics". Preview of beta demonstration.</small></h4>
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/_T0A6jM_30k" frameborder="0" allowfullscreen>
+                        </iframe>
+                    </div>
+                </li>
             </ul>
 
             <h3>Функционал</h3>
@@ -892,9 +876,9 @@
             <p>
                 Скачать продукт в интересующем Вас формате реализации можно по ссылкам:
             </p>
-            <ul>
-                <li>Mobile App (Android Market)</li>
-                <li>Desktop App</li>
+            <ul class="red">
+                <li><h5><a href="#">Mobile App (AppStore)</a></h5></li>
+                <li><h5><a href="#">Desktop App</a></h5></li>
             </ul>
 
             <p>
@@ -902,8 +886,7 @@
             </p>
 
             <ul>
-                <li>mobile: iOS ...</li>
-                <li>desktop: OS ...</li>
+                <li><h5>mobile: iOS ...</h5></li>
             </ul>
 
             <hr>

@@ -7,6 +7,7 @@ from UserManagement.models import Person as User
 from django.http import HttpResponseRedirect
 from .forms import ParametrizedStatForm
 from django.http import Http404
+import requests
 
 
 def main(request):
@@ -173,53 +174,32 @@ def admin_statistics(request):
     sites = Sites.objects.order_by('name')
     sites_selected = Sites.objects.order_by('name')
     persons = Persons.objects.order_by('name')
-    persons_all = Persons.objects.all()
+    persons_all = list(requests.get('http://94.130.27.143:8080/api/person'))
     keywords = Keywords.objects.order_by('name')
     person_ranks = PersonPageRank.objects.values('person_id_id', 'page_id_id').annotate(rank=Sum('rank'))
     pages = Pages.objects.all()
     users = User.objects.all()
 
     if request.method == 'POST':
-        form = ParametrizedStatForm(request.POST)
-        site_id = request.POST.get('source')
-        profile_id = request.POST.get('profile')
+        #form = AddPerson(request.POST)
+        person_name = request.POST.get('new_person')
+        print(person_name)
+        r = requests.post('http://94.130.27.143:8080/api/person', json={'name': person_name},
+                          headers={"Content-Type": "application/json"})
+        print('USER CREATION:', r.status_code)
+        print(persons_all)
 
-        # default page data, or search all pages and all persons
-        if site_id == 'all' and profile_id == 'all':
-            person_ranks = PersonPageRank.objects.values('person_id_id', 'page_id_id').annotate(rank=Sum('rank'))
-        # search specific site
-        elif site_id != 'all' and profile_id == 'all':
-            sites_selected = Sites.objects.all().filter(id=site_id)
-            person_ranks = PersonPageRank.objects.values('person_id_id', 'person_id_id'). \
-                filter(page_id_id__site_id_id=site_id).annotate(rank=Sum('rank'))
-        # search specific person
-        elif site_id == 'all' and profile_id != 'all':
-            person_ranks = PersonPageRank.objects.values('page_id_id', 'person_id_id'). \
-                filter(person_id_id=profile_id).annotate(rank=Sum('rank'))
-            persons = Persons.objects.all().filter(id=profile_id)
-        # search both parameters: site, person
-        else:
-            persons = Persons.objects.all().filter(id=profile_id)
-            sites_selected = Sites.objects.all().filter(id=site_id)
-            person_ranks = PersonPageRank.objects.filter(person_id_id=profile_id) \
-                .values('page_id_id', 'person_id_id').annotate(rank=Sum('rank'))
+    if request.method == 'DELETE':
+        #form = DelPerson(request.DELETE)
+        person_id = request.DELETE.get('source')
+        r = requests.delete('http://94.130.27.143:8080/api/person/102')
+        print('USER REMOVED:', r.status_code)
 
-        return render(request, "admin_statistics.html", {'sites': sites, 'persons': persons,
-                                                            'keywords': keywords, 'form': form,
-                                                            'person_ranks': person_ranks,
-                                                            'sites_selected': sites_selected,
-                                                            'persons_all': persons_all})
-    else:
-
-        return render(request, 'admin_statistics.html', {'persons': persons, 'persons_all': persons_all,
-                                                            'keywords': keywords,
-                                                            'sites': sites, 'person_ranks': person_ranks,
-                                                            'sites_selected': sites_selected,
-                                                         'pages': pages, 'users': users})
-
-
-# def news(request):
-#     return render(request, 'news.html')
+    return render(request, 'admin_statistics.html', {'persons': persons, 'persons_all': persons_all,
+                                                     'keywords': keywords,
+                                                     'sites': sites, 'person_ranks': person_ranks,
+                                                     'sites_selected': sites_selected,
+                                                     'pages': pages, 'users': users})
 
 
 def politics(request):
@@ -288,3 +268,6 @@ def review(request):
 
 def support(request):
     return render(request, 'support.html')
+
+def googlechart(request):
+    return render(request, 'googlechart.html')

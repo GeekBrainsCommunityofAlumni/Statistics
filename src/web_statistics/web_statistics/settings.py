@@ -45,6 +45,9 @@ INSTALLED_APPS = [
     'UserManagement',
     'AdminManagement',
     'phonenumber_field',
+    'googlecharts',
+    'qsstats',
+    'dateutil'
 ]
 
 PHONENUMBER_DB_FORMAT = [

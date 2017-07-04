@@ -11,12 +11,135 @@
 {% block content %}
     {% if user.is_authenticated %}
 
-        <ol class="breadcrumb">
-            <li><a href="/privateroom/">Назад в личный кабинет</a></li>
-            <li class="active">Персональные настройки</li>
-        </ol>
+    <ol class="breadcrumb">
+        <li><a href="/privateroom/">Назад в личный кабинет</a></li>
+        <li class="active">Персональные настройки</li>
+    </ol>
+    <div class="col-sm-12">
+        <div class="col-sm-6">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h4 class="text-left">
+                        Текущая информация о пользователе {{user.first_name}} {{user.last_name}}:
+                    </h4>
+                </div>
+            </div>
+
+            <table class="table table-condensed panel panel-default">
+                <tbody>
+                <tr>
+                    <td><i class="fa fa-user" aria-hidden="true"></i> Ваш login:</td>
+                    <td>{{user.username}}</td>
+                </tr>
+                <tr>
+                    <td><i class="fa fa-envelope-o" aria-hidden="true"></i> Ваш e-mail:</td>
+                    <td>{{user.email}}</td>
+                </tr>
+                <tr>
+                    <td><i class="fa fa-mobile" aria-hidden="true"></i> Контактный тел. (mobile):</td>
+                    <td>{{user.phone_number}}</td>
+                </tr>
+                <tr>
+                    <td><i class="fa fa-address-card-o" aria-hidden="true"></i> Ваш статус пользователя:</td>
+                    <td>{{user.status}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="col-sm-6">
+            <div class="col-sm-12 panel panel-default">
+                <form class="form-signin" action="/user/set_new_password/">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="password" class="col-sm-6 control-label">
+                            <i class="fa fa-key"></i>
+                            Введите новый пароль:
+                        </label>
+                        <div class="col-sm-6">
+                            <input type="password" name="new_password" id="password" placeholder="новый пароль" class="form-control" required="" autofocus>
+                        </div>
+                    </div> <!-- /.form-group -->
+                    <br>
+                    <br>
+                    <div class="form-group">
+                        <label for="confirmpassword" class="col-sm-6 control-label">
+                            <i class="fa fa-check-square-o"></i>
+                            Подтвердите новый пароль:
+                        </label>
+                        <div class="col-sm-6">
+                            <input type="password" name="confirmpassword" id="confirmpassword" placeholder="Пожалуйста, подтвердите..." class="form-control" required="">
+                        </div>
+                    </div> <!-- /.form-group -->
+                    <br>
+                    <hr>
+                    <div class="col-sm-12">
+                        <button type="submit" value="Поиск" formmethod="post" class="btn btn-success btn-sm">
+                            <i class="fa fa-retweet"></i> Сменить пароль
+                        </button>
+                        <button type="reset" value="Очистить" class="btn btn-danger btn-xs">
+                            <i class="fa fa-refresh"></i> Очистить
+                        </button>
+                        <br>
+                        <br>
+                    </div>
+                </form>
+            </div>
+
+            <div class="col-sm-12 panel panel-default">
+                <form class="form-signin" action="#">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="password" class="col-sm-6 control-label">
+                            <i class="fa fa-envelope"></i>
+                            Введите новый email:
+                        </label>
+                        <div class="col-sm-6">
+                            <input type="password" name="new_email" id="email" placeholder="новый email" class="form-control" required="" autofocus>
+                        </div>
+                    </div> <!-- /.form-group -->
+                    <br>
+                    <br>
+                    <div class="form-group">
+                        <label for="confirmemail" class="col-sm-6 control-label">
+                            <i class="fa fa-check-square-o"></i>
+                            Подтвердите новый email:
+                        </label>
+                        <div class="col-sm-6">
+                            <input type="password" name="confirmemail" id="confirmemail" placeholder="Пожалуйста, подтвердите..." class="form-control" required="">
+                        </div>
+                    </div> <!-- /.form-group -->
+                    <br>
+                    <hr>
+                    <div class="col-sm-12">
+                        <button type="submit" value="Поиск" formmethod="post" class="btn btn-success btn-sm">
+                            <i class="fa fa-retweet"></i> Сменить пароль
+                        </button>
+                        <button type="reset" value="Очистить" class="btn btn-danger btn-xs">
+                            <i class="fa fa-refresh"></i> Очистить
+                        </button>
+                        <br>
+                        <br>
+                    </div>
+                </form>
+            </div>
+
+            <div class="col-sm-12 panel panel-default">
+                {% csrf_token %}
+                <div class="col-sm-8">
+                    <h4>Забыли пароль?</h4>
+                    <button type="submit" value="Поиск" formmethod="post" class="btn btn-success btn-sm">
+                        <i class="fa fa-paper-plane-o"></i> Скинуть пароль на почту
+                    </button>
+                    <br>
+                    <br>
+                </div>
+            </div>
+        </div>
+    </div>
 
     {% else %}
         <h4>Пожалуйста, авторизуйтесь!</h4>
     {% endif %}
+
 {% endblock %}
