@@ -46,7 +46,7 @@
 
 Скачать продукт в интересующем Вас формате реализации можно по ссылкам:
 - [Mobile App](#)
-- [Desktop App](#)
+- [Desktop App](https://github.com//GeekBrainsCommunityofAlumni/Statistics/wiki/PC-admin-app)
 
 Технические требования для корректной работы продукта:
 -	`mobile: iOS 9.0 и выше`
