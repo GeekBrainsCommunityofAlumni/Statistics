@@ -20,6 +20,10 @@
 
 Визуальное представление информации по запросу пользователя реализовано в трёх вариантах: таблица, график, диаграмма.
 
+**Видео демонстрация основных возможностей web-сайта**
+
+[![Alt text](https://img.youtube.com/vi/ZnxVK19KMzk/0.jpg)](https://www.youtube.com/watch?v=ZnxVK19KMzk)
+
 ### Technology stack
 
 Продукт разработан на стеке наиболее современных технологий – `Python/Django/HTML5/CSS3/Bootstrap/JavaScript/Jquery/Ajax/JSON/Java/Swift/Objective-C/REST/MySQL` и др.
@@ -29,7 +33,7 @@
 Пользователю предоставляется возможность выбора наиболее удобного для него интерфейса: 
 - `web-сайт`
 - `desktop app.`
-- `mobile app.` 
+- `mobile app.`
 
 ### Функционал 
 
