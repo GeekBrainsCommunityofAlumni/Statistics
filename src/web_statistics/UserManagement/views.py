@@ -8,8 +8,8 @@ from django.contrib.auth.models import User
 from UserManagement.models import handle_uploaded_file, Person
 from django.core.exceptions import ValidationError
 from .forms import UploadFileForm
+from qsstats import QuerySetStats
 # from .forms import MyRegistrationForm
-
 
 def upload_file(request):
     if request.method == 'POST':
@@ -82,21 +82,21 @@ def registration(request):
     return render(request, "registration.html")
 
 
-def set_new_password(request, user_id):
+def set_new_password(request, password):
     if request.method == 'POST':
         errors = {}
-        user = get_object_or_404(Person, id=user_id)
-        password = request.POST.get("new_password")
-        confirmpassword = request.POST.get("confirm_new_password")
-        # Validate data
-        if password != confirmpassword:
-            errors['new_password'] = 'Извините, пароли не совпадают... Попробуйте снова!'
-            user = User(username=login, password=password)
-        user.set_password(password)
-        # Validate user
-        try:
-            user.validate_unique()
-        except ValidationError as er:
-            errors.update(er.message_dict)
-        user.save()
-        return HttpResponseRedirect('/privateroom/')
+        user = get_object_or_404(Person, password=password)
+        if user:
+            password = request.POST.get("new_password")
+            confirmpassword = request.POST.get("confirmpassword")
+            # Validate data
+            if password != confirmpassword:
+                errors['new_password'] = 'Извините, пароли не совпадают... Попробуйте снова!'
+            user.change_password(password)
+            # Validate user
+            try:
+                user.validate_unique()
+            except ValidationError as er:
+                errors.update(er.message_dict)
+            user.save()
+            return HttpResponseRedirect('/privateroom/')

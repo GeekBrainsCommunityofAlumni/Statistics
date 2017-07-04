@@ -202,10 +202,6 @@ def admin_statistics(request):
                                                      'pages': pages, 'users': users})
 
 
-# def news(request):
-#     return render(request, 'news.html')
-
-
 def politics(request):
     return render(request, 'politics.html')
 
@@ -272,3 +268,6 @@ def review(request):
 
 def support(request):
     return render(request, 'support.html')
+
+def googlechart(request):
+    return render(request, 'googlechart.html')
