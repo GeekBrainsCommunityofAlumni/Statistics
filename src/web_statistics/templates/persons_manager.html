@@ -8,8 +8,6 @@
     </h3>
 <hr>
 <div class="side-left">
-    <form class="control-label col-sm-12">
-        {% csrf_token %}
         <h4>
             Текущий список личностей:<br>
         </h4>
@@ -42,6 +40,8 @@
         </h4>
         <hr>
         <div class="row">
+            <form action="/admin_statistics/" method='delete' role="form" class="control-label col-sm-12">
+                {% csrf_token %}
             <label class="control-label col-sm-6">
                 <i class="fa fa-user" aria-hidden="true"></i>
                 Выберите объект:
@@ -60,32 +60,35 @@
                     {% endif %}
                 </select>
                 <br>
-                <button type="submit" value="Поиск" formmethod="get" class="btn btn-success btn-sm">
+                <button type="submit" value="Delete" formmethod="delete" class="btn btn-success btn-sm">
                     <i class="fa fa-minus-square" aria-hidden="true"></i> Удалить личность
                 </button>
             </div>
+            </form>
         </div>
     <hr>
         <div class="row">
+            <form action="/admin_statistics/" method='post' role="form" class="control-label col-sm-12">
+                {% csrf_token %}
             <label class="control-label col-sm-6">
                 <i class="fa fa-user-plus" aria-hidden="true"></i>
                 Новая личность:
             </label>
             <div class="control-label col-sm-6">
-                <input type="text" size="29" placeholder="Новый объект">
+                <input type="text" name='new_person' size="29" placeholder="Новый объект">
                 <br>
                 <br>
-                <button type="submit" value="Поиск" formmethod="get" class="btn btn-success btn-sm">
+                <button type="submit" value="Add" formmethod="post" class="btn btn-success btn-sm">
                     <i class="fa fa-plus-square" aria-hidden="true"></i> Добавить личность
                 </button>
             </div>
+            </form>
         </div>
     <br>
     <hr>
         <button type="reset" value="Очистить" class="btn btn-danger btn-xs">
             <i class="fa fa-refresh" aria-hidden="true"></i> Очистить
         </button>
-    </form>
 </div>
 
 <div class="side-right">

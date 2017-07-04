@@ -6,6 +6,7 @@ from UserManagement.forms import MyRegistrationForm, UserChangeForm
 from django.http import Http404, JsonResponse
 from django.template import loader
 from django.template.context_processors import csrf
+from django.core.exceptions import ValidationError
 from django.contrib.auth.decorators import user_passes_test
 
 
@@ -25,7 +26,6 @@ def delete_user(request, user_id):
     user = get_object_or_404(Person, id=user_id)
     user.delete()
     return HttpResponseRedirect('/admin/')
-
 
 def get_user_form(request, user_id):
     """

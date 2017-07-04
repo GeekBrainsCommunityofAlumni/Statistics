@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+
+{% load static from staticfiles %}
+
+{% block content %}
+
+{% load googlecharts %}
+
+<div id="Rank"></div>
+
+{% googlecharts %}
+	{% data values "count" %}
+		{% col "string" "Name" %}{{ person.name }}{% endcol %}
+		{% col "number" "Rank" %}{{ site.name }}{% endcol %}
+	{% enddata %}
+
+	{% options %}
+		kind: "LineChart",
+		options: {
+            width:600,
+            height:300,
+            title : 'Статистика упоминания личности на ресурсе',
+            vAxis: {title: 'Рейтинг'},
+            hAxis: {title: 'Исследуемый интернет-ресурс'},
+            seriesType: 'bars',
+            <!--series: {0: {type: 'line'}}-->
+		}
+	{% endoptions %}
+
+	{% graph "Rank" "count" %} {# используем опции по умолчанию #}
+{% endgooglecharts %}
+
+{% endblock %}
