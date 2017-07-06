@@ -29,6 +29,8 @@ public class MainApp extends Application
     {
         stage = primaryStage;
         primaryStage.setTitle("Statistic");
+        primaryStage.setMinWidth(750);
+        primaryStage.setMinHeight(600);
 
         commonStatistic = new Scene((Parent) FXMLLoader.load(getClass().getResource("/fxml/CommonStatistic.fxml")));
         dailyStatistic = new Scene((Parent) FXMLLoader.load(getClass().getResource("/fxml/DailyStatistic.fxml")));

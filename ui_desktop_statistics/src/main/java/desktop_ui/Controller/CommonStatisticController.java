@@ -12,7 +12,7 @@ import desktop_ui.Model.Service.StatisticService;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
-import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
@@ -22,10 +22,10 @@ import javafx.scene.control.TableView;
 public class CommonStatisticController
 {
     @FXML
-    private ChoiceBox sites;
+    private ComboBox<Choice> sites;
 
     @FXML
-    private TableView statisticTable;
+    private TableView<StatisticResultDto> statisticTable;
 
     @FXML
     private TableColumn<StatisticResultDto, Integer> rankColumn;
