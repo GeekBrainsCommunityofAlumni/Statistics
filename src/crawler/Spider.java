@@ -13,7 +13,9 @@ public class Spider {
     static Set<String> dritte = new HashSet<String>();
     static Iterator<String> itr;
 
-    public Spider(){}
+    public Spider() {
+    }
+
     public static Set<String> scanSite(String host) {
 
         searchSite(erste, host, host);
@@ -34,6 +36,7 @@ public class Spider {
         }
         return erste;
     }
+
     public static Set<String> searchSite(Set<String> set, String host, String site) {
         Document doc = null;
         try {
@@ -44,7 +47,9 @@ public class Spider {
             Element link = doc.select("a").get(i);
             String linkHref = link.attr("href");
             if (linkHref.startsWith("/"))
-            set.add(host + linkHref);
+                set.add(host + linkHref);
+            if (linkHref.startsWith(host))
+                set.add(linkHref);
         }
         return set;
     }
