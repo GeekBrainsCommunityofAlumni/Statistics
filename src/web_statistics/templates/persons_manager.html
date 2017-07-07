@@ -92,8 +92,6 @@
 </div>
 
 <div class="side-right">
-    <form class="control-label col-sm-12">
-        {% csrf_token %}
         <h4>
             Текущий список ключевых слов:<br>
         </h4>
@@ -105,8 +103,8 @@
                     </tr>
                 </thead>
                 <tbody>
-                {% if keywords %}
-                {% for keyword in keywords %}
+                {% if keywords_all %}
+                {% for keyword in keywords_all %}
                 <tr>
                     <td>{{ keyword.id }}</td>
                     <td>{{ keyword.name|upper }}</td>
@@ -126,31 +124,56 @@
         </h4>
         <hr>
             <div class="row">
+                <form action="/admin_keyword/" method='delete' role="form" class="control-label col-sm-12">
+                    {% csrf_token %}
+                    <label class="control-label col-sm-6">
+                        <i class="fa fa-key" aria-hidden="true"></i>
+                        Выберите ключевое слово:
+                    </label>
+                    <div class="control-label col-sm-6">
+                        <select id="keyword" class="form-control" name="source" required="">
+                            <option value="unknown">Не выбрано</option>
+                                {% if keywords_all %}
+                                    {% for keyword in keywords_all %}
+                                        <option value="{{ keyword.id }}">
+                                            {{ keyword.name }}
+                                        </option>
+                                    {% endfor %}
+                                {% else %}
+                            <option value="#">Нет данных для отображения</option>
+                            {% endif %}
+                        </select>
+                        <br>
+                    <button type="submit" value="Поиск" formmethod="delete" class="btn btn-success btn-sm">
+                        <i class="fa fa-minus-square" aria-hidden="true"></i> Удалить ключевое слово
+                    </button>
+                    </div>
+                </form>
+            </div>
+        <hr>
+        <div class="row">
+            <form action="/admin_keyword/" method='post' role="form" class="control-label col-sm-12">
+                {% csrf_token %}
             <label class="control-label col-sm-6">
                 <i class="fa fa-key" aria-hidden="true"></i>
-                Выберите ключевое слово:
+                Выберите личность:
             </label>
             <div class="control-label col-sm-6">
-                <select id="source" class="form-control" name="source" required="">
-                    <option value="unknown">Не выбрано</option>
-                    {% if keywords %}
-                        {% for keyword in keywords %}
-                            <option value="{{ keyword.id }}">
-                                {{ keyword.name|upper }}
+            <select id="person_id" class="form-control" name="source" required="">
+                <option value="unknown">Не выбрано</option>
+                    {% if persons_all %}
+                        {% for person in persons_all %}
+                            <option value="{{ person.id }}">
+                                {{ person.name }}
                             </option>
                         {% endfor %}
                     {% else %}
-                    <option value="#">Нет данных для отображения</option>
+                    <option value="#">Нет данных для вывода</option>
                     {% endif %}
-                </select>
+            </select>
                 <br>
-                <button type="submit" value="Поиск" formmethod="get" class="btn btn-success btn-sm">
-                    <i class="fa fa-minus-square" aria-hidden="true"></i> Удалить ключевое слово
-                </button>
             </div>
-        </div>
-        <hr>
-        <div class="row">
+            <br>
             <label class="control-label col-sm-6">
                 <i class="fa fa-key" aria-hidden="true"></i>
                 Введите новое ключевое слово:
@@ -159,10 +182,11 @@
                 <input type="text" size="29" placeholder="Новое ключевое слово">
                 <br>
                 <br>
-                <button type="submit" value="Поиск" formmethod="get" class="btn btn-success btn-sm">
+                <button type="submit" value="Поиск" formmethod="post" class="btn btn-success btn-sm">
                     <i class="fa fa-plus-square" aria-hidden="true"></i> Добавить ключевое слово
                 </button>
             </div>
+            </form>
         </div>
 <br>
         <hr>

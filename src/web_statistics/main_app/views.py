@@ -177,6 +177,7 @@ def admin_statistics(request):
     persons = Persons.objects.order_by('name')
     persons_all = requests.get('http://94.130.27.143:8080/api/person').json()
     keywords = Keywords.objects.order_by('name')
+    keywords_all = requests.get('http://94.130.27.143:8080/api/keyword').json()
     person_ranks = PersonPageRank.objects.values('person_id_id', 'page_id_id').annotate(rank=Sum('rank'))
     pages = Pages.objects.all()
     users = User.objects.all()
@@ -198,7 +199,33 @@ def admin_statistics(request):
 
     return render(request, 'admin_statistics.html', {'persons': persons, 'persons_all': persons_all,
                                                      'keywords': keywords, 'sites': sites, 'person_ranks': person_ranks,
-                                                     'sites_selected': sites_selected,
+                                                     'sites_selected': sites_selected, 'keywords_all': keywords_all,
+                                                     'pages': pages, 'users': users})
+
+
+@login_required(login_url='/privateroom/')
+def admin_keyword(request):
+    sites = Sites.objects.order_by('name')
+    sites_selected = Sites.objects.order_by('name')
+    persons = Persons.objects.order_by('name')
+    persons_all = requests.get('http://94.130.27.143:8080/api/person').json()
+    keywords = Keywords.objects.order_by('name')
+    keywords_all = requests.get('http://94.130.27.143:8080/api/keyword').json()
+    person_ranks = PersonPageRank.objects.values('person_id_id', 'page_id_id').annotate(rank=Sum('rank'))
+    pages = Pages.objects.all()
+    users = User.objects.all()
+    if request.method == 'POST':
+        #form = AddPerson(request.POST)
+        person_name = request.POST.get('new_person')
+        print(person_name)
+        r = requests.post('http://94.130.27.143:8080/api/person', json={'name': person_name},
+                          headers={"Content-Type": "application/json"})
+        print('USER CREATION:', r.status_code)
+        print(persons_all)
+
+    return render(request, 'admin_statistics.html', {'persons': persons, 'persons_all': persons_all,
+                                                     'keywords': keywords, 'sites': sites, 'person_ranks': person_ranks,
+                                                     'sites_selected': sites_selected, 'keywords_all': keywords_all,
                                                      'pages': pages, 'users': users})
 
 
