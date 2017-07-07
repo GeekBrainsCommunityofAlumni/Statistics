@@ -218,12 +218,12 @@ def admin_keyword(request):
     users = User.objects.all()
     if request.method == 'POST':
         #form = AddPerson(request.POST)
-        person_name = request.POST.get('new_person')
-        print(person_name)
-        r = requests.post(API + '/person', json={'name': person_name},
+        person_id = request.POST.get('source')
+        keyword_name = request.POST.get('keyword')
+        r = requests.post(API + '/keyword/' + person_id, json={'name': keyword_name},
                           headers={"Content-Type": "application/json"})
-        print('USER CREATION:', r.status_code)
-        print(persons_all)
+        print('KEYWORD CREATION:', r.status_code)
+        print(keywords_all)
 
     if request.method == 'DELETE':
         keyword_id = request.DELETE.get('source')
@@ -239,8 +239,10 @@ def admin_keyword(request):
 def politics(request):
     return render(request, 'politics.html')
 
+
 def private_settings(request):
     return render(request, 'private_settings.html')
+
 
 def economics_and_finances(request):
     return render(request, 'economics_and_finances.html')
