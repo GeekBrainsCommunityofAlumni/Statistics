@@ -10,6 +10,8 @@ from django.http import Http404
 import requests
 import json
 
+API = 'http://94.130.27.143:8080/api'
+
 
 def main(request):
     return render(request, 'headpage.html')
@@ -175,9 +177,9 @@ def admin_statistics(request):
     sites = Sites.objects.order_by('name')
     sites_selected = Sites.objects.order_by('name')
     persons = Persons.objects.order_by('name')
-    persons_all = requests.get('http://94.130.27.143:8080/api/person').json()
+    persons_all = requests.get(API + '/person').json()
     keywords = Keywords.objects.order_by('name')
-    keywords_all = requests.get('http://94.130.27.143:8080/api/keyword').json()
+    keywords_all = requests.get(API + '/keyword').json()
     person_ranks = PersonPageRank.objects.values('person_id_id', 'page_id_id').annotate(rank=Sum('rank'))
     pages = Pages.objects.all()
     users = User.objects.all()
@@ -186,7 +188,7 @@ def admin_statistics(request):
         #form = AddPerson(request.POST)
         person_name = request.POST.get('new_person')
         print(person_name)
-        r = requests.post('http://94.130.27.143:8080/api/person', json={'name': person_name},
+        r = requests.post(API + '/person', json={'name': person_name},
                           headers={"Content-Type": "application/json"})
         print('USER CREATION:', r.status_code)
         print(persons_all)
@@ -194,7 +196,7 @@ def admin_statistics(request):
     if request.method == 'DELETE':
         #form = DelPerson(request.DELETE)
         person_id = request.DELETE.get('source')
-        r = requests.delete('http://94.130.27.143:8080/api/person/' + person_id)
+        r = requests.delete(API + '/person/' + person_id)
         print('USER REMOVED:', r.status_code)
 
     return render(request, 'admin_statistics.html', {'persons': persons, 'persons_all': persons_all,
@@ -208,9 +210,9 @@ def admin_keyword(request):
     sites = Sites.objects.order_by('name')
     sites_selected = Sites.objects.order_by('name')
     persons = Persons.objects.order_by('name')
-    persons_all = requests.get('http://94.130.27.143:8080/api/person').json()
+    persons_all = requests.get(API + '/person').json()
     keywords = Keywords.objects.order_by('name')
-    keywords_all = requests.get('http://94.130.27.143:8080/api/keyword').json()
+    keywords_all = requests.get(API + '/keyword').json()
     person_ranks = PersonPageRank.objects.values('person_id_id', 'page_id_id').annotate(rank=Sum('rank'))
     pages = Pages.objects.all()
     users = User.objects.all()
@@ -218,10 +220,15 @@ def admin_keyword(request):
         #form = AddPerson(request.POST)
         person_name = request.POST.get('new_person')
         print(person_name)
-        r = requests.post('http://94.130.27.143:8080/api/person', json={'name': person_name},
+        r = requests.post(API + '/person', json={'name': person_name},
                           headers={"Content-Type": "application/json"})
         print('USER CREATION:', r.status_code)
         print(persons_all)
+
+    if request.method == 'DELETE':
+        keyword_id = request.DELETE.get('source')
+        r = requests.delete(API + '/keyword/' + keyword_id)
+        print('USER REMOVED:', r.status_code)
 
     return render(request, 'admin_statistics.html', {'persons': persons, 'persons_all': persons_all,
                                                      'keywords': keywords, 'sites': sites, 'person_ranks': person_ranks,
@@ -245,12 +252,6 @@ def business(request):
 
 def society(request):
     return render(request, 'society.html')
-
-
-# def parameters_search(request):
-#     if request.method == 'GET':
-#         site = request.GET.get('source')
-#         person = request.GET.get('profile')
 
 
 def api_stat(request):
