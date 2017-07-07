@@ -19,8 +19,8 @@
                     </tr>
                 </thead>
                 <tbody>
-                {% if persons %}
-                {% for person in persons %}
+                {% if persons_all %}
+                {% for person in persons_all %}
                 <tr>
                     <td>{{ person.id }}</td>
                     <td>{{ person.name }}</td>
@@ -49,8 +49,8 @@
             <div class="control-label col-sm-6">
                 <select id="source" class="form-control" name="source" required="">
                     <option value="unknown">Не выбрано</option>
-                    {% if persons %}
-                        {% for person in persons %}
+                    {% if persons_all %}
+                        {% for person in persons_all %}
                             <option value="{{ person.id }}">
                                 {{ person.name }}
                             </option>

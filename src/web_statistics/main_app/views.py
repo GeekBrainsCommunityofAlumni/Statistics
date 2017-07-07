@@ -8,6 +8,7 @@ from django.http import HttpResponseRedirect
 from .forms import ParametrizedStatForm
 from django.http import Http404
 import requests
+import json
 
 
 def main(request):
@@ -174,7 +175,7 @@ def admin_statistics(request):
     sites = Sites.objects.order_by('name')
     sites_selected = Sites.objects.order_by('name')
     persons = Persons.objects.order_by('name')
-    persons_all = list(requests.get('http://94.130.27.143:8080/api/person'))
+    persons_all = requests.get('http://94.130.27.143:8080/api/person').json()
     keywords = Keywords.objects.order_by('name')
     person_ranks = PersonPageRank.objects.values('person_id_id', 'page_id_id').annotate(rank=Sum('rank'))
     pages = Pages.objects.all()
@@ -192,12 +193,11 @@ def admin_statistics(request):
     if request.method == 'DELETE':
         #form = DelPerson(request.DELETE)
         person_id = request.DELETE.get('source')
-        r = requests.delete('http://94.130.27.143:8080/api/person/102')
+        r = requests.delete('http://94.130.27.143:8080/api/person/' + person_id)
         print('USER REMOVED:', r.status_code)
 
     return render(request, 'admin_statistics.html', {'persons': persons, 'persons_all': persons_all,
-                                                     'keywords': keywords,
-                                                     'sites': sites, 'person_ranks': person_ranks,
+                                                     'keywords': keywords, 'sites': sites, 'person_ranks': person_ranks,
                                                      'sites_selected': sites_selected,
                                                      'pages': pages, 'users': users})
 
