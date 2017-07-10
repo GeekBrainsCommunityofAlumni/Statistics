@@ -86,7 +86,6 @@ def registration(request):
     return render(request, "registration.html")
 
 
-
 @login_required(login_url='/privateroom/')
 def change_password(request):
     if request.method == 'POST':

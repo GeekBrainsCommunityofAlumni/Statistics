@@ -20,6 +20,13 @@ from django.conf.urls.static import static
 from main_app.views import *
 from UserManagement.views import *
 from AdminManagement.views import *
+from django.contrib.auth.views import (
+    password_reset,
+    password_reset_done,
+    password_reset_confirm,
+    password_reset_complete
+)
+
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -49,10 +56,8 @@ urlpatterns = [
     url(r'^admin_del_keyword', admin_del_keyword),
     url(r'^admin_del_site', admin_del_site),
     url(r'^admin_add_site', admin_add_site),
-]
-
-urlpatterns += [
     url(r'^user/login/$', login),
+    url(r'^accounts/login/$', privateroom),
     url(r'^user/logout/$', logout),
     url(r'^user/registration/$', registration),
     url(r'^base_admin/$', base_admin),
@@ -62,7 +67,11 @@ urlpatterns += [
     url(r'^myadmin/create/user/(\d*)$', create_user),
     url(r'^user/edit_profile/$', edit_profile),
     url(r'^user/change_password/$', change_password),
-    url(r'^user/sent_password/$', change_password),]
+    url(r'^user/reset_password/$', password_reset, name="password_reset"),
+    url(r'^user/reset_password/confirm/(?P<uidb64>[0-9A-Za-z]+)-(?P<token>.+)/$', password_reset_confirm, name="password_reset_confirm"),
+    url(r'^user/reset_password/done/$', password_reset_done, name="password_reset_done"),
+    url(r'^user/reset_password/complete/$', password_reset_complete, name="password_reset_complete"),
+]
 
 if settings.DEBUG:
     # Static files (CSS, JavaScript, Images)
