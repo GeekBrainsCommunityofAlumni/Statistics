@@ -128,7 +128,7 @@ def common_statistics(request):
 
 @login_required(login_url='/privateroom/')
 def daily_statistics(request):
-    sites = Sites.objects.order_by('name')
+    sites = requests.get(API + '/site').json()
     sites_selected = Sites.objects.order_by('name')
     persons = Persons.objects.order_by('name')
     persons_all = Persons.objects.all()
@@ -174,59 +174,91 @@ def daily_statistics(request):
 
 @login_required(login_url='/privateroom/')
 def admin_statistics(request):
-    sites = Sites.objects.order_by('name')
+    sites = requests.get(API + '/site').json()
     sites_selected = Sites.objects.order_by('name')
     persons = Persons.objects.order_by('name')
-    persons_all = requests.get(API + '/person').json()
     keywords = Keywords.objects.order_by('name')
     keywords_all = requests.get(API + '/keyword').json()
     person_ranks = PersonPageRank.objects.values('person_id_id', 'page_id_id').annotate(rank=Sum('rank'))
-    pages = Pages.objects.all()
     users = User.objects.all()
 
     if request.method == 'POST':
-        #form = AddPerson(request.POST)
         person_name = request.POST.get('new_person')
         print(person_name)
         r = requests.post(API + '/person', json={'name': person_name},
                           headers={"Content-Type": "application/json"})
         print('USER CREATION:', r.status_code)
-        print(persons_all)
 
-    if request.method == 'DELETE':
-        #form = DelPerson(request.DELETE)
-        person_id = request.DELETE.get('source')
-        r = requests.delete(API + '/person/' + person_id)
-        print('USER REMOVED:', r.status_code)
+    persons_all = requests.get(API + '/person').json()
 
     return render(request, 'admin_statistics.html', {'persons': persons, 'persons_all': persons_all,
                                                      'keywords': keywords, 'sites': sites, 'person_ranks': person_ranks,
                                                      'sites_selected': sites_selected, 'keywords_all': keywords_all,
-                                                     'pages': pages, 'users': users})
+                                                     'users': users})
 
 
 @login_required(login_url='/privateroom/')
 def admin_del_person(request):
-    sites = Sites.objects.order_by('name')
+    sites = requests.get(API + '/site').json()
     sites_selected = Sites.objects.order_by('name')
     persons = Persons.objects.order_by('name')
-    persons_all = requests.get(API + '/person').json()
     keywords = Keywords.objects.order_by('name')
     keywords_all = requests.get(API + '/keyword').json()
     person_ranks = PersonPageRank.objects.values('person_id_id', 'page_id_id').annotate(rank=Sum('rank'))
-    pages = Pages.objects.all()
     users = User.objects.all()
 
     if request.method == 'POST':
-        #form = AddPerson(request.POST)
         person_id = request.POST.get('source')
         r = requests.delete(API + '/person/' + person_id)
         print('USER REMOVED:', r.status_code)
+
+    persons_all = requests.get(API + '/person').json()
 
     return render(request, 'admin_statistics.html', {'persons': persons, 'persons_all': persons_all,
                                                      'keywords': keywords, 'sites': sites, 'person_ranks': person_ranks,
                                                      'sites_selected': sites_selected, 'keywords_all': keywords_all,
                                                      'pages': pages, 'users': users})
+
+
+
+@login_required(login_url='/privateroom/')
+def admin_add_site(request):
+    sites_selected = Sites.objects.order_by('name')
+    persons_all = requests.get(API + '/person').json()
+    keywords_all = requests.get(API + '/keyword').json()
+    person_ranks = PersonPageRank.objects.values('person_id_id', 'page_id_id').annotate(rank=Sum('rank'))
+    users = User.objects.all()
+    if request.method == 'POST':
+        site_name = request.POST.get('site_name')
+        r = requests.post(API + '/site', json={'name': site_name},
+                          headers={"Content-Type": "application/json"})
+        print('SITE CREATION:', r.status_code)
+
+    sites = requests.get(API + '/site').json()
+
+    return render(request, 'admin_statistics.html', {'persons_all': persons_all, 'sites': sites,
+                                                     'person_ranks': person_ranks,
+                                                     'sites_selected': sites_selected, 'keywords_all': keywords_all,
+                                                     'users': users})
+
+
+@login_required(login_url='/privateroom/')
+def admin_del_site(request):
+    sites = requests.get(API + '/site').json()
+    sites_selected = Sites.objects.order_by('name')
+    persons_all = requests.get(API + '/person').json()
+    keywords_all = requests.get(API + '/keyword').json()
+    person_ranks = PersonPageRank.objects.values('person_id_id', 'page_id_id').annotate(rank=Sum('rank'))
+    users = User.objects.all()
+    if request.method == 'POST':
+        site_id = request.POST.get('source')
+        r = requests.delete(API + '/site/' + site_id)
+        print('Site REMOVED:', r.status_code)
+
+    return render(request, 'admin_statistics.html', {'persons_all': persons_all, 'sites': sites,
+                                                     'person_ranks': person_ranks,
+                                                     'sites_selected': sites_selected, 'keywords_all': keywords_all,
+                                                     'users': users})
 
 
 
@@ -237,23 +269,17 @@ def admin_keyword(request):
     persons = Persons.objects.order_by('name')
     persons_all = requests.get(API + '/person').json()
     keywords = Keywords.objects.order_by('name')
-    keywords_all = requests.get(API + '/keyword').json()
     person_ranks = PersonPageRank.objects.values('person_id_id', 'page_id_id').annotate(rank=Sum('rank'))
     pages = Pages.objects.all()
     users = User.objects.all()
     if request.method == 'POST':
-        #form = AddPerson(request.POST)
         person_id = request.POST.get('source')
         keyword_name = request.POST.get('keyword')
         r = requests.post(API + '/keyword/' + person_id, json={'name': keyword_name},
                           headers={"Content-Type": "application/json"})
         print('KEYWORD CREATION:', r.status_code)
-        print(keywords_all)
 
-    if request.method == 'DELETE':
-        keyword_id = request.DELETE.get('source')
-        r = requests.delete(API + '/keyword/' + keyword_id)
-        print('USER REMOVED:', r.status_code)
+    keywords_all = requests.get(API + '/keyword').json()
 
     return render(request, 'admin_statistics.html', {'persons': persons, 'persons_all': persons_all,
                                                      'keywords': keywords, 'sites': sites, 'person_ranks': person_ranks,
@@ -268,7 +294,6 @@ def admin_del_keyword(request):
     persons = Persons.objects.order_by('name')
     persons_all = requests.get(API + '/person').json()
     keywords = Keywords.objects.order_by('name')
-    keywords_all = requests.get(API + '/keyword').json()
     person_ranks = PersonPageRank.objects.values('person_id_id', 'page_id_id').annotate(rank=Sum('rank'))
     pages = Pages.objects.all()
     users = User.objects.all()
@@ -276,6 +301,8 @@ def admin_del_keyword(request):
         keyword_id = request.POST.get('source')
         r = requests.delete(API + '/keyword/' + keyword_id)
         print('USER REMOVED:', r.status_code)
+
+    keywords_all = requests.get(API + '/keyword').json()
 
     return render(request, 'admin_statistics.html', {'persons': persons, 'persons_all': persons_all,
                                                      'keywords': keywords, 'sites': sites, 'person_ranks': person_ranks,

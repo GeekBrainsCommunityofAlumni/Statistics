@@ -46,7 +46,9 @@ urlpatterns = [
     url(r'^googlechart', googlechart),
     url(r'^admin_keyword', admin_keyword),
     url(r'^admin_del_person', admin_del_person),
-    url(r'^admin_del_keyword', admin_del_keyword)
+    url(r'^admin_del_keyword', admin_del_keyword),
+    url(r'^admin_del_site', admin_del_site),
+    url(r'^admin_add_site', admin_add_site),
 ]
 
 urlpatterns += [

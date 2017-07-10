@@ -8,8 +8,6 @@
     </h3>
 <hr>
 <div class="side-left">
-    <form class="control-label col-sm-12">
-        {% csrf_token %}
         <h4>
             Текущий список сайтов:<br>
         </h4>
@@ -43,6 +41,8 @@
         </h4>
         <hr>
         <div class="row">
+            <form action="/admin_del_site/" method='post' role="form" class="control-label col-sm-12">
+                    {% csrf_token %}
             <label class="control-label col-sm-6">
                 <i class="fa fa-laptop" aria-hidden="true"></i>
                 Выберите сайт:
@@ -61,10 +61,11 @@
                     {% endif %}
                 </select>
                 <br>
-                <button type="submit" value="Поиск" formmethod="get" class="btn btn-success btn-sm">
+                <button type="submit" value="Поиск" formmethod="post" class="btn btn-success btn-sm">
                     <i class="fa fa-minus-square" aria-hidden="true"></i> Удалить сайт
                 </button>
             </div>
+            </form>
         </div>
     <hr>
         <div class="row">
@@ -73,12 +74,15 @@
                 Введите название сайта:
             </label>
             <div class="control-label col-sm-6">
-                <input type="text" size="29" placeholder="Имя сайт">
+                <form action="/admin_add_site/" method='post' role="form" class="control-label col-sm-12">
+                    {% csrf_token %}
+                <input type="text" name='site_name' size="29" placeholder="Имя сайт">
                 <br>
                 <br>
-                <button type="submit" value="Поиск" formmethod="get" class="btn btn-success btn-sm">
+                <button type="submit" value="Поиск" formmethod="post" class="btn btn-success btn-sm">
                     <i class="fa fa-plus-square" aria-hidden="true"></i> Добавить сайт
                 </button>
+                </form>
             </div>
         </div>
     <hr>
@@ -86,88 +90,6 @@
         <button type="reset" value="Очистить" class="btn btn-danger btn-xs">
             <i class="fa fa-refresh" aria-hidden="true"></i> Очистить
         </button>
-    </form>
-</div>
-
-<div class="side-right">
-    <form class="control-label col-sm-12">
-        {% csrf_token %}
-        <h4>
-            Текущий список URL страниц:<br>
-        </h4>
-        <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Адрес страницы</th>
-                    </tr>
-                </thead>
-                <tbody>
-                {% if pages %}
-                {% for page in pages %}
-                <tr>
-                    <td>{{ page.id }}</td>
-                    <td>{{ page.url }}</td>
-                </tr>
-                {% endfor %}
-                {% else %}
-                    В базу данных еще не было добавлено ни одной страницы
-                {% endif %}
-            </table>
-        <button type="submit" value="Download .csv" formmethod="get" class="btn btn-primary btn-xs">
-            <i class="fa fa-download" aria-hidden="true"></i> Download .csv
-        </button>
-        <img src="{% static 'img/loading.gif' %}">
-        <hr>
-        <h4>
-            Редактирование:
-        </h4>
-        <hr>
-            <div class="row">
-            <label class="control-label col-sm-6">
-                <i class="fa fa-laptop" aria-hidden="true"></i>
-                Выберите URL сайта:
-            </label>
-            <div class="control-label col-sm-6">
-                <select id="source" class="form-control" name="source" required="">
-                    <option value="unknown">Не выбрано</option>
-                    {% if pages %}
-                        {% for page in pages %}
-                            <option value="{{ page.id }}">
-                                {{ page.url }}
-                            </option>
-                        {% endfor %}
-                    {% else %}
-                    <option value="#">Have no sites</option>
-                    {% endif %}
-                </select>
-                <br>
-                <button type="submit" value="Поиск" formmethod="get" class="btn btn-success btn-sm">
-                    <i class="fa fa-minus-square" aria-hidden="true"></i> Удалить URL
-                </button>
-            </div>
-        </div>
-        <hr>
-        <div class="row">
-            <label class="control-label col-sm-6">
-                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                Введите новый URL сайта:
-            </label>
-            <div class="control-label col-sm-6">
-                <input type="text" size="29" placeholder="URL страницы">
-                <br>
-                <br>
-                <button type="submit" value="Поиск" formmethod="get" class="btn btn-success btn-sm">
-                    <i class="fa fa-plus-square" aria-hidden="true"></i> Добавить URL
-                </button>
-            </div>
-        </div>
-
-        <hr>
-        <button type="reset" value="Очистить" class="btn btn-danger btn-xs">
-            <i class="fa fa-refresh" aria-hidden="true"></i> Очистить
-        </button>
-    </form>
 </div>
 
 {% endblock %}
