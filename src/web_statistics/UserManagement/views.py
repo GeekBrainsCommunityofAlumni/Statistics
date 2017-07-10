@@ -121,22 +121,3 @@ def edit_profile(request):
         form = EditProfileForm(instance=request.user)
         args = {'form': form}
         return render(request, 'edit_profile.html', args)
-
-
-@login_required(login_url='/privateroom/')
-def sent_password(request):
-    if request.method == 'POST':
-        form = PasswordChangeForm(data=request.POST, user=request.user)
-
-        if form.is_valid():
-            form.save()
-            update_session_auth_hash(request, form.user)
-            return redirect('/privateroom/')
-
-        else:
-            return redirect('/user/sent_password/')
-
-    else:
-        form = PasswordChangeForm(user=request.user)
-        args = {'form': form}
-        return render(request, 'sent_password.html', args)

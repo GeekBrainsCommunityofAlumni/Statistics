@@ -4,6 +4,11 @@
 
     <div class="container-fluid" id="usercart">
 
+        <div class="thumbnail" id="user">
+            <img src="{{ user.person.photo }}" alt="You">
+            <h4>{{user.first_name}} {{user.last_name}}</h4>
+        </div>
+
         <div class="information">
             <div class="hero-unit">
                 <h4>Добро пожаловать, {{user.first_name}}!
@@ -69,11 +74,11 @@
                         </tr>
                         <tr>
                             <td><i class="fa fa-mobile" aria-hidden="true"></i> Контактный тел. (mobile):</td>
-                            <td>{{user.phone_number}}</td>
+                            <td>{{user.person.phone_number}}</td>
                         </tr>
                         <tr>
                             <td><i class="fa fa-address-card-o" aria-hidden="true"></i> Ваш статус пользователя:</td>
-                            <td>{{user.status}}</td>
+                            <td>{{user.person.status}}</td>
                         </tr>
                     </tbody>
                     </table>

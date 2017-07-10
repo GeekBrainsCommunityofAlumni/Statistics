@@ -27,6 +27,7 @@ def delete_user(request, user_id):
     user.delete()
     return HttpResponseRedirect('/admin/')
 
+
 def get_user_form(request, user_id):
     """
     Возвращает заполненную форму для редактирования Пользователя(Person) с заданным user_id

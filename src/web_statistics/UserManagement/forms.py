@@ -40,16 +40,13 @@ class UserForm(forms.ModelForm):
 
 class UserChangeForm(forms.ModelForm):
     """
-    Форма для обновления данных пользователей. Нужна только для того, чтобы не
-    видеть постоянных ошибок "Не заполнено поле password" при обновлении данных
-    пользователя.
+    Форма для обновления данных пользователей.
     """
 
     class Meta:
         model = Person
         fields = ('__all__')
         exclude = ('rules',)
-
 
 
 class EditProfileForm(UserChangeForm):
