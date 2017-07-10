@@ -40,7 +40,7 @@
         </h4>
         <hr>
         <div class="row">
-            <form action="/admin_statistics/" method='delete' role="form" class="control-label col-sm-12">
+            <form action="/admin_del_person/" method='post' role="form" class="control-label col-sm-12">
                 {% csrf_token %}
             <label class="control-label col-sm-6">
                 <i class="fa fa-user" aria-hidden="true"></i>
@@ -60,7 +60,7 @@
                     {% endif %}
                 </select>
                 <br>
-                <button type="submit" value="Delete" formmethod="delete" class="btn btn-success btn-sm">
+                <button type="submit" value="Delete" formmethod="post" class="btn btn-success btn-sm">
                     <i class="fa fa-minus-square" aria-hidden="true"></i> Удалить личность
                 </button>
             </div>
@@ -124,7 +124,7 @@
         </h4>
         <hr>
             <div class="row">
-                <form action="/admin_keyword/" method='delete' role="form" class="control-label col-sm-12">
+                <form action="/admin_del_keyword/" method='post' role="form" class="control-label col-sm-12">
                     {% csrf_token %}
                     <label class="control-label col-sm-6">
                         <i class="fa fa-key" aria-hidden="true"></i>
@@ -144,7 +144,7 @@
                             {% endif %}
                         </select>
                         <br>
-                    <button type="submit" value="Поиск" formmethod="delete" class="btn btn-success btn-sm">
+                    <button type="submit" value="Поиск" formmethod="post" class="btn btn-success btn-sm">
                         <i class="fa fa-minus-square" aria-hidden="true"></i> Удалить ключевое слово
                     </button>
                     </div>

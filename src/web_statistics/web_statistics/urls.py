@@ -45,7 +45,9 @@ urlpatterns = [
     url(r'^common_statistics', common_statistics),
     url(r'^private_settings', private_settings),
     url(r'^googlechart', googlechart),
-    url(r'^admin_keyword', admin_keyword)
+    url(r'^admin_keyword', admin_keyword),
+    url(r'^admin_del_person', admin_del_person),
+    url(r'^admin_del_keyword', admin_del_keyword)
 ]
 
 urlpatterns += [

@@ -206,6 +206,31 @@ def admin_statistics(request):
 
 
 @login_required(login_url='/privateroom/')
+def admin_del_person(request):
+    sites = Sites.objects.order_by('name')
+    sites_selected = Sites.objects.order_by('name')
+    persons = Persons.objects.order_by('name')
+    persons_all = requests.get(API + '/person').json()
+    keywords = Keywords.objects.order_by('name')
+    keywords_all = requests.get(API + '/keyword').json()
+    person_ranks = PersonPageRank.objects.values('person_id_id', 'page_id_id').annotate(rank=Sum('rank'))
+    pages = Pages.objects.all()
+    users = User.objects.all()
+
+    if request.method == 'POST':
+        #form = AddPerson(request.POST)
+        person_id = request.POST.get('source')
+        r = requests.delete(API + '/person/' + person_id)
+        print('USER REMOVED:', r.status_code)
+
+    return render(request, 'admin_statistics.html', {'persons': persons, 'persons_all': persons_all,
+                                                     'keywords': keywords, 'sites': sites, 'person_ranks': person_ranks,
+                                                     'sites_selected': sites_selected, 'keywords_all': keywords_all,
+                                                     'pages': pages, 'users': users})
+
+
+
+@login_required(login_url='/privateroom/')
 def admin_keyword(request):
     sites = Sites.objects.order_by('name')
     sites_selected = Sites.objects.order_by('name')
@@ -227,6 +252,28 @@ def admin_keyword(request):
 
     if request.method == 'DELETE':
         keyword_id = request.DELETE.get('source')
+        r = requests.delete(API + '/keyword/' + keyword_id)
+        print('USER REMOVED:', r.status_code)
+
+    return render(request, 'admin_statistics.html', {'persons': persons, 'persons_all': persons_all,
+                                                     'keywords': keywords, 'sites': sites, 'person_ranks': person_ranks,
+                                                     'sites_selected': sites_selected, 'keywords_all': keywords_all,
+                                                     'pages': pages, 'users': users})
+
+
+@login_required(login_url='/privateroom/')
+def admin_del_keyword(request):
+    sites = Sites.objects.order_by('name')
+    sites_selected = Sites.objects.order_by('name')
+    persons = Persons.objects.order_by('name')
+    persons_all = requests.get(API + '/person').json()
+    keywords = Keywords.objects.order_by('name')
+    keywords_all = requests.get(API + '/keyword').json()
+    person_ranks = PersonPageRank.objects.values('person_id_id', 'page_id_id').annotate(rank=Sum('rank'))
+    pages = Pages.objects.all()
+    users = User.objects.all()
+    if request.method == 'POST':
+        keyword_id = request.POST.get('source')
         r = requests.delete(API + '/keyword/' + keyword_id)
         print('USER REMOVED:', r.status_code)
 
