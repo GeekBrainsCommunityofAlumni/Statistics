@@ -199,3 +199,20 @@
 .demo {
     margin: 5% 10%;
 }
+
+.settings {
+    margin-bottom: 110px;
+    text-decoration: none;
+    list-style-type: none;
+    color: #222222;
+}
+
+
+.settings h4:hover {
+    color: red;
+}
+
+.settings a:hover {
+    text-decoration: none;
+    color: red;
+}
