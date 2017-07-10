@@ -49,3 +49,19 @@ class UserChangeForm(forms.ModelForm):
         model = Person
         fields = ('__all__')
         exclude = ('rules',)
+
+
+
+class EditProfileForm(UserChangeForm):
+    """
+    Форма для обновления данных пользователей.
+    """
+
+    class Meta:
+        model = Person
+        fields = (
+            'username',
+            'first_name',
+            'last_name',
+            'email'
+        )

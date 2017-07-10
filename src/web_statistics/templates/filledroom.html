@@ -9,14 +9,53 @@
                 <h4>Добро пожаловать, {{user.first_name}}!
                     <br><small>Ваш последний визит был {{user.last_login}}</small>
                 </h4>
-                <p>
-                    <a href="/private_settings/">
-                        <button class="btn btn-success btn-sm" type="submit">
-                             Настройки <i class="fa fa-cogs" aria-hidden="true"></i>
-                        </button>
-                    </a>
-                </p>
-                <br>
+                <hr>
+                <div class="settings">
+                    <div class="col-lg-12 text-left">
+                        <div class="btn btn-default btn-sm">
+                            <input type="checkbox" id="hd-1" class="hide"/>
+                            <label for="hd-1" class="text-left">
+                                <h4 class="text-left">
+                                    <i class="fa fa-cogs" aria-hidden="true"></i>
+                                    Settings <br>
+                                    <small class="text-left">Изменить личные настройки</small>
+                                </h4>
+                            </label>
+                            <div class="col-sm-8">
+                                <ul class="settings text-left">
+                                    <li>
+                                        <a href="/user/edit_profile/" class="settings">
+                                            <h5>
+                                                <i class="fa fa-retweet"></i>
+                                                <i class="fa fa-id-card"></i>
+                                                Настроить profile
+                                            </h5>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="/user/change_password/" class="settings">
+                                            <h5>
+                                                <i class="fa fa-retweet"></i>
+                                                <i class="fa fa-key"></i>
+                                                Изменить пароль
+                                            </h5>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="/user/sent_password/" class="settings">
+                                            <h5>
+                                                <i class="fa fa-paper-plane"></i>
+                                                <i class="fa fa-key"></i>
+                                                Скинуть пароль на почту
+                                            </h5>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr>
                 <div class='col-sm-5'>
                     <table class="table table-condensed">
                     <tbody>

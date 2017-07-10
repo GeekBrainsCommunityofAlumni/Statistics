@@ -43,7 +43,6 @@ urlpatterns = [
     url(r'^review/$', review),
     url(r'^support/$', support),
     url(r'^common_statistics', common_statistics),
-    url(r'^private_settings', private_settings),
     url(r'^googlechart', googlechart),
     url(r'^admin_keyword', admin_keyword),
     url(r'^admin_del_person', admin_del_person),
@@ -59,8 +58,9 @@ urlpatterns += [
     url(r'^myadmin/delete/user/(\d+)$', delete_user),
     url(r'^myadmin/get_user_form/(\d+)$', get_user_form),
     url(r'^myadmin/create/user/(\d*)$', create_user),
-    url(r'^user/set_new_password/$', set_new_password),
-]
+    url(r'^user/edit_profile/$', edit_profile),
+    url(r'^user/change_password/$', change_password),
+    url(r'^user/sent_password/$', change_password),]
 
 if settings.DEBUG:
     # Static files (CSS, JavaScript, Images)
