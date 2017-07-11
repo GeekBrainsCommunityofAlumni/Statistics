@@ -128,11 +128,11 @@ def common_statistics(request):
 
 @login_required(login_url='/privateroom/')
 def daily_statistics(request):
+    keywords = requests.get(API + '/keyword').json()
+    persons = requests.get(API + '/person').json()
     sites = requests.get(API + '/site').json()
     sites_selected = Sites.objects.order_by('name')
-    persons = Persons.objects.order_by('name')
-    persons_all = Persons.objects.all()
-    keywords = Keywords.objects.order_by('name')
+    #persons = Persons.objects.order_by('name')
     person_ranks = PersonPageRank.objects.values('person_id_id', 'page_id_id').annotate(rank=Sum('rank'))
 
     if request.method == 'POST':
@@ -163,14 +163,13 @@ def daily_statistics(request):
         return render(request, "daily_statistics.html", {'sites': sites, 'persons': persons,
                                                             'keywords': keywords, 'form': form,
                                                             'person_ranks': person_ranks,
-                                                            'sites_selected': sites_selected,
-                                                            'persons_all': persons_all})
+                                                            'sites_selected': sites_selected})
     else:
 
-        return render(request, 'daily_statistics.html', {'persons': persons, 'persons_all': persons_all,
-                                                            'keywords': keywords,
+        return render(request, 'daily_statistics.html', {'persons': persons, 'keywords': keywords,
                                                             'sites': sites, 'person_ranks': person_ranks,
                                                             'sites_selected': sites_selected})
+
 
 @login_required(login_url='/privateroom/')
 def admin_statistics(request):
@@ -217,8 +216,7 @@ def admin_del_person(request):
     return render(request, 'admin_statistics.html', {'persons': persons, 'persons_all': persons_all,
                                                      'keywords': keywords, 'sites': sites, 'person_ranks': person_ranks,
                                                      'sites_selected': sites_selected, 'keywords_all': keywords_all,
-                                                     'pages': pages, 'users': users})
-
+                                                     'users': users})
 
 
 @login_required(login_url='/privateroom/')
@@ -244,7 +242,6 @@ def admin_add_site(request):
 
 @login_required(login_url='/privateroom/')
 def admin_del_site(request):
-    sites = requests.get(API + '/site').json()
     sites_selected = Sites.objects.order_by('name')
     persons_all = requests.get(API + '/person').json()
     keywords_all = requests.get(API + '/keyword').json()
@@ -255,16 +252,17 @@ def admin_del_site(request):
         r = requests.delete(API + '/site/' + site_id)
         print('Site REMOVED:', r.status_code)
 
+    sites = requests.get(API + '/site').json()
+
     return render(request, 'admin_statistics.html', {'persons_all': persons_all, 'sites': sites,
                                                      'person_ranks': person_ranks,
                                                      'sites_selected': sites_selected, 'keywords_all': keywords_all,
                                                      'users': users})
 
 
-
 @login_required(login_url='/privateroom/')
 def admin_keyword(request):
-    sites = Sites.objects.order_by('name')
+    sites = requests.get(API + '/site').json()
     sites_selected = Sites.objects.order_by('name')
     persons = Persons.objects.order_by('name')
     persons_all = requests.get(API + '/person').json()
@@ -289,7 +287,7 @@ def admin_keyword(request):
 
 @login_required(login_url='/privateroom/')
 def admin_del_keyword(request):
-    sites = Sites.objects.order_by('name')
+    sites = requests.get(API + '/site').json()
     sites_selected = Sites.objects.order_by('name')
     persons = Persons.objects.order_by('name')
     persons_all = requests.get(API + '/person').json()
