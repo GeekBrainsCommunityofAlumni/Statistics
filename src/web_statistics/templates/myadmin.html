@@ -1,21 +1,45 @@
-{% extends "base_admin.html" %}
+<!DOCTYPE html>
 
-{% block js %}
-    {{ block.super }}
-    <script src="/static/js/create_user.js"></script>
+{% extends 'base.html' %}
+{% load static from staticfiles %}
+
+{% block title %}
+    Кабинет администратора сайта | {{block.super}}
 {% endblock %}
 
-{% block unique %}
-    <div class="row">
-        <div class="col-md-6">
-            Пользователи:
-            <ul id="users_list">
-                {% include 'inc-users_list.html' %}
-            </ul>
+{% block content %}
+    {% block js %}
+        <script src="/static/js/jquery-3.1.1.min.js"></script>
+        <script src="/static/js/bootstrap.min.js"></script>
+        <script src="/static/js/create_user.js"></script>
+    {% endblock %}
+    {#<div id="csrfmiddlewaretoken" style="display: none;">{% csrf_token %}</div>#}
+
+    <div class="page-header">
+        <div class="row">
+            {% block header %}
+                <div class="col-md-12">
+                    <h1>Кабинет администратора сайта</h1>
+                </div>
+            {% endblock %}
         </div>
     </div>
-    <form id="user_form">
-        {% include 'inc-registration_form_as_table.html' %}
-    </form>
-    <input type="submit" value="Edit account" onclick="send_data()">
+
+    <div class="row">
+        {% block menu %}
+            <ul>
+                <li>
+                    <a href="#">User-Администраторы</a>
+                </li>
+                <li>
+                    <a href="#">User-пользователи </a>
+                </li>
+            </ul>
+        {% endblock %}
+    </div>
+
+    <div class="row">
+            base % context % template
+    </div>
+
 {% endblock %}

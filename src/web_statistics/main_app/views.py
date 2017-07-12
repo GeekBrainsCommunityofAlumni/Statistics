@@ -312,10 +312,6 @@ def politics(request):
     return render(request, 'politics.html')
 
 
-def private_settings(request):
-    return render(request, 'private_settings.html')
-
-
 def economics_and_finances(request):
     return render(request, 'economics_and_finances.html')
 
@@ -331,21 +327,6 @@ def society(request):
 def api_stat(request):
     # todo: request http://94.130.27.143:8080/api/ with parameters, and send json into the template
     return render()
-
-
-def registration(request):
-    return render(request, 'registration.html')
-
-# def registration(request):
-#     username = Person.objects.order_by('name')
-#     last_name = Person.objects.order_by('name')
-#     first_name = Person.objects.order_by('name')
-#     login = Person.objects.order_by('name')
-#     email = Person.objects.order_by('name')
-#     phone_number = Person.objects.order_by('name')
-#     status = Person.objects.order_by('name')
-#     return render(request, 'registration.html', {'username': username, 'last_name': last_name,
-# 'first_name': first_name, 'login': login, 'email': email, 'phone_number': phone_number, 'status': status})
 
 
 def privateroom(request):

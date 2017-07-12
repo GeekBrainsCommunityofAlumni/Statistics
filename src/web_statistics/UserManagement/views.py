@@ -2,28 +2,15 @@
 
 from django.contrib import auth
 from django.contrib.auth import update_session_auth_hash
-from django.shortcuts import render, redirect, render_to_response, get_object_or_404
+from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.http import Http404, HttpResponseRedirect
-# from django.template.context_processors import csrf
 from django.contrib.auth.models import User
-from UserManagement.models import handle_uploaded_file, Person
 from django.core.exceptions import ValidationError
-from .forms import UploadFileForm
-from qsstats import QuerySetStats
+from .forms import MyRegistrationForm
+# from qsstats import QuerySetStats
 from django.contrib.auth.forms import PasswordChangeForm
 from UserManagement.forms import EditProfileForm
-
-
-def upload_file(request):
-    if request.method == 'POST':
-        form = UploadFileForm(request.POST, request.FILES)
-        if form.is_valid():
-            handle_uploaded_file(request.FILES['file'])
-            return HttpResponseRedirect('/success/url/')
-    else:
-        form = UploadFileForm()
-    return render_to_response('upload.html', {'form': form})
 
 
 def login(request):
@@ -50,6 +37,18 @@ def logout(request):
 
 def registration(request):
     if request.method == 'POST':
+        form = MyRegistrationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect("/privateroom/")
+    else:
+        form = MyRegistrationForm()
+
+        args = {'form': form}
+        return render(request, "registration.html")
+
+def registration(request):
+    if request.method == 'POST':
         errors = {}  # Тут будем хранить ошибки, чтобы отобразить на странице
         username = request.POST.get("login")
         last_name = request.POST.get("last_name")
@@ -63,7 +62,6 @@ def registration(request):
         photo = request.POST.get("photo")
         status = request.POST.get("status")
         print(request.POST)
-        # user = User()
         # user.username = 'Admin'
         # user.set_password('testgbca')
         # Validate data

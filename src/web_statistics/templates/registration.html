@@ -17,6 +17,10 @@
             {% endif %}
             <form class="form-horizontal" enctype="multipart/form-data" method="post" role="form" action="/user/registration/">
                 {% csrf_token %}
+                <!--{{ form.as_p }}-->
+                <!--<button class="btn btn-primary btn-block" type="submit" value="Присоединиться">-->
+                    <!--<i class="fa fa-plus-square" aria-hidden="true"></i> Присоединиться-->
+                <!--</button>-->
                 <h3>Пожалуйста, заполните форму регистрации нового пользователя:</h3>
                 <br>
                 <!--{# include "incl-registration-form_as_table.html" #}-->

@@ -2,11 +2,13 @@
 
 {% load static from staticfiles %}
 
-    <div class="container-fluid" id="usercart">
+    <div class="container-fluid">
 
         <div class="thumbnail" id="user">
-            <img src="{{ user.person.photo }}" alt="You">
-            <h4>{{user.first_name}} {{user.last_name}}</h4>
+            <img src="{{ user.person.photo.url }}" alt="You">
+            <div class="col-lg-4 text-left">
+                <h4>{{user.first_name}} {{user.last_name}}</h4>
+            </div>
         </div>
 
         <div class="information">
@@ -67,6 +69,10 @@
                         <tr>
                             <td><i class="fa fa-user" aria-hidden="true"></i> Ваш login:</td>
                             <td>{{user.username}}</td>
+                        </tr>
+                         <tr>
+                            <td><i class="fa fa-id-badge" aria-hidden="true"></i> Ваш id:</td>
+                            <td>{{user.id}}</td>
                         </tr>
                         <tr>
                             <td><i class="fa fa-envelope-o" aria-hidden="true"></i> Ваш e-mail:</td>

@@ -56,10 +56,15 @@
 }
 
 #user {
-    height: 200px;
     display: inline-flex;
+    width: 300px;
+    height: 100%;
 }
 
+#user h4 {
+    position: inherit;
+    width: 90%;
+}
 
 .navbar-header {
     height: 110px;

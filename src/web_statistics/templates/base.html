@@ -128,13 +128,14 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> {{user.username}} <b class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li><a href="/privateroom/"><i class="fa fa-fw fa-user"></i> Личный кабинет </a></li>
-                        <li><a href="/myadmin/"><i class="fa fa-fw fa-gear"></i> Настройки </a></li>
+                        <li><a href="#"><i class="fa fa-fw fa-gear"></i> Настройки </a></li>
                         <li class="divider"></li>
                         <li>
                             <form method="post" class="logout" action="/user/logout/">
-                                <!--<i class="fa fa-fw fa-power-off"></i>-->
                                 {% csrf_token %}
-                                <input class="btn btn-primary btn-sm" type="submit" value="Log Out">
+                                <button class="btn btn-danger btn-sm" type="submit" value="Log Out">
+                                    <i class="fa fa-fw fa-power-off"></i>Log Out
+                                </button>
                             </form>
                         </li>
                     </ul>
@@ -222,13 +223,6 @@
                         <a href="/review/"><i class="fa fa-commenting"></i> Отзывы </a></li>
                     <li class="{% if request.path == '/support/' %}active{% endif %}">
                         <a href="/support/"><i class="fa fa-fw fa-wrench"></i>ТехПоддержка </a></li>
-                    <!--<li>-->
-                         <!--<a href="/privateroom/">-->
-                             <!--{% if not user.is_authenticated %}-->
-                             <!--<i class="fa fa-sign-in"></i>  Войти-->
-                             <!--{% endif %}-->
-                         <!--</a>-->
-                    <!--</li>-->
                     <li>
                         <a href="/registration/">
                             {% if not user.is_authenticated %}
